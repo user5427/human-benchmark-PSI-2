@@ -1,10 +1,16 @@
 # PSI 2
 
+
 ## Team:
+<img src="https://imgur.com/OmBghUj.png" width="25%">
+
+### Members:
 - Adrian
 - Darius
 - Tadas
 - Arnas
+
+<img src="https://imgur.com/uGkawtH.png" width="50%">
 
 ## How to run the project:
 ### Frontend:
