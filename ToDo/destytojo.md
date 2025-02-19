@@ -11,3 +11,10 @@ piesiam kaip dabar veikia verslas ir tada kaip veiks po pokycio verslas...
 3 4 white box (vidus)
 
 kaip implementuota svarbu 2 lab. 
+
+2 ir 4 lab reikias tik pademonstruoti, nieko specialaus ten nera.
+
+galima ismesti kai kuri user need ir aprasyti kodel nenorime ir t.t. neatitinka musu vizijos.
+
+tarpinese pratybose rodome ka padarome, jis gali buti netvarkingas (pdf failas).
+
