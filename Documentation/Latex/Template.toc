@@ -1,0 +1,21 @@
+\xpg@aux {}{lithuanian}
+\xpg@aux {}{english}
+\contentsline {section}{Summary}{3}{Doc-Start}%
+\contentsline {section}{Santrauka}{4}{Doc-Start}%
+\xpg@aux {}{english}
+\contentsline {section}{List of Figures}{5}{Doc-Start}%
+\contentsline {section}{List of Tables}{6}{Doc-Start}%
+\contentsline {section}{List of symbols}{8}{Doc-Start}%
+\contentsline {section}{List of abbreviations}{9}{Doc-Start}%
+\contentsline {section}{Introduction}{10}{Doc-Start}%
+\contentsline {section}{\numberline {1}Formatting}{11}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Mathematical text}{11}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Matematinių rezultatų formulavimas}{12}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Tables}{14}{subsection.1.3}%
+\contentsline {subsection}{\numberline {1.4}Images, graphs, charts, photos}{14}{subsection.1.4}%
+\contentsline {subsection}{\numberline {1.5}Lists}{15}{subsection.1.5}%
+\contentsline {section}{\numberline {2}Presentation of software code}{16}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Algorithms}{16}{subsection.2.1}%
+\contentsline {subsubsection}{\numberline {2.1.1}Subsubsection example}{16}{subsubsection.2.1.1}%
+\contentsline {section}{Results and conclusions}{17}{subsubsection.2.1.1}%
+\contentsline {section}{\numberline {Appendix 1. }\phantom {Appendix} Examples of citations}{19}{appendix.A}%

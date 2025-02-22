@@ -1,0 +1,59 @@
+\begin{titlepage}
+\vskip 20pt
+\begin{center}
+\includegraphics[scale=0.55]{images/MIF.png}
+\end{center}
+
+\makeatletter
+
+\vskip 20pt
+\centerline{\bf \large \textbf{VILNIUS UNIVERSITY}}
+\vskip 10pt
+\centerline{\large \textbf{FACULTY OF MATHEMATICS AND INFORMATICS}}
+\vskip 10pt
+\centerline{\large \textbf{\MakeUppercase{\@studyprogramme \space study programme}}}
+
+\vskip 80pt
+\centerline{\Large \@worktype}
+\vskip 20pt
+\begin{center}
+    {\bf \LARGE \@worktitle}
+\end{center}
+\begin{center}
+    {\bf \Large \@secondworktitle}
+\end{center}
+\vskip 80pt
+
+\centering{\Large \@workauthor}
+\@ifundefined{@secondauthor}{}
+{
+\vskip 10pt
+\centering{\Large \@secondauthor}
+}
+\vskip 20pt
+
+\centering{
+    \begin{tabular}{rcp{.7\textwidth}}
+        {\Large Supervisor} & {\Large :} & {\Large \@supervisor}\\[10pt]
+        \@ifundefined{@scientificadvisor}{}
+            {
+                {\Large Scientific advisor} & {\Large :} & {\Large \@scientificadvisor}\\[10pt]
+            }
+        \@ifundefined{@reviewer}{}
+            {
+                {\Large Reviewer} & {\Large :} & {\Large \@reviewer}\\[10pt]
+            }
+    \end{tabular}}
+
+
+\vskip 110pt
+
+\centerline{\large \textbf{Vilnius}}
+\centerline{\large \textbf{\the\year{}}}
+
+\makeatother
+
+\newpage
+\end{titlepage}
+%\newgeometry{top=2cm,bottom=2cm,right=2cm,left=3cm}
+\setcounter{page}{2}
