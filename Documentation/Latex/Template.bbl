@@ -19,634 +19,133 @@
 
 \refsection{0}
   \datalist[entry]{anyt/global//global/global/global}
-    \entry{physdoc}{online}{}{}
-      \name{author}{1}{}{%
-        {{hash=3649d9ab89274cc89876dcd6e6044706}{%
-           family={Barrera},
-           familyi={B\bibinitperiod},
-           given={Sergio\bibnamedelima C.},
-           giveni={S\bibinitperiod\bibinitdelim C\bibinitperiod},
-           prefix={de\bibnamedelima la},
-           prefixi={d\bibinitperiod\bibinitdelim l\bibinitperiod}}}%
+    \entry{Gamification}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=19d9eff8e3c045c437127231eae73d03}{%
+           family={Dongjie\bibnamedelima Xu},
+           familyi={D\bibinitperiod\bibinitdelim X\bibinitperiod},
+           given={Janet\bibnamedelima Read},
+           giveni={J\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+        {{hash=d56c7fec130e6aafa57c192b612561f1}{%
+           family={Allen},
+           familyi={A\bibinitperiod},
+           given={Julie},
+           giveni={J\bibinitperiod}}}%
       }
-      \strng{namehash}{3649d9ab89274cc89876dcd6e6044706}
-      \strng{fullhash}{3649d9ab89274cc89876dcd6e6044706}
-      \strng{fullhashraw}{3649d9ab89274cc89876dcd6e6044706}
-      \strng{bibnamehash}{3649d9ab89274cc89876dcd6e6044706}
-      \strng{authorbibnamehash}{3649d9ab89274cc89876dcd6e6044706}
-      \strng{authornamehash}{3649d9ab89274cc89876dcd6e6044706}
-      \strng{authorfullhash}{3649d9ab89274cc89876dcd6e6044706}
-      \strng{authorfullhashraw}{3649d9ab89274cc89876dcd6e6044706}
-      \field{sortinit}{B}
-      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \strng{namehash}{27239f9da9f79dcb6f0fbffc63d8e7d6}
+      \strng{fullhash}{27239f9da9f79dcb6f0fbffc63d8e7d6}
+      \strng{fullhashraw}{27239f9da9f79dcb6f0fbffc63d8e7d6}
+      \strng{bibnamehash}{27239f9da9f79dcb6f0fbffc63d8e7d6}
+      \strng{authorbibnamehash}{27239f9da9f79dcb6f0fbffc63d8e7d6}
+      \strng{authornamehash}{27239f9da9f79dcb6f0fbffc63d8e7d6}
+      \strng{authorfullhash}{27239f9da9f79dcb6f0fbffc63d8e7d6}
+      \strng{authorfullhashraw}{27239f9da9f79dcb6f0fbffc63d8e7d6}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{title}{The physics package}
-      \field{urlday}{27}
-      \field{urlmonth}{6}
-      \field{urlyear}{2024}
-      \field{urldateera}{ce}
-      \verb{urlraw}
-      \verb https://ctan.altspu.ru/macros/latex/contrib/physics/physics.pdf
-      \endverb
-      \verb{url}
-      \verb https://ctan.altspu.ru/macros/latex/contrib/physics/physics.pdf
-      \endverb
+      \field{title}{Exploring the Effects of Progression Mechanics in Competitive and Collaborative Gamified Learning}
     \endentry
-    \entry{mtoolsdoc}{online}{}{}
-      \name{author}{3}{}{%
-        {{hash=ae38e5f3f3425c314e8f8e9717f0b659}{%
-           family={M.\bibnamedelimi Høgholm},
-           familyi={M\bibinitperiod\bibinitdelim H\bibinitperiod}}}%
-        {{hash=ded85430c150fa1f73c539fcb2217844}{%
-           family={L.\bibnamedelimi Madsen},
-           familyi={L\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
-        {{hash=064990a27421d749b5f22a058b839aa3}{%
-           family={\LaTeX3\bibnamedelima project},
-           familyi={3\bibinitperiod\bibinitdelim p\bibinitperiod},
-           prefix={the},
-           prefixi={t\bibinitperiod}}}%
+    \entry{LearningMotivation}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=5b2c85e5dda09d531361e79e6760e265}{%
+           family={Yitong\bibnamedelima Chen},
+           familyi={Y\bibinitperiod\bibinitdelim C\bibinitperiod},
+           given={Zerong\bibnamedelima Xie},
+           giveni={Z\bibinitperiod\bibinitdelim X\bibinitperiod}}}%
+        {{hash=4e65ec3420db65b99e723d768e569e32}{%
+           family={Chiu},
+           familyi={C\bibinitperiod},
+           given={Dickson\bibnamedelima K.W.},
+           giveni={D\bibinitperiod\bibinitdelim K\bibinitperiod}}}%
       }
-      \strng{namehash}{af93d9139b9856410885b06b4d445cf2}
-      \strng{fullhash}{af93d9139b9856410885b06b4d445cf2}
-      \strng{fullhashraw}{af93d9139b9856410885b06b4d445cf2}
-      \strng{bibnamehash}{af93d9139b9856410885b06b4d445cf2}
-      \strng{authorbibnamehash}{af93d9139b9856410885b06b4d445cf2}
-      \strng{authornamehash}{af93d9139b9856410885b06b4d445cf2}
-      \strng{authorfullhash}{af93d9139b9856410885b06b4d445cf2}
-      \strng{authorfullhashraw}{af93d9139b9856410885b06b4d445cf2}
+      \strng{namehash}{ed71c3683ecaf437ae960379262d59b9}
+      \strng{fullhash}{ed71c3683ecaf437ae960379262d59b9}
+      \strng{fullhashraw}{ed71c3683ecaf437ae960379262d59b9}
+      \strng{bibnamehash}{ed71c3683ecaf437ae960379262d59b9}
+      \strng{authorbibnamehash}{ed71c3683ecaf437ae960379262d59b9}
+      \strng{authornamehash}{ed71c3683ecaf437ae960379262d59b9}
+      \strng{authorfullhash}{ed71c3683ecaf437ae960379262d59b9}
+      \strng{authorfullhashraw}{ed71c3683ecaf437ae960379262d59b9}
+      \field{sortinit}{Y}
+      \field{sortinithash}{8d291c51ee89b6cd86bf5379f0b151d8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Springer Nature Link}
+      \field{title}{Analytics of motivational factors of educational video games: LDA topic modeling and the 6 C’s learning motivation model}
+    \endentry
+    \entry{GameplayEngagement}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=eb96cff02c7792cf2913eea24aef15bd}{%
+           family={Jabbar},
+           familyi={J\bibinitperiod},
+           given={Azita\bibnamedelimb Iliya\bibnamedelima Abdul},
+           giveni={A\bibinitperiod\bibinitdelim I\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=be92d713f5de43fe1ef8e8fb1b4ff11a}{%
+           family={Felicia},
+           familyi={F\bibinitperiod},
+           given={Patrick},
+           giveni={P\bibinitperiod}}}%
+      }
+      \strng{namehash}{3d1498040ad25f28e597b3c8bac273ca}
+      \strng{fullhash}{3d1498040ad25f28e597b3c8bac273ca}
+      \strng{fullhashraw}{3d1498040ad25f28e597b3c8bac273ca}
+      \strng{bibnamehash}{3d1498040ad25f28e597b3c8bac273ca}
+      \strng{authorbibnamehash}{3d1498040ad25f28e597b3c8bac273ca}
+      \strng{authornamehash}{3d1498040ad25f28e597b3c8bac273ca}
+      \strng{authorfullhash}{3d1498040ad25f28e597b3c8bac273ca}
+      \strng{authorfullhashraw}{3d1498040ad25f28e597b3c8bac273ca}
+      \field{sortinit}{J}
+      \field{sortinithash}{b2f54a9081ace9966a7cb9413811edb4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Gameplay Engagement and Learning in GameBased Learning: A Systematic Review}
+    \endentry
+    \entry{GamificationInMarketing}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=728c8fe81d7ba1d969332392d0043283}{%
+           family={MARIO\bibnamedelima FRACULJ},
+           familyi={M\bibinitperiod\bibinitdelim F\bibinitperiod},
+           given={LORDAN\bibnamedelima KONDIĆ},
+           giveni={L\bibinitperiod\bibinitdelim K\bibinitperiod},
+           suffix={LUCIAN\bibnamedelima LEKAJ},
+           suffixi={L\bibinitperiod\bibinitdelim L\bibinitperiod}}}%
+      }
+      \strng{namehash}{728c8fe81d7ba1d969332392d0043283}
+      \strng{fullhash}{728c8fe81d7ba1d969332392d0043283}
+      \strng{fullhashraw}{728c8fe81d7ba1d969332392d0043283}
+      \strng{bibnamehash}{728c8fe81d7ba1d969332392d0043283}
+      \strng{authorbibnamehash}{728c8fe81d7ba1d969332392d0043283}
+      \strng{authornamehash}{728c8fe81d7ba1d969332392d0043283}
+      \strng{authorfullhash}{728c8fe81d7ba1d969332392d0043283}
+      \strng{authorfullhashraw}{728c8fe81d7ba1d969332392d0043283}
       \field{sortinit}{M}
       \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{title}{The mathtools package}
-      \field{urlday}{27}
-      \field{urlmonth}{6}
-      \field{urlyear}{2024}
-      \field{urldateera}{ce}
-      \verb{urlraw}
-      \verb https://sunsite.icm.edu.pl/pub/CTAN/macros/latex/contrib/mathtools/mathtools.pdf
-      \endverb
-      \verb{url}
-      \verb https://sunsite.icm.edu.pl/pub/CTAN/macros/latex/contrib/mathtools/mathtools.pdf
-      \endverb
+      \field{title}{RESEARCH ON ATTITUDES TOWARD MINIMALISTIC DESIGN IN MARKETING COMMUNICATIONS}
     \endentry
-    \entry{chatgpt_bendrai}{online}{}{}
+    \entry{ReactionTime}{article}{}{}
       \name{author}{1}{}{%
-        {{hash=0523b13262b12c215d8009938f5c14f1}{%
-           family={OpenAI},
-           familyi={O\bibinitperiod}}}%
-      }
-      \strng{namehash}{0523b13262b12c215d8009938f5c14f1}
-      \strng{fullhash}{0523b13262b12c215d8009938f5c14f1}
-      \strng{fullhashraw}{0523b13262b12c215d8009938f5c14f1}
-      \strng{bibnamehash}{0523b13262b12c215d8009938f5c14f1}
-      \strng{authorbibnamehash}{0523b13262b12c215d8009938f5c14f1}
-      \strng{authornamehash}{0523b13262b12c215d8009938f5c14f1}
-      \strng{authorfullhash}{0523b13262b12c215d8009938f5c14f1}
-      \strng{authorfullhashraw}{0523b13262b12c215d8009938f5c14f1}
-      \field{extraname}{1}
-      \field{sortinit}{O}
-      \field{sortinithash}{2cd7140a07aea5341f9e2771efe90aae}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{title}{ChatGPT}
-      \field{urlday}{6}
-      \field{urlmonth}{6}
-      \field{urlyear}{2024}
-      \field{year}{2024}
-      \field{urldateera}{ce}
-      \verb{urlraw}
-      \verb https://www.openai.com/
-      \endverb
-      \verb{url}
-      \verb https://www.openai.com/
-      \endverb
-    \endentry
-    \entry{chatgpt_pokalbis}{online}{}{}
-      \name{author}{1}{}{%
-        {{hash=0523b13262b12c215d8009938f5c14f1}{%
-           family={OpenAI},
-           familyi={O\bibinitperiod}}}%
-      }
-      \strng{namehash}{0523b13262b12c215d8009938f5c14f1}
-      \strng{fullhash}{0523b13262b12c215d8009938f5c14f1}
-      \strng{fullhashraw}{0523b13262b12c215d8009938f5c14f1}
-      \strng{bibnamehash}{0523b13262b12c215d8009938f5c14f1}
-      \strng{authorbibnamehash}{0523b13262b12c215d8009938f5c14f1}
-      \strng{authornamehash}{0523b13262b12c215d8009938f5c14f1}
-      \strng{authorfullhash}{0523b13262b12c215d8009938f5c14f1}
-      \strng{authorfullhashraw}{0523b13262b12c215d8009938f5c14f1}
-      \field{extraname}{2}
-      \field{sortinit}{O}
-      \field{sortinithash}{2cd7140a07aea5341f9e2771efe90aae}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{note}{Atsakymas į klausimą apie citavimo pavyzdį}
-      \field{title}{ChatGPT}
-      \field{urlday}{6}
-      \field{urlmonth}{6}
-      \field{urlyear}{2024}
-      \field{year}{2024}
-      \field{urldateera}{ce}
-      \verb{urlraw}
-      \verb https://chatgpt.com/share/550cde77-019d-414d-b36a-f3ac9b857b9c
-      \endverb
-      \verb{url}
-      \verb https://chatgpt.com/share/550cde77-019d-414d-b36a-f3ac9b857b9c
-      \endverb
-    \endentry
-    \entry{PvzStraipsnLt}{article}{}{}
-      \name{author}{3}{}{%
-        {{hash=da5c535b4d6daff7c839ac6cf6b0c9de}{%
-           family={Pavardenis},
-           familyi={P\bibinitperiod},
-           given={A.},
-           giveni={A\bibinitperiod}}}%
-        {{hash=5dd28d59d6a0bd9b848097245fbfecc8}{%
-           family={Pavardonis},
-           familyi={P\bibinitperiod},
-           given={B.},
-           giveni={B\bibinitperiod}}}%
-        {{hash=1f4e864af5cb6c2a0915deee8d25b783}{%
-           family={Pavardauskas},
-           familyi={P\bibinitperiod},
-           given={C.},
-           giveni={C\bibinitperiod}}}%
-      }
-      \strng{namehash}{d8fcd80e0b12d0bb67687bf1926e6555}
-      \strng{fullhash}{d8fcd80e0b12d0bb67687bf1926e6555}
-      \strng{fullhashraw}{d8fcd80e0b12d0bb67687bf1926e6555}
-      \strng{bibnamehash}{d8fcd80e0b12d0bb67687bf1926e6555}
-      \strng{authorbibnamehash}{d8fcd80e0b12d0bb67687bf1926e6555}
-      \strng{authornamehash}{d8fcd80e0b12d0bb67687bf1926e6555}
-      \strng{authorfullhash}{d8fcd80e0b12d0bb67687bf1926e6555}
-      \strng{authorfullhashraw}{d8fcd80e0b12d0bb67687bf1926e6555}
-      \field{extraname}{1}
-      \field{sortinit}{P}
-      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Žurnalo pavadinimas}
-      \field{title}{Straipsnio pavadinimas}
-      \field{volume}{IV}
-      \field{year}{2001}
-      \field{pages}{8\bibrangedash 17}
-      \range{pages}{10}
-    \endentry
-    \entry{PvzKnygLt}{book}{}{}
-      \name{author}{3}{}{%
-        {{hash=da5c535b4d6daff7c839ac6cf6b0c9de}{%
-           family={Pavardenis},
-           familyi={P\bibinitperiod},
-           given={A.},
-           giveni={A\bibinitperiod}}}%
-        {{hash=5dd28d59d6a0bd9b848097245fbfecc8}{%
-           family={Pavardonis},
-           familyi={P\bibinitperiod},
-           given={B.},
-           giveni={B\bibinitperiod}}}%
-        {{hash=1f4e864af5cb6c2a0915deee8d25b783}{%
-           family={Pavardauskas},
-           familyi={P\bibinitperiod},
-           given={C.},
-           giveni={C\bibinitperiod}}}%
-      }
-      \list{location}{1}{%
-        {Miestas, šalis}%
-      }
-      \list{publisher}{1}{%
-        {Leidykla}%
-      }
-      \strng{namehash}{d8fcd80e0b12d0bb67687bf1926e6555}
-      \strng{fullhash}{d8fcd80e0b12d0bb67687bf1926e6555}
-      \strng{fullhashraw}{d8fcd80e0b12d0bb67687bf1926e6555}
-      \strng{bibnamehash}{d8fcd80e0b12d0bb67687bf1926e6555}
-      \strng{authorbibnamehash}{d8fcd80e0b12d0bb67687bf1926e6555}
-      \strng{authornamehash}{d8fcd80e0b12d0bb67687bf1926e6555}
-      \strng{authorfullhash}{d8fcd80e0b12d0bb67687bf1926e6555}
-      \strng{authorfullhashraw}{d8fcd80e0b12d0bb67687bf1926e6555}
-      \field{extraname}{2}
-      \field{sortinit}{P}
-      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{note}{172 psl.}
-      \field{title}{Knygos pavadinimas}
-      \field{year}{2003}
-    \endentry
-    \entry{PvzElPubLt}{misc}{}{}
-      \name{author}{3}{}{%
-        {{hash=da5c535b4d6daff7c839ac6cf6b0c9de}{%
-           family={Pavardenis},
-           familyi={P\bibinitperiod},
-           given={A.},
-           giveni={A\bibinitperiod}}}%
-        {{hash=5dd28d59d6a0bd9b848097245fbfecc8}{%
-           family={Pavardonis},
-           familyi={P\bibinitperiod},
-           given={B.},
-           giveni={B\bibinitperiod}}}%
-        {{hash=1f4e864af5cb6c2a0915deee8d25b783}{%
-           family={Pavardauskas},
-           familyi={P\bibinitperiod},
-           given={C.},
-           giveni={C\bibinitperiod}}}%
-      }
-      \strng{namehash}{d8fcd80e0b12d0bb67687bf1926e6555}
-      \strng{fullhash}{d8fcd80e0b12d0bb67687bf1926e6555}
-      \strng{fullhashraw}{d8fcd80e0b12d0bb67687bf1926e6555}
-      \strng{bibnamehash}{d8fcd80e0b12d0bb67687bf1926e6555}
-      \strng{authorbibnamehash}{d8fcd80e0b12d0bb67687bf1926e6555}
-      \strng{authornamehash}{d8fcd80e0b12d0bb67687bf1926e6555}
-      \strng{authorfullhash}{d8fcd80e0b12d0bb67687bf1926e6555}
-      \strng{authorfullhashraw}{d8fcd80e0b12d0bb67687bf1926e6555}
-      \field{extraname}{3}
-      \field{sortinit}{P}
-      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{howpublished}{\url{http://example.com/kelias/iki/straipsnio.pdf}}
-      \field{note}{45 KB, žiūrėta 2015-02-01}
-      \field{title}{Elektroninės publikacijos pavadinimas}
-      \field{year}{2004}
-    \endentry
-    \entry{dataset}{dataset}{}{}
-      \name{author}{3}{}{%
-        {{hash=da5c535b4d6daff7c839ac6cf6b0c9de}{%
-           family={Pavardenis},
-           familyi={P\bibinitperiod},
-           given={A.},
-           giveni={A\bibinitperiod}}}%
-        {{hash=5dd28d59d6a0bd9b848097245fbfecc8}{%
-           family={Pavardonis},
-           familyi={P\bibinitperiod},
-           given={B.},
-           giveni={B\bibinitperiod}}}%
-        {{hash=1f4e864af5cb6c2a0915deee8d25b783}{%
-           family={Pavardauskas},
-           familyi={P\bibinitperiod},
-           given={C.},
-           giveni={C\bibinitperiod}}}%
-      }
-      \strng{namehash}{d8fcd80e0b12d0bb67687bf1926e6555}
-      \strng{fullhash}{d8fcd80e0b12d0bb67687bf1926e6555}
-      \strng{fullhashraw}{d8fcd80e0b12d0bb67687bf1926e6555}
-      \strng{bibnamehash}{d8fcd80e0b12d0bb67687bf1926e6555}
-      \strng{authorbibnamehash}{d8fcd80e0b12d0bb67687bf1926e6555}
-      \strng{authornamehash}{d8fcd80e0b12d0bb67687bf1926e6555}
-      \strng{authorfullhash}{d8fcd80e0b12d0bb67687bf1926e6555}
-      \strng{authorfullhashraw}{d8fcd80e0b12d0bb67687bf1926e6555}
-      \field{extraname}{4}
-      \field{sortinit}{P}
-      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{title}{Duomenų rinkinio pavadinimas}
-      \field{year}{2022}
-      \verb{urlraw}
-      \verb nuoroda
-      \endverb
-      \verb{url}
-      \verb nuoroda
-      \endverb
-    \endentry
-    \entry{PvzKonfLt}{inproceedings}{}{}
-      \name{author}{4}{}{%
-        {{hash=da5c535b4d6daff7c839ac6cf6b0c9de}{%
-           family={Pavardenis},
-           familyi={P\bibinitperiod},
-           given={A.},
-           giveni={A\bibinitperiod}}}%
-        {{hash=5dd28d59d6a0bd9b848097245fbfecc8}{%
-           family={Pavardonis},
-           familyi={P\bibinitperiod},
-           given={B.},
-           giveni={B\bibinitperiod}}}%
-        {{hash=1f4e864af5cb6c2a0915deee8d25b783}{%
-           family={Pavardauskas},
-           familyi={P\bibinitperiod},
-           given={C.},
-           giveni={C\bibinitperiod}}}%
-        {{hash=1360595da22a5120db38eb4b84371239}{%
-           family={Pavardinskas},
-           familyi={P\bibinitperiod},
-           given={D.},
-           giveni={D\bibinitperiod}}}%
-      }
-      \list{location}{1}{%
-        {Miestas, šalis}%
-      }
-      \list{publisher}{1}{%
-        {Leidykla}%
-      }
-      \strng{namehash}{4d1ebfaad138021f51538a39e8c44fc4}
-      \strng{fullhash}{4d1ebfaad138021f51538a39e8c44fc4}
-      \strng{fullhashraw}{4d1ebfaad138021f51538a39e8c44fc4}
-      \strng{bibnamehash}{4d1ebfaad138021f51538a39e8c44fc4}
-      \strng{authorbibnamehash}{4d1ebfaad138021f51538a39e8c44fc4}
-      \strng{authornamehash}{4d1ebfaad138021f51538a39e8c44fc4}
-      \strng{authorfullhash}{4d1ebfaad138021f51538a39e8c44fc4}
-      \strng{authorfullhashraw}{4d1ebfaad138021f51538a39e8c44fc4}
-      \field{sortinit}{P}
-      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{booktitle}{Rinkinio pavadinimas}
-      \field{title}{Straipsnio pavadinimas}
-      \field{year}{2002}
-      \field{pages}{3\bibrangedash 15}
-      \range{pages}{13}
-    \endentry
-    \entry{PvzMagistrLt}{thesis}{}{}
-      \name{author}{1}{}{%
-        {{hash=4e9d814f943b720602080b976564a274}{%
-           family={Pavardonis},
-           familyi={P\bibinitperiod},
-           given={A.},
-           giveni={A\bibinitperiod}}}%
-      }
-      \list{institution}{1}{%
-        {Universiteto pavadinimas}%
-      }
-      \strng{namehash}{4e9d814f943b720602080b976564a274}
-      \strng{fullhash}{4e9d814f943b720602080b976564a274}
-      \strng{fullhashraw}{4e9d814f943b720602080b976564a274}
-      \strng{bibnamehash}{4e9d814f943b720602080b976564a274}
-      \strng{authorbibnamehash}{4e9d814f943b720602080b976564a274}
-      \strng{authornamehash}{4e9d814f943b720602080b976564a274}
-      \strng{authorfullhash}{4e9d814f943b720602080b976564a274}
-      \strng{authorfullhashraw}{4e9d814f943b720602080b976564a274}
-      \field{sortinit}{P}
-      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{title}{Magistrinio darbo pavadinimas}
-      \field{type}{mathesis}
-      \field{year}{2005}
-    \endentry
-    \entry{PvzInternetinisPuslapis}{online}{}{}
-      \name{author}{1}{}{%
-        {{hash=fb74a05f292456d8e2b880ba7394f155}{%
-           family={puslapis},
-           familyi={p\bibinitperiod},
-           given={Internetinis},
-           giveni={I\bibinitperiod}}}%
-      }
-      \strng{namehash}{fb74a05f292456d8e2b880ba7394f155}
-      \strng{fullhash}{fb74a05f292456d8e2b880ba7394f155}
-      \strng{fullhashraw}{fb74a05f292456d8e2b880ba7394f155}
-      \strng{bibnamehash}{fb74a05f292456d8e2b880ba7394f155}
-      \strng{authorbibnamehash}{fb74a05f292456d8e2b880ba7394f155}
-      \strng{authornamehash}{fb74a05f292456d8e2b880ba7394f155}
-      \strng{authorfullhash}{fb74a05f292456d8e2b880ba7394f155}
-      \strng{authorfullhashraw}{fb74a05f292456d8e2b880ba7394f155}
-      \field{sortinit}{p}
-      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{title}{Puslapio pavadinimas}
-      \field{urlday}{25}
-      \field{urlmonth}{4}
-      \field{urlyear}{2024}
-      \field{urldateera}{ce}
-      \verb{urlraw}
-      \verb puslapio nuoroda
-      \endverb
-      \verb{url}
-      \verb puslapio%20nuoroda
-      \endverb
-    \endentry
-    \entry{amsdoc}{online}{}{}
-      \name{author}{2}{}{%
-        {{hash=ec77358ae0f7d5d7f40ac8c96ed3e368}{%
-           family={Society},
+        {{hash=e2b725bd752510be58ddb6a386351e91}{%
+           family={Scott},
            familyi={S\bibinitperiod},
-           given={American\bibnamedelima Mathematical},
-           giveni={A\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
-        {{hash=2c6828fd3fa45b1868f6e67bb0a44fed}{%
-           family={\LaTeX{}\bibnamedelima Project},
-           familyi={\bibinitperiod\bibinitdelim P\bibinitperiod},
-           prefix={the},
-           prefixi={t\bibinitperiod}}}%
+           given={Jason},
+           giveni={J\bibinitperiod}}}%
       }
-      \strng{namehash}{eb9753d145aa8e5cc77c63375a3275b8}
-      \strng{fullhash}{eb9753d145aa8e5cc77c63375a3275b8}
-      \strng{fullhashraw}{eb9753d145aa8e5cc77c63375a3275b8}
-      \strng{bibnamehash}{eb9753d145aa8e5cc77c63375a3275b8}
-      \strng{authorbibnamehash}{eb9753d145aa8e5cc77c63375a3275b8}
-      \strng{authornamehash}{eb9753d145aa8e5cc77c63375a3275b8}
-      \strng{authorfullhash}{eb9753d145aa8e5cc77c63375a3275b8}
-      \strng{authorfullhashraw}{eb9753d145aa8e5cc77c63375a3275b8}
+      \strng{namehash}{e2b725bd752510be58ddb6a386351e91}
+      \strng{fullhash}{e2b725bd752510be58ddb6a386351e91}
+      \strng{fullhashraw}{e2b725bd752510be58ddb6a386351e91}
+      \strng{bibnamehash}{e2b725bd752510be58ddb6a386351e91}
+      \strng{authorbibnamehash}{e2b725bd752510be58ddb6a386351e91}
+      \strng{authornamehash}{e2b725bd752510be58ddb6a386351e91}
+      \strng{authorfullhash}{e2b725bd752510be58ddb6a386351e91}
+      \strng{authorfullhashraw}{e2b725bd752510be58ddb6a386351e91}
       \field{sortinit}{S}
       \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{title}{User’s Guide for the amsmath Package (Version 2.1)}
-      \field{urlday}{27}
-      \field{urlmonth}{6}
-      \field{urlyear}{2024}
-      \field{urldateera}{ce}
-      \verb{urlraw}
-      \verb https://mirror.macomnet.net/pub/CTAN/macros/latex/required/amsmath/amsldoc.pdf
-      \endverb
-      \verb{url}
-      \verb https://mirror.macomnet.net/pub/CTAN/macros/latex/required/amsmath/amsldoc.pdf
-      \endverb
-    \endentry
-    \entry{PvzPhdEn}{thesis}{}{}
-      \name{author}{1}{}{%
-        {{hash=2dc846e35540b63f2405b6344978c699}{%
-           family={Surname},
-           familyi={S\bibinitperiod},
-           given={A.},
-           giveni={A\bibinitperiod}}}%
-      }
-      \list{institution}{1}{%
-        {Title of university}%
-      }
-      \strng{namehash}{2dc846e35540b63f2405b6344978c699}
-      \strng{fullhash}{2dc846e35540b63f2405b6344978c699}
-      \strng{fullhashraw}{2dc846e35540b63f2405b6344978c699}
-      \strng{bibnamehash}{2dc846e35540b63f2405b6344978c699}
-      \strng{authorbibnamehash}{2dc846e35540b63f2405b6344978c699}
-      \strng{authornamehash}{2dc846e35540b63f2405b6344978c699}
-      \strng{authorfullhash}{2dc846e35540b63f2405b6344978c699}
-      \strng{authorfullhashraw}{2dc846e35540b63f2405b6344978c699}
-      \field{sortinit}{S}
-      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{langid}{english}
-      \field{title}{Ttitle fo PhD thesis}
-      \field{type}{phdthesis}
-      \field{year}{2005}
-    \endentry
-    \entry{PvzStraipsnEn}{article}{}{}
-      \name{author}{3}{}{%
-        {{hash=2dc846e35540b63f2405b6344978c699}{%
-           family={Surname},
-           familyi={S\bibinitperiod},
-           given={A.},
-           giveni={A\bibinitperiod}}}%
-        {{hash=fb2113b65e7834f2bc579b4b781bfa88}{%
-           family={Tsurname},
-           familyi={T\bibinitperiod},
-           given={B.},
-           giveni={B\bibinitperiod}}}%
-        {{hash=ba4b3d7aafc25fb6b5f4c0942e9886c7}{%
-           family={Usurname},
-           familyi={U\bibinitperiod},
-           given={C.},
-           giveni={C\bibinitperiod}}}%
-      }
-      \strng{namehash}{da2362ee5b29aad39bb988e753de67b3}
-      \strng{fullhash}{da2362ee5b29aad39bb988e753de67b3}
-      \strng{fullhashraw}{da2362ee5b29aad39bb988e753de67b3}
-      \strng{bibnamehash}{da2362ee5b29aad39bb988e753de67b3}
-      \strng{authorbibnamehash}{da2362ee5b29aad39bb988e753de67b3}
-      \strng{authornamehash}{da2362ee5b29aad39bb988e753de67b3}
-      \strng{authorfullhash}{da2362ee5b29aad39bb988e753de67b3}
-      \strng{authorfullhashraw}{da2362ee5b29aad39bb988e753de67b3}
-      \field{extraname}{1}
-      \field{sortinit}{S}
-      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Journal Title}
-      \field{langid}{english}
-      \field{title}{Article Title}
-      \field{volume}{IV}
-      \field{year}{2001}
-      \field{pages}{3\bibrangedash 15}
-      \range{pages}{13}
-    \endentry
-    \entry{PvzKnygEn}{book}{}{}
-      \name{author}{3}{}{%
-        {{hash=2dc846e35540b63f2405b6344978c699}{%
-           family={Surname},
-           familyi={S\bibinitperiod},
-           given={A.},
-           giveni={A\bibinitperiod}}}%
-        {{hash=fb2113b65e7834f2bc579b4b781bfa88}{%
-           family={Tsurname},
-           familyi={T\bibinitperiod},
-           given={B.},
-           giveni={B\bibinitperiod}}}%
-        {{hash=ba4b3d7aafc25fb6b5f4c0942e9886c7}{%
-           family={Usurname},
-           familyi={U\bibinitperiod},
-           given={C.},
-           giveni={C\bibinitperiod}}}%
-      }
-      \list{location}{1}{%
-        {City, country}%
-      }
-      \list{publisher}{1}{%
-        {Publisher}%
-      }
-      \strng{namehash}{da2362ee5b29aad39bb988e753de67b3}
-      \strng{fullhash}{da2362ee5b29aad39bb988e753de67b3}
-      \strng{fullhashraw}{da2362ee5b29aad39bb988e753de67b3}
-      \strng{bibnamehash}{da2362ee5b29aad39bb988e753de67b3}
-      \strng{authorbibnamehash}{da2362ee5b29aad39bb988e753de67b3}
-      \strng{authornamehash}{da2362ee5b29aad39bb988e753de67b3}
-      \strng{authorfullhash}{da2362ee5b29aad39bb988e753de67b3}
-      \strng{authorfullhashraw}{da2362ee5b29aad39bb988e753de67b3}
-      \field{extraname}{2}
-      \field{sortinit}{S}
-      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{langid}{english}
-      \field{note}{172 p.}
-      \field{title}{Book title}
-      \field{year}{2003}
-    \endentry
-    \entry{PvzElPubEn}{misc}{}{}
-      \name{author}{3}{}{%
-        {{hash=2dc846e35540b63f2405b6344978c699}{%
-           family={Surname},
-           familyi={S\bibinitperiod},
-           given={A.},
-           giveni={A\bibinitperiod}}}%
-        {{hash=fb2113b65e7834f2bc579b4b781bfa88}{%
-           family={Tsurname},
-           familyi={T\bibinitperiod},
-           given={B.},
-           giveni={B\bibinitperiod}}}%
-        {{hash=ba4b3d7aafc25fb6b5f4c0942e9886c7}{%
-           family={Usurname},
-           familyi={U\bibinitperiod},
-           given={C.},
-           giveni={C\bibinitperiod}}}%
-      }
-      \strng{namehash}{da2362ee5b29aad39bb988e753de67b3}
-      \strng{fullhash}{da2362ee5b29aad39bb988e753de67b3}
-      \strng{fullhashraw}{da2362ee5b29aad39bb988e753de67b3}
-      \strng{bibnamehash}{da2362ee5b29aad39bb988e753de67b3}
-      \strng{authorbibnamehash}{da2362ee5b29aad39bb988e753de67b3}
-      \strng{authornamehash}{da2362ee5b29aad39bb988e753de67b3}
-      \strng{authorfullhash}{da2362ee5b29aad39bb988e753de67b3}
-      \strng{authorfullhashraw}{da2362ee5b29aad39bb988e753de67b3}
-      \field{extraname}{3}
-      \field{sortinit}{S}
-      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{howpublished}{\url{http://example.com/path/to/the/article.pdf}}
-      \field{langid}{english}
-      \field{note}{45 KB, žiūrėta 2015-02-01.}
-      \field{title}{Online Publication Title}
-      \field{year}{2004}
-    \endentry
-    \entry{PvzKonfEn}{inproceedings}{}{}
-      \name{author}{4}{}{%
-        {{hash=2dc846e35540b63f2405b6344978c699}{%
-           family={Surname},
-           familyi={S\bibinitperiod},
-           given={A.},
-           giveni={A\bibinitperiod}}}%
-        {{hash=fb2113b65e7834f2bc579b4b781bfa88}{%
-           family={Tsurname},
-           familyi={T\bibinitperiod},
-           given={B.},
-           giveni={B\bibinitperiod}}}%
-        {{hash=ba4b3d7aafc25fb6b5f4c0942e9886c7}{%
-           family={Usurname},
-           familyi={U\bibinitperiod},
-           given={C.},
-           giveni={C\bibinitperiod}}}%
-        {{hash=67a998178f12cacc76e208b099d90f54}{%
-           family={Vsurname},
-           familyi={V\bibinitperiod},
-           given={D.},
-           giveni={D\bibinitperiod}}}%
-      }
-      \list{location}{1}{%
-        {City, country}%
-      }
-      \list{publisher}{1}{%
-        {Publisher}%
-      }
-      \strng{namehash}{263723f3d4274880a800ed2dcee20c0a}
-      \strng{fullhash}{263723f3d4274880a800ed2dcee20c0a}
-      \strng{fullhashraw}{263723f3d4274880a800ed2dcee20c0a}
-      \strng{bibnamehash}{263723f3d4274880a800ed2dcee20c0a}
-      \strng{authorbibnamehash}{263723f3d4274880a800ed2dcee20c0a}
-      \strng{authornamehash}{263723f3d4274880a800ed2dcee20c0a}
-      \strng{authorfullhash}{263723f3d4274880a800ed2dcee20c0a}
-      \strng{authorfullhashraw}{263723f3d4274880a800ed2dcee20c0a}
-      \field{sortinit}{S}
-      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{booktitle}{Conference book title}
-      \field{langid}{english}
-      \field{title}{Article title}
-      \field{year}{2002}
-      \field{pages}{3\bibrangedash 15}
-      \range{pages}{13}
+      \field{title}{Reaction Time and Cognitive Abilities of Gamers and Non-Gamers}
     \endentry
   \enddatalist
 \endrefsection
