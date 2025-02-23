@@ -1,0 +1,12 @@
+@startuml
+class "GameSessionHandler`1"<TGameType> {
+    - <<readonly>> _context : AppDbContext
+    - <<readonly>> _scopeFactory : IServiceScopeFactory
+    - {static} <<readonly>> ActiveSessions : ConcurrentDictionary<int, int>
+    + GameSessionHandler(context:AppDbContext, scopeFactory:IServiceScopeFactory)
+    + <<async>> StartSessionAsync(userId:int, gameType:TGameType) : Task<GameSession>
+    - <<async>> EndSessionAfterDelayAsync(sessionId:int, delay:TimeSpan) : Task
+    + <<async>> EndSessionAsync(sessionId:int) : Task<TimeSpan>
+    + GetActiveSessionCount() : int
+}
+@enduml

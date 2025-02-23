@@ -1,0 +1,124 @@
+@startuml
+!include .\\Program.puml
+!include .\\Controllers\AuthController.puml
+!include .\\Controllers\GameConfigController.puml
+!include .\\Controllers\GenericGameController.puml
+!include .\\Controllers\LeaderboardController.puml
+!include .\\Controllers\TargetController.puml
+!include .\\Data\AppDbContext.puml
+!include .\\DTOs\AddScoreDto.puml
+!include .\\DTOs\GameConfigDto.puml
+!include .\\DTOs\GameDto.puml
+!include .\\DTOs\LoginDto.puml
+!include .\\DTOs\UserDto.puml
+!include .\\Extensions\GameCollectionExtensions.puml
+
+!include .\\Models\Game.puml
+!include .\\Models\GameConfig.puml
+!include .\\Models\GameDescription.puml
+!include .\\Models\GameSession.puml
+!include .\\Models\GameType.puml
+!include .\\Models\Score.puml
+!include .\\Models\Target.puml
+!include .\\Models\User.puml
+!include .\\Services\AuthService.puml
+!include .\\Services\GameService.puml
+!include .\\Services\GameSessionHandler.puml
+!include .\\Services\TargetService.puml
+!include .\\obj\Debug\net8.0\.NETCoreApp,Version=v8.0.AssemblyAttributes.puml
+!include .\\obj\Debug\net8.0\AimReactionAPI.AssemblyInfo.puml
+!include .\\obj\Debug\net8.0\AimReactionAPI.GlobalUsings.g.puml
+!include .\\obj\Debug\net8.0\AimReactionAPI.MvcApplicationPartsAssemblyInfo.puml
+
+skinparam linetype ortho
+skinparam dpi 150
+skinparam classAttributeIconSize 0
+skinparam ranksep 100
+skinparam nodesep 100
+
+package Exceptions {
+    !include .\\Exceptions\PasswordEmptyException.puml
+    !include .\\Exceptions\InvalidPasswordException.puml
+    !include .\\Exceptions\UserAlreadyExistsException.puml
+    !include .\\Exceptions\UserNotFoundException.puml
+}
+
+package Migration {
+    !include .\\Migrations\20241214092607_initialize.puml
+    !include .\\Migrations\20241214092607_initialize.Designer.puml
+    !include .\\Migrations\AppDbContextModelSnapshot.puml
+}
+
+
+GameCollectionExtensions ..> Target
+
+GameService o-> AppDbContext
+GameService ..> GameService : logs
+GameService o-> TargetService
+GameService ..> Game
+
+AuthController ..> LoginDto
+AuthController ..> AuthController : logs
+AuthController ..> UserDto
+AuthController o-> AuthService
+AuthController o-> AppDbContext
+
+GameConfigController ..> GameConfigController : logs
+GameConfigController o-> AppDbContext
+GameConfigController o-> GameService
+GameConfigController ..> GameConfigDto
+
+GenericGameController o-> AppDbContext
+GenericGameController o-> GameType
+GenericGameController ..> GameDto
+GenericGameController ..> AddScoreDto
+GenericGameController ..> Target
+
+LeaderboardController o-> AppDbContext
+LeaderboardController ..> GameType
+
+TargetController o-> AppDbContext
+TargetController ..> TargetController : logs
+TargetController ..> Target
+
+AppDbContext ..> Game
+AppDbContext ..> User
+AppDbContext ..> Target
+AppDbContext ..> Score
+AppDbContext ..> GameSession
+
+AddScoreDto o-> GameType
+
+GameConfigDto o-> GameType
+
+GameDto o-> GameType
+
+Game o-> GameType
+Game o-> Target : collection
+Game o-> Score : collection
+
+GameConfig o-> GameType
+
+GameDescription o-> GameType
+
+GameSession o-> GameType
+GameSession o-> User
+
+Score o-> GameType
+Score o-> Game
+Score o-> User
+
+User o-> GameSession
+User o-> Score
+
+AuthService o-> AppDbContext
+AuthService o-> GameService
+
+"GameSessionHandler`1" ..> GameSession
+"GameSessionHandler`1" ..> GameType
+"GameSessionHandler`1" o-> AppDbContext
+
+TargetService o-> AppDbContext
+TargetService ..> Target
+
+@enduml

@@ -1,0 +1,14 @@
+@startuml
+class Score <<record>> {
+    + ScoreId : int <<get>> <<set>>
+    - _value : int
+    + Value : int <<get>> <<set>>
+    + DateAchieved : DateTime <<get>> <<set>>
+    + ReactionTime : int <<get>> <<set>>
+    + UserId : int <<get>> <<set>>
+    + User : User <<get>> <<set>>
+    + GameType : GameType <<get>> <<set>>
+    + GameId : int <<get>> <<set>>
+    + Game : Game <<get>> <<set>>
+}
+@enduml

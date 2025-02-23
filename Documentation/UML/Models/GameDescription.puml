@@ -1,0 +1,8 @@
+@startuml
+class GameDescription {
+    + GameDescription(gameName:string, gameDescr:string, gameType:GameType)
+    + GameName : string <<get>>
+    + GameDescr : string <<get>>
+    + GameType : GameType <<get>>
+}
+@enduml

@@ -1,0 +1,13 @@
+@startuml
+class TargetController {
+    - <<readonly>> _context : AppDbContext
+    - <<readonly>> _logger : ILogger<TargetController>
+    + TargetController(context:AppDbContext, logger:ILogger<TargetController>)
+    + <<async>> GetAllTargets() : Task<ActionResult<IEnumerable<Target>>>
+    + <<async>> GetTargetById(id:int) : Task<ActionResult<Target>>
+    + <<async>> GetTargetsBySpeed(speedThreshold:int) : Task<ActionResult<IEnumerable<Target>>>
+    + <<async>> AddTarget(target:Target) : Task<ActionResult<Target>>
+    + <<async>> DeleteTarget(gameId:int, id:int) : Task<IActionResult>
+}
+ControllerBase <|-- TargetController
+@enduml

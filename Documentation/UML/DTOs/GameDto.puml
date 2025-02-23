@@ -1,0 +1,12 @@
+@startuml
+class GameDto {
+    + GameId : int <<get>> <<set>>
+    + GameName : string <<get>> <<set>>
+    + GameDescription : string <<get>> <<set>>
+    + DifficultyLevel : string <<get>> <<set>>
+    + TargetSpeed : int <<get>> <<set>>
+    + MaxTargets : int <<get>> <<set>>
+    + GameDuration : int <<get>> <<set>>
+    + GameType : GameType <<get>> <<set>>
+}
+@enduml

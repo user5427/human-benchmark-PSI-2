@@ -1,0 +1,6 @@
+@startuml
+class UserAlreadyExistsException {
+    + UserAlreadyExistsException(message:string)
+}
+Exception <|-- UserAlreadyExistsException
+@enduml

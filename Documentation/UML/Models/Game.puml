@@ -1,0 +1,18 @@
+@startuml
+class Game {
+    + GameId : int <<get>> <<set>>
+    + GameName : string <<get>> <<set>>
+    + GameDescription : string <<get>> <<set>>
+    + DifficultyLevel : string <<get>> <<set>>
+    + TargetSpeed : int <<get>> <<set>>
+    + MaxTargets : int <<get>> <<set>>
+    + GameDuration : int <<get>> <<set>>
+    + GameType : GameType <<get>> <<set>>
+    + Targets : ICollection<Target> <<get>> <<set>>
+    + Scores : ICollection<Score> <<get>> <<set>>
+    + Game()
+    + GetEnumerator() : IEnumerator<Target>
+    - GetEnumerator() : IEnumerator
+}
+"IEnumerable`1" "<Target>" <|-- Game
+@enduml

@@ -1,0 +1,7 @@
+@startuml
+class TargetService {
+    - <<readonly>> _context : AppDbContext
+    + TargetService(context:AppDbContext)
+    + GenerateTargets(maxTargets:int, targetSpeed:int) : List<Target>
+}
+@enduml

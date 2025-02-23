@@ -1,0 +1,10 @@
+@startuml
+class Target {
+    + TargetId : int <<get>> <<set>>
+    + Size : int <<get>> <<set>>
+    + Speed : int <<get>> <<set>>
+    + X : int <<get>> <<set>>
+    + Y : int <<get>> <<set>>
+    + GameId : int <<get>> <<set>>
+}
+@enduml

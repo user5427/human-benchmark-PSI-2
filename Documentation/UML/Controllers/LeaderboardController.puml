@@ -1,0 +1,10 @@
+@startuml
+class LeaderboardController {
+    - <<readonly>> _context : AppDbContext
+    + LeaderboardController(context:AppDbContext)
+    + <<async>> GetAllUsersScores() : Task<ActionResult<IEnumerable<object>>>
+    + <<async>> GetTopScores(topCount:int, gameType:GameType) : Task<ActionResult<IEnumerable<object>>>
+    + <<async>> GetUserHighScore(userId:int) : Task<ActionResult<object>>
+}
+ControllerBase <|-- LeaderboardController
+@enduml

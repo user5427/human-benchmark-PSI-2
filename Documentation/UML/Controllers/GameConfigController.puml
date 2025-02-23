@@ -1,0 +1,10 @@
+@startuml
+class GameConfigController {
+    - <<readonly>> _context : AppDbContext
+    - <<readonly>> _logger : ILogger<GameConfigController>
+    - <<readonly>> _gameService : GameService
+    + GameConfigController(context:AppDbContext, logger:ILogger<GameConfigController>, gameService:GameService)
+    + <<async>> UploadGameConfig(gameConfigDto:GameConfigDto) : Task<IActionResult>
+}
+ControllerBase <|-- GameConfigController
+@enduml

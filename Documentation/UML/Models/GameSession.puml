@@ -1,0 +1,11 @@
+@startuml
+class GameSession {
+    + GameSessionId : int <<get>> <<set>>
+    + UserId : int <<get>> <<set>>
+    + User : User <<get>> <<set>>
+    + StartTime : DateTime <<get>> <<set>>
+    + EndTime : DateTime <<get>> <<set>>
+    + GameType : GameType <<get>> <<set>>
+    + GetDuration() : TimeSpan
+}
+@enduml

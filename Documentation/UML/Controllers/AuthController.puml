@@ -1,0 +1,12 @@
+@startuml
+class AuthController {
+    - <<readonly>> _context : AppDbContext
+    - <<readonly>> _authService : AuthService
+    - <<readonly>> _logger : ILogger<AuthController>
+    + AuthController(context:AppDbContext, authService:AuthService, logger:ILogger<AuthController>)
+    + <<async>> Register(userDto:UserDto) : Task<ActionResult<User>>
+    + <<async>> Login(loginDto:LoginDto) : Task<ActionResult<string>>
+    + <<async>> GetUserById(id:int) : Task<ActionResult<User>>
+}
+ControllerBase <|-- AuthController
+@enduml

@@ -1,0 +1,16 @@
+@startuml
+class GenericGameController {
+    - <<readonly>> _gameSessionHandler : GameSessionHandler<GameType>
+    - <<readonly>> _context : AppDbContext
+    + GenericGameController(gameSessionHandler:GameSessionHandler<GameType>, context:AppDbContext)
+    + <<async>> StartGameSession(userId:int, gameType:GameType) : Task<IActionResult>
+    + <<async>> EndGameSession(sessionId:int) : Task<IActionResult>
+    + <<async>> GetAllGames() : Task<ActionResult>
+    + <<async>> GetGameById(id:int) : Task<ActionResult<GameDto>>
+    + <<async>> GetGameTargets(id:int) : Task<ActionResult<IEnumerable<Target>>>
+    + <<async>> DeleteGame(id:int) : Task<IActionResult>
+    + <<async>> AddScore(userId:int, scoreDto:AddScoreDto) : Task<IActionResult>
+    + GetActiveSessionCount() : IActionResult
+}
+ControllerBase <|-- GenericGameController
+@enduml

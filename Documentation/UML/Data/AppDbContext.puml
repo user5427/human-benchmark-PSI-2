@@ -1,0 +1,12 @@
+@startuml
+class AppDbContext {
+    + AppDbContext(options:DbContextOptions<AppDbContext>)
+    + Users : DbSet<User> <<get>> <<set>>
+    + GameSessions : DbSet<GameSession> <<get>> <<set>>
+    + Scores : DbSet<Score> <<get>> <<set>>
+    + Games : DbSet<Game> <<get>> <<set>>
+    + Targets : DbSet<Target> <<get>> <<set>>
+    # <<override>> OnModelCreating(modelBuilder:ModelBuilder) : void
+}
+DbContext <|-- AppDbContext
+@enduml

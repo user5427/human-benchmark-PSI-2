@@ -1,0 +1,12 @@
+@startuml
+class GameConfig {
+    + GameConfigId : int <<get>> <<set>>
+    + Name : string <<get>> <<set>>
+    + Description : string <<get>> <<set>>
+    + DifficultyLevel : string <<get>> <<set>>
+    + TargetSpeed : int <<get>> <<set>>
+    + MaxTargets : int <<get>> <<set>>
+    + GameDuration : int <<get>> <<set>>
+    + GameType : GameType <<get>> <<set>>
+}
+@enduml

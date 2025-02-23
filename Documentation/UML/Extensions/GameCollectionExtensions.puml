@@ -1,0 +1,5 @@
+@startuml
+class GameCollectionExtensions <<static>> {
+    + {static} FilterTargetsBySpeed(targets:List<Target>, speedThreshold:int) : IEnumerable<Target>
+}
+@enduml

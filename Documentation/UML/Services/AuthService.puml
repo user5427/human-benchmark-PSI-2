@@ -1,0 +1,9 @@
+@startuml
+class AuthService {
+    - <<readonly>> _context : AppDbContext
+    - <<readonly>> _logger : ILogger<GameService>
+    + AuthService(context:AppDbContext, logger:ILogger<GameService>)
+    + HashPassword(password:string) : string
+    + VerifyPassword(password:string, storedHash:string) : bool
+}
+@enduml

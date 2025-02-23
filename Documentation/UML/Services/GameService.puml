@@ -1,0 +1,11 @@
+@startuml
+class GameService {
+    - <<readonly>> _context : AppDbContext
+    - <<readonly>> _logger : ILogger<GameService>
+    - <<readonly>> _targetService : TargetService
+    - value : object
+    + GameService(value:object)
+    + GameService(context:AppDbContext, logger:ILogger<GameService>, targetService:TargetService)
+    + <<virtual>> <<async>> CreateGameFromAsync(gameConfig:GameConfig) : Task<Game>
+}
+@enduml

@@ -1,0 +1,8 @@
+@startuml
+class AddScoreDto {
+    + GameId : int <<get>> <<set>>
+    + GameType : GameType <<get>> <<set>>
+    + DateAchieved : DateTime <<get>> <<set>>
+    + Value : int <<get>> <<set>>
+}
+@enduml

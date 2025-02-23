@@ -1,0 +1,6 @@
+@startuml
+class UserNotFoundException {
+    + UserNotFoundException(message:string)
+}
+Exception <|-- UserNotFoundException
+@enduml
