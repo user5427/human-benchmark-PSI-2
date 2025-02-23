@@ -1,4 +1,9 @@
 @startuml
+
+title AimReactionAPI
+' top to bottom direction
+left to right direction
+
 !include .\\Program.puml
 !include .\\Controllers\AuthController.puml
 !include .\\Controllers\GameConfigController.puml
