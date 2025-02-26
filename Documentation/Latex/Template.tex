@@ -16,6 +16,25 @@
 \usepackage{tocloft}
 
 \usepackage{titlesec}
+
+% Define \subsubsubsection
+\titleclass{\subsubsubsection}{straight}[\subsubsection]
+\newcounter{subsubsubsection}[subsubsection]
+\renewcommand\thesubsubsubsection{\thesubsubsection.\arabic{subsubsubsection}}
+\titleformat{\subsubsubsection}
+  {\normalfont\normalsize\bfseries}{\thesubsubsubsection}{1em}{}
+\titlespacing*{\subsubsubsection}
+  {0pt}{1.25ex plus 1ex minus .2ex}{0.75ex plus .2ex}
+
+% Define \subsubsubsubsection if needed
+\titleclass{\subsubsubsubsection}{straight}[\subsubsubsection]
+\newcounter{subsubsubsubsection}[subsubsubsection]
+\renewcommand\thesubsubsubsubsection{\thesubsubsubsection.\arabic{subsubsubsubsection}}
+\titleformat{\subsubsubsubsection}
+  {\normalfont\normalsize\bfseries}{\thesubsubsubsubsection}{1em}{}
+\titlespacing*{\subsubsubsubsection}
+  {0pt}{1.25ex plus 1ex minus .2ex}{0.75ex plus .2ex}
+
 \newcommand{\sectionbreak}{\clearpage}
 
 \makeatletter
@@ -113,46 +132,56 @@ Summary in english.\\
     % {u.d.i.r.v.} & {} & {uniformly distributed independent random variables}
 \end{tabular}
 
+\section{Lab}
+\label{sec:lab_1}
+
 \sectionnonum{Introduction}
 This work documents the Human Benchmark system that was developed in third semester. The system is a collection of mini-games that test various cognitive abilities such as reaction time, 
 memory, and mathematical skills. The system is built using modern web technologies such as HTML, CSS, and JavaScript and ASPNet. The system is open source and the code is available on GitHub 
 for anyone to use and contribute to.
 
+
 This work will provide an overview of the system and its features. It will also discuss the demerits of the system and suggest possible improvements that can be made to the system.
 The work will be divided into four main sections: 
 \begin{itemize}
-    \item Section 1 will provide an overview of the system and its bussiness logic.
-    \item Section 2 will focus on improvements that can be made to the system.
-    \item Section 3 will -.
+    \item Section \ref{sec:system_overview} will provide an overview of the system and its bussiness logic.
+    \item Section \ref{sec:bpmn_uml_use_cases} will focus on BPMN diagrams, use cases of the system and UML diagrams.
+    \item Section 3 will focus on improvements that can be made to the system.
     \item Section 4 will -.
+    \item Results and discussion \ref{sec:results} - short summary of the results and discussion.
+    \item Conclusions \ref{sec:conclusion} - conclusions of lab \ref{sec:lab_1}.
 \end{itemize}
 % For any written work, you must refer to the methodology guidelines of the respective study programme\footnote{The latest methodology requirements for all programmes can be found here, in the respective programme: \url{https://mif.vu.lt/lt3/en/studies/bachelor-studies}}. These contain all the guidelines for citations, structure, length, etc.
 
+% add page break
+\pagebreak
 
-\section{System and bussiness overview}
+
+\subsection{System and bussiness overview}
+\label{sec:system_overview}
 
 This section will discuss about the Human Benchmark system and its bussiness logic. Strategies such as SWOT, MOST, SMART, etc. will be used to analyze the system and its features.
 
 
-\subsection{SWOT analysis}
+\subsubsection{SWOT analysis}
 
 SWOT analysis is a strategic planning technique used to help a person or organization identify strengths, weaknesses, opportunities, and threats related to business competition or project planning. It is intended to specify the objectives of the business venture or project and identify the internal and external factors that are favorable and unfavorable to achieving those objectives.
 
-Strengths:
+\subsubsubsection{Strengths}
 \begin{itemize}
     \item Enhance Cognitive function: studies indicate that faster reaction times (RTs) are associated with better cognitive functions, including memory, verbal fluency, processing speed, and intelligence.
     \item Increased Engagement through Gamification: Integrating game elements like leaderboards can enhance motivation and engagement in learning activities.
     \item Positive User Reception to Minimalist Design: Research indicates that all generations have a positive attitude toward minimalism in design.
 \end{itemize}
-Weaknesses:
+\subsubsubsection{Weaknesses}
 \begin{itemize}
     \item Risk of Overemphasis on Competition: While leaderboards can motivate some users, they may lead to feelings of sadness or disappointment among those who consistently rank lower, potentially decreasing engagement.
 \end{itemize}
-Opportunities:
+\subsubsubsection{Opportunities}
 \begin{itemize}
     \item Personalized Learning Experiences: Incorporating adaptive learning technologies can improve training effectiveness and user satisfaction.
 \end{itemize}
-Threats:
+\subsubsubsection{Threats}
 \begin{itemize}
     \item Competition: The presence of similar apps or platforms offering reaction training poses a competitive threat.
 \end{itemize}
@@ -199,11 +228,58 @@ players. \cite{GamificationInEducation}
 Overall, all generations have positive attitude toward minimalism. \cite{GamificationInMarketing}
 
 % https://www.theneighborhoodacademy.org/editoruploads/files/Tyrone%20Final%20Final%202024.pdf
-Similar to Kearney, we found that video games can stimulate your mind and benefit people’s cognitive skills. In a prior study, Klicka measured the effect of video games on college football players (5). He found that video gamers had faster reaction times and therefore may improve hand-eye coordination for a person. This relates to our study because, in our
-experiment, the gaming group had significantly faster scores than the non-gaming group which supports my hypothesis. This suggests games might play a role in reaction time. \cite{ReactionTime}
+Similar to Kearney, we found that video games can stimulate your mind and benefit people’s cognitive skills. 
+In a prior study, Klicka measured the effect of video games on college football players. He found that 
+video gamers had faster reaction times and therefore may improve hand-eye coordination for a person. This 
+relates to our study because, in our
+experiment, the gaming group had significantly faster scores than the non-gaming group which supports my hypothesis. This 
+suggests games might play a role in reaction time. \cite{ReactionTime}
 
-\subsection{Porter's Methods, Base needs and additional value}
-\subsubsection{Porter's Methods}
+\subsubsection{MOST analysis}
+MOST analysis is a strategic planning technique used to help a person or organization identify mission, objectives, strategies, and tactics related to business competition or project planning. It is intended to specify the objectives of the business venture or project and identify the internal and external factors that are favorable and unfavorable to achieving those objectives.
+
+\subsubsubsection{Mission}
+\begin{itemize}
+    \item Users improve their reaction speed and reflexes through games.
+\end{itemize}
+
+\subsubsubsection{Objectives}
+\begin{itemize}
+    \item Provide a user-friendly web app.
+    \item Make training fun and non-repetitive.
+    \item Use social, competitive aspect to motivate players.
+    \item Make it accessible for users of different skill levels.
+    \item Enable users to track and visualize their progress over time.
+\end{itemize}
+
+\subsubsubsection{Strategies}
+\begin{itemize}
+    \item Simple and minimal UI to keep users focused on gameplay.
+    \item Multiple game modes with adjustable difficulty.
+    \item Leaderboards to encourage competition and comparison with others.
+    \item Point system \& each attempt tracking to display progress over time.
+\end{itemize}
+
+\subsubsubsection{Tactics}
+\begin{itemize}
+    \item Minimal color palette.
+    \item Responsive, lightweight UI to minimize input lag.
+    \item Customizable game settings for non-competitive modes.
+    \item Personalized statistics dashboard displaying average, best scores, progress.
+\end{itemize}
+
+\subsubsection{VISION analysis}
+
+\subsubsubsection{Mission}
+\begin{itemize}
+    \item Provide an engaging and competitive app for users to measure, track, and improve their reaction speed.
+    \item Users improve their reaction speed and reflexes through games.
+    \item People manage to faster process information which can greatly benefit them in daily life.
+\end{itemize}
+
+\subsubsection{Porter's Methods, Base needs and additional value}
+
+\subsubsubsection{Porter\'s Methods}
 \begin{itemize}
  \item New competators
 
@@ -223,7 +299,8 @@ Since our product offers all of it's services up-front without the need for addi
  Due to to the nature of our product it could be said that the service we provide is rather niche. As such the impact of other players in the market is negligable in comprison to the other driving forces.
 \end{itemize}
 
-\subsubsection{Base needs}
+\subsubsubsection{Base needs}
+
 In order for our project to function two basic needs need to be met:
 \begin{itemize}
  \item There needs to be a demand for our services
@@ -231,9 +308,104 @@ In order for our project to function two basic needs need to be met:
 \end{itemize}
 
 Without these Basic Needs we will either be unable to supply our product to the consumer base or we will be wasting or resources for a product that generates no return. As such these two Basic Needs are distinguished as being the foundational needs.
-\subsubsection{Additional Value}
+
+\subsubsubsection{Additional Value}
 
 TODO WHEN WE CHOOSE WHAT TO DEVELOP
+
+
+\subsection{BPMN, UML and Use Cases}
+\label{sec:bpmn_uml_use_cases}
+BPMN diagrams, UML diagrams and use cases are used to model the system and its features.
+
+\subsubsection{BPMN Diagrams}
+BPMN diagrams are used to model the business processes of the system. The following BPMN diagrams are used to model the Human Benchmark system:
+
+\begin{itemize}
+    \item \textbf{Main BPMN diagram} - \ref{fig:main_bpmn} diagram models the main business processes of the system. 
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{images/overview-BPMN.png}
+        \caption{Main BPMN diagram}
+        \label{fig:main_bpmn}
+    \end{figure}
+    \item \textbf{Game BPMN diagram} - this diagram models the game processes of the system.
+    \item \textbf{User BPMN diagram} - \ref{fig:user_bpmn} diagram models the user processes of the system.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{images/user-BPMN.png}
+        \hspace{-2cm}
+        \caption{User BPMN diagram}
+        \label{fig:user_bpmn}
+    \end{figure}
+    \item \textbf{Leaderboard BPMN diagram} - this diagram models the leaderboard processes of the system.
+\end{itemize}
+
+\subsubsection{UML Diagrams}
+UML diagrams are used to model the system's architecture and structure. The following UML diagrams are used to model the Human Benchmark system:
+
+\begin{itemize}
+    \item \textbf{Class diagram} - \ref{fig:class_diagram} diagram models the classes and relationships of the system.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.6\textwidth]{images/UML-all.png}
+        \caption{Class diagram}
+        \label{fig:class_diagram}
+    \end{figure}
+    % \begin{figure}[H]
+    %     \centering
+    %     \includegraphics[width=0.5\textwidth]{images/UML-noDependen.png}
+    %     \caption{Class diagram with no dependencies (for better readability)}
+    %     \label{fig:class_diagram_no_dependencies}
+    % \end{figure}
+    \item \textbf{Sequence diagram} - this diagram models the sequence of interactions between the system components.
+    \item \textbf{Component diagram} - this diagram models the components and their relationships in the system.
+    \item \textbf{Deployment diagram} - this diagram models the deployment of the system components.
+    \item \textbf{State diagram} - this diagram models the states of the system components.
+    \item \textbf{Activity diagram} - this diagram models the activities and their relationships in the system.
+    \item \textbf{Use case diagram} - this diagram models the use cases of the system.
+\end{itemize}
+
+
+
+
+\subsection{Results and discussion}
+\label{sec:results}
+This section will discuss the results of the system and its features. It will also discuss the demerits of the system and suggest possible improvements that can be made to the system.
+
+\subsection{Conclusion}
+\label{sec:conclusion}
+This work has provided an overview of the Human Benchmark system and its features. It has also discussed the demerits of the system and suggested possible improvements that can be made to the system.
+
+
+
+
+% For details of what needs to be written in this section, please refer to the methodology requirements of the respective programme. 
+
+\printbibliography[title = {References and sources}]
+
+
+% \appendix
+% \renewcommand{\thesection}{Appendix \arabic{section}. }
+
+% \section{\phantom{Appendix} Examples of citations}
+% In the document \textit{bibliography.bib}, you need to add all the cited sources and after using the function \textit{\{\textbackslash cite\{name of the cited object\}\}} the corresponding source will be added to the list of literature sources.
+
+
+% \textit{bibliography.bib} provides examples of some of the most commonly cited types of sources:
+% \begin{itemize}
+%     \item web pages (\textit{@online}) \cite{PvzInternetinisPuslapis},
+%     \item datasets (\textit{@dataset}) \cite{dataset}
+%     \item articles (\textit{@article}) \cite{PvzStraipsnLt, PvzStraipsnEn}, 
+%     \item articles from conferences (\textit{@inproceedings}) \cite{PvzKonfLt, PvzKonfEn}, 
+%     \item books (\textit{@book}) \cite{PvzKnygLt, PvzKnygEn}, 
+%     \item theses (\textit{@thesis or mastersthesis/phdthesis} \cite{PvzMagistrLt, PvzPhdEn})
+%     \item electronic publications (\textit{@misc}) \cite{PvzElPubLt, PvzElPubEn}
+% \end{itemize}
+
+% Examples are also provided for ChatGPT citation, both in general \cite{chatgpt_bendrai} and for a specific conversation \cite{chatgpt_pokalbis}.
+
+\end{document}
 
 
 % \|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-
@@ -517,32 +689,3 @@ TODO WHEN WE CHOOSE WHAT TO DEVELOP
 
 % \subsubsection{Subsubsection example}
 % \noindent No need to use lots of \textit{subsubsections}.
-
-\sectionnonum{Results and conclusions}
-This section will discuss the results of the analysis and the conclusions that can be drawn from the analysis. The section will also discuss the limitations of the analysis and suggest possible improvements that can be made to the system.
-% For details of what needs to be written in this section, please refer to the methodology requirements of the respective programme. 
-
-\printbibliography[title = {References and sources}]
-
-
-% \appendix
-% \renewcommand{\thesection}{Appendix \arabic{section}. }
-
-% \section{\phantom{Appendix} Examples of citations}
-% In the document \textit{bibliography.bib}, you need to add all the cited sources and after using the function \textit{\{\textbackslash cite\{name of the cited object\}\}} the corresponding source will be added to the list of literature sources.
-
-
-% \textit{bibliography.bib} provides examples of some of the most commonly cited types of sources:
-% \begin{itemize}
-%     \item web pages (\textit{@online}) \cite{PvzInternetinisPuslapis},
-%     \item datasets (\textit{@dataset}) \cite{dataset}
-%     \item articles (\textit{@article}) \cite{PvzStraipsnLt, PvzStraipsnEn}, 
-%     \item articles from conferences (\textit{@inproceedings}) \cite{PvzKonfLt, PvzKonfEn}, 
-%     \item books (\textit{@book}) \cite{PvzKnygLt, PvzKnygEn}, 
-%     \item theses (\textit{@thesis or mastersthesis/phdthesis} \cite{PvzMagistrLt, PvzPhdEn})
-%     \item electronic publications (\textit{@misc}) \cite{PvzElPubLt, PvzElPubEn}
-% \end{itemize}
-
-% Examples are also provided for ChatGPT citation, both in general \cite{chatgpt_bendrai} and for a specific conversation \cite{chatgpt_pokalbis}.
-
-\end{document}

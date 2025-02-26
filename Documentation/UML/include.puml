@@ -55,42 +55,42 @@ package Migration {
 }
 
 
-GameCollectionExtensions ..> Target
+' GameCollectionExtensions ..> Target
 
 GameService o-> AppDbContext
-GameService ..> GameService : logs
+' GameService ..> GameService : logs
 GameService o-> TargetService
-GameService ..> Game
+' GameService ..> Game
 
-AuthController ..> LoginDto
-AuthController ..> AuthController : logs
-AuthController ..> UserDto
+' AuthController ..> LoginDto
+' AuthController ..> AuthController : logs
+' AuthController ..> UserDto
 AuthController o-> AuthService
 AuthController o-> AppDbContext
 
-GameConfigController ..> GameConfigController : logs
+' GameConfigController ..> GameConfigController : logs
 GameConfigController o-> AppDbContext
 GameConfigController o-> GameService
-GameConfigController ..> GameConfigDto
+' GameConfigController ..> GameConfigDto
 
 GenericGameController o-> AppDbContext
 GenericGameController o-> GameType
-GenericGameController ..> GameDto
-GenericGameController ..> AddScoreDto
-GenericGameController ..> Target
+' GenericGameController ..> GameDto
+' GenericGameController ..> AddScoreDto
+' GenericGameController ..> Target
 
 LeaderboardController o-> AppDbContext
-LeaderboardController ..> GameType
+' LeaderboardController ..> GameType
 
 TargetController o-> AppDbContext
-TargetController ..> TargetController : logs
-TargetController ..> Target
+' TargetController ..> TargetController : logs
+' TargetController ..> Target
 
-AppDbContext ..> Game
-AppDbContext ..> User
-AppDbContext ..> Target
-AppDbContext ..> Score
-AppDbContext ..> GameSession
+' AppDbContext ..> Game
+' AppDbContext ..> User
+' AppDbContext ..> Target
+' AppDbContext ..> Score
+' AppDbContext ..> GameSession
 
 AddScoreDto o-> GameType
 
@@ -119,11 +119,11 @@ User o-> Score
 AuthService o-> AppDbContext
 AuthService o-> GameService
 
-"GameSessionHandler`1" ..> GameSession
-"GameSessionHandler`1" ..> GameType
+' "GameSessionHandler`1" ..> GameSession
+' "GameSessionHandler`1" ..> GameType
 "GameSessionHandler`1" o-> AppDbContext
 
 TargetService o-> AppDbContext
-TargetService ..> Target
+' TargetService ..> Target
 
 @enduml
