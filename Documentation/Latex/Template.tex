@@ -14,8 +14,9 @@
 \usepackage{color,algorithm,algorithmic}
 \usepackage[nottoc]{tocbibind}
 \usepackage{tocloft}
-
+\usepackage{makecell}
 \usepackage{titlesec}
+\usepackage{zref-xr,zref-user}
 
 % Define \subsubsubsection
 \titleclass{\subsubsubsection}{straight}[\subsubsection]
@@ -66,7 +67,12 @@
 % \reviewer{pedagogical/scientific title Name Surname} %If present, otherwise delete
 % \scientificadvisor{pedagogical/scientific title Name Surname} %If present, otherwise delete
 
+
 \begin{document}
+
+% Zref properties
+% \zref@newprop{ReqId}{default_value}
+
 \selectlanguage{english}
 
 \onehalfspacing
@@ -87,11 +93,9 @@ The team is thankful to the lecturers of Vilnius University for their guidance a
 
 %%Summary
 \sectionnonum{Summary}
+This work documents the Human Benchmark system business logic and system overview. Various analysis are conducted to understand the current system, bussiness and its improvment capibilities. The work is divided into four main sections (see introduction \ref{sec:introduction} for more details).
 
-This work documents the Human Benchmark system.
-
-
-\textbf{Keywords:} work related keywords, with a \textit{\textbf{minimum of 3 keywords}}, but can be more.
+\textbf{Keywords:} Human Benchmark, SWOT, MOST, SMART, BPMN, UML.
 
 % \sectionnonum{Santrauka}
 
@@ -134,6 +138,7 @@ This work documents the Human Benchmark system.
 \end{tabular}
 
 \sectionnonum{Introduction}
+\label{sec:introduction}
 This work documents the Human Benchmark system that was developed in third semester. The system is a collection of mini-games that test various cognitive abilities such as reaction time, 
 memory, and mathematical skills. The system is built using modern web technologies such as HTML, CSS, and JavaScript and ASPNet. The system is open source and the code is available on GitHub 
 for anyone to use and contribute to.
@@ -145,7 +150,7 @@ The work will be divided into four main sections:
     \item Section \ref{sec:system_overview} will provide an overview of the system and its bussiness logic.
     \item Section \ref{sec:bussiness_boundaries} will focus on the bussiness and system boundaries.
     \item Section \ref{sec:bpmn_uml_use_cases} will focus on BPMN diagrams and UML diagrams.
-    \item Section 4 will -.
+    \item Section \ref{sec:requirements} will focus on user needs and requirements.
     \item Results and discussion \ref{sec:results} - short summary of the results and discussion.
     \item Conclusions \ref{sec:conclusion} - conclusions of lab \ref{sec:lab_1}.
 \end{itemize}
@@ -305,8 +310,11 @@ In order for our project to function two basic needs need to be met:
 Without these Basic Needs we will either be unable to supply our product to the consumer base or we will be wasting or resources for a product that generates no return. As such these two Basic Needs are distinguished as being the foundational needs.
 
 \subsubsection{Additional Value}
-
 TODO WHEN WE CHOOSE WHAT TO DEVELOP
+
+
+\subsection{Stakeholders and their needs}
+
 
 \section{Bussiness and system boundaries}
 \label{sec:bussiness_boundaries}
@@ -319,6 +327,64 @@ TODO WHEN WE CHOOSE WHAT TO DEVELOP
     \caption{Input and Output diagram}
     \label{fig:inputOutput}
 \end{figure}
+
+\subsection{Blackbox Analysis}
+Blackbox analysis is a method used to analyze the system's functionality without looking at the internal workings of the system. It focuses on the inputs and outputs of the system and how they are related. The following table shows the blackbox analysis of the Human Benchmark system.
+
+We can see that the system has five main categories (\ref{tab:blackbox}): User Registration, User Login, Game management, Leaderboard management, and Game play. Each category has specific inputs and outputs that are related to the functionality of the system.
+
+% a table with three columns, one for category, one for input, one for output
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{Category} & \textbf{Input} & \textbf{Output} \\
+        \hline
+        User Registration & Email, Name, Password & Registration failure or success  \\
+        \hline
+        User Login & Email, Password & Login failure or success \\
+        \hline
+        Game management & \makecell{Name, Description, Target count, \\ Difficulty level, Type, Duration, \\ Speed of targets} & Game creation success or failure \\
+        \hline
+        Leaderboard management & Game ID, User ID, Score, Date & Leaderboard with top scores \\
+        \hline
+        Game play & User ID & Game score \\
+        \hline
+    \end{tabular}
+    \caption{Blackbox analysis}
+    \label{tab:blackbox}
+\end{table}
+
+% Measurement dimmensions table aspect | mesurment method
+\subsection{Measurement Dimensions}
+Measurement dimensions are used to measure the performance of the system. The following table shows the measurement dimensions of the Human Benchmark system.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline
+        \textbf{Aspect} & \textbf{Measurement method} \\
+        \hline
+        User Registration & Number of successful registrations \\
+        \hline
+        User Login & Number of successful logins \\
+        \hline
+        Game management & Number of games created \\
+        \hline
+        Leaderboard management & Leaderboard variation over time \\
+        \hline
+        Game play & Number of games played \\
+        \hline
+        Game session duration & Average game duration \\
+        \hline
+        Game modes & Number of game modes \\
+        \hline
+    \end{tabular}
+    \caption{Measurement dimensions}
+    \label{tab:measurement}
+\end{table}
+
+
 
 
 \section{BPMN, UML and Use Cases}
@@ -352,19 +418,7 @@ BPMN diagrams are used to model the business processes of the system. The follow
 UML diagrams are used to model the system's architecture and structure. The following UML diagrams are used to model the Human Benchmark system:
 
 \begin{itemize}
-    \item \textbf{Class diagram} - \ref{fig:class_diagram} diagram models the classes and relationships of the system.
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.6\textwidth]{images/UML-all.png}
-        \caption{Class diagram}
-        \label{fig:class_diagram}
-    \end{figure}
-    % \begin{figure}[H]
-    %     \centering
-    %     \includegraphics[width=0.5\textwidth]{images/UML-noDependen.png}
-    %     \caption{Class diagram with no dependencies (for better readability)}
-    %     \label{fig:class_diagram_no_dependencies}
-    % \end{figure}
+    \item \textbf{Class diagram} - this diagram models the classes and relationships of the system.
     \item \textbf{Sequence diagram} - this diagram models the sequence of interactions between the system components.
     \item \textbf{Component diagram} - this diagram models the components and their relationships in the system.
     \item \textbf{Deployment diagram} - this diagram models the deployment of the system components.
@@ -373,8 +427,32 @@ UML diagrams are used to model the system's architecture and structure. The foll
     \item \textbf{Use case diagram} - this diagram models the use cases of the system.
 \end{itemize}
 
+\section{Requirements}
+\label{sec:requirements}
+This section will discuss the stakeholder needs \ref{sec:stakeholders_needs} and requirements of the system.
+Needs that impact the bussiness the most will be listed and discussed.
 
-
+% table where the first column is the reference to the stakeholder requirement id, the second column is the requirement, the third column is the description.
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{ID} & \textbf{Requirement} & \textbf{Description} \\
+        \hline
+        SR1 & User registration & Users should be able to register an account. \\
+        \hline
+        SR2 & User login & Users should be able to log in to their account. \\
+        \hline
+        SR3 & Game creation & Users should be able to create a new game. \\
+        \hline
+        SR4 & Leaderboard & Users should be able to view the leaderboard. \\
+        \hline
+        SR5 & Game play & Users should be able to play games. \\
+        \hline
+    \end{tabular}
+    \caption{User needs and requirements}
+    \label{tab:requirements}
+\end{table}
 
 \section{Results and discussion}
 \label{sec:results}
@@ -389,28 +467,74 @@ This work has provided an overview of the Human Benchmark system and its feature
 
 % For details of what needs to be written in this section, please refer to the methodology requirements of the respective programme. 
 
+%add no numbered section for the requirement list
+\sectionnonum{Stakeholders needs}
+\label{sec:stakeholders_needs}
+These are all of the stakeholders needs. These needs are the foundation of our project and as such are the most important part of our project.
+
+\begin{itemize}
+    \item 
+    \label{stakeholder:1}
+    \textbf{Fix the STOP button} in the Reflex Test.
+    \item 
+    \label{stakeholder:2}
+    Adjust \textbf{game creation parameters} based on the game type (currently, all parameters are the same, including unnecessary ones).
+    \item 
+    \label{stakeholder:3}
+    Optimize \textbf{screen size handling} in games (Reflex Test is too easy to play on mobile devices).
+    \item 
+    \label{stakeholder:4}
+    Prevent scores from being submitted \textbf{before the game ends} (currently, random data can be entered via Swagger).
+    \item 
+    \label{stakeholder:5}
+    Allow users to \textbf{change the game image}.
+    \item 
+    \label{stakeholder:6}
+    Implement \textbf{private games} (currently, others' created games can override yours).
+    \item 
+    \label{stakeholder:7}
+    Add a \textbf{Moving Targets} game.
+    \item 
+    \label{stakeholder:8}
+    Enable players to \textbf{view their achievements} (high scores).
+    \item 
+    \label{stakeholder:9}
+    Add a \textbf{game history} for previously played games.
+    \item 
+    \label{stakeholder:10}
+    Provide \textbf{more information} about the games.
+    \item 
+    \label{stakeholder:11}
+    Implement a \textbf{light/dark theme} toggle.
+    \item 
+    \label{stakeholder:12}
+    Improve \textbf{sound design and VFX} for Reflex Test and Moving Targets.
+    \item 
+    \label{stakeholder:13}
+    Adjust \textbf{Reflex Test scoring} based on click speed and accuracy.
+    \item 
+    \label{stakeholder:14}
+    Create \textbf{different Reflex Test variations}:
+    \begin{itemize}
+        \item 
+        \label{stakeholder:15}
+        One where you play until missing a certain number of targets.
+        \item 
+        \label{stakeholder:16}
+        Another with a \textbf{fixed number of targets}.
+    \end{itemize}
+    \item 
+    \label{stakeholder:17}
+    Enhance the \textbf{leaderboard UI} and expand functionality for different game variations.
+    \item 
+    \label{stakeholder:18}
+    Allow users to view the \textbf{top 10/top 20 players} for each game separately.
+    \item 
+    \label{stakeholder:19}
+    Implement a \textbf{rating system} for user-created games—highly rated/popular games should be displayed higher in the list.
+\end{itemize}
+
 \printbibliography[title = {References and sources}]
-
-
-% \appendix
-% \renewcommand{\thesection}{Appendix \arabic{section}. }
-
-% \section{\phantom{Appendix} Examples of citations}
-% In the document \textit{bibliography.bib}, you need to add all the cited sources and after using the function \textit{\{\textbackslash cite\{name of the cited object\}\}} the corresponding source will be added to the list of literature sources.
-
-
-% \textit{bibliography.bib} provides examples of some of the most commonly cited types of sources:
-% \begin{itemize}
-%     \item web pages (\textit{@online}) \cite{PvzInternetinisPuslapis},
-%     \item datasets (\textit{@dataset}) \cite{dataset}
-%     \item articles (\textit{@article}) \cite{PvzStraipsnLt, PvzStraipsnEn}, 
-%     \item articles from conferences (\textit{@inproceedings}) \cite{PvzKonfLt, PvzKonfEn}, 
-%     \item books (\textit{@book}) \cite{PvzKnygLt, PvzKnygEn}, 
-%     \item theses (\textit{@thesis or mastersthesis/phdthesis} \cite{PvzMagistrLt, PvzPhdEn})
-%     \item electronic publications (\textit{@misc}) \cite{PvzElPubLt, PvzElPubEn}
-% \end{itemize}
-
-% Examples are also provided for ChatGPT citation, both in general \cite{chatgpt_bendrai} and for a specific conversation \cite{chatgpt_pokalbis}.
 
 \end{document}
 
@@ -696,3 +820,23 @@ This work has provided an overview of the Human Benchmark system and its feature
 
 % \subsubsection{Subsubsection example}
 % \noindent No need to use lots of \textit{subsubsections}.
+
+% \appendix
+% \renewcommand{\thesection}{Appendix \arabic{section}. }
+
+% \section{\phantom{Appendix} Examples of citations}
+% In the document \textit{bibliography.bib}, you need to add all the cited sources and after using the function \textit{\{\textbackslash cite\{name of the cited object\}\}} the corresponding source will be added to the list of literature sources.
+
+
+% \textit{bibliography.bib} provides examples of some of the most commonly cited types of sources:
+% \begin{itemize}
+%     \item web pages (\textit{@online}) \cite{PvzInternetinisPuslapis},
+%     \item datasets (\textit{@dataset}) \cite{dataset}
+%     \item articles (\textit{@article}) \cite{PvzStraipsnLt, PvzStraipsnEn}, 
+%     \item articles from conferences (\textit{@inproceedings}) \cite{PvzKonfLt, PvzKonfEn}, 
+%     \item books (\textit{@book}) \cite{PvzKnygLt, PvzKnygEn}, 
+%     \item theses (\textit{@thesis or mastersthesis/phdthesis} \cite{PvzMagistrLt, PvzPhdEn})
+%     \item electronic publications (\textit{@misc}) \cite{PvzElPubLt, PvzElPubEn}
+% \end{itemize}
+
+% Examples are also provided for ChatGPT citation, both in general \cite{chatgpt_bendrai} and for a specific conversation \cite{chatgpt_pokalbis}.
