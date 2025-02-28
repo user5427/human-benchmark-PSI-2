@@ -426,26 +426,37 @@ The entity relation diagram models the entities and their relationships in the s
     \label{fig:ERD}
 \end{figure}
 
+\begin{enumerate}
+    \item \textbf{User entity} - Contains user information such as name, email, and password. User can create games and play games. Scores are shown in the leaderboard.
+    \item \textbf{Game entity} - Contains game information such as name, description, target count, difficulty level, type. Users can create games and play games. Games also track how many targets the user has hit and missed, and the user's score based on that.
+    \item \textbf{Target entity} - Contains target information such as speed and size. Targets are part of the game. Targets appear on the screen and users have to click on them. After the set duration expires, the target disappears.
+    \item \textbf{Score entity} - Contains score information for users. Scores are shown in the leaderboard for each game.
+    \item \textbf{Game session entity} - Contains game session information such as start and end time. Game sessions are created when users play games.
+\end{enumerate}
+
+
+\subsubsection{Use Case Diagrams}
+Use case diagrams are used to model the use cases of the system. The following use case diagrams are used to model the Human Benchmark system:
 
 \begin{itemize}
-    \item \textbf{Sequence diagram} - this diagram models the sequence of interactions between the system components.
-    \item \textbf{Component diagram} - this diagram models the components and their relationships in the system.
-    \item \textbf{Deployment diagram} - this diagram models the deployment of the system components.
-    \item \textbf{State diagram} - this diagram models the states of the system components.
-    \item \textbf{Activity diagram} - this diagram models the activities and their relationships in the system.
-    \item \textbf{Use case diagram} - this diagram models the use cases of the system.
+    \item 
+    The game use case diagram \ref{fig:game_use_case} models the game playing and creating.
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.5\textwidth]{images/GameUC.drawio.png}
         \caption{Game use case diagram}
         \label{fig:game_use_case}
     \end{figure}
+    \item
+    The leaderboard use case diagram \ref{fig:leaderboard_use_case} models the leaderboard viewing.
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.5\textwidth]{images/LeaderBoardUC.drawio.png}
         \caption{Leaderboard use case diagram}
         \label{fig:leaderboard_use_case}
     \end{figure}
+    \item
+    The login use case diagram \ref{fig:login_use_case} models the login and registering process.
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.5\textwidth]{images/LoginUC.drawio.png}
@@ -453,6 +464,13 @@ The entity relation diagram models the entities and their relationships in the s
         \label{fig:login_use_case}
     \end{figure}
 \end{itemize}
+
+
+% \begin{itemize}
+%     \item \textbf{Sequence diagram} - this diagram models the sequence of interactions between the system components.
+%     \item \textbf{State diagram} - this diagram models the states of the system components.
+%     \item Activity diagram
+% \end{itemize}
 
 \section{Requirements}
 \label{sec:requirements}
