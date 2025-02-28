@@ -16,7 +16,16 @@
 \usepackage{tocloft}
 \usepackage{makecell}
 \usepackage{titlesec}
-\usepackage{zref-xr,zref-user}
+\usepackage{zref}
+\usepackage{zref-user}
+\usepackage{zref-xr}
+ 
+
+\makeatletter
+\zref@newprop{SR}{stak. req.} % Create a custom reference property
+\zref@newlabel{stakeholder} % Create the label group
+\makeatother
+
 
 % Define \subsubsubsection
 \titleclass{\subsubsubsection}{straight}[\subsubsection]
@@ -69,9 +78,6 @@
 
 
 \begin{document}
-
-% Zref properties
-% \zref@newprop{ReqId}{default_value}
 
 \selectlanguage{english}
 
@@ -152,7 +158,7 @@ The work will be divided into four main sections:
     \item Section \ref{sec:bpmn_uml_use_cases} will focus on BPMN diagrams and UML diagrams.
     \item Section \ref{sec:requirements} will focus on user needs and requirements.
     \item Results and discussion \ref{sec:results} - short summary of the results and discussion.
-    \item Conclusions \ref{sec:conclusion} - conclusions of lab \ref{sec:lab_1}.
+    \item Conclusions \ref{sec:conclusion} - conclusions of lab 1.
 \end{itemize}
 % For any written work, you must refer to the methodology guidelines of the respective study programme\footnote{The latest methodology requirements for all programmes can be found here, in the respective programme: \url{https://mif.vu.lt/lt3/en/studies/bachelor-studies}}. These contain all the guidelines for citations, structure, length, etc.
 
@@ -519,65 +525,84 @@ These are all of the stakeholders needs. These needs are the foundation of our p
 
 \begin{itemize}
     \item 
-    \label{stakeholder:1}
+    \zlabel{stakeholder:1}\zrefused{stakeholder:1}{SR1}
     \textbf{Fix the STOP button} in the Reflex Test.
+    
     \item 
-    \label{stakeholder:2}
+    \zlabel{stakeholder:2}\zrefused{stakeholder:2}{SR2}
     Adjust \textbf{game creation parameters} based on the game type (currently, all parameters are the same, including unnecessary ones).
+    
     \item 
-    \label{stakeholder:3}
+    \zlabel{stakeholder:3}\zrefused{stakeholder:3}{SR3}
     Optimize \textbf{screen size handling} in games (Reflex Test is too easy to play on mobile devices).
+    
     \item 
-    \label{stakeholder:4}
+    \zlabel{stakeholder:4}\zrefused{stakeholder:4}{SR4}
     Prevent scores from being submitted \textbf{before the game ends} (currently, random data can be entered via Swagger).
+    
     \item 
-    \label{stakeholder:5}
+    \zlabel{stakeholder:5}\zrefused{stakeholder:5}{SR5}
     Allow users to \textbf{change the game image}.
+    
     \item 
-    \label{stakeholder:6}
+    \zlabel{stakeholder:6}\zrefused{stakeholder:6}{SR6}
     Implement \textbf{private games} (currently, others' created games can override yours).
+    
     \item 
-    \label{stakeholder:7}
+    \zlabel{stakeholder:7}\zrefused{stakeholder:7}{SR7}
     Add a \textbf{Moving Targets} game.
+    
     \item 
-    \label{stakeholder:8}
+    \zlabel{stakeholder:8}\zrefused{stakeholder:8}{SR8}
     Enable players to \textbf{view their achievements} (high scores).
+    
     \item 
-    \label{stakeholder:9}
+    \zlabel{stakeholder:9}\zrefused{stakeholder:9}{SR9}
     Add a \textbf{game history} for previously played games.
+    
     \item 
-    \label{stakeholder:10}
+    \zlabel{stakeholder:10}\zrefused{stakeholder:10}{SR10}
     Provide \textbf{more information} about the games.
+    
     \item 
-    \label{stakeholder:11}
+    \zlabel{stakeholder:11}\zrefused{stakeholder:11}{SR11}
     Implement a \textbf{light/dark theme} toggle.
+    
     \item 
-    \label{stakeholder:12}
+    \zlabel{stakeholder:12}\zrefused{stakeholder:12}{SR12}
     Improve \textbf{sound design and VFX} for Reflex Test and Moving Targets.
+    
     \item 
-    \label{stakeholder:13}
+    \zlabel{stakeholder:13}\zrefused{stakeholder:13}{SR13}
     Adjust \textbf{Reflex Test scoring} based on click speed and accuracy.
+    
     \item 
-    \label{stakeholder:14}
+    \zlabel{stakeholder:14}\zrefused{stakeholder:14}{SR14}
     Create \textbf{different Reflex Test variations}:
     \begin{itemize}
         \item 
-        \label{stakeholder:15}
+        \zlabel{stakeholder:15}\zrefused{stakeholder:15}{SR15}
         One where you play until missing a certain number of targets.
+        
         \item 
-        \label{stakeholder:16}
+        \zlabel{stakeholder:16}\zrefused{stakeholder:16}{SR16}
         Another with a \textbf{fixed number of targets}.
     \end{itemize}
+    
     \item 
-    \label{stakeholder:17}
+    \zlabel{stakeholder:17}\zrefused{stakeholder:17}{SR17}
     Enhance the \textbf{leaderboard UI} and expand functionality for different game variations.
+    
     \item 
-    \label{stakeholder:18}
+    \zlabel{stakeholder:18}\zrefused{stakeholder:18}{SR18}
     Allow users to view the \textbf{top 10/top 20 players} for each game separately.
+    
     \item 
-    \label{stakeholder:19}
+    \zlabel{stakeholder:19}\zrefused{stakeholder:19}{SR19}
     Implement a \textbf{rating system} for user-created games—highly rated/popular games should be displayed higher in the list.
 \end{itemize}
+
+
 
 \printbibliography[title = {References and sources}]
 
