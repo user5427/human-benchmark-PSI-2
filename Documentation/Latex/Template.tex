@@ -16,16 +16,9 @@
 \usepackage{tocloft}
 \usepackage{makecell}
 \usepackage{titlesec}
-\usepackage{zref}
-\usepackage{zref-user}
-\usepackage{zref-xr}
- 
-
-\makeatletter
-\zref@newprop{SR}{stak. req.} % Create a custom reference property
-\zref@newlabel{stakeholder} % Create the label group
-\makeatother
-
+% \usepackage{zref}
+% \usepackage{zref-user}
+% \usepackage{zref-xr}
 
 % Define \subsubsubsection
 \titleclass{\subsubsubsection}{straight}[\subsubsection]
@@ -49,6 +42,8 @@
 
 \makeatletter
 \renewcommand{\fnum@algorithm}{\thealgorithm}
+% \zref@newprop{SR}{stak. req.} % Create a custom reference property
+% \zref@newlabel{stakeholder} % Create the label group
 \makeatother
 \renewcommand\thealgorithm{\arabic{algorithm} algorithm}
 
@@ -157,8 +152,8 @@ The work will be divided into four main sections:
     \item Section \ref{sec:bussiness_boundaries} will focus on the bussiness and system boundaries.
     \item Section \ref{sec:bpmn_uml_use_cases} will focus on BPMN diagrams and UML diagrams.
     \item Section \ref{sec:requirements} will focus on user needs and requirements.
-    \item Results and discussion \ref{sec:results} - short summary of the results and discussion.
-    \item Conclusions \ref{sec:conclusion} - conclusions of lab 1.
+    \item Section \ref{sec:results} - short summary of the results and discussion.
+    \item Section \ref{sec:conclusion} - conclusions of lab 1.
 \end{itemize}
 % For any written work, you must refer to the methodology guidelines of the respective study programme\footnote{The latest methodology requirements for all programmes can be found here, in the respective programme: \url{https://mif.vu.lt/lt3/en/studies/bachelor-studies}}. These contain all the guidelines for citations, structure, length, etc.
 
@@ -327,20 +322,16 @@ This section will discuss the stakeholders of the Human Benchmark system and the
     \centering
     \begin{tabular}{|c|c|c|}
         \hline
-        \textbf{ID} & \textbf{Requirement} & \textbf{Description} \\
+        \textbf{IDs} & \textbf{Requirement} & \textbf{Description} \\
         \hline
-        \zref{stakeholder:1} & User registration & Users should be able to register an account. \\
-        \hline
-        SR2 & User login & Users should be able to log in to their account. \\
-        \hline
-        SR3 & Game creation & Users should be able to create a new game. \\
-        \hline
-        SR4 & Leaderboard & Users should be able to view the leaderboard. \\
-        \hline
-        SR5 & Game play & Users should be able to play games. \\
-        \hline
+        \makecell[l]{\hyperlink{SR1}{SR1}, \hyperlink{SR3}{SR3}, \hyperlink{SR11}{SR11},\\ \hyperlink{SR17}{SR17 (leaderboard UI)}} & \makecell[l]{Improve user \\experience (UX)} & \makecell[l]{All buttons should be functional and\\ responsive \hyperlink{SR1}{SR1}. The screen should size correctly\\ on all devices \hyperlink{SR3}{SR3}. The theme should be toggleable\\ between dark and light \hyperlink{SR11}{SR11}. The leaderboard UI\\ should be enhanced \hyperlink{SR17}{SR17}.} \\        \hline
+        \makecell[l]{\hyperlink{SR2}{SR2}, \hyperlink{SR5}{SR5}, \hyperlink{SR14}{SR14},\\ \hyperlink{SR15}{SR15}, \hyperlink{SR16}{SR16}, \hyperlink{SR17}{SR17}} & \makecell[l]{Improve game \\customizability} & \makecell[l]{Different game types should have different\\ parameters \hyperlink{SR2}{SR2}. Users should be able to change\\ the game image (background image, \\currently it is blue) \hyperlink{SR5}{SR5}. Different Reflex Test\\ variations should be created \hyperlink{SR14}{SR14}: \\- Test where the game stops when you miss a \\  cerain number of targets \hyperlink{SR15}{SR15}.\\- Test where there is a fixed number of \\  targets \hyperlink{SR16}{SR16}.} \\        \hline
+        \makecell[l]{\hyperlink{SR8}{SR8}, \hyperlink{SR9}{SR9}, \hyperlink{SR12}{SR12}, \hyperlink{SR18}{SR18},\\ \hyperlink{SR19}{SR19}} & \makecell[l]{Improve game \\engageability} & \makecell[l]{Users should be able to view their achievements\\ (high scores) \hyperlink{SR8}{SR8}. A game history should be\\ implemented \hyperlink{SR9}{SR9}. Sound design and \\VFX should be improved for Reflex \\ Test and Moving Targets \hyperlink{SR12}{SR12}. Users should be able to view\\ the top 10/top 20 players for each game separately\\ \hyperlink{SR18}{SR18}. A rating system for user-created games\\ should be implemented \hyperlink{SR19}{SR19}.} \\        \hline
+        \makecell[l]{\hyperlink{SR4}{SR4}, \hyperlink{SR6}{SR6}} & \makecell[l]{Improve security} & \makecell[l]{Scores should not be submitted before the game\\ ends \hyperlink{SR4}{SR4}. Private games (sessions) should be implemented\\ \hyperlink{SR6}{SR6}.} \\        \hline
+        \makecell[l]{\hyperlink{SR7}{SR7}, \hyperlink{SR13}{SR13}} & \makecell[l]{Make game \\ more dynamic} & \makecell[l]{A Moving Targets game should be added \hyperlink{SR7}{SR7}.\\Reflex Test scoring should be adjusted \\based on click speed and accuracy \hyperlink{SR13}{SR13}.} \\        \hline
+ 
     \end{tabular}
-    \caption{User needs and requirements}
+    \caption{Stakeholders needs}
     \label{tab:requirements}
 \end{table}
 
@@ -522,84 +513,68 @@ This work has provided an overview of the Human Benchmark system and its feature
 \label{sec:stakeholders_needs}
 These are all of the stakeholders needs. These needs are the foundation of our project and as such are the most important part of our project.
 
+
 \begin{itemize}
     \item 
-    \zlabel{stakeholder:1}\zrefused{stakeholder:1}{SR1}
-    \textbf{Fix the STOP button} in the Reflex Test.
+    \hypertarget{SR1}{}\hyperlink{SR1}{\textbf{SR1}}: Fix the STOP button in the Reflex Test.
     
     \item 
-    \zlabel{stakeholder:2}\zrefused{stakeholder:2}{SR2}
-    Adjust \textbf{game creation parameters} based on the game type (currently, all parameters are the same, including unnecessary ones).
+    \hypertarget{SR2}{}\hyperlink{SR2}{\textbf{SR2}}: Adjust \textbf{game creation parameters} based on the game type (currently, all parameters are the same, including unnecessary ones).
     
     \item 
-    \zlabel{stakeholder:3}\zrefused{stakeholder:3}{SR3}
-    Optimize \textbf{screen size handling} in games (Reflex Test is too easy to play on mobile devices).
+    \hypertarget{SR3}{}\hyperlink{SR3}{\textbf{SR3}}: Optimize \textbf{screen size handling} in games (Reflex Test is too easy to play on mobile devices).
     
     \item 
-    \zlabel{stakeholder:4}\zrefused{stakeholder:4}{SR4}
-    Prevent scores from being submitted \textbf{before the game ends} (currently, random data can be entered via Swagger).
+    \hypertarget{SR4}{}\hyperlink{SR4}{\textbf{SR4}}: Prevent scores from being submitted \textbf{before the game ends} (currently, random data can be entered via Swagger).
     
     \item 
-    \zlabel{stakeholder:5}\zrefused{stakeholder:5}{SR5}
-    Allow users to \textbf{change the game image}.
+    \hypertarget{SR5}{}\hyperlink{SR5}{\textbf{SR5}}: Allow users to \textbf{change the game image}.
     
     \item 
-    \zlabel{stakeholder:6}\zrefused{stakeholder:6}{SR6}
-    Implement \textbf{private games} (currently, others' created games can override yours).
+    \hypertarget{SR6}{}\hyperlink{SR6}{\textbf{SR6}}: Implement \textbf{private games} (currently, others' created games can override yours).
     
     \item 
-    \zlabel{stakeholder:7}\zrefused{stakeholder:7}{SR7}
-    Add a \textbf{Moving Targets} game.
+    \hypertarget{SR7}{}\hyperlink{SR7}{\textbf{SR7}}: Add a \textbf{Moving Targets} game.
     
     \item 
-    \zlabel{stakeholder:8}\zrefused{stakeholder:8}{SR8}
-    Enable players to \textbf{view their achievements} (high scores).
+    \hypertarget{SR8}{}\hyperlink{SR8}{\textbf{SR8}}: Enable players to \textbf{view their achievements} (high scores).
     
     \item 
-    \zlabel{stakeholder:9}\zrefused{stakeholder:9}{SR9}
-    Add a \textbf{game history} for previously played games.
+    \hypertarget{SR9}{}\hyperlink{SR9}{\textbf{SR9}}: Add a \textbf{game history} for previously played games.
     
     \item 
-    \zlabel{stakeholder:10}\zrefused{stakeholder:10}{SR10}
-    Provide \textbf{more information} about the games.
+    \hypertarget{SR10}{}\hyperlink{SR10}{\textbf{SR10}}: Provide \textbf{more information} about the games.
     
     \item 
-    \zlabel{stakeholder:11}\zrefused{stakeholder:11}{SR11}
-    Implement a \textbf{light/dark theme} toggle.
+    \hypertarget{SR11}{}\hyperlink{SR11}{\textbf{SR11}}: Implement a \textbf{light/dark theme} toggle.
     
     \item 
-    \zlabel{stakeholder:12}\zrefused{stakeholder:12}{SR12}
-    Improve \textbf{sound design and VFX} for Reflex Test and Moving Targets.
+    \hypertarget{SR12}{}\hyperlink{SR12}{\textbf{SR12}}: Improve \textbf{sound design and VFX} for Reflex Test and Moving Targets.
     
     \item 
-    \zlabel{stakeholder:13}\zrefused{stakeholder:13}{SR13}
-    Adjust \textbf{Reflex Test scoring} based on click speed and accuracy.
+    \hypertarget{SR13}{}\hyperlink{SR13}{\textbf{SR13}}: Adjust \textbf{Reflex Test scoring} based on click speed and accuracy.
     
     \item 
-    \zlabel{stakeholder:14}\zrefused{stakeholder:14}{SR14}
-    Create \textbf{different Reflex Test variations}:
+    \hypertarget{SR14}{}\hyperlink{SR14}{\textbf{SR14}}: Create \textbf{different Reflex Test variations}:
     \begin{itemize}
         \item 
-        \zlabel{stakeholder:15}\zrefused{stakeholder:15}{SR15}
-        One where you play until missing a certain number of targets.
+        \hypertarget{SR15}{}\hyperlink{SR15}{\textbf{SR15}}: One where you play until missing a certain number of targets.
         
         \item 
-        \zlabel{stakeholder:16}\zrefused{stakeholder:16}{SR16}
-        Another with a \textbf{fixed number of targets}.
+        \hypertarget{SR16}{}\hyperlink{SR16}{\textbf{SR16}}: Another with a \textbf{fixed number of targets}.
     \end{itemize}
     
     \item 
-    \zlabel{stakeholder:17}\zrefused{stakeholder:17}{SR17}
-    Enhance the \textbf{leaderboard UI} and expand functionality for different game variations.
+    \hypertarget{SR17}{}\hyperlink{SR17}{\textbf{SR17}}: Enhance the \textbf{leaderboard UI} and expand functionality for different game variations.
     
     \item 
-    \zlabel{stakeholder:18}\zrefused{stakeholder:18}{SR18}
-    Allow users to view the \textbf{top 10/top 20 players} for each game separately.
+    \hypertarget{SR18}{}\hyperlink{SR18}{\textbf{SR18}}: Allow users to view the \textbf{top 10/top 20 players} for each game separately.
     
     \item 
-    \zlabel{stakeholder:19}\zrefused{stakeholder:19}{SR19}
-    Implement a \textbf{rating system} for user-created games—highly rated/popular games should be displayed higher in the list.
+    \hypertarget{SR19}{}\hyperlink{SR19}{\textbf{SR19}}: Implement a \textbf{rating system} for user-created games—highly rated/popular games should be displayed higher in the list.
 \end{itemize}
+
+
 
 
 
