@@ -803,3 +803,4 @@ TSWLatexianTemp*
 Documentation/Latex/Template.synctex.gz
 
 *.pdf
+*_bibertool.bib
