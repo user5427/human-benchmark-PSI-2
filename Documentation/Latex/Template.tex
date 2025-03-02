@@ -96,7 +96,7 @@ The team is thankful to the lecturers of Vilnius University for their guidance a
 \sectionnonum{Summary}
 This work documents the Human Benchmark system business logic and system overview. Various analysis are conducted to understand the current system, bussiness and its improvment capibilities. The work is divided into four main sections (see introduction \ref{sec:introduction} for more details).
 
-\textbf{Keywords:} Human Benchmark, SWOT, MOST, SMART, BPMN, UML.
+\textbf{Keywords:} Human Benchmark, Cognitive test, Reaction time, Reflex training.
 
 % \sectionnonum{Santrauka}
 
@@ -140,20 +140,18 @@ This work documents the Human Benchmark system business logic and system overvie
 
 \sectionnonum{Introduction}
 \label{sec:introduction}
-This work documents the Human Benchmark system that was developed in third semester. The system is a collection of mini-games that test various cognitive abilities such as reaction time, 
-memory, and mathematical skills. The system is built using modern web technologies such as HTML, CSS, and JavaScript and ASPNet. The system is open source and the code is available on GitHub 
-for anyone to use and contribute to.
+This work documents an app developed in the third semester. It features mini-games designed to measure and improve reaction time. The app is built with modern web technologies, including HTML, CSS, JavaScript, and ASP.NET.
 
 
 This work will provide an overview of the system and its features. It will also discuss the demerits of the system and suggest possible improvements that can be made to the system.
-The work will be divided into four main sections: 
+The content is structured into the following sections: 
 \begin{itemize}
-    \item Section \ref{sec:system_overview} will provide an overview of the system and its bussiness logic.
-    \item Section \ref{sec:bussiness_boundaries} will focus on the bussiness and system boundaries.
-    \item Section \ref{sec:bpmn_uml_use_cases} will focus on BPMN diagrams and UML diagrams.
-    \item Section \ref{sec:requirements} will focus on user needs and requirements.
-    \item Section \ref{sec:results} - short summary of the results and discussion.
-    \item Section \ref{sec:conclusion} - conclusions of lab 1.
+    \item Section \ref{sec:system_overview} - Overview of the system and its bussiness logic.
+    \item Section \ref{sec:bussiness_boundaries} - Bussiness and system boundaries.
+    \item Section \ref{sec:bpmn_uml_use_cases} - BPMN diagrams and UML diagrams.
+    \item Section \ref{sec:requirements} - User needs and requirements.
+    \item Section \ref{sec:results} - Short summary of the results and discussion.
+    \item Section \ref{sec:conclusion} - Conclusions.
 \end{itemize}
 % For any written work, you must refer to the methodology guidelines of the respective study programme\footnote{The latest methodology requirements for all programmes can be found here, in the respective programme: \url{https://mif.vu.lt/lt3/en/studies/bachelor-studies}}. These contain all the guidelines for citations, structure, length, etc.
 
@@ -164,118 +162,73 @@ The work will be divided into four main sections:
 \section{System and bussiness overview}
 \label{sec:system_overview}
 
-This section will discuss about the Human Benchmark system and its bussiness logic. Strategies such as SWOT, MOST, SMART, etc. will be used to analyze the system and its features.
-
+This section provides an overview of the Human Benchmark system and its business logic. Various analysis methods, including SWOT, MOST, and SMART, will be used to analyze the system and its features.
 
 \subsection{VISION analysis}
-People manage to faster process information which can greatly benefit them in daily life.
+People can process information at least 10\% faster, which can greatly benefit them in daily life.
 
 \subsection{MISSION analysis}
 Provide an engaging and competitive app for users to measure, track, and improve their reaction speed. 
 
 \subsection{SWOT analysis}
-
-SWOT analysis is a strategic planning technique used to help a person or organization identify strengths, weaknesses, opportunities, and threats related to business competition or project planning. It is intended to specify the objectives of the business venture or project and identify the internal and external factors that are favorable and unfavorable to achieving those objectives.
+SWOT analysis is a tool used to identify strengths, weaknesses, opportunities, and threats in business planning. This section provides an analysis of these aspects in relation to our system.
 
 \subsubsection{Strengths}
 \begin{itemize}
-    \item Enhance Cognitive function: studies indicate that faster reaction times (RTs) are associated with better cognitive functions, including memory, verbal fluency, processing speed, and intelligence.
-    \item Increased Engagement through Gamification: Integrating game elements like leaderboards can enhance motivation and engagement in learning activities.
-    \item Positive User Reception to Minimalist Design: Research indicates that all generations have a positive attitude toward minimalism in design.
+    \item \textbf{Enhance cognitive function}: Faster reaction times (RTs) are linked to improved cognitive functions like memory, verbal fluency, and processing speed. Studies, including those on medical students, show that quicker RTs are associated with higher academic performance \cite{CognitiveFunction}.
+    \item \textbf{Increased engagement through gamification}: Integrating game elements like leaderboards can boost motivation and engagement in learning activities. Gamification not only makes learning enjoyable but also inherently motivates students, as competition is a primary driver for game participation \cite{GameplayEngagement}.
+    \item \textbf{Minimalistic design}: Research shows that minimalist design is appreciated across all generations, creating a satisfying user experience\cite{MinimalDesign}.
+    \item \textbf{Increasing interest in improving reaction Time}: According to Google Trends data, search queries such as "improve reaction time" show an upward trend from 2015 to 2025 worldwide, indicating growing interest in reaction time training. 
 \end{itemize}
 \subsubsection{Weaknesses}
 \begin{itemize}
-    \item Risk of Overemphasis on Competition: While leaderboards can motivate some users, they may lead to feelings of sadness or disappointment among those who consistently rank lower, potentially decreasing engagement.
+    \item \textbf{Technical dependence}: User experience depends on device performance, devices can affect reaction time accuracy, potentially adding 10-50ms to the measurements\cite{humanbenchmark}.
+    \item \textbf{Competitive market}: The reaction training market is already competitive, with approximately 211 apps available across Google Play, the Apple App Store, and Steam.
 \end{itemize}
 \subsubsection{Opportunities}
 \begin{itemize}
-    \item Personalized Learning Experiences: Incorporating adaptive learning technologies can improve training effectiveness and user satisfaction.
+    \item \textbf{Integration of personalized learning tools}: Research indicates that personalized learning improves both learning performance and motivation, making it a valuable approach for increasing user satisfaction\cite{PersonalizedLearning}.
+    \item \textbf{Aging population}: As global demographics age, there is likely to be an increased interest in cognitive maintenance. The population aged 65 and older is projected to double by 2050 \cite{PopulationDemographics}.
 \end{itemize}
 \subsubsection{Threats}
 \begin{itemize}
-    \item Competition: The presence of similar apps or platforms offering reaction training poses a competitive threat.
+    \item \textbf{Repetitiveness}:  Users may lose long-term interest if the app lacks regular content updates\cite{GameplayEngagement}.
+    \item \textbf{Risk of overemphasis on competition}: While leaderboards can motivate some users, it may also contribute to feelings of frustration or discouragement among lower-ranked individuals, potentially reducing overall engagement.\cite{GameplayEngagement}.
+    \item \textbf{Reliance on Ad Revenue}: By Q2 2023, there were 912 million active ad-blocking users worldwide, an 11\% increase from Q4 2021\cite{BlockAds}. Relying heavily on ad-based revenue can lead to inconsistent earnings, as the growing use of ad blockers reduces ad visibility, directly impacting potential revenue streams.
+    
 \end{itemize}
 
-% https://bmcmededuc.biomedcentral.com/articles/10.1186/s12909-020-02416-7
-Faster VRTs and ARTs are correlated with better academic performance among undergraduate students.
-The results from our study indicate that faster RTs were one of the predictors of better academic performance among the recruited participants. Faster RTs are indicative of better cognitive functions, including memory and verbal fluency, processing speed, and intelligence 
-Prabhavathi et al. studied the impact of RT on academic performance among undergraduate medical students. They found that students with faster RTs had higher academic scores, and they attributed it to better attention, concentration, cortical arousal and processing speed. \cite{CognitiveFunction}
-
-
-% https://papers.academic-conferences.org/index.php/ecgbl/article/view/1788/1716
-‘For a simple focused learning activity, the addition of a game, that offers additional intrinsic or extrinsic motivation, will result in greater engagement as measured by recall tests' in the study. \cite{Gamification}
-
-
-% https://link.springer.com/article/10.1007/s10639-024-12726-8
- “repetitive gaming elements” and the “poor documentation and tutorial” are the most significant de-engagement factors for the selected educational video games. \cite{LearningMotivation}
-
-
-% https://hillkm.com/EDUC_715/Unit_9/abdul_jabbar_felicia_2015.pdf
-Competition is one of the six established uses and gratifications for playing computer games (Lucas \& Sherry, 2004). This suggests that learning could become engaging and rewarding if perceived as being competitive, as competing may have been the reason for playing in the first place.
-Studies have demonstrated that by offering challenges, gameplay can be both enjoyable and motivating, as challenges are almost inherently motivational.
-The findings also imply that challenges may sometimes cause more frustration than enjoyment for students (Bopp, 2006; Simkins et al., 2012). The results from this review indicate that challenges could threaten engagement and learning if they do not match students’ abilities. \cite{GameplayEngagement}
-
-
-% https://link.springer.com/article/10.1007/s10639-024-12845-2
-Gamification elements to be adopted in online learning environments could be utilized as an innovative, fun, and stimulating way to show learners their progress. As one example, leaderboards could be used as a source of motivation for learners to embrace gamified learning environments because learners are 
-able to see their activities being processed publicly and instantly and compare their progress with their classmates (Domínguez et al., 2013). Therefore, using leaderboards as external incentives is considered to improve learners’ academic performance (Mekler et al., 2017). Considering this argument, the 
-positive effect of leaderboards on learners’ achievement was also in line with the findings of some other studies (Bai et al., 2021; Ibáñez et al., 2014; Landers et al., 2017; Landers et al., 2019; Mekler et al., 2017) claiming that leaderboards could directly or indirectly improve learners’ performance. 
-On the other hand, the studies of Hanus and Fox (2015) as well as de-Marcos et al. (2014) contradicted with this finding by stating that learners’ scores could be lower even after participating in a gamified learning environment. 
-
-
-Analysis Review Behind the Usage in Gamification pdf
-On the negative aspects some users reacted with sadness
-and disappointment with the leaderboard achievement, due
-to low esteem created by the continuous defeat in the
-leaderboard system by their peers (Fortunate \& Cruz, 2018).
-This is more relevant in the world of online gam-ing, where
-when cheaters or hackers constantly mod their games to their
-advantage, resulting in the fall of usage by other normal
-players. \cite{GamificationInEducation}
-
-
-% https://hrcak.srce.hr/file/443871
-Overall, all generations have positive attitude toward minimalism. \cite{GamificationInMarketing}
-
-% https://www.theneighborhoodacademy.org/editoruploads/files/Tyrone%20Final%20Final%202024.pdf
-Similar to Kearney, we found that video games can stimulate your mind and benefit people’s cognitive skills. 
-In a prior study, Klicka measured the effect of video games on college football players. He found that 
-video gamers had faster reaction times and therefore may improve hand-eye coordination for a person. This 
-relates to our study because, in our
-experiment, the gaming group had significantly faster scores than the non-gaming group which supports my hypothesis. This 
-suggests games might play a role in reaction time. \cite{ReactionTime}
-
 \subsection{MOST analysis}
-MOST analysis is a strategic planning technique used to help a person or organization identify mission, objectives, strategies, and tactics related to business competition or project planning. It is intended to specify the objectives of the business venture or project and identify the internal and external factors that are favorable and unfavorable to achieving those objectives.
+MOST analysis is a strategic tool used to evaluate the Mission, Objectives, Strategy, and Tactics of a business or project. This section provides an analysis of these aspects in relation to our system.
 
 \subsubsection{Mission}
 \begin{itemize}
-    \item Users improve their reaction speed and reflexes through games.
+    \item To provide a reaction time training app that enhances cognitive performance.
 \end{itemize}
 
 \subsubsection{Objectives}
 \begin{itemize}
-    \item Provide a user-friendly web app.
-    \item Make training fun and non-repetitive.
-    \item Use social, competitive aspect to motivate players.
-    \item Make it accessible for users of different skill levels.
-    \item Enable users to track and visualize their progress over time.
+    \item Achieve a measurable improvement of at least 10\% in reaction time for regular users within the first 6 months.
+    \item Achieve at least 10000 registered accounts within the first 6 months.
+    \item Maintain a 30-day retention rate of atleast 30\% with users completing at least 3 training sessions weekly.
 \end{itemize}
 
 \subsubsection{Strategies}
 \begin{itemize}
-    \item Simple and minimal UI to keep users focused on gameplay.
-    \item Multiple game modes with adjustable difficulty.
-    \item Leaderboards to encourage competition and comparison with others.
-    \item Point system \& each attempt tracking to display progress over time.
+    \item Integrate evidence-based findings and best practices into game modes to optimize cognitive training.
+    \item Design user friendly app for users of different ages and skill levels.
+    \item Utilize gamification techniques to ensure the app remains engaging and prevents repetition.
+    \item Enable easy tracking of user progress with simple visual feedback.
+    \item Promote app through online advertisements.
 \end{itemize}
 
 \subsubsection{Tactics}
 \begin{itemize} 
-    \item Minimal color palette.
-    \item Responsive, lightweight UI to minimize input lag.
-    \item Customizable game settings for non-competitive modes.
-    \item Personalized statistics dashboard displaying average, best scores, progress.
+    \item Use a minimal color palette.
+    \item Offer multiple game modes with adjustable difficulty.
+    \item Implement leaderboards to promote competition and user comparison.
+    \item Provide customizable game settings.
+    \item Create a personalized statistics dashboard that displays average scores, best performance, and progress over time.
 \end{itemize}
 
 \subsection{Porter's Methods, Base needs and additional value}
@@ -284,20 +237,22 @@ MOST analysis is a strategic planning technique used to help a person or organiz
 \begin{itemize}
  \item New competators
 
-Since there are various ways to check one's reaction time and cognitive abilities it is relatively easy for new competators to joining the market. Because of this our business needs to constantly develop and add new value to our product to make sure that we continue to be a viable rival in the market.
+
+Since there are various ways to check one's reaction time and cognitive abilities it is relatively easy for new competators to join the market. Because of this our business needs to constantly develop and add new value to our product to make sure that we continue to be a viable rival in the market. As is mentioned in the point regarding market rivalry, there are not that many rivals as such any new-comer won't have mny rivals and their product will be, relatively, readily known among our users.
 
  \item Barganaing Power of Suppliers
 
-Since our product offers all of it's services up-front without the need for additional services supliers have a low level of influence on our product. As such only the host of our product and the provider that offers storage of data needed for the opperation of our product have power to influence our product.
+
+Since our product offers all of it's services up-front, without the need for additional services for functionality, supliers have a low level of influence on our product. As such only the host of our product, the provider that offers storage of data needed for the opperation of our product and other suppliers not needed for functionality, like marketing, have power to influence our product.
  \item Substitutes
 
- Due to various other applications already having themselves established in the market substitutes have a strong influence to our service since there is a large risk of users switching to another product if the alternatives have more features or provide a product of  higher quality. As such substitutes provide a strong risk of our costumers switching to a competator.
+  Due to various other applications already having themselves established in the market, substitutes have a strong influence to our service since there is a large risk of users switching to another product if the alternatives have more features or provide a product of  higher quality. One example of application that could allow users to improve their reflexes via methods different to our own are video games. As such substitutes provide a strong risk of our costumers switching to a substitute, since they are far more prevalant and used than other services, simmilar to ours.
  \item Barganaing of Buyers
 
  Due to the alternatives available to users as mentioned above users have a strong power of barganaing as failing to follow users demands could lead them to use a different product.
  \item Market Rivalry
 
- Due to to the nature of our product it could be said that the service we provide is rather niche. As such the impact of other players in the market is negligable in comprison to the other driving forces.
+ Due to to the nature of our product it could be said that the service we provide is rather niche. As such the impact of other players in the market is negligable in comprison to the other driving forces. According to preliminary figures, by searching `Reaction Training` for apps (In Google play store for Android, Apple store for IOS and Steam for PC), the total result is approximately equal to 211. The acurate number can not be deduced since it's possible that duplicates have emerged among different platforms and that some apps, that have the same purpose, were excluded from this search.  But never the less, the figure obtained highlights that there are not many options to choose from as such the impact of market rivalry is negligble.
 \end{itemize}
 
 \subsubsection{Base needs}
