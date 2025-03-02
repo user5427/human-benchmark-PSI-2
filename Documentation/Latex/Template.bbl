@@ -1,5 +1,5 @@
 % $ biblatex auxiliary file $
-% $ biblatex bbl format version 3.3 $
+% $ biblatex bbl format version 3.2 $
 % Do not modify the above lines!
 %
 % This is an auxiliary file used by the 'biblatex' package.
@@ -18,8 +18,8 @@
 
 
 \refsection{0}
-  \datalist[entry]{anyt/global//global/global/global}
-    \entry{Gamification}{article}{}{}
+  \datalist[entry]{anyt/global//global/global}
+    \entry{Gamification}{article}{}
       \name{author}{2}{}{%
         {{hash=19d9eff8e3c045c437127231eae73d03}{%
            family={Dongjie\bibnamedelima Xu},
@@ -34,19 +34,17 @@
       }
       \strng{namehash}{27239f9da9f79dcb6f0fbffc63d8e7d6}
       \strng{fullhash}{27239f9da9f79dcb6f0fbffc63d8e7d6}
-      \strng{fullhashraw}{27239f9da9f79dcb6f0fbffc63d8e7d6}
       \strng{bibnamehash}{27239f9da9f79dcb6f0fbffc63d8e7d6}
       \strng{authorbibnamehash}{27239f9da9f79dcb6f0fbffc63d8e7d6}
       \strng{authornamehash}{27239f9da9f79dcb6f0fbffc63d8e7d6}
       \strng{authorfullhash}{27239f9da9f79dcb6f0fbffc63d8e7d6}
-      \strng{authorfullhashraw}{27239f9da9f79dcb6f0fbffc63d8e7d6}
       \field{sortinit}{D}
       \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{Exploring the Effects of Progression Mechanics in Competitive and Collaborative Gamified Learning}
     \endentry
-    \entry{LearningMotivation}{article}{}{}
+    \entry{LearningMotivation}{article}{}
       \name{author}{2}{}{%
         {{hash=5b2c85e5dda09d531361e79e6760e265}{%
            family={Yitong\bibnamedelima Chen},
@@ -61,12 +59,10 @@
       }
       \strng{namehash}{ed71c3683ecaf437ae960379262d59b9}
       \strng{fullhash}{ed71c3683ecaf437ae960379262d59b9}
-      \strng{fullhashraw}{ed71c3683ecaf437ae960379262d59b9}
       \strng{bibnamehash}{ed71c3683ecaf437ae960379262d59b9}
       \strng{authorbibnamehash}{ed71c3683ecaf437ae960379262d59b9}
       \strng{authornamehash}{ed71c3683ecaf437ae960379262d59b9}
       \strng{authorfullhash}{ed71c3683ecaf437ae960379262d59b9}
-      \strng{authorfullhashraw}{ed71c3683ecaf437ae960379262d59b9}
       \field{sortinit}{Y}
       \field{sortinithash}{8d291c51ee89b6cd86bf5379f0b151d8}
       \field{labelnamesource}{author}
@@ -74,7 +70,7 @@
       \field{journaltitle}{Springer Nature Link}
       \field{title}{Analytics of motivational factors of educational video games: LDA topic modeling and the 6 C’s learning motivation model}
     \endentry
-    \entry{GameplayEngagement}{article}{}{}
+    \entry{GameplayEngagement}{article}{}
       \name{author}{2}{}{%
         {{hash=eb96cff02c7792cf2913eea24aef15bd}{%
            family={Jabbar},
@@ -89,19 +85,17 @@
       }
       \strng{namehash}{3d1498040ad25f28e597b3c8bac273ca}
       \strng{fullhash}{3d1498040ad25f28e597b3c8bac273ca}
-      \strng{fullhashraw}{3d1498040ad25f28e597b3c8bac273ca}
       \strng{bibnamehash}{3d1498040ad25f28e597b3c8bac273ca}
       \strng{authorbibnamehash}{3d1498040ad25f28e597b3c8bac273ca}
       \strng{authornamehash}{3d1498040ad25f28e597b3c8bac273ca}
       \strng{authorfullhash}{3d1498040ad25f28e597b3c8bac273ca}
-      \strng{authorfullhashraw}{3d1498040ad25f28e597b3c8bac273ca}
       \field{sortinit}{J}
       \field{sortinithash}{b2f54a9081ace9966a7cb9413811edb4}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{Gameplay Engagement and Learning in GameBased Learning: A Systematic Review}
     \endentry
-    \entry{GamificationInMarketing}{article}{}{}
+    \entry{GamificationInMarketing}{article}{}
       \name{author}{1}{}{%
         {{hash=728c8fe81d7ba1d969332392d0043283}{%
            family={MARIO\bibnamedelima FRACULJ},
@@ -113,19 +107,17 @@
       }
       \strng{namehash}{728c8fe81d7ba1d969332392d0043283}
       \strng{fullhash}{728c8fe81d7ba1d969332392d0043283}
-      \strng{fullhashraw}{728c8fe81d7ba1d969332392d0043283}
       \strng{bibnamehash}{728c8fe81d7ba1d969332392d0043283}
       \strng{authorbibnamehash}{728c8fe81d7ba1d969332392d0043283}
       \strng{authornamehash}{728c8fe81d7ba1d969332392d0043283}
       \strng{authorfullhash}{728c8fe81d7ba1d969332392d0043283}
-      \strng{authorfullhashraw}{728c8fe81d7ba1d969332392d0043283}
       \field{sortinit}{M}
       \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{RESEARCH ON ATTITUDES TOWARD MINIMALISTIC DESIGN IN MARKETING COMMUNICATIONS}
     \endentry
-    \entry{ReactionTime}{article}{}{}
+    \entry{ReactionTime}{article}{}
       \name{author}{1}{}{%
         {{hash=e2b725bd752510be58ddb6a386351e91}{%
            family={Scott},
@@ -135,12 +127,10 @@
       }
       \strng{namehash}{e2b725bd752510be58ddb6a386351e91}
       \strng{fullhash}{e2b725bd752510be58ddb6a386351e91}
-      \strng{fullhashraw}{e2b725bd752510be58ddb6a386351e91}
       \strng{bibnamehash}{e2b725bd752510be58ddb6a386351e91}
       \strng{authorbibnamehash}{e2b725bd752510be58ddb6a386351e91}
       \strng{authornamehash}{e2b725bd752510be58ddb6a386351e91}
       \strng{authorfullhash}{e2b725bd752510be58ddb6a386351e91}
-      \strng{authorfullhashraw}{e2b725bd752510be58ddb6a386351e91}
       \field{sortinit}{S}
       \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
       \field{labelnamesource}{author}
