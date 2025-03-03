@@ -317,10 +317,10 @@ This section will discuss the stakeholders of the Human Benchmark system and the
     \begin{itemize}
         \item \textbf{Consistency:} The application counts uesers active days (at least one login and one game played). A \textbf{consistency coefficient} is calculated (resets every month):
         \begin{equation*}
-            \text{Consistency coefficient} = \frac{\text{Days played this month}}{\text{Gone days this month}}
+            \text{Consistency coefficient} = \frac{\text{Active days this month}}{\text{Gone days this month}}
         \end{equation*}
-        \item \textbf{Time Spent:} Total playtime recorded, inspired by Steam profiles (e.g., last two weeks of activity).
-        \item \textbf{Popularity Metrics:} Inspired by Steam Charts: active users now, peak users today (24-hour peak), all-time users peak.
+        \item \textbf{Time Spent:} Total playtime recorded, inspired by Steam profiles (e.g., last two weeks of activity). At the start of a game a timer will start and at the end - will stop. Then it will add up on the time spent playing games today and also this week.
+        \item \textbf{Popularity Metrics:} Application tracks the number of users that are logged in and playing games. Inspired by Steam Charts: active users now, peak users today (24-hour peak), all-time users peak.
     \end{itemize}
     \item \textbf{Marketing \& Revenue Generation:}
     \begin{itemize}
@@ -344,9 +344,9 @@ This section will discuss the stakeholders of the Human Benchmark system and the
     \end{itemize}
     \item \textbf{Stage 3: Data Tracking \& Analytics}
     \begin{itemize}
-        \item \textbf{User Progress Tracking:} The application logs reaction scores and improvement trends.
+        \item \textbf{User Progress Tracking:} The application logs reaction scores (The longer the user lasts and the higher level he reaches the more points he gets) and improvement trends (User will be able to see if he has improved - compare his scores in leaderboards and past results).
         \item \textbf{Leaderboard System:} Users are ranked based on performance over time.
-        \item \textbf{Ad Analytics:} Ad views and clicks are analyzed to optimize revenue.
+        \item \textbf{Ad Analytics:} Ad views and clicks are analyzed to optimize revenue (Marketing company job).
     \end{itemize}
 \end{enumerate}
 
@@ -355,7 +355,7 @@ This section will discuss the stakeholders of the Human Benchmark system and the
     \item \textbf{Short-Term:}
     \begin{itemize}
         \item \textbf{User Engagement \& Satisfaction:} Measured via \textbf{Consistency Coefficient} - closer to 1 indicates higher cosistency.
-        \item \textbf{Growing User Base:} Increasing active user counts and time spent on games.
+        \item \textbf{Growing User Base:} Increasing active user counts and time spent on games (Better and growing popularity metrics.)
     \end{itemize}
     \item \textbf{Long-Term:}
     \begin{itemize}
