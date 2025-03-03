@@ -280,11 +280,11 @@ This section will discuss the stakeholders of the Human Benchmark system and the
         \hline
         \textbf{IDs} & \textbf{Requirement} & \textbf{Description} \\
         \hline
-        \makecell[l]{\hyperlink{SR1}{SR1}, \hyperlink{SR3}{SR3}, \hyperlink{SR11}{SR11},\\ \hyperlink{SR17}{SR17}} & \makecell[l]{Improve user \\experience } & \makecell[l]{All buttons should be functional and\\ responsive( \hyperlink{SR1}{SR1}). The screen should size correctly\\ on all devices (\hyperlink{SR3}{SR3}). The theme should be toggleable\\ between dark and light (\hyperlink{SR11}{SR11}). The leaderboard UI\\ should be enhanced (\hyperlink{SR17}{SR17}).} \\        \hline
-        \makecell[l]{\hyperlink{SR2}{SR2}, \hyperlink{SR5}{SR5}, \hyperlink{SR14}{SR14},\\ \hyperlink{SR15}{SR15}, \hyperlink{SR16}{SR16}, \hyperlink{SR17}{SR17}} & \makecell[l]{Improve game \\customizability} & \makecell[l]{Different game types should have different\\ parameters (\hyperlink{SR2}{SR2}). Users should be able to change\\ the game image (background image, \\currently it is blue) (\hyperlink{SR5}{SR5}). Different Reflex Test\\ variations should be created (\hyperlink{SR14}{SR14}): \\- Test where the game stops when you miss a \\  certain number of targets (\hyperlink{SR15}{SR15}).\\- Test where there is a fixed number of \\  targets (\hyperlink{SR16}{SR16}).} \\        \hline
-        \makecell[l]{\hyperlink{SR8}{SR8}, \hyperlink{SR9}{SR9}, \hyperlink{SR12}{SR12}, \hyperlink{SR18}{SR18},\\ \hyperlink{SR19}{SR19}} & \makecell[l]{Improve game \\engageability} & \makecell[l]{Users should be able to view their achievements\\ (high scores) (\hyperlink{SR8}{SR8}). A game history should be\\ implemented (\hyperlink{SR9}{SR9}). Sound design and \\VFX should be improved for Reflex \\ Test and Moving Targets (\hyperlink{SR12}{SR12}). Users should be able to view\\ the top 10/top 20 players for each game separately\\ (\hyperlink{SR18}{SR18}). A rating system for user-created games\\ should be implemented (\hyperlink{SR19}{SR19}).} \\        \hline
-        \makecell[l]{\hyperlink{SR4}{SR4}, \hyperlink{SR6}{SR6}} & \makecell[l]{Improve security} & \makecell[l]{Scores should not be submitted before the game\\ ends (\hyperlink{SR4}{SR4}). Private games (sessions) should be implemented\\ (\hyperlink{SR6}{SR6}).} \\        \hline
-        \makecell[l]{\hyperlink{SR7}{SR7}, \hyperlink{SR13}{SR13}} & \makecell[l]{Make game \\ more dynamic} & \makecell[l]{A Moving Targets game should be added (\hyperlink{SR7}{SR7}).\\Reflex Test scoring should be adjusted \\based on click speed and accuracy (\hyperlink{SR13}{SR13}).} \\        \hline
+        \makecell[l]{\hyperlink{SR1}{SR1}, \hyperlink{SR3}{SR3}, \hyperlink{SR11}{SR11},\\ \hyperlink{SR17}{SR17}} & \textbf{\makecell[l]{Improve user \\experience }} & \makecell[l]{All buttons should be functional and\\ responsive( \hyperlink{SR1}{SR1}). The screen should size correctly\\ on all devices (\hyperlink{SR3}{SR3}). The theme should be toggleable\\ between dark and light (\hyperlink{SR11}{SR11}). The leaderboard UI\\ should be enhanced (\hyperlink{SR17}{SR17}).} \\        \hline
+        \makecell[l]{\hyperlink{SR2}{SR2}, \hyperlink{SR5}{SR5}, \hyperlink{SR14}{SR14},\\ \hyperlink{SR15}{SR15}, \hyperlink{SR16}{SR16}, \hyperlink{SR17}{SR17}} & \textbf{\makecell[l]{Improve game \\customizability}} & \makecell[l]{Different game types should have different\\ parameters (\hyperlink{SR2}{SR2}). Users should be able to change\\ the game image (background image, \\currently it is blue) (\hyperlink{SR5}{SR5}). Different Reflex Test\\ variations should be created (\hyperlink{SR14}{SR14}): \\- Test where the game stops when you miss a \\  certain number of targets (\hyperlink{SR15}{SR15}).\\- Test where there is a fixed number of \\  targets (\hyperlink{SR16}{SR16}).} \\        \hline
+        \makecell[l]{\hyperlink{SR8}{SR8}, \hyperlink{SR9}{SR9}, \hyperlink{SR12}{SR12}, \hyperlink{SR18}{SR18},\\ \hyperlink{SR19}{SR19}} & \textbf{\makecell[l]{Improve game \\engageability}} & \makecell[l]{Users should be able to view their achievements\\ (high scores) (\hyperlink{SR8}{SR8}). A game history should be\\ implemented (\hyperlink{SR9}{SR9}). Sound design and \\VFX should be improved for Reflex \\ Test and Moving Targets (\hyperlink{SR12}{SR12}). Users should be able to view\\ the top 10/top 20 players for each game separately\\ (\hyperlink{SR18}{SR18}). A rating system for user-created games\\ should be implemented (\hyperlink{SR19}{SR19}).} \\        \hline
+        \makecell[l]{\hyperlink{SR4}{SR4}, \hyperlink{SR6}{SR6}} & \textbf{\makecell[l]{Improve security}} & \makecell[l]{Scores should not be submitted before the game\\ ends (\hyperlink{SR4}{SR4}). Private games (sessions) should be implemented\\ (\hyperlink{SR6}{SR6}).} \\        \hline
+        \makecell[l]{\hyperlink{SR7}{SR7}, \hyperlink{SR13}{SR13}} & \textbf{\makecell[l]{Make game \\ more dynamic}} & \makecell[l]{A Moving Targets game should be added (\hyperlink{SR7}{SR7}).\\Reflex Test scoring should be adjusted \\based on click speed and accuracy (\hyperlink{SR13}{SR13}).} \\        \hline
  
     \end{tabular}
     \caption{Stakeholders needs}
@@ -315,7 +315,7 @@ This section will discuss the stakeholders of the Human Benchmark system and the
     \end{itemize}
     \item \textbf{User Data Collection}
     \begin{itemize}
-        \item \textbf{Consistency:} The application counts uesers active days (at least one login and one game played). A \textbf{consistency coefficient} is calculated (resets every month):
+        \item \textbf{Consistency:} The application counts uesers \textbf{active days} - at least one login and one game played. A \textbf{consistency coefficient} is calculated which resets every month:
         \begin{equation*}
             \text{Consistency coefficient} = \frac{\text{Active days this month}}{\text{Gone days this month}}
         \end{equation*}
@@ -344,8 +344,8 @@ This section will discuss the stakeholders of the Human Benchmark system and the
     \end{itemize}
     \item \textbf{Stage 3: Data Tracking \& Analytics}
     \begin{itemize}
-        \item \textbf{User Progress Tracking:} The application logs reaction scores (The longer the user lasts and the higher level he reaches the more points he gets) and improvement trends (User will be able to see if he has improved - compare his scores in leaderboards and past results).
-        \item \textbf{Leaderboard System:} Users are ranked based on performance over time.
+        \item \textbf{User Progress Tracking:} The application logs \textbf{reaction scores} - the longer the user survives in a game and the higher level he reaches - the heigher score he gets. The application will also log users improvement trends. User will be able to see if he has improved - compare his scores in leaderboards and past results.
+        \item \textbf{Leaderboard System:} Users are ranked based on performance over time and todays highest results. Leaderboard for ongoing month, highest scoring players. Leaderboard today - todays highest scoring users.
         \item \textbf{Ad Analytics:} Ad views and clicks are analyzed to optimize revenue (Marketing company job).
     \end{itemize}
 \end{enumerate}
@@ -354,8 +354,8 @@ This section will discuss the stakeholders of the Human Benchmark system and the
 \begin{enumerate}
     \item \textbf{Short-Term:}
     \begin{itemize}
-        \item \textbf{User Engagement \& Satisfaction:} Measured via \textbf{Consistency Coefficient} - closer to 1 indicates higher cosistency.
-        \item \textbf{Growing User Base:} Increasing active user counts and time spent on games (Better and growing popularity metrics.)
+        \item \textbf{User Engagement \& Satisfaction:} Measured via \textbf{Consistency Coefficient} - closer to 1 indicates higher user cosistency.
+        \item \textbf{Growing User Base:} Increasing active user counts and time spent on games (Growing popularity metrics).
     \end{itemize}
     \item \textbf{Long-Term:}
     \begin{itemize}
