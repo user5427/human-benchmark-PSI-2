@@ -301,10 +301,71 @@ This section will discuss the stakeholders of the Human Benchmark system and the
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/inputoutput.png}
+    \includegraphics[width=0.8\textwidth]{images/inputOutput.png}
     \caption{Input and Output diagram}
     \label{fig:inputOutput}
 \end{figure}
+
+\subsubsection{INPUT}
+\begin{enumerate}
+    \item \textbf{Resources:}
+    \begin{itemize}
+        \item \textbf{Financial:} Initial investments for salaries and server hosting.
+        \item \textbf{Human Resources:} 1 Frontend Developer, 1 Backend Developer, 2 Full-Stack Developers.
+    \end{itemize}
+    \item \textbf{User Data Collection}
+    \begin{itemize}
+        \item \textbf{Consistency:} The application counts uesers active days (at least one login and one game played). A \textbf{consistency coefficient} is calculated (resets every month):
+        \begin{equation*}
+            \text{Consistency coefficient} = \frac{\text{Days played this month}}{\text{Gone days this month}}
+        \end{equation*}
+        \item \textbf{Time Spent:} Total playtime recorded, inspired by Steam profiles (e.g., last two weeks of activity).
+        \item \textbf{Popularity Metrics:} Inspired by Steam Charts: active users now, peak users today (24-hour peak), all-time users peak.
+    \end{itemize}
+    \item \textbf{Marketing \& Revenue Generation:}
+    \begin{itemize}
+        \item \textbf{Marketing Company:} Third-party ad services dynamically assign ads based on user activity (e.g., Google AdSense). "We've seen a substantial revenue increase and a significant reduction in manual effort thanks to Auto ads in-page formats, while sustaining user engagement and retention. — Yangyang Xi, CEO of Lang-8, Inc."\cite{AutoAds}.
+    \end{itemize}
+\end{enumerate}
+
+\subsubsection{PROCESS}
+\begin{enumerate}
+    \item \textbf{Stage 1: Preparation}
+    \begin{itemize}
+        \item \textbf{Application/Game Development:} Programmers create/improve the application and interactive reaction-based games.
+        \item \textbf{Account creation:} Users Sign up.
+        \item \textbf{Personalized Ad Assignment:} User activity is tracked via cookies, and ads are assigned via third-party marketing companies.
+    \end{itemize}
+    \item \textbf{Stage 2: Gaming}
+    \begin{itemize}
+        \item \textbf{Maintenance}: Bug Fixes \& Updates. Developers ensure smooth functionality and release of new games/features.
+        \item \textbf{User Interaction:} Users play games and see personalized ads.
+        \item \textbf{Ad Delivery \& Revenue Tracking:} The marketing company serves ads and records performance.
+    \end{itemize}
+    \item \textbf{Stage 3: Data Tracking \& Analytics}
+    \begin{itemize}
+        \item \textbf{User Progress Tracking:} The application logs reaction scores and improvement trends.
+        \item \textbf{Leaderboard System:} Users are ranked based on performance over time.
+        \item \textbf{Ad Analytics:} Ad views and clicks are analyzed to optimize revenue.
+    \end{itemize}
+\end{enumerate}
+
+\subsubsection{OUTPUT}
+\begin{enumerate}
+    \item \textbf{Short-Term:}
+    \begin{itemize}
+        \item \textbf{User Engagement \& Satisfaction:} Measured via \textbf{Consistency Coefficient} - closer to 1 indicates higher cosistency.
+        \item \textbf{Growing User Base:} Increasing active user counts and time spent on games.
+    \end{itemize}
+    \item \textbf{Long-Term:}
+    \begin{itemize}
+        \item \textbf{Improved Reaction Time:} Users' reaction scores should improve over time, with leaderboard rankings reflecting progress.
+        \item \textbf{Ad Revenue:} Funds ongoing development and investor returns.
+        \item \textbf{Potential Premium Features:} Subscription model, ad-free experience, or additional analytics for users.
+    \end{itemize}
+\end{enumerate}
+
+
 
 \subsection{Blackbox Analysis}
 Blackbox analysis is a method used to analyze the system's functionality without looking at the internal workings of the system. It focuses on the inputs and outputs of the system and how they are related. The following table shows the blackbox analysis of the Human Benchmark system.
