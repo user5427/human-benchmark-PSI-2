@@ -132,9 +132,9 @@ This work documents the Human Benchmark system business logic and system overvie
 % This section is for when abbreviations are used. For example:
 
 \begin{tabular}{rcp{.7\textwidth}}
-    {SWOT} & {} & {Strengths, Weaknesses, Opportunities, Threats} \\
-    {MOST} & {} & {Mission, Objectives, Strategies, Tactics} \\
-    {SMART} & {} & {Specific, Measurable, Achievable, Relevant, Time-bound} \\
+    {\textbf{SWOT}} & {} & {Strengths, Weaknesses, Opportunities, Threats} \\
+    {\textbf{MOST}} & {} & {Mission, Objectives, Strategies, Tactics} \\
+    {\textbf{SMART}} & {} & {Specific, Measurable, Achievable, Relevant, Time-bound} \\
     % {u.d.i.r.v.} & {} & {uniformly distributed independent random variables}
 \end{tabular}
 
@@ -208,9 +208,10 @@ MOST analysis is a strategic tool used to evaluate the Mission, Objectives, Stra
 
 \subsubsection{Objectives}
 \begin{itemize}
-    \item Achieve a measurable improvement of at least 10\% in reaction time for regular users within the first 6 months.
-    \item Achieve at least 10000 registered accounts within the first 6 months.
-    \item Maintain a 30-day retention rate of atleast 30\% with users completing at least 3 training sessions weekly.
+    \item Achieve a measurable improvement of at least 10\% in reaction time for regular users within the first 6 months. This will be tracked using \textbf{reaction scores}\ref{sec:reactionScores}.
+    \item Achieve at least 10000 registered accounts within the first 6 months, indicating growing platform's user base.
+    \item Reach an average of 500 "peak users today"\ref{sec:steamCharts} within the first 6 months, indicating strong daily user activity.
+    \item Maintain a consistency coefficient \textbf{consistency coefficient}\ref{sec:consistencyCoef} of at least 0.5 across all users every month, proving user long-term retention.
 \end{itemize}
 
 \subsubsection{Strategies}
@@ -315,12 +316,13 @@ This section will discuss the stakeholders of the Human Benchmark system and the
     \end{itemize}
     \item \textbf{User Data Collection}
     \begin{itemize}
-        \item \textbf{Consistency:} The application counts uesers \textbf{active days} - at least one login and one game played. A \textbf{consistency coefficient} is calculated which resets every month:
+        
+        \item \textbf{Consistency:} The application counts uesers \label{sec:activeDays}\textbf{active days} - at least one login and one game played. A \label{sec:consistencyCoef}\textbf{consistency coefficient} is calculated which resets every month:
         \begin{equation*}
             \text{Consistency coefficient} = \frac{\text{Active days this month}}{\text{Gone days this month}}
         \end{equation*}
         \item \textbf{Time Spent:} Total playtime recorded, inspired by Steam profiles (e.g., last two weeks of activity). At the start of a game a timer will start and at the end - will stop. Then it will add up on the time spent playing games today and also this week.
-        \item \textbf{Popularity Metrics:} Application tracks the number of users that are logged in and playing games. Inspired by Steam Charts: active users now, peak users today (24-hour peak), all-time users peak.
+        \item \textbf{Popularity Metrics:} Application tracks the number of users that are logged in and playing games. Inspired by Steam Charts\label{sec:steamCharts}: active users now, peak users today (24-hour peak), all-time users peak.
     \end{itemize}
     \item \textbf{Marketing \& Revenue Generation:}
     \begin{itemize}
@@ -344,7 +346,7 @@ This section will discuss the stakeholders of the Human Benchmark system and the
     \end{itemize}
     \item \textbf{Stage 3: Data Tracking \& Analytics}
     \begin{itemize}
-        \item \textbf{User Progress Tracking:} The application logs \textbf{reaction scores} - the longer the user survives in a game and the higher level he reaches - the heigher score he gets. The application will also log users improvement trends. User will be able to see if he has improved - compare his scores in leaderboards and past results.
+        \item \textbf{User Progress Tracking:} The application logs \label{sec:reactionScores}\textbf{reaction scores} - the longer the user survives in a game and the higher level he reaches - the heigher score he gets. The application will also log users improvement trends. User will be able to see if he has improved - compare his scores in leaderboards and past results.
         \item \textbf{Leaderboard System:} Users are ranked based on performance over time and todays highest results. Leaderboard for ongoing month, highest scoring players. Leaderboard today - todays highest scoring users.
         \item \textbf{Ad Analytics:} Ad views and clicks are analyzed to optimize revenue (Marketing company job).
     \end{itemize}
