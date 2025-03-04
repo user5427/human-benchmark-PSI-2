@@ -19,6 +19,42 @@
 
 \refsection{0}
   \datalist[entry]{anyt/global//global/global}
+    \entry{CognitiveFunction}{article}{}
+      \name{author}{3}{}{%
+        {{hash=eb3dce7b3bbdeb6048982e7ab6ff4bd6}{%
+           family={A},
+           familyi={A\bibinitperiod},
+           given={Prabu\bibnamedelima Kumar},
+           giveni={P\bibinitperiod\bibinitdelim K\bibinitperiod}}}%
+        {{hash=ae50ae11c9b649445b13f229dc3ef22c}{%
+           family={A.},
+           familyi={A\bibinitperiod},
+           given={Omprakash},
+           giveni={O\bibinitperiod}}}%
+        {{hash=951f2521f0e3112ce8cce3b169d86951}{%
+           family={al.},
+           familyi={a\bibinitperiod},
+           given={Kuppusamy\bibnamedelima M.},
+           giveni={K\bibinitperiod\bibinitdelim M\bibinitperiod},
+           prefix={et},
+           prefixi={e\bibinitperiod}}}%
+      }
+      \strng{namehash}{93b8f88063fcde00ea28f07f51fc462b}
+      \strng{fullhash}{93b8f88063fcde00ea28f07f51fc462b}
+      \strng{bibnamehash}{93b8f88063fcde00ea28f07f51fc462b}
+      \strng{authorbibnamehash}{93b8f88063fcde00ea28f07f51fc462b}
+      \strng{authornamehash}{93b8f88063fcde00ea28f07f51fc462b}
+      \strng{authorfullhash}{93b8f88063fcde00ea28f07f51fc462b}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{BMC Medical Education}
+      \field{langid}{english}
+      \field{title}{How does cognitive function measured by the reaction time and critical flicker fusion frequency correlate with the academic performance of students?}
+      \field{volume}{20}
+      \field{year}{2020}
+    \endentry
     \entry{humanbenchmark}{online}{}
       \name{author}{1}{}{%
         {{hash=1c6d62d87e098f6d54e4ea697ab5c789}{%
@@ -76,17 +112,19 @@
       \endverb
     \endentry
     \entry{competitiveEdge}{article}{}
-      \name{author}{2}{}{%
-        {{hash=c96b73aa26316ea5294797b9418cf5b9}{%
+      \name{author}{4}{}{%
+        {{hash=c4ee9e9653a254a6ea5ea3c2281737d8}{%
            family={Hasyim},
-           familyi={H\bibinitperiod},
-           given={Hasyim},
-           giveni={H\bibinitperiod}}}%
-        {{hash=1719b066d1eb27bdf5f182c2ae42fbcd}{%
+           familyi={H\bibinitperiod}}}%
+        {{hash=c4ee9e9653a254a6ea5ea3c2281737d8}{%
+           family={Hasyim},
+           familyi={H\bibinitperiod}}}%
+        {{hash=9e75410344a16bbeff57ebb41b2ad2dd}{%
            family={Bakri},
-           familyi={B\bibinitperiod},
-           given={Muhammad},
-           giveni={M\bibinitperiod}}}%
+           familyi={B\bibinitperiod}}}%
+        {{hash=0b25313888c462091a67dbacb78d39f3}{%
+           family={Muhammad},
+           familyi={M\bibinitperiod}}}%
       }
       \strng{namehash}{fb0fa7d0b7fd898210bf595e5c9c6873}
       \strng{fullhash}{fb0fa7d0b7fd898210bf595e5c9c6873}
@@ -144,22 +182,25 @@
       \endverb
     \endentry
     \entry{MinimalDesign}{article}{}
-      \name{author}{3}{}{%
-        {{hash=4863b96d98909eea67676f79738d15e0}{%
+      \name{author}{6}{}{%
+        {{hash=da4afe4849aedcacc375a2e691e193ff}{%
            family={Lekaj},
-           familyi={L\bibinitperiod},
-           given={Lucian},
-           giveni={L\bibinitperiod}}}%
-        {{hash=cce46e96e4fd18c526ab89064c39b69c}{%
+           familyi={L\bibinitperiod}}}%
+        {{hash=c7a450a6038409b05b4c0c7f1fcfe784}{%
+           family={Lucian},
+           familyi={L\bibinitperiod}}}%
+        {{hash=5540e9ff5c5e67b6cbf9642167c39446}{%
            family={Kondic},
-           familyi={K\bibinitperiod},
-           given={Lordan},
-           giveni={L\bibinitperiod}}}%
-        {{hash=a0d3f99b974c31441336c0366f43f09a}{%
+           familyi={K\bibinitperiod}}}%
+        {{hash=a7034c19fc50fb1cdda90c766510c328}{%
+           family={Lordan},
+           familyi={L\bibinitperiod}}}%
+        {{hash=75f9dd453c939fc4704bb5456974c9dc}{%
            family={Fraculj},
-           familyi={F\bibinitperiod},
-           given={Mario},
-           giveni={M\bibinitperiod}}}%
+           familyi={F\bibinitperiod}}}%
+        {{hash=1cc477616bb182e87ec7285bfbf8c34b}{%
+           family={Mario},
+           familyi={M\bibinitperiod}}}%
       }
       \strng{namehash}{c628b37374373f83bd27d8ad26856423}
       \strng{fullhash}{c628b37374373f83bd27d8ad26856423}
@@ -214,22 +255,25 @@
       \endverb
     \endentry
     \entry{PersonalizedLearning}{article}{}
-      \name{author}{3}{}{%
-        {{hash=845e0a494e4f2651442854892a305df8}{%
+      \name{author}{6}{}{%
+        {{hash=8d06493ab6f0fb31e791d2171b2bf444}{%
            family={Makhambetova},
-           familyi={M\bibinitperiod},
-           given={Aliya},
-           giveni={A\bibinitperiod}}}%
-        {{hash=489c9e2028e827495fd6ddde6cc7552d}{%
+           familyi={M\bibinitperiod}}}%
+        {{hash=bf4621e979026615e76cd80138e15b57}{%
+           family={Aliya},
+           familyi={A\bibinitperiod}}}%
+        {{hash=8e1c168c7b092086b2090ea482d8a47d}{%
            family={Zhiyenbayeva},
-           familyi={Z\bibinitperiod},
-           given={Nadezhda},
-           giveni={N\bibinitperiod}}}%
-        {{hash=81988f7c738ca912cf579ee907da57ad}{%
+           familyi={Z\bibinitperiod}}}%
+        {{hash=71ac5222a79f575f7e44a6914e11f9c9}{%
+           family={Nadezhda},
+           familyi={N\bibinitperiod}}}%
+        {{hash=009db6bf873a6027e5d757998a9c1118}{%
            family={Ergesheva},
-           familyi={E\bibinitperiod},
-           given={Elena},
-           giveni={E\bibinitperiod}}}%
+           familyi={E\bibinitperiod}}}%
+        {{hash=e4392a67989b2de9b5f5e7e1c5913373}{%
+           family={Elena},
+           familyi={E\bibinitperiod}}}%
       }
       \strng{namehash}{9e307b39fe9323bc7186055593f5e1ff}
       \strng{fullhash}{9e307b39fe9323bc7186055593f5e1ff}
@@ -250,34 +294,6 @@
       \range{pages}{17}
       \verb{doi}
       \verb 10.4018/IJWLTT.286743
-      \endverb
-    \endentry
-    \entry{VideoGamesReaction}{article}{}
-      \name{author}{1}{}{%
-        {{hash=955dcaa17cd756bbcd49cd9a258d478f}{%
-           family={Mumtaz\bibnamedelima Qazi},
-           familyi={M\bibinitperiod\bibinitdelim Q\bibinitperiod},
-           given={Hardeep\bibnamedelimb Singh\bibnamedelima Matharu},
-           giveni={H\bibinitperiod\bibinitdelim S\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
-      }
-      \strng{namehash}{955dcaa17cd756bbcd49cd9a258d478f}
-      \strng{fullhash}{955dcaa17cd756bbcd49cd9a258d478f}
-      \strng{bibnamehash}{955dcaa17cd756bbcd49cd9a258d478f}
-      \strng{authorbibnamehash}{955dcaa17cd756bbcd49cd9a258d478f}
-      \strng{authornamehash}{955dcaa17cd756bbcd49cd9a258d478f}
-      \strng{authorfullhash}{955dcaa17cd756bbcd49cd9a258d478f}
-      \field{sortinit}{M}
-      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{International Journal of Science and Research Archive}
-      \field{title}{The effect of action and casual video games on visual reaction time and accommodation in non-gamers}
-      \field{volume}{10}
-      \field{year}{2023}
-      \field{pages}{745\bibrangedash 748}
-      \range{pages}{4}
-      \verb{doi}
-      \verb 10.30574/ijsra.2023.10.1.0798
       \endverb
     \endentry
     \entry{PopulationDemographics}{online}{}
@@ -306,6 +322,39 @@
       \endverb
       \verb{url}
       \verb https://population.un.org
+      \endverb
+    \endentry
+    \entry{VideoGamesReaction}{article}{}
+      \name{author}{2}{}{%
+        {{hash=e63a3d5b0e3999385d453317676621e7}{%
+           family={Qazi},
+           familyi={Q\bibinitperiod},
+           given={Mumtaz},
+           giveni={M\bibinitperiod}}}%
+        {{hash=92662a52988f7b3df8748203e3e84167}{%
+           family={Matharu},
+           familyi={M\bibinitperiod},
+           given={Hardeep\bibnamedelima Singh},
+           giveni={H\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+      }
+      \strng{namehash}{5a96522fdaa98868684b713ce2581b33}
+      \strng{fullhash}{5a96522fdaa98868684b713ce2581b33}
+      \strng{bibnamehash}{5a96522fdaa98868684b713ce2581b33}
+      \strng{authorbibnamehash}{5a96522fdaa98868684b713ce2581b33}
+      \strng{authornamehash}{5a96522fdaa98868684b713ce2581b33}
+      \strng{authorfullhash}{5a96522fdaa98868684b713ce2581b33}
+      \field{sortinit}{Q}
+      \field{sortinithash}{ce69a400a872ddd02ee7fdb3b38c6abd}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{International Journal of Science and Research Archive}
+      \field{title}{The effect of action and casual video games on visual reaction time and accommodation in non-gamers}
+      \field{volume}{10}
+      \field{year}{2023}
+      \field{pages}{745\bibrangedash 748}
+      \range{pages}{4}
+      \verb{doi}
+      \verb 10.30574/ijsra.2023.10.1.0798
       \endverb
     \endentry
   \enddatalist
