@@ -210,8 +210,8 @@ MOST analysis is a strategic tool used to evaluate the Mission, Objectives, Stra
 \subsubsection{Objectives}
 \begin{itemize}
     \item Achieve a measurable improvement of at least 10\% in reaction time for regular users within the first 6 months. This will be tracked using \textbf{reaction scores}\ref{sec:reactionScores}.
-    \item Achieve at least 10000 registered accounts within the first 6 months, indicating growing platform's user base.
-    \item Reach an average of 500 "peak users today"\ref{sec:steamCharts} within the first 6 months, indicating strong daily user activity.
+    \item Achieve at least 10000 registered accounts within the first 6 months, indicating growth in the platform's user base.
+    \item Reach an average of 500 "peak users today"[\ref{sec:steamCharts}] within the first 6 months, indicating strong daily user activity.
     \item Maintain a consistency coefficient \textbf{consistency coefficient}\ref{sec:consistencyCoef} of at least 0.5 across all users every month, proving user long-term retention.
 \end{itemize}
 
@@ -325,11 +325,11 @@ This section will discuss the stakeholders of the Human Benchmark system and the
     \item \textbf{User Data Collection}
     \begin{itemize}
         
-        \item \textbf{Consistency:} The application counts uesers \label{sec:activeDays}\textbf{active days} - at least one login and one game played. A \label{sec:consistencyCoef}\textbf{consistency coefficient} is calculated which resets every month:
+        \item \textbf{Consistency:} The application counts users' \label{sec:activeDays}\textbf{active days} - at least one login and one game played. A \label{sec:consistencyCoef}\textbf{consistency coefficient} is calculated which resets every month:
         \begin{equation*}
-            \text{Consistency coefficient} = \frac{\text{Active days this month}}{\text{Gone days this month}}
+            \text{Consistency coefficient} = \frac{\text{Active days this month}}{\text{Passed days of this month}}
         \end{equation*}
-        \item \textbf{Time Spent:} Total playtime recorded, inspired by Steam profiles (e.g., last two weeks of activity). At the start of a game a timer will start and at the end - will stop. Then it will add up on the time spent playing games today and also this week.
+        \item \textbf{Time Spent:} Total playtime recorded, inspired by Steam profiles (e.g., last two weeks of activity). At the start of a game a timer will start and at the end it will stop. Then it will add up on the time spent playing games today and also this week.
         \item \textbf{Popularity Metrics:} Application tracks the number of users that are logged in and playing games. Inspired by Steam Charts\label{sec:steamCharts}: active users now, peak users today (24-hour peak), all-time users peak.
     \end{itemize}
     \item \textbf{Marketing \& Revenue Generation:}
@@ -343,7 +343,7 @@ This section will discuss the stakeholders of the Human Benchmark system and the
     \item \textbf{Stage 1: Preparation}
     \begin{itemize}
         \item \textbf{Application/Game Development:} Programmers create/improve the application and interactive reaction-based games.
-        \item \textbf{Account creation:} Users Sign up.
+        \item \textbf{Account creation:} Users sign up.
         \item \textbf{Personalized Ad Assignment:} User activity is tracked via cookies, and ads are assigned via third-party marketing companies.
     \end{itemize}
     \item \textbf{Stage 2: Gaming}
@@ -354,7 +354,7 @@ This section will discuss the stakeholders of the Human Benchmark system and the
     \end{itemize}
     \item \textbf{Stage 3: Data Tracking \& Analytics}
     \begin{itemize}
-        \item \textbf{User Progress Tracking:} The application logs \label{sec:reactionScores}\textbf{reaction scores} - the longer the user survives in a game and the higher level he reaches - the heigher score he gets. The application will also log users improvement trends. User will be able to see if he has improved - compare his scores in leaderboards and past results.
+        \item \textbf{User Progress Tracking:} The application logs \label{sec:reactionScores}\textbf{reaction scores} - the longer the user survives in a game and the higher level he reaches - the higher score he gets. The application will also log users improvement trends. User will be able to see if he has improved by compare his scores in leaderboards and past results.
         \item \textbf{Leaderboard System:} Users are ranked based on performance over time and todays highest results. Leaderboard for ongoing month, highest scoring players. Leaderboard today - todays highest scoring users.
         \item \textbf{Ad Analytics:} Ad views and clicks are analyzed to optimize revenue (Marketing company job).
     \end{itemize}
@@ -380,7 +380,7 @@ This section will discuss the stakeholders of the Human Benchmark system and the
 \subsection{Blackbox Analysis}
 Blackbox analysis is a method used to analyze the system's functionality without looking at the internal workings of the system. It focuses on the inputs and outputs of the system and how they are related. The following table shows the blackbox analysis of the Human Benchmark system.
 
-We can see that the system has five main categories (\ref{tab:blackbox}): User Registration, User Login, Game management, Leaderboard management, and Game play. Each category has specific inputs and outputs that are related to the functionality of the system.
+We can see that the system has five main categories (\ref{tab:blackbox}): user registration, user login, game management, leaderboard management, and gameplay. Each category has specific inputs and outputs that are related to the functionality of the system.
 
 % a table with three columns, one for category, one for input, one for output
 \begin{table}[H]
