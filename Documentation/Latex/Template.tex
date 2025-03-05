@@ -177,25 +177,27 @@ SWOT analysis is a tool used to identify strengths, weaknesses, opportunities, a
 \begin{itemize}
     \item \textbf{Enhance cognitive function}: Faster reaction times (RTs) are linked to improved cognitive functions like memory, verbal fluency, and processing speed. Studies, including those on medical students, show that quicker RTs are associated with higher academic performance \cite{CognitiveFunction}.
     \item \textbf{Increased engagement through gamification}: Integrating game elements like leaderboards can boost motivation and engagement in learning activities. Gamification not only makes learning enjoyable but also inherently motivates students, as competition is a primary driver for game participation \cite{GameplayEngagement}.
-    \item \textbf{Minimalistic design}: Research shows that minimalist design is appreciated across all generations, creating a satisfying user experience\cite{MinimalDesign}.
-    \item \textbf{Increasing interest in improving reaction Time}: According to Google Trends data, search queries such as "improve reaction time" show an upward trend from 2015 to 2025 worldwide, indicating growing interest in reaction time training. 
+    \item \textbf{Minimalistic design}: Research shows that minimalist design is appreciated across all generations, creating a satisfying user experience \cite{MinimalDesign}.
+    \item \textbf{Increasing interest in improving reaction Time}: Search queries such as "improve reaction time" show an upward trend from 2015 to 2025 worldwide \cite{googletrends}, indicating growing interest in reaction time training. 
 \end{itemize}
 \subsubsection{Weaknesses}
 \begin{itemize}
     \item \textbf{Technical dependence}: User experience depends on device performance, devices can affect reaction time accuracy, potentially adding 10-50ms to the measurements\cite{humanbenchmark}.
     \item \textbf{Competitive market}: The reaction training market is already competitive, with approximately 211 apps available across Google Play, the Apple App Store, and Steam. As such it is easy for new apps to take the market.
-    \item \textbf{Niche product} Only a small amount of the entire population use solutions geared towards reaction improvement as such it is dificult to market our product due to the small amount of users that may end up using it.
+    \item \textbf{Niche subject}: Over the last 12 months, there have been 1,955 articles associated with the term “improve reaction time”, compared to 26,212 articles related to “improve memory” \cite{muckruck}. This means that articles on reaction time improvement are published over 20 times less frequently than those on memory improvement, another aspect of cognitive performace. Fewer articles suggest that reaction time training is a niche subject, with smaller target audience.
 \end{itemize}
 \subsubsection{Opportunities}
 \begin{itemize}
     \item \textbf{Integration of personalized learning tools}: Research indicates that personalized learning improves both learning performance and motivation, making it a valuable approach for increasing user satisfaction\cite{PersonalizedLearning}.
     \item \textbf{Aging population}: As global demographics age, there is likely to be an increased interest in cognitive maintenance. The population aged 65 and older is projected to double by 2050 \cite{PopulationDemographics}.
+    \item \textbf{Growing demand in esports \& gaming}: The esports industry is experiencing rapid growth, with the number of global esports users expected to reach 896 million by 2029 \cite{statista}. As reaction time plays a crucial role in gaming \cite{VideoGamesReaction}, there could be increasing demand for tools and apps that can help improve reaction times.
+
 \end{itemize}
 \subsubsection{Threats}
 \begin{itemize}
     \item \textbf{Repetitiveness}:  Users may lose long-term interest if the app lacks regular content updates\cite{GameplayEngagement}.
-    \item \textbf{Risk of overemphasis on competition}: While leaderboards can motivate some users, it may also contribute to feelings of frustration or discouragement among lower-ranked individuals, potentially reducing overall engagement.\cite{GameplayEngagement}.
-    \item \textbf{Reliance on Ad Revenue}: By Q2 2023, there were 912 million active ad-blocking users worldwide, an 11\% increase from Q4 2021\cite{BlockAds}. Relying heavily on ad-based revenue can lead to inconsistent earnings, as the growing use of ad blockers reduces ad visibility, directly impacting potential revenue streams.
+    \item \textbf{Risk of overemphasis on competition}: While leaderboards can motivate some users, it may also contribute to feelings of frustration or discouragement among lower-ranked individuals, potentially reducing overall engagement \cite{GameplayEngagement}.
+    \item \textbf{Reliance on Ad Revenue}: By Q2 2023, there were 912 million active ad-blocking users worldwide, an 11\% increase from Q4 2021 \cite{BlockAds}. Relying heavily on ad-based revenue can lead to inconsistent earnings, as the growing use of ad blockers reduces ad visibility, directly impacting potential revenue streams.
     
 \end{itemize}
 
@@ -209,10 +211,11 @@ MOST analysis is a strategic tool used to evaluate the Mission, Objectives, Stra
 
 \subsubsection{Objectives}
 \begin{itemize}
+
     \item Achieve a measurable improvement of at least 10\% in reaction time for regular users within the first 6 months. This will be tracked using \textbf{reaction scores}\ref{sec:reactionScores}.
     \item Achieve at least 10000 registered accounts within the first 6 months, indicating growth in the platform's user base.
-    \item Reach an average of 500 "peak users today"[\ref{sec:steamCharts}] within the first 6 months, indicating strong daily user activity.
-    \item Maintain a consistency coefficient \textbf{consistency coefficient}\ref{sec:consistencyCoef} of at least 0.5 across all users every month, proving user long-term retention.
+    \item Reach an average of 500 "peak users today" (\ref{sec:steamCharts}) within the first 6 months, indicating strong daily user activity.
+    \item Maintain a consistency coefficient \textbf{consistency coefficient}(\ref{sec:consistencyCoef}) of at least 0.5 across all users every month, proving user long-term retention.
 \end{itemize}
 
 \subsubsection{Strategies}
@@ -221,16 +224,18 @@ MOST analysis is a strategic tool used to evaluate the Mission, Objectives, Stra
     \item Design user friendly app for users of different ages and skill levels.
     \item Utilize gamification techniques to ensure the app remains engaging and prevents repetition.
     \item Enable easy tracking of user progress with simple visual feedback.
-    \item Promote app through online advertisements.
+    \item Increase the app's visibility.
 \end{itemize}
 
 \subsubsection{Tactics}
 \begin{itemize} 
+    \item Collaborate with cognitive scientists.
     \item Use a minimal color palette.
+    \item Provide customizable app settings.
     \item Offer multiple game modes with adjustable difficulty.
     \item Implement leaderboards to promote competition and user comparison.
-    \item Provide customizable game settings.
     \item Create a personalized statistics dashboard that displays average scores, best performance, and progress over time.
+    \item Promote app through Google Ads.  
 \end{itemize}
 
 \subsection{Porter's Methods, Base needs and additional value}
@@ -486,7 +491,7 @@ Use case diagrams are used to model the use cases of the system. The following u
 
 \begin{itemize}
     \item 
-    The game use case diagram \ref{fig:game_use_case} models the game playing and creating.
+    The game use case diagram (\ref{fig:game_use_case}) models the game-playing and game-creation processes.
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.5\textwidth]{images/GameUC.drawio.png}
@@ -494,7 +499,7 @@ Use case diagrams are used to model the use cases of the system. The following u
         \label{fig:game_use_case}
     \end{figure}
     \item
-    The leaderboard use case diagram \ref{fig:leaderboard_use_case} models the leaderboard viewing.
+    The leaderboard use case diagram (\ref{fig:leaderboard_use_case}) models the leaderboard viewing.
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.5\textwidth]{images/LeaderBoardUC.drawio.png}
@@ -502,7 +507,7 @@ Use case diagrams are used to model the use cases of the system. The following u
         \label{fig:leaderboard_use_case}
     \end{figure}
     \item
-    The login use case diagram \ref{fig:login_use_case} models the login and registering process.
+    The login use case diagram (\ref{fig:login_use_case}) models the login and registering process.
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.5\textwidth]{images/LoginUC.drawio.png}
@@ -526,9 +531,9 @@ This section will discuss the user needs and requirements of the Human Benchmark
 
  \item \textbf{Private games must be implemented}   Our product currently only allows to play 'public' games i.e. if someone creates a game anyone has the ability to join the session. To fix this we will add private games - games which don't appear in the public list and where only select players can join. This is also important for our stakeholders, because it would make our product more appealing to users and atract more of them from competators. They have expressed a need to add such games, so that users may, if they choose to, have private games so that they could control with who they can compete: for instance play with friends, family members, etc. This will also be implemented by our software engineer team and will follow the same methods in regards to the development and communication proccess. Maintenance will not be a large drawback, it will not affect the game itself only the connection. The use case is as follows: a user, when selecting a game may choose, via a checkbox, to have a private game, after which a new window will open showing the currently waiting players and a code, by which they can join the private game. Simmilarly, there will also be a standalone page in which a user may enter a code to join a private game. Once that is completed, the host(player that created the private game) may begin the game via click of a button upon which the game will commence and no new plyers will be allowed to join. This will be implemented by adding entries of private games storing the game, host, code, connected players, and "joinability". Upon the start of the game the joinability of the game will be set to false as to not allow new players to join.
 
- \item \textbf{A game history must be implemented} Currently there is no way to see the history of the games that a loged in user has played. The business company have expressed a need to have such a history so that our app be more competitive in the market. This task will also be carried out by the development team(Software Engineers) with the same methods for dialog and development. Maintenance will be small since it won't conflict with the main aspects of our product. The use case is as follows: when a user opens their profile, they will see a list which will contain all of the games that they have played which will include their score, the time of completion and what kind of game it was. This requirement will be achieved by adding new entries in the database which will have entries with the aforementioned data and a user.
+ \item \textbf{A game history must be implemented} Currently there is no way to see the history of the games that a logged in user has played. The business company has expressed a need to have game history so that our app users can better track their progress. This task will also be carried out by the development team(Software Engineers) with the same methods for dialog and development. Maintenance will be small since it won't conflict with the main aspects of our product. The use case is as follows: when a user opens their profile, they will see a list which will contain all of the games that they have played which will include their score, the time of completion and what kind of game it was. This requirement will be achieved by adding new entries in the database which will have entries with the aforementioned data and a user.
 
- \item \textbf{A rating system for user-created games must be implemented} By the current structure and functionality of our system, there is no way to rate games. This is important because there is no obious way to determine the quality of the game, as such the stakeholders have expressed it as a need. This task will as well be caried out by our development with the same methodology. The use case is as folows: When opening the page for a game a running total of "rates" will be shown. A loged in user then has the choice to either increase it by one or decrease it by one as such rating the game. Along with the absolte total, the site will also display a relative "rating" calculated as the ratio of those who liked it(chose to increase the rating) and those who didn't (decreaced the rating). This will be implemented by adding a new field to the database with the total number of "ups" and "Downs" and this data will be retrieved, shown and calculated when the game is opened. The expected maintenence is small since no changes to the games itself will take place.
+ \item \textbf{A rating system for user-created games must be implemented} By the current structure and functionality of our system, there is no way to rate games. This is important because there is no obvious way to determine the quality of the game, as such the stakeholders have expressed it as a need. This task will as well be caried out by our development team with the same methodology. The use case is as folows: When opening the page for a game a running total of "rates" will be shown. A logged in user then has the choice to either increase it by one or decrease it by one as such rating the game. Along with the absolute total, the site will also display a relative "rating" calculated as the ratio of those who liked it(chose to increase the rating) and those who didn't (decreaced the rating). This will be implemented by adding a new field to the database with the total number of "ups" and "Downs" and this data will be retrieved, shown and calculated when the game is opened. The expected maintenence is small since no changes to the games itself will take place.
 
  \item \textbf{Users must be able to view the top 10 players for each game} Currently the product not only doesn't have a way to view the highest score of a specific user but also in general. As such the business company have made a request to add it. Simmilarly to the other requirements it will be implemented by the developer team and following the same methods. The use-case is as such: unlike the user's top score which will be diplayed after the game has ended; the "global" top score will be shown before as a list of usernames and their respective scores. The amount of entries in this list will be limited to 10 as to not clutter the screen and provide better user experience. This will be implemented in a simmilar manner to the requirement mentioned before, new entries added in the database to save these values. But unlike the previous requirement, since this data is subject to frequent change, a new entrie will be created that will uniquely store The top ranked players in each game.
 \end{itemize}
