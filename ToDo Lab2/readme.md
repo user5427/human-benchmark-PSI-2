@@ -15,8 +15,8 @@ Primary tasks:
 - Use UML 4 + 1 framework to organize the architecture document.
 - Implement the planned changes in the system
 - Introduce a CI/CD process
-  - CI - pull request automation, code review automation, automatically check if the code follows style standarts, etc.
-  - CD - continously deploy the product to platforms such as Docker containers and Microsoft Azure.
+  - Pull request automation, code review automation, automatically check if the code follows style standarts, etc.
+  - Continously deploy the product to platforms such as Docker containers and Microsoft Azure.
   ** NOTICE ** the pipeline should be created in gitlab platform and documented.
 
 Using color or some kind of symbol, we can highlight the new classes in the UML. The end result is to show of the new requirement.
