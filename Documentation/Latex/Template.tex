@@ -453,23 +453,50 @@ BPMN diagrams, UML diagrams and use cases are used to model the system and its f
 BPMN diagrams are used to model the business processes of the system. The following BPMN diagrams are used to model the Human Benchmark system:
 
 \begin{itemize}
-    \item \textbf{Main BPMN diagram} - \ref{fig:main_bpmn} diagram models the main business processes of the system. 
+    \item \textbf{Access to Application BPMN diagram} - \ref{fig:access_bpmn} this diagram models user access to the application/account creation (Sign up, Log in). 
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.8\textwidth]{images/overview-BPMN.png}
-        \caption{Main BPMN diagram}
-        \label{fig:main_bpmn}
+        \includegraphics[width=0.8\textwidth]{images/sign up log in BPMN.png}
+        \caption{Access to Application BPMN diagram}
+        \label{fig:access_bpmn}
     \end{figure}
-    \item \textbf{Game BPMN diagram} - this diagram models the game processes of the system.
-    \item \textbf{User BPMN diagram} - \ref{fig:user_bpmn} diagram models the user processes of the system.
+
+    \item \textbf{Game ranking BPMN diagram} - \ref{fig:gameranking} this diagram models how games are rated after one is finnished and depending on their rating displayed accordingly for the users.
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.8\textwidth]{images/user-BPMN.png}
+        \includegraphics[width=0.8\textwidth]{images/game ranking BPMN.png}
         \hspace{-2cm}
-        \caption{User BPMN diagram}
-        \label{fig:user_bpmn}
+        \caption{Game ranking BPMN diagram}
+        \label{fig:gameranking}
     \end{figure}
-    \item \textbf{Leaderboard BPMN diagram} - this diagram models the leaderboard processes of the system.
+
+    \item \textbf{Leaderboard / Game playing / Score saving BPMN diagram} - \ref{fig:leaderboard} this diagram models game playing. How scores are saved after game is finnished and how new activity effects leaderboards. These processes don't have separate BPMN because they are quite interconnected and really depend on each other.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{images/leaderboards. score saving BPMN.png}
+        \hspace{-2cm}
+        \caption{Leaderboard / Game playing / Score saving BPMN diagram}
+        \label{fig:leaderboard}
+    \end{figure}
+
+    \item \textbf{Profile BPMN diagram} - \ref{fig:profile} This diagram models how profile information is loaded and displayed for the user.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{images/profile BPMN.png}
+        \hspace{-2cm}
+        \caption{Profile BPMN diagram}
+        \label{fig:profile}
+    \end{figure}
+
+    \item \textbf{Public and Private games BPMN diagram} - \ref{fig:publicprivate} This diagram models how public and private games are selected and displayed accordingly.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{images/public and private games BPMN.png}
+        \hspace{-2cm}
+        \caption{Public and Private games BPMN diagram}
+        \label{fig:publicprivate}
+    \end{figure}
+
 \end{itemize}
 
 \subsection{UML Diagrams}
