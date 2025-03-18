@@ -4,6 +4,7 @@ WORKDIR /src
 
 COPY *.csproj ./
 RUN dotnet restore
+RUN dotnet dev-certs https
 
 COPY . ./
 
@@ -15,6 +16,7 @@ WORKDIR /app
 USER app
 
 COPY --from=build /app/publish .
+# COPY certificate.pfx ./
 
 EXPOSE 8080
 EXPOSE 8081

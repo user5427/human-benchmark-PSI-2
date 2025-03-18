@@ -8,9 +8,9 @@ permissions:
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "mainOFF" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "mainOFF" ]
 
 jobs:
   CI-CD:
