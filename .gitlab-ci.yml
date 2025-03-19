@@ -11,6 +11,7 @@ build_frontend:
     - cd aim-reaction-app  # Change to the frontend directory
     - npm install
     - npm run build
+    - ls -la # DEBUG: List all files in the directory
   artifacts:
     paths:
       - aim-reaction-app/build/  # Relative path to the build output
@@ -24,6 +25,7 @@ build_backend:
     - dotnet restore
     - dotnet build --configuration Release
     - dotnet publish -c Release -o ./publish
+    - ls -la # DEBUG: List all files in the directory
   artifacts:
     paths:
       - AimReactionAPI/publish/  # Relative path to the publish output
