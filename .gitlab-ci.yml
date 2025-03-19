@@ -40,7 +40,7 @@ dockerize_frontend:
     - docker:dind
   script:
     - cd aim-reaction-app
-    - docker build -t frontend-app
+    - docker build -t frontend-app .
 
 # Dockerize Backend
 dockerize_backend:
@@ -50,7 +50,7 @@ dockerize_backend:
     - docker:dind
   script:
     - cd AimReactionAPI
-    - docker build -t backend-app
+    - docker build -t backend-app .
 
 # Deploy on the VM
 deploy:
