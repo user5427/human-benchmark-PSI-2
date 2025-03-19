@@ -1,3 +1,5 @@
+# 10.1.0.1 mif dns
+
 stages:
   - build
   - dockerize
@@ -37,7 +39,8 @@ dockerize_frontend:
   services:
     - docker:dind
   script:
-    - docker build -t frontend-app -f aim-reaction-app/Dockerfile .
+    - cd aim-reaction-app
+    - docker build -t frontend-app
 
 # Dockerize Backend
 dockerize_backend:
@@ -46,7 +49,8 @@ dockerize_backend:
   services:
     - docker:dind
   script:
-    - docker build -t backend-app -f AimReactionAPI/Dockerfile .
+    - cd AimReactionAPI
+    - docker build -t backend-app
 
 # Deploy on the VM
 deploy:
