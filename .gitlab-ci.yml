@@ -7,26 +7,26 @@ stages:
 build_frontend:
   stage: build
   image: node:16
-  working_directory: ./aim-reaction-app
   script:
+    - cd aim-reaction-app  # Change to the frontend directory
     - npm install
     - npm run build
   artifacts:
     paths:
-      - ./aim-reaction-app/build/
+      - aim-reaction-app/build/  # Relative path to the build output
 
 # Build Backend
 build_backend:
   stage: build
   image: mcr.microsoft.com/dotnet/sdk:7.0
-  working_directory: ./AimReactionAPI
   script:
+    - cd AimReactionAPI  # Change to the backend directory
     - dotnet restore
     - dotnet build --configuration Release
     - dotnet publish -c Release -o ./publish
   artifacts:
     paths:
-      - ./AimReactionAPI/publish/
+      - AimReactionAPI/publish/  # Relative path to the publish output
 
 # Dockerize Frontend
 dockerize_frontend:
@@ -35,7 +35,7 @@ dockerize_frontend:
   services:
     - docker:dind
   script:
-    - docker build -t frontend-app -f ./aim-reaction-app/Dockerfile .
+    - docker build -t frontend-app -f aim-reaction-app/Dockerfile .
 
 # Dockerize Backend
 dockerize_backend:
@@ -44,7 +44,7 @@ dockerize_backend:
   services:
     - docker:dind
   script:
-    - docker build -t backend-app -f ./AimReactionAPI/Dockerfile .
+    - docker build -t backend-app -f AimReactionAPI/Dockerfile .
 
 # Deploy on the VM
 deploy:
