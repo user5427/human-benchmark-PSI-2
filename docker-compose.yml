@@ -2,7 +2,9 @@
 
 services:
   backend:
-    build: .
+    build: 
+      context: ./AimReactionAPI
+      dockerfile: Dockerfile
     ports:
       - "8082:80"
       - "8084:443"
@@ -11,7 +13,7 @@ services:
 
   frontend:
     build: 
-      context: ../aim-reaction-app
+      context: ./aim-reaction-app
       dockerfile: Dockerfile
     volumes:
       - .:/app

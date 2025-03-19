@@ -1,3 +1,53 @@
-test_job:
+stages:
+  - build
+  - dockerize
+  - deploy
+
+# Build Frontend
+build_frontend:
+  stage: build
+  image: node:16
+  working_directory: ./aim-reaction-app
   script:
-    - echo "Hello, World!"
+    - npm install
+    - npm run build
+  artifacts:
+    paths:
+      - ./aim-reaction-app/build/
+
+# Build Backend
+build_backend:
+  stage: build
+  image: mcr.microsoft.com/dotnet/sdk:7.0
+  working_directory: ./AimReactionAPI
+  script:
+    - dotnet restore
+    - dotnet build --configuration Release
+    - dotnet publish -c Release -o ./publish
+  artifacts:
+    paths:
+      - ./AimReactionAPI/publish/
+
+# Dockerize Frontend
+dockerize_frontend:
+  stage: dockerize
+  image: docker:latest
+  services:
+    - docker:dind
+  script:
+    - docker build -t frontend-app -f ./aim-reaction-app/Dockerfile .
+
+# Dockerize Backend
+dockerize_backend:
+  stage: dockerize
+  image: docker:latest
+  services:
+    - docker:dind
+  script:
+    - docker build -t backend-app -f ./AimReactionAPI/Dockerfile .
+
+# Deploy on the VM
+deploy:
+  stage: deploy
+  script:
+    - docker-compose up -d

@@ -804,3 +804,7 @@ Documentation/Latex/Template.synctex.gz
 
 *.pdf
 *_bibertool.bib
+
+
+# remove certificate.pfx from gitignore
+!certificate.pfx
