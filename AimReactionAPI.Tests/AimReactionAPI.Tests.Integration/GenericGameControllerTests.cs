@@ -61,6 +61,52 @@ namespace AimReactionAPI.Tests.Integration
             Assert.AreEqual(GameType.ReflexTest, gameSessionResult.GameType);
         }
 
+        [Test]
+        public async Task GetAllGames_ShouldReturnOnlyPublic()
+        {
+            int userId = 3;
+            var expectedGameCount = 1;
+
+            var result = await _controller.GetAllGames(userId);
+
+            var okResult = result as OkObjectResult;
+            Assert.IsNotNull(okResult);
+
+            var games = okResult.Value as List<MiniGameDto>;
+            Assert.AreEqual(expectedGameCount, games.Count);
+        }
+
+        [Test]
+        public async Task GetAllGames_ShouldReturnPublicAndPrivate_AccessGiven()
+        {
+            int userId = 2;
+            var expectedGameCount = 2;
+
+            var result = await _controller.GetAllGames(userId);
+
+            var okResult = result as OkObjectResult;
+            Assert.IsNotNull(okResult);
+
+            var games = okResult.Value as List<MiniGameDto>;
+            Assert.AreEqual(expectedGameCount, games.Count);
+        }
+
+        [Test]
+        public async Task GetAllGames_ShouldReturnPublicAndPrivate_Creator()
+        {
+            int userId = 1;
+            var expectedGameCount = 2;
+
+            var result = await _controller.GetAllGames(userId);
+
+            var okResult = result as OkObjectResult;
+            Assert.IsNotNull(okResult);
+
+            var games = okResult.Value as List<MiniGameDto>;
+            Assert.AreEqual(expectedGameCount, games.Count);
+        }
+
+
         [TearDown]
         public void TearDown()
         {
@@ -68,11 +114,46 @@ namespace AimReactionAPI.Tests.Integration
             _context.Dispose();
         }
 
-        private void SeedDatabase()
+        private async Task SeedDatabase()
         {
-            _context.Add(new User { UserId = 1, Name = "test", Email = "test@example.com", PasswordHash = "hash" });
+            var game1 = new Game
+            {
+                GameId = 1,
+                GameName = "Test1",
+                GameDescription = "Description.",
+                DifficultyLevel = "Medium",
+                TargetSpeed = 50,
+                MaxTargets = 10,
+                GameDuration = 30,
+                CreatorId = 1,
+                Visibility = GameVisibility.PUBLIC,
+                GameType = GameType.ReflexTest
+            };
 
-            _context.SaveChangesAsync();
+            var game2 = new Game
+            {
+                GameId = 2,
+                GameName = "Test2",
+                GameDescription = "Description.",
+                DifficultyLevel = "Medium",
+                TargetSpeed = 50,
+                MaxTargets = 10,
+                GameDuration = 30,
+                CreatorId = 1,
+                Visibility = GameVisibility.PRIVATE,
+                GameType = GameType.ReflexTest
+            };
+
+            var user1 = new User { UserId = 1, Name = "test", Email = "test@example.com", PasswordHash = "hash" };
+            var user2 = new User { UserId = 2, Name = "test2", Email = "test2@example.com", PasswordHash = "hash" };
+            var user3 = new User { UserId = 3, Name = "test3", Email = "test3@example.com", PasswordHash = "hash" };
+
+            _context.Users.AddRange(user1, user2, user3);
+            _context.Games.AddRange(game1, game2);
+
+            _context.GameUsers.Add(new GameUser { UserId = 2, GameId = 2 });
+
+            await _context.SaveChangesAsync();
         }
     }
 }

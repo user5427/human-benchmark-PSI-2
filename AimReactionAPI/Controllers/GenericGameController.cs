@@ -44,10 +44,10 @@ public class GenericGameController : ControllerBase
                 g.Visibility == GameVisibility.PUBLIC ||
                 _context.GameUsers.Any(gu => gu.GameId == g.GameId && gu.UserId == userId)
             )
-            .Select(g => new
+            .Select(g => new MiniGameDto
             {
-                g.GameId,
-                g.CreatorId,
+                GameId = g.GameId,
+                CreatorId = g.CreatorId,
                 GameDescription = new GameDescription(g.GameName, g.GameDescription, g.GameType),
                 GameDifficulty = g.DifficultyLevel
             })

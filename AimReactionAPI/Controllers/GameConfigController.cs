@@ -43,6 +43,11 @@ public class GameConfigController : ControllerBase
 
             return Ok(game);
         }
+        catch (UnauthorizedAccessException ex)
+        {
+            return StatusCode(400, ex.Message);
+
+        }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error while saving game configuration.");

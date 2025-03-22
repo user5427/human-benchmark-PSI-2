@@ -37,7 +37,7 @@ public class GameService
                     ?? throw new Exception("Game not found");
 
                 if (game.CreatorId != gameConfig.CreatorId)
-                    throw new Exception("User is not allowed to make changes.");
+                    throw new UnauthorizedAccessException("User is not allowed to make changes.");
             }
             else
             {

@@ -37,8 +37,7 @@ public class GameUserService
 
     public async Task DeleteCurrentGameUsersAsync(int gameId)
     {
-        await _context.GameUsers
-            .Where(gu => gu.GameId == gameId)
-            .ExecuteDeleteAsync();
+        var usersToDelete = _context.GameUsers.Where(gu => gu.GameId == gameId);
+        _context.GameUsers.RemoveRange(usersToDelete);
     }
 }

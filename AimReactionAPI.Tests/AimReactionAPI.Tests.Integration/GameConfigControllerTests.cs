@@ -32,6 +32,21 @@ namespace AimReactionAPI.Tests.Integration
                 .Options;
 
             _context = new AppDbContext(options);
+            _context.Users.Add(new User
+            {
+                UserId = 1,
+                Name = "test1",
+                Email = "test1@gmail.com",
+                PasswordHash = "hashed"
+            });
+            _context.Users.Add(new User
+            {
+                UserId = 2,
+                Name = "test2",
+                Email = "test2@gmail.com",
+                PasswordHash = "hashed"
+            });
+            _context.SaveChanges();
             _gameServiceLoggerMock = new Mock<ILogger<GameService>>();
             _targetService = new TargetService(_context);
             _gameUserService = new GameUserService(_context);
@@ -101,6 +116,143 @@ namespace AimReactionAPI.Tests.Integration
             Assert.AreEqual("Operation failed.", serverErrorResult.Value);
         }
 
+        [Test]
+        public async Task CreateOrUpdateGame_ExistingGamePublic_UpdatesAndReturnsOk()
+        {
+            var existingGame = new Game
+            {
+                GameId = 1,
+                CreatorId = 1,
+                GameName = "Existing Game",
+                GameDescription = "Old Description",
+                DifficultyLevel = "Easy",
+                TargetSpeed = 1,
+                MaxTargets = 5,
+                GameDuration = 10,
+                GameType = GameType.ReflexTest,
+                Visibility = GameVisibility.PUBLIC
+            };
+
+            _context.Games.Add(existingGame);
+            await _context.SaveChangesAsync();
+
+            var gameConfigDto = new GameConfigDto
+            {
+                GameId = 1,
+                CreatorId = 1,
+                Name = "Updated Game",
+                Description = "New Description",
+                DifficultyLevel = "Hard",
+                TargetSpeed = 2,
+                MaxTargets = 10,
+                GameDuration = 20,
+                GameType = GameType.MovingTargets,
+                Visibility = GameVisibility.PUBLIC,
+                AllowedUsers = []
+            };
+
+            var result = await _controller.CreateOrUpdateGame(gameConfigDto);
+
+            Assert.IsInstanceOf<OkObjectResult>(result);
+            var okResult = result as OkObjectResult;
+            Assert.IsNotNull(okResult);
+
+            var updatedGame = okResult.Value as Game;
+            Assert.IsNotNull(updatedGame);
+            Assert.AreEqual("Updated Game", updatedGame.GameName);
+            Assert.AreEqual("New Description", updatedGame.GameDescription);
+            Assert.AreEqual("Hard", updatedGame.DifficultyLevel);
+            Assert.AreEqual(2, updatedGame.TargetSpeed);
+            Assert.AreEqual(10, updatedGame.MaxTargets);
+            Assert.AreEqual(20, updatedGame.GameDuration);
+            Assert.AreEqual(GameType.MovingTargets, updatedGame.GameType);
+        }
+
+        [Test]
+        public async Task CreateOrUpdateGame_ExistingGamePrivate_UpdatesAndReturnsOk()
+        {
+            var existingGame = new Game
+            {
+                GameId = 1,
+                CreatorId = 1,
+                GameName = "Existing Game",
+                GameDescription = "Old Description",
+                DifficultyLevel = "Easy",
+                TargetSpeed = 1,
+                MaxTargets = 5,
+                GameDuration = 10,
+                GameType = GameType.ReflexTest,
+                Visibility = GameVisibility.PUBLIC
+            };
+
+            _context.Games.Add(existingGame);
+            await _context.SaveChangesAsync();
+
+            var gameConfigDto = new GameConfigDto
+            {
+                GameId = 1,
+                CreatorId = 1,
+                Name = "Updated Game",
+                Description = "New Description",
+                DifficultyLevel = "Hard",
+                TargetSpeed = 2,
+                MaxTargets = 10,
+                GameDuration = 20,
+                GameType = GameType.MovingTargets,
+                Visibility = GameVisibility.PRIVATE,
+                AllowedUsers = [2]
+            };
+
+            var result = await _controller.CreateOrUpdateGame(gameConfigDto);
+
+            Assert.IsInstanceOf<OkObjectResult>(result);
+            var okResult = result as OkObjectResult;
+            Assert.IsNotNull(okResult);
+
+            var updatedGame = okResult.Value as Game;
+            Assert.IsNotNull(updatedGame);
+            Assert.AreEqual("Updated Game", updatedGame.GameName);
+            Assert.AreEqual("New Description", updatedGame.GameDescription);
+            Assert.AreEqual("Hard", updatedGame.DifficultyLevel);
+            Assert.AreEqual(2, updatedGame.TargetSpeed);
+            Assert.AreEqual(10, updatedGame.MaxTargets);
+            Assert.AreEqual(20, updatedGame.GameDuration);
+            Assert.AreEqual(GameType.MovingTargets, updatedGame.GameType);
+        }
+
+        [Test]
+        public async Task CreateOrUpdateGame_UserNotCreator_ReturnsForbidden()
+        {
+            var existingGame = new Game
+            {
+                GameId = 2,
+                CreatorId = 456,
+                GameName = "Existing Game",
+                GameDescription = "New Description",
+                DifficultyLevel = "Hard",
+            };
+
+            _context.Games.Add(existingGame);
+            await _context.SaveChangesAsync();
+
+            var gameConfigDto = new GameConfigDto
+            {
+                GameId = 2,
+                CreatorId = 123,
+                Name = "Unauthorized Update",
+                Description = "New Description",
+                DifficultyLevel = "Hard",
+                AllowedUsers = []
+            };
+
+            var result = await _controller.CreateOrUpdateGame(gameConfigDto);
+
+            Assert.IsInstanceOf<ObjectResult>(result);
+            var badRequest = result as ObjectResult;
+            Assert.AreEqual(400, badRequest.StatusCode);
+            Assert.AreEqual("User is not allowed to make changes.", badRequest.Value);
+        }
+
         [TearDown]
         //cleanup database
         public void TearDown()
@@ -110,7 +262,6 @@ namespace AimReactionAPI.Tests.Integration
         }
     }
 
-    //simulating _gameService.CreateGameFromAsync failure 
     public class GameServiceStub : GameService
     {
         private readonly Game _returnValue;
