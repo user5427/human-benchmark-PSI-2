@@ -18,6 +18,7 @@ namespace AimReactionAPI.Tests.Integration
     {
         private AppDbContext _context;
         private GameService _gameService;
+        private GameUserService _gameUserService;
         private Mock<ILogger<GameService>> _gameServiceLoggerMock;
         private TargetService _targetService;
         private ILogger<GameConfigController> _logger;
@@ -33,12 +34,13 @@ namespace AimReactionAPI.Tests.Integration
             _context = new AppDbContext(options);
             _gameServiceLoggerMock = new Mock<ILogger<GameService>>();
             _targetService = new TargetService(_context);
-            _gameService = new GameService(_context, _gameServiceLoggerMock.Object, _targetService);
+            _gameUserService = new GameUserService(_context);
+            _gameService = new GameService(_context, _gameServiceLoggerMock.Object, _targetService, _gameUserService);
             _controller = new GameConfigController(_context, _logger, _gameService);
         }
 
         [Test]
-        public async Task UploadGameConfig_ValidDto_ReturnsOkRequest()
+        public async Task CreateOrUpdateGame_ValidDto_ReturnsOkRequest()
         {
             var gameConfigDto = new GameConfigDto
             {
@@ -48,10 +50,11 @@ namespace AimReactionAPI.Tests.Integration
                 TargetSpeed = 1,
                 MaxTargets = 1,
                 GameDuration = 1,
-                GameType = GameType.MovingTargets
+                GameType = GameType.MovingTargets,
+                AllowedUsers = []
             };
 
-            var result = await _controller.UploadGameConfig(gameConfigDto);
+            var result = await _controller.CreateOrUpdateGame(gameConfigDto);
 
             Assert.IsInstanceOf<OkObjectResult>(result);
             var okResult = result as OkObjectResult;
@@ -63,9 +66,9 @@ namespace AimReactionAPI.Tests.Integration
         }
 
         [Test]
-        public async Task UploadGameConfig_gameConfigDtoIsNull_ReturnsBadRequest()
+        public async Task CreateOrUpdateGame_gameConfigDtoIsNull_ReturnsBadRequest()
         {
-            var result = await _controller.UploadGameConfig(null);
+            var result = await _controller.CreateOrUpdateGame(null);
 
             var badRequestResult = result as BadRequestObjectResult;
             Assert.IsInstanceOf<BadRequestObjectResult>(result);
@@ -73,7 +76,7 @@ namespace AimReactionAPI.Tests.Integration
         }
 
         [Test]
-        public async Task UploadGameConfig_gameIsNull_ReturnsServerError()
+        public async Task CreateOrUpdateGame_gameIsNull_ReturnsServerError()
         {
             var gameConfigDto = new GameConfigDto
             {
@@ -83,18 +86,19 @@ namespace AimReactionAPI.Tests.Integration
                 TargetSpeed = 1,
                 MaxTargets = 1,
                 GameDuration = 1,
-                GameType = GameType.MovingTargets
+                GameType = GameType.MovingTargets,
+                AllowedUsers = []
             };
 
-            _gameService = new GameService(_context, _gameServiceLoggerMock.Object, _targetService);
+            _gameService = new GameService(_context, _gameServiceLoggerMock.Object, _targetService, _gameUserService);
             _controller = new GameConfigController(_context, _logger, new GameServiceStub(null));
 
-            var result = await _controller.UploadGameConfig(gameConfigDto);
+            var result = await _controller.CreateOrUpdateGame(gameConfigDto);
 
             Assert.IsInstanceOf<ObjectResult>(result);
             var serverErrorResult = result as ObjectResult;
             Assert.AreEqual(500, serverErrorResult.StatusCode);
-            Assert.AreEqual("Game creation failed.", serverErrorResult.Value);
+            Assert.AreEqual("Operation failed.", serverErrorResult.Value);
         }
 
         [TearDown]
@@ -116,7 +120,7 @@ namespace AimReactionAPI.Tests.Integration
             _returnValue = returnValue;
         }
 
-        public override Task<Game?> CreateGameFromAsync(GameConfig gameConfig)
+        public override Task<Game?> CreateOrUpdateGameAsync(GameConfigDto gameConfig)
         {
             return Task.FromResult(_returnValue);
         }

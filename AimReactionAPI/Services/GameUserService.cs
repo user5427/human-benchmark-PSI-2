@@ -8,7 +8,6 @@ namespace AimReactionAPI.Services;
 public class GameUserService
 {
     private readonly AppDbContext _context;
-    private readonly ILogger<GameService> _logger;
     private readonly object value;
 
     //added stubs in testing
@@ -17,10 +16,9 @@ public class GameUserService
         this.value = value;
     }
 
-    public GameUserService(AppDbContext context, ILogger<GameService> logger)
+    public GameUserService(AppDbContext context)
     {
         _context = context;
-        _logger = logger;
     }
 
     public async Task SetGameUsersAsync(int gameId, List<int> userIds)
