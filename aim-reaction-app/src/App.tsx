@@ -12,7 +12,7 @@ import Login from "./pages/Login/Login";
 import { AuthProvider } from "./contexts/AuthContext";
 import Games from "./pages/Games/Games";
 
-const Layout: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
+const Layout: React.FC<React.PropsWithChildren<object>> = ({ children }) => {
   const location = useLocation();
 
   const hideNavbarRoutes = ["/login"];
@@ -34,11 +34,26 @@ function App() {
         <Layout>
           <Routes>
             <Route path="/" element={<PrivateRoute element={Home} />} />
-            <Route path="/create-game" element={<PrivateRoute element={CreateGame} />} />
-            <Route path="/leaderboards" element={<PrivateRoute element={Leaderboard} />} />
-            <Route path="/reaction-test" element={<PrivateRoute element={ReactionTest} />} />
-            <Route path="/movingTargets" element={<PrivateRoute element={MovingTarget} />} />
-            <Route path="/reflex-test" element={<PrivateRoute element={ReflexTest} />} />
+            <Route
+              path="/game-config"
+              element={<PrivateRoute element={CreateGame} />}
+            />
+            <Route
+              path="/leaderboards"
+              element={<PrivateRoute element={Leaderboard} />}
+            />
+            <Route
+              path="/reaction-test"
+              element={<PrivateRoute element={ReactionTest} />}
+            />
+            <Route
+              path="/movingTargets"
+              element={<PrivateRoute element={MovingTarget} />}
+            />
+            <Route
+              path="/reflex-test"
+              element={<PrivateRoute element={ReflexTest} />}
+            />
             <Route path="/games" element={<PrivateRoute element={Games} />} />
             <Route path="/login" element={<Login />} />
           </Routes>

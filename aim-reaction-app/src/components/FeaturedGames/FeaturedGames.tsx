@@ -4,30 +4,31 @@ import styles from "./FeaturedGames.module.css";
 import GameCard from "../GameCard/GameCard";
 
 import { Game } from "../../types/props";
+import { useAuth } from "../../contexts/AuthContext";
 
 const FeaturedGames = () => {
+  const { userId } = useAuth();
   const [games, setGames] = useState<Game[]>([]);
   const [activeUserCount, setActiveUserCount] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-
   const apiUrl = import.meta.env.VITE_API_URL;
-
   useEffect(() => {
     const fetchGames = async () => {
       try {
         setLoading(true);
         setError("");
-        const response = await fetch(`${apiUrl}/GenericGame/games`);
+        const response = await fetch(
+          `${apiUrl}/GenericGame/games?userId=${userId}`
+        );
 
         if (!response.ok) {
           throw new Error(`Network response was not ok`);
         }
 
         const data = await response.json();
-        console.log(data);
         setGames(data);
-      } catch (error) {
+      } catch {
         setError("Failed to load games.");
       } finally {
         setLoading(false);
@@ -42,7 +43,7 @@ const FeaturedGames = () => {
       try {
         const response = await fetch(`${apiUrl}/GenericGame/active`, {
           method: "GET",
-      });
+        });
 
         if (!response.ok) {
           throw new Error("Failed to fetch active user count.");
@@ -61,9 +62,11 @@ const FeaturedGames = () => {
   return (
     <section className={styles.games}>
       <div className={styles.available}>
-      <h2 className={styles.featuredTitle}>Featured Games</h2>
+        <h2 className={styles.featuredTitle}>Featured Games</h2>
         {activeUserCount !== null && (
-          <span className={styles.activeUsers}>Active users: {activeUserCount}</span>
+          <span className={styles.activeUsers}>
+            Active users: {activeUserCount}
+          </span>
         )}
 
         {/* Conditionally render based on the state */}
@@ -81,7 +84,5 @@ const FeaturedGames = () => {
     </section>
   );
 };
-
-
 
 export default FeaturedGames;

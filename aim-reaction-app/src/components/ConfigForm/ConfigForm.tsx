@@ -1,31 +1,88 @@
-import React, { useState } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { useEffect, useState } from "react";
 
 import styles from "./ConfigForm.module.css";
 import Button from "../Button/Button";
 import { GameType } from "../GameType/GameType";
+import { useAuth } from "../../contexts/AuthContext";
+import { useLocation, useNavigate } from "react-router";
+import { GameConfig } from "../../types/props";
 
 const ConfigForm = () => {
-  const [name, setName] = useState("");
-  const [descr, setDescr] = useState("");
-  const [duration, setDuration] = useState("");
-  const [targets, setTargets] = useState("");
-  const [difficulty, setDifficulty] = useState("");
-  const [speed, setSpeed] = useState("");
-  const [type, setType] = useState("");
+  const location = useLocation();
+  const { gameId } = location.state || {};
+  const [gameConfig, setGameConfig] = useState<GameConfig | null>(null);
+  const [name, setName] = useState<string>("");
+  const [descr, setDescr] = useState<string>("");
+  const [duration, setDuration] = useState<string>("");
+  const [targets, setTargets] = useState<string>("");
+  const [difficulty, setDifficulty] = useState<string>("");
+  const [speed, setSpeed] = useState<string>("");
+  const [type, setType] = useState<number>(0);
+  const [visibility, setVisibility] = useState<number>(0);
+  const [allowedUsers, setAllowedUsers] = useState<number[]>([]);
+  const [availableUsers, setAvailableUsers] = useState<any[]>([]);
+  const { userId } = useAuth();
+  const navigate = useNavigate();
+  const apiUrl = import.meta.env.VITE_API_URL;
+  console.log(allowedUsers);
+  useEffect(() => {
+    const fetchGame = async () => {
+      if (!gameId) return;
+      try {
+        const response = await fetch(
+          `${apiUrl}/genericgame/games/${gameId}?userId=${userId}`
+        );
+        const game = await response.json();
+        setGameConfig(game);
+      } catch (error) {
+        console.error("Error fetching game: ", error);
+      }
+    };
 
+    fetchGame();
+  }, [gameId, apiUrl, userId]);
 
+  useEffect(() => {
+    if (gameConfig) {
+      setName(gameConfig.name);
+      setDescr(gameConfig.description);
+      setDuration(gameConfig.gameDuration.toString());
+      setTargets(gameConfig.maxTargets.toString());
+      setDifficulty(gameConfig.difficultyLevel.toString());
+      setSpeed(gameConfig.targetSpeed.toString());
+      setType(gameConfig.gameType);
+      setVisibility(gameConfig.visibility || 1);
+      setAllowedUsers(gameConfig.allowedUsers || []);
+    }
+  }, [gameConfig]);
 
- const gameTypeMap: Record<string, GameType> = {
+  // Fetch available users once on mount
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch(`${apiUrl}/Users?userId=${userId}`);
+        const users = await response.json();
+        setAvailableUsers(users);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      }
+    };
+
+    fetchUsers();
+  }, [apiUrl, userId]);
+
+  const gameTypeMap: Record<string, GameType> = {
     MovingTargets: GameType.MovingTargets,
     ReflexTest: GameType.ReflexTest,
     CustomChallenge: GameType.CustomChallenge,
-    ReactionTest: GameType.ReactionTimeChallenge
+    ReactionTest: GameType.ReactionTimeChallenge,
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     const gameConfigDto = {
+      gameId: gameConfig?.gameId ? parseInt(gameConfig.gameId) : undefined,
       name: name,
       description: descr,
       difficultyLevel: difficulty,
@@ -33,28 +90,22 @@ const ConfigForm = () => {
       maxTargets: parseInt(targets),
       gameDuration: parseInt(duration),
       gameType: gameTypeMap[type] || 2,
+      allowedUsers,
+      creatorId: userId,
+      visibility,
     };
-
-    const apiUrl = import.meta.env.VITE_API_URL;
-
     try {
-      const response = await fetch(`${apiUrl}/GameConfig/upload`, {
-        method: "POST",
+      const response = await fetch(`${apiUrl}/GameConfig`, {
+        method: "PUT",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(gameConfigDto),
       });
 
       if (response.ok) {
-        alert("Game configuration created successfully!");
-
-        setName("");
-        setDuration("");
-        setTargets("");
-        setDifficulty("");
-        setSpeed("");
-        setType("");
+        alert("Successfully completed");
+        navigate("/games");
       } else {
         const errorData = await response.json();
         alert("Error creating game configuration: " + errorData.message);
@@ -66,11 +117,20 @@ const ConfigForm = () => {
         alert("An unexpected error occurred.");
       }
     }
-  }
+  };
+
+  const handleUserSelection = (event: any) => {
+    const userId = parseInt(event.target.value);
+    if (!userId) return;
+    setAllowedUsers((prev) =>
+      prev.includes(userId)
+        ? prev.filter((id) => id !== userId)
+        : [...prev, userId]
+    );
+  };
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
-      <h2>New Game</h2>
       <p>Please specify required configuration to create a game.</p>
 
       <div className={styles.formContent}>
@@ -94,13 +154,13 @@ const ConfigForm = () => {
           <select
             id="type"
             value={type}
-            onChange={(e) => setType(e.target.value)}
+            onChange={(e) => setType(parseInt(e.target.value))}
             className={styles.input}
             required
           >
             <option value="">Choose a game type</option>
-            <option value="ReflexTest">ReflexTest</option>
-            <option value="ReactionTest">ReactionTest</option>
+            <option value="1">ReflexTest</option>
+            <option value="2">ReactionTest</option>
           </select>
         </div>
 
@@ -162,6 +222,20 @@ const ConfigForm = () => {
         </div>
 
         <div className={styles.inputItem}>
+          <label htmlFor="visibility">Visibility</label>
+          <select
+            id="visibility"
+            value={visibility}
+            onChange={(e) => setVisibility(parseInt(e.target.value))}
+            className={styles.input}
+            required
+          >
+            <option value="0">Public</option>
+            <option value="1">Private</option>
+          </select>
+        </div>
+
+        <div className={styles.inputItem}>
           <label htmlFor="difficulty">Difficulty Level</label>
           <select
             id="difficulty"
@@ -176,9 +250,27 @@ const ConfigForm = () => {
             <option value="hard">Hard</option>
           </select>
         </div>
+        {visibility === 1 ? (
+          <div>
+            <label>Allowed Users</label>
+            <div className={styles.userList}>
+              {availableUsers?.map((user) => (
+                <div key={user.id}>
+                  <input
+                    type="checkbox"
+                    value={user.id}
+                    checked={allowedUsers.includes(user.id)}
+                    onChange={handleUserSelection}
+                  />
+                  <label>{user.name}</label>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : null}
       </div>
 
-      <Button label="Create Game" variant="secondary" />
+      <Button label="Save" variant="secondary" />
     </form>
   );
 };
