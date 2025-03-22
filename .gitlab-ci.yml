@@ -2,6 +2,7 @@
 
 stages:
   - build
+  - test
   - dockerize
   - deploy
 
@@ -31,6 +32,27 @@ build_backend:
   artifacts:
     paths:
       - AimReactionAPI/publish/  # Relative path to the publish output
+
+# Test Frontend
+test_frontend:
+  stage: test
+  image: node:16
+  script:
+    - cd aim-reaction-app  # Change to the frontend directory
+    - npm install
+    - npm test
+
+# Test Backend
+test_backend:
+  stage: test.
+  image: mcr.microsoft.com/dotnet/sdk:7.0
+  script:
+    - cd AimReactionAPI.Tests\AimReactionAPI.Tests.Integration  # Change to the backend directory
+    - dotnet test
+
+  script:
+    - cd AimReactionAPI.Tests\AimReactionAPI.Tests.Unit  # Change to the backend directory
+    - dotnet test
 
 # Dockerize Frontend
 dockerize_frontend:
