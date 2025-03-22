@@ -47,11 +47,11 @@ test_backend:
   stage: test
   image: mcr.microsoft.com/dotnet/sdk:7.0
   script:
-    - cd AimReactionAPI.Tests\AimReactionAPI.Tests.Integration  # Change to the backend directory
+    - cd "AimReactionAPI.Tests\AimReactionAPI.Tests.Integration"  # Change to the backend directory
     - dotnet test
 
   script:
-    - cd AimReactionAPI.Tests\AimReactionAPI.Tests.Unit  # Change to the backend directory
+    - cd "AimReactionAPI.Tests\AimReactionAPI.Tests.Unit"  # Change to the backend directory
     - dotnet test
 
 # Dockerize Frontend
