@@ -12,6 +12,7 @@ public class AppDbContext : DbContext
     public DbSet<Score> Scores { get; set; }
     public DbSet<Game> Games { get; set; }
     public DbSet<Target> Targets { get; set; }
+    public DbSet<GameUser> GameUsers { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -27,6 +28,16 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<Game>()
                     .Property(g => g.GameType)
                     .HasConversion<string>();
+
+        modelBuilder.Entity<Game>()
+                    .Property(g => g.Visibility)
+                    .HasConversion<string>();
+
+        modelBuilder.Entity<Game>()
+            .HasOne(g => g.Creator)
+            .WithMany()
+            .HasForeignKey(g => g.CreatorId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder.Entity<User>()
                     .HasMany(u => u.Scores)
@@ -59,5 +70,20 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<GameSession>()
                     .Property(gs => gs.GameType)
                     .HasConversion<string>();
+
+        modelBuilder.Entity<GameUser>()
+          .HasKey(gu => new { gu.GameId, gu.UserId });
+
+        modelBuilder.Entity<GameUser>()
+            .HasOne(gu => gu.Game)
+            .WithMany(g => g.GameUsers)
+            .HasForeignKey(gu => gu.GameId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<GameUser>()
+            .HasOne(gu => gu.User)
+            .WithMany(g => g.GameUsers)
+            .HasForeignKey(gu => gu.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

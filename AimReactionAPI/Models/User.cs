@@ -15,4 +15,6 @@ public class User
     public ICollection<Score> Scores { get; set; } = new List<Score>();
     [JsonIgnore]
     public ICollection<GameSession> GameSessions { get; set; }
+    public virtual ICollection<GameUser> GameUsers { get; set; }
+
 }

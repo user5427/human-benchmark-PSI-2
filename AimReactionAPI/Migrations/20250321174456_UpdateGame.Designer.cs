@@ -3,6 +3,7 @@ using System;
 using AimReactionAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AimReactionAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250321174456_UpdateGame")]
+    partial class UpdateGame
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -95,21 +98,6 @@ namespace AimReactionAPI.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("GameSessions");
-                });
-
-            modelBuilder.Entity("AimReactionAPI.Models.GameUser", b =>
-                {
-                    b.Property<int>("GameId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("GameId", "UserId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("GameUsers");
                 });
 
             modelBuilder.Entity("AimReactionAPI.Models.Score", b =>
@@ -225,25 +213,6 @@ namespace AimReactionAPI.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("AimReactionAPI.Models.GameUser", b =>
-                {
-                    b.HasOne("AimReactionAPI.Models.Game", "Game")
-                        .WithMany("GameUsers")
-                        .HasForeignKey("GameId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("AimReactionAPI.Models.User", "User")
-                        .WithMany("GameUsers")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Game");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("AimReactionAPI.Models.Score", b =>
                 {
                     b.HasOne("AimReactionAPI.Models.Game", "Game")
@@ -274,8 +243,6 @@ namespace AimReactionAPI.Migrations
 
             modelBuilder.Entity("AimReactionAPI.Models.Game", b =>
                 {
-                    b.Navigation("GameUsers");
-
                     b.Navigation("Scores");
 
                     b.Navigation("Targets");
@@ -284,8 +251,6 @@ namespace AimReactionAPI.Migrations
             modelBuilder.Entity("AimReactionAPI.Models.User", b =>
                 {
                     b.Navigation("GameSessions");
-
-                    b.Navigation("GameUsers");
 
                     b.Navigation("Scores");
                 });
