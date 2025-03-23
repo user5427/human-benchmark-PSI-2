@@ -133,21 +133,21 @@ focus.
 The CI process usually is quite straight forward and in our case requires the use
 of the basic \textbf{dotnet} and \textbf{npm} commands. These exact commands are used to build the backend:
 \begin{enumerate}
-    \item dotnet restore
-    \item dotnet build --configuration Release
-    \item dotnet publish -c Release -o ./publish
+    \item \texttt{dotnet restore}
+    \item \texttt{dotnet build --configuration Release}
+    \item \texttt{dotnet publish -c Release -o ./publish}
 \end{enumerate} 
 To build the frontend:
 \begin{enumerate}
-    \item npm install
-    \item npm run build
+    \item \texttt{npm install}
+    \item \texttt{npm run build}
 \end{enumerate}
 
 \subsubsection{CI resource needs}
 
 \textbf{Storage needs}
 
-\textbf{Notice:} all of these backend mesurments were done using dotnet 9.0.100 version. 
+\textbf{Notice:} all of these backend mesurments were done using dotnet 9.0.100 version. \\
 To build the backend around 47 megabytes are needed (this includes the bin and obj folder size while excluding all source files). To build integration tests it takes 28 megabytes. To build unit tests it takes 28 megabytes.
 The source files for backend take up around 64 kilobytes. The integration test source files take up around 23 kilobytes and the unit test files take up 5 kilobytes. \ref{tab:storage-needs}
 
@@ -288,6 +288,178 @@ to build and test the application will reduce in total about 40 seconds.
 In conclusion, the CI pipeline is not very time intensive nor memory intensive. 
 It requires only the most basic command usage. 
 In case a failure occurs, the pipeline is canceled and a red 'X' appears near the commit.
+
+\subsection{CD}
+The CD (continous delivery) is a process where the application is 
+dockerized using Docker and then deployed to a hosting service (in our case our faculty virtual machine).
+
+\subsubsection{CD order}
+The CD is done in this order:
+\begin{itemize}
+    \item Stage 1: dockerize the application (The order in which the application is dockerized does not matter, the frontend or backend build dockerization does not depend on each other).
+    If dockerization of frontend or backend fails, the CD is cancelled.
+    \item Stage 2: deploy the application (The application is deployd to VM)
+    IF deployment fails, the CD is cancelled.
+\end{itemize}
+
+In case CD fails, a red 'X' appears near the commit message in GitLab.
+Just like in CI section, the developer could be informed by other means but this is beyond the scope of our document.
+
+\subsubsection{CD commands}
+The CD process just like CI is straight forward and in our case requires the use
+of the basic \textbf{docker} commands. These exact commands are used to dockerize the backend and frontend:
+\begin{enumerate}
+    \item \texttt{docker build -t frontend-app .}
+    \item \texttt{docker build -t backend-app .}
+\end{enumerate}
+
+In both cases the docker service finds the images necessary to run the frontend and backend automatically.
+
+The command \texttt{docker-compose up -d} is used to deploy the application.
+
+\subsubsection{CD resource needs}
+
+\textbf{Storage needs}
+
+The commands \texttt{sudo docker ps -a -s}, \texttt{sudo docker system df} and \texttt{sudo docker system df -v} will be used to retrieve this data.\\
+
+SIZE: This is the amount of data that is used by the writable layer of the container (i.e., the changes made to the container's filesystem).
+
+VIRTUAL SIZE: This is the total size of the container, including the read-only image layers and the writable layer.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{Part of application} & \textbf{Size} & \textbf{Virtual size} \\
+        \hline
+        Backend & 0 B & 242 MB \\
+        \hline
+        Frontend size & 1.09 KB & 50 MB \\ 
+        \hline
+    \end{tabular}
+    \caption{Storage needs retrieved using \texttt{sudo docker ps -a -s}}
+    \label{tab:docker-storage-needs}
+\end{table}
+
+In total both backend and frontend containers take up around 300 megabytes. 
+The reason why the backend container has 0 B for the first column is because the backend container does not write any data to its file system. 
+Rather all of the data is stored on a Microsoft SQL database.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        \textbf{TYPE} & \textbf{TOTAL} & \textbf{ACTIVE} & \textbf{SIZE} & \textbf{RECLAIMABLE} \\ 
+        \hline
+        Images & 15 & 2 & 2.467GB & 2.439GB (98\%) \\ 
+        \hline
+        Containers & 2 & 2 & 1.095kB & 0B (0\%) \\ 
+        \hline
+        Local Volumes & 1 & 1 & 0B & 0B \\ 
+        \hline
+        Build Cache & 0 & 0 & 0B & 0B \\ 
+        \hline
+    \end{tabular}
+    \caption{Docker resource usage retrieved using \texttt{sudo docker system df}}
+    \label{tab:docker-resource-usage}
+\end{table}
+
+In table \ref{tab:docker-resource-usage} we can see that the entire application with .Net and Node images takes around 2.5 gigabytes of storage.
+
+
+\textbf{Memory and CPU needs}
+Just like with CI proceses, we will be mesuring the time it takes to dockerize backend and frontend to roughly determine the CPU needs.
+
+We will run the processes 4 times and average the result out.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline
+        \textbf{Process} & \textbf{Time Taken (seconds)} \\
+        \hline
+        Dockerize Backend & 35; 4; 3; 3 \\
+        \hline
+        Dockerize Frontend & 52; 4; 7; 3 \\
+        \hline
+        Deploy application & 16; 8; 4; 4 \\
+        \hline
+    \end{tabular}
+    \caption{Time taken for various processes}
+    \label{tab:dockerize-process-time}
+\end{table}
+
+The mesurments were done in the order that they are displayed in table (first 4 for mesurments for backend dockerization then 4 mesurments for frontend dockerization). 
+Clearly, when there are changes to backend or frontend, the process takes way longer to build. And if there are no changes done to backend or frontend, the process quickly finishes which is a great 
+optimization if the CD pipeline is used often.
+
+
+The average times for each process are calculated as follows:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline
+        \textbf{Process} & \textbf{Average Time (seconds)} \\
+        \hline
+        Dockerize Backend & \(\frac{35 + 4 + 3 + 3}{4} = 11.25\) \\ 
+        \hline
+        Dockerize Frontend & \(\frac{52 + 4 + 7 + 3}{4} = 16.5\) \\ 
+        \hline
+        Deploy Application & \(\frac{16 + 8 + 4 + 4}{4} = 8\) \\
+        \hline
+    \end{tabular}
+    \caption{Average time taken for dockerization processes}
+    \label{tab:average-dockerize-process-time}
+\end{table}
+
+In this case, the average time table is quite inaccurate due to the way how docker works when there are no changes done to backend or frontend.
+Because of that, the min and max time \ref{tab:min-max-dockerize-process-time} table will reflect time needs more accurately.+
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{Process} & \textbf{Min Time (seconds)} & \textbf{Max Time (seconds)} \\ 
+        \hline
+        Dockerize Backend & 3 & 35 \\ 
+        \hline
+        Dockerize Frontend & 3 & 52 \\ 
+        \hline
+        Deploy Application & 4 & 16 \\
+        \hline
+    \end{tabular}
+    \caption{Min and Max time taken for dockerization processes}
+    \label{tab:min-max-dockerize-process-time}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline
+        \textbf{Process} & \textbf{Difference (seconds)} \\ 
+        \hline
+        Dockerize Backend & 35 - 3 = 32 \\ 
+        \hline
+        Dockerize Frontend & 52 - 3 = 49 \\ 
+        \hline
+        Deploy Application & 16 - 8 = 8 \\
+        \hline
+    \end{tabular}
+    \caption{Difference between max and min time taken for dockerization processes}
+    \label{tab:diff-dockerize-process-time}
+\end{table}
+
+Here we can easily observe cashing mechanisms and optimizations. We can see if the CD pipeline will be run often, the time 
+to build and test the application will reduce in total about 90 seconds.
+
+\subsubsection{CD conclusion}
+In conclusion, the CD pipeline is efficient and optimized for frequent use. 
+The dockerization process benefits significantly from caching mechanisms, 
+reducing the time required for subsequent builds. The storage requirements 
+are manageable. The deployment process is straightforward, utilizing basic 
+Docker commands to build and deploy the application.
 
 
 
