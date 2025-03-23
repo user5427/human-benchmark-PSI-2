@@ -96,12 +96,13 @@ This section is for when symbols are used. For example:
 
 \begin{tabular}{rcp{.7\textwidth}}
     {UML} & {} & {Unified Modeling Language}
+    % {VM} & {} & {Virtual Machine}
 \end{tabular}
 
 \sectionnonum{Introduction}
 For any written work, you must refer to the methodology guidelines of the respective study programme\footnote{The latest methodology requirements for all programmes can be found here, in the respective programme: \url{https://mif.vu.lt/lt3/en/studies/bachelor-studies}}. These contain all the guidelines for citations, structure, length, etc.
 
-\section{CI\textbackslash CD}
+\section{CI/CD}
 This section will discuss continous integration and continous delivery of the application. 
 The CI (continous integration) is the first process that is done which is then followed by CD (continous delivery).
 
@@ -344,7 +345,7 @@ VIRTUAL SIZE: This is the total size of the container, including the read-only i
 
 In total both backend and frontend containers take up around 300 megabytes. 
 The reason why the backend container has 0 B for the first column is because the backend container does not write any data to its file system. 
-Rather all of the data is stored on a Microsoft SQL database.
+Rather all of the data is stored on a PostgreSQL database.
 
 \begin{table}[H]
     \centering
@@ -415,7 +416,7 @@ The average times for each process are calculated as follows:
 \end{table}
 
 In this case, the average time table is quite inaccurate due to the way how docker works when there are no changes done to backend or frontend.
-Because of that, the min and max time \ref{tab:min-max-dockerize-process-time} table will reflect time needs more accurately.+
+Because of that, the min and max time \ref{tab:min-max-dockerize-process-time} table will reflect time needs more accurately.
 
 \begin{table}[H]
     \centering
@@ -454,6 +455,14 @@ Because of that, the min and max time \ref{tab:min-max-dockerize-process-time} t
 Here we can easily observe cashing mechanisms and optimizations. We can see if the CD pipeline will be run often, the time 
 to build and test the application will reduce in total about 90 seconds.
 
+\subsubsection{Networks}
+During the deployment of backend and frontend, the backend container is assigned 
+the ports 8084 and 8082 for https and http requests while the frontend container is 
+assigned the port 3005. These ports are then forwarded to public ip address 193.219.91.104 which was assigned to us by OpenNebula.
+Furthermore, a subdomain could be assigned using free .is-a.dev service but this is beyond our
+simple CI/CD requirement.
+
+
 \subsubsection{CD conclusion}
 In conclusion, the CD pipeline is efficient and optimized for frequent use. 
 The dockerization process benefits significantly from caching mechanisms, 
@@ -462,6 +471,123 @@ are manageable. The deployment process is straightforward, utilizing basic
 Docker commands to build and deploy the application.
 
 
+\subsection{Technologies used}
+\subsubsection{Application building and testing}
+As we already mentioned we use .Net and Node technologies to build and test the application. For testing the backend we used NUnit and for testing the frontend we used Vitest.
+
+\subsubsection{Used data storage}
+We use PostgreSQL database that is hosted on 
+Aiven. This database runs on 1 CPU, 1 GB RAM and 5 GB storage machine. This is plenty enough for our application as most
+of the data is stored as strings and we do not store any images or other high volume files. Furthermore, Aiven service provides
+a reliable method to backup the database in set time intervals which is important to ensure that user data is not lost.
+
+\subsubsection{GitLab runner}
+We use GitLab runner on our VM machine to execute the CI/CD pipeline. ]This ensures that our pipeline remains simple as hosting is also done by the same VM.
+
+\subsubsection{OpenNebula}
+We used OpenNebula to create the VM and manage its configuration (RAM, storage, CPU count, networks).
+
+\subsection{Hosting}
+The hosting is done on our faculty virtual machine. The machine is running Debian 12 operating system.
+All the management of the machine is handled with OpenNebula. The machine can also be managed by connecting to it via SSH.
+
+\subsubsection{Storage requirements}
+As previously in sections CI and CD we discussed, the building and images of the application take 
+up around 3 gigabytes in total (300 MB files and 2.5 gigabytes from all the images, including .Net and Node).
+
+Furthermore, the Debian 12 minimal console only installation takes up around 2 gigabytes. In total, the system would require at least 
+5 to 6 gigabytes for functioning. However, as the application will improve, it is likely that it will require more storage.
+Ideally it would be better to assign somewhere around 10 gigabytes to the virtual machine. In our case, we assigned 20 gigabytes.
+
+\subsubsection{Memory requirements}
+Mesuring the RAM needs is more difficult, especially for the CI/CD pipeline. However if we look at the average usage of RAM on our virtual machine,
+we can see that it is only using around 300 megabytes at idle \ref{fig:screenshot}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/Screenshot 2025-03-23 132928.png}
+    \caption{VM memory usage}
+    \label{fig:screenshot}
+\end{figure}
+
+If we trigger the pipeline, we can the usage patterns change
+
+\begin{figure}[H]
+    \centering
+    \begin{tabular}{cc}
+        \includegraphics[width=0.45\textwidth]{images/backbuild.png} & \includegraphics[width=0.45\textwidth]{images/frontbuild.png} \\
+        \textbf{(a)} Backend Build & \textbf{(b)} Frontend Build \\
+        \includegraphics[width=0.45\textwidth]{images/backtest.png} & \includegraphics[width=0.45\textwidth]{images/fronttest.png} \\
+        \textbf{(c)} Backend Test & \textbf{(d)} Frontend Test \\
+        \includegraphics[width=0.45\textwidth]{images/docker.png} & \\
+        \textbf{(e)} Docker Process & \\
+    \end{tabular}
+    \caption{Memory usage patterns during CI/CD pipeline}
+    \label{fig:memory-usage}
+\end{figure}
+
+During the CI/CD pipeline, it is clear that the memory usage increasese about 400 megabytes. In addition, there are spikes in virtual CPU usages.
+Especially during the dockerization proccess all of the virtual CPU units spike to 70\%. During this CI/CD stage, users may experience stuttering or lag
+as the application is hosted on the same runner. As a result, it would be better to deploy changes to application during the time the application is least used.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.45\textwidth]{images/beforeCICD.png}
+    \caption{CPU usage before CI/CD pipeline}
+    \label{fig:before-cicd}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.45\textwidth]{images/afterCICD.png}
+    \caption{CPU usage after CI/CD pipeline}
+    \label{fig:after-cicd}
+\end{figure}
+
+The spikes in CPU ussage can also be opserved through OpenNebula web page. From the previous analysis of CI/CD pipeline
+we can observe that these spikes can last from around max 4 minutes if there are changes to both backend and frontend or
+about 1 and a half minutes if there are no changes to frontend and backend. \\
+
+In conclusion, it is clear that the minimal RAM needed is around 1 gigabyte, however it would be better to have around 2 gigabytes to avoid unexpected system crashed from running out of RAM.
+In our analysis, we used a system that had 0.4 physical CPU assigned to it and 4 virtual CPUs. It is clear that in high usage of the system by users and CI/CD, stuttering and lagging may occur,
+especially durring the backend testing stage, as NUnit utilizes multithreading. In that case, it would be better to turn of multithreading for testing or increase CPU count. Ideally the system should
+be assigned atleast 1 cpu core.
+
+\subsubsection{Sum up of requirement}
+Below is a table with minimal requirements for functional system and recommended requirements for a smooth experience.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{Resource Type} & {Minimal needs} & {Recommended} \\ 
+        \hline
+        Storage & 6 GB & 10 GB \\ 
+        \hline
+        RAM & 1 GB & 2 GB \\ 
+        \hline
+        CPU & 0.4 core & 1 core \\ 
+        \hline
+    \end{tabular}
+    \caption{Resource Types}
+    \label{tab:resource-types}
+\end{table}
+
+These requirements closely match the specs of consumer-grade small computers like the Raspberry Pi 4, making it an ideal and cost-effective choice for hosting lightweight applications or small websites while maintaining energy efficiency and compactness.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/"R (1).png"}
+    \caption{Raspberry Pi 4}
+    \label{fig:example-image}
+\end{figure}
+
+\subsubsection{Threats and mitigations}
+Both pipeline and hosting runs on the same machine. A catastrophic failure in CI/CD could bring down the VM, including the website. This would cause downtimes for the users.
+It would be better to host the website on cloud services like Azure, however, because we had to use GitLab, our team was uncertain how the 
+GitLab CI/CD process would communicate with the Azure as our faculty VPN may be troubling. To mitigate this threat, our team would need to switch to Github and setup Azure hosting.
+Furthermore, the machine has SSH setup on it, which means if the password was to be found for it, an attacker could gain access to the VM and potentially compromise the entire system. To mitigate this threat, it is crucial to implement strong password policies, regularly update passwords, and consider using SSH key-based authentication instead of password-based authentication. 
+Additionally, monitoring and logging SSH access attempts can help in identifying and responding to potential security breaches promptly.
 
 \section{Results and Discusion}
 
