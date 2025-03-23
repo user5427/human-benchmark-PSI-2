@@ -116,7 +116,7 @@ The CI (continous integration) is the first process that is done which is then f
 The CI (continious integration) is a process where where the application is built and tested after a developer pushes his commit to 
 a branch that has CI action script. 
 
-\subsubsection{CI Order}
+\subsubsection{CI order}
 The CI is done in this order:
 \begin{itemize}
     \item Stage 1: build the application (The order in which the application is built does not matter, the frontend or backend build process does not depend on each other).
@@ -131,9 +131,7 @@ focus.
 
 \subsubsection{CI commands}
 The CI process usually is quite straight forward and in our case requires the use
-of the basic \textbf{dotnet} and \textbf{npm} commands.\\
-
-These exact commands are used to build the backend:
+of the basic \textbf{dotnet} and \textbf{npm} commands. These exact commands are used to build the backend:
 \begin{enumerate}
     \item dotnet restore
     \item dotnet build --configuration Release
@@ -190,7 +188,108 @@ The source files take around 2.6 megabytes. \ref{tab:frontend-storage-needs}
 Unfortunately it is quite difficult to measure how much certain building or testing processes require memory or CPU on OS platforms such as Windows.
 Because of that, we will be measuring the time it takes to build and test the application on our virtual machine.
 
-We will run the tests 10 times and average the result out.
+We will run the processes 4 times and average the result out.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline
+        \textbf{Process} & \textbf{Time Taken (seconds)} \\
+        \hline
+        Build Backend & 40; 37; 19; 20  \\
+        \hline
+        Build Frontend & 32; 27; 27; 31  \\
+        \hline
+        Test Backend Integration & 18; 17; 11; 10 \\
+        \hline
+        Test Backend Unit & 14; 18; 14; 13  \\
+        \hline
+        Test Frontend & 19; 17; 19; 18 \\
+        \hline
+    \end{tabular}
+    \caption{Time taken for various processes}
+    \label{tab:process-time}
+\end{table}
+
+The mesurments were done in the order that they are displayed in table (first 4 for mesurments for backend building then 4 mesurments for backend integration testing and etc. ). 
+It is clear that there is caching done on the building and testing processes as the second mesurment almost always takes less time.\\
+
+The average times for each process are calculated as follows:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline
+        \textbf{Process} & \textbf{Average Time (seconds)} \\
+        \hline
+        Build Backend & \(\frac{40 + 37 + 19 + 20}{4} = 29\) \\
+        \hline
+        Build Frontend & \(\frac{32 + 27 + 27 + 31}{4} = 29.25\) \\
+        \hline
+        Test Backend Integration & \(\frac{18 + 17 + 11 + 10}{4} = 14\) \\
+        \hline
+        Test Backend Unit & \(\frac{14 + 18 + 14 + 13}{4} = 14.75\) \\
+        \hline
+        Test Frontend & \(\frac{19 + 17 + 19 + 18}{4} = 18.25\) \\
+        \hline
+    \end{tabular}
+    \caption{Average time taken for various processes}
+    \label{tab:average-process-time}
+\end{table}
+
+In total that is about 110 seconds to complete the CI process or about 2 minutes.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{Process} & \textbf{Min Time (seconds)} & \textbf{Max Time (seconds)} \\
+        \hline
+        Build Backend & 19 & 40 \\
+        \hline
+        Build Frontend & 27 & 32 \\
+        \hline
+        Test Backend Integration & 10 & 18 \\
+        \hline
+        Test Backend Unit & 13 & 18 \\
+        \hline
+        Test Frontend & 17 & 19 \\
+        \hline
+    \end{tabular}
+    \caption{Min and Max time taken for various processes}
+    \label{tab:min-max-process-time}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline
+        \textbf{Process} & \textbf{Difference (seconds)} \\
+        \hline
+        Build Backend & 40 - 19 = 21 \\
+        \hline
+        Build Frontend & 32 - 27 = 5 \\
+        \hline
+        Test Backend Integration & 18 - 10 = 8 \\
+        \hline
+        Test Backend Unit & 18 - 13 = 5 \\
+        \hline
+        Test Frontend & 19 - 17 = 2 \\
+        \hline
+    \end{tabular}
+    \caption{Difference between max and min time taken for various processes}
+    \label{tab:diff-process-time}
+\end{table}
+
+Here we can easily observe cashing mechanisms and optimizations. We can see if the CI pipeline will be run often, the time 
+to build and test the application will reduce in total about 40 seconds.
+
+\subsubsection{CI conclusion}
+In conclusion, the CI pipeline is not very time intensive nor memory intensive. 
+It requires only the most basic command usage. 
+In case a failure occurs, the pipeline is canceled and a red 'X' appears near the commit.
+
+
 
 \section{Results and Discusion}
 
