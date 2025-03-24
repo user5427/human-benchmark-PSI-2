@@ -128,6 +128,7 @@ bump_version:
       when: manual
 
 
+
 # Deploy on the VM
 deploy:
   stage: deploy
