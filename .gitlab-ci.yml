@@ -88,39 +88,31 @@ bump_version:
   stage: build
   tags:
     - shell
-  before_script:
-    # Skip package installation since we don't have sudo
-    - git config --global user.email "gitlab-runner@example.com"
-    - git config --global user.name "GitLab Runner"
   script:
+    - git config --global user.email "gitlab-ci@example.com"
+    - git config --global user.name "GitLab CI"
     - git fetch --tags
+    
+    # Calculate new version
     - |
       LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
-      echo "Latest tag: $LATEST_TAG"
-      
       VERSION=${LATEST_TAG#v}
       IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION"
-      
-      if [[ "$CI_COMMIT_MESSAGE" == *"#major"* ]]; then
-        MAJOR=$((MAJOR+1))
-        MINOR=0
-        PATCH=0
-      elif [[ "$CI_COMMIT_MESSAGE" == *"#minor"* ]]; then
-        MINOR=$((MINOR+1))
-        PATCH=0
-      else
-        PATCH=$((PATCH+1))
-      fi
-      
+
+      [[ "$CI_COMMIT_MESSAGE" == *"#major"* ]] && { MAJOR=$((MAJOR+1)); MINOR=0; PATCH=0; }
+      [[ "$CI_COMMIT_MESSAGE" == *"#minor"* ]] && { MINOR=$((MINOR+1)); PATCH=0; }
+      [[ "$CI_COMMIT_MESSAGE" == *"#patch"* ]] && PATCH=$((PATCH+1))
+
       NEW_VERSION="v${MAJOR}.${MINOR}.${PATCH}"
       echo "New version: $NEW_VERSION"
-      
-      # Create version file
       echo "APP_VERSION=${MAJOR}.${MINOR}.${PATCH}" > build.env
-      
-      # Push tag using CI token
+
+    # Push using CI_JOB_TOKEN (proper formatting)
+    - |
+      REPO_URL="${CI_REPOSITORY_URL/https:\/\//https://gitlab-ci-token:${CI_JOB_TOKEN}@}"
       git tag -a "$NEW_VERSION" -m "Version $NEW_VERSION"
-      git push "https://gitlab-ci-token:${CI_JOB_TOKEN}@${CI_REPOSITORY_URL#*@}" "$NEW_VERSION" || echo "Tag push failed - check CI permissions"
+      git push "$REPO_URL" "$NEW_VERSION" || echo "Tag push failed - check protected tags settings"
+  
   artifacts:
     paths:
       - build.env
