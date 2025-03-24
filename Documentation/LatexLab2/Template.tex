@@ -472,6 +472,32 @@ reducing the time required for subsequent builds. The storage requirements
 are manageable. The deployment process is straightforward, utilizing basic 
 Docker commands to build and deploy the application.
 
+\subsection{Versioning}
+The versioning of the application (v 0.0.1 - v 0.0.2 - ...) is done using GitLab CI/CD pipeline.
+Before commiting the developer must include either 'patch', 'minor' or 'major' in the commit message.
+
+The versioning is done in the build stage of the CI pipeline. The versioning must be manually triggered by the developer.
+Versioning allows us to keep track of changes made to the application and document the progress of the project.
+
+\subsubsection{Versioning Table}
+The versioning of the application follows the Semantic Versioning scheme (MAJOR.MINOR.PATCH). The version number is incremented based on the type of changes included in the commit message. Below is a table indicating how the versions change based on the commit messages:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{Commit Message} & \textbf{Version Change} & \textbf{Example} \\
+        \hline
+        Contains 'major' & Increments MAJOR version & 1.0.0 to 2.0.0 \\
+        \hline
+        Contains 'minor' & Increments MINOR version & 1.0.0 to 1.1.0 \\
+        \hline
+        Contains 'patch' & Increments PATCH version & 1.0.0 to 1.0.1 \\
+        \hline
+    \end{tabular}
+    \caption{Versioning based on commit messages}
+    \label{tab:versioning}
+\end{table}
 
 \subsection{Technologies used}
 \subsubsection{Application building and testing}
