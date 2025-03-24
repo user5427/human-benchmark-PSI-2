@@ -87,9 +87,9 @@ dockerize_backend:
 bump_version:
   stage: build
   tags:
-    - shell  # Make sure this matches your runner tag
+    - shell
   before_script:
-    - sudo apt-get update -qq && sudo apt-get install -y -qq git || true
+    # Skip package installation since we don't have sudo
     - git config --global user.email "gitlab-runner@example.com"
     - git config --global user.name "GitLab Runner"
   script:
@@ -115,15 +115,12 @@ bump_version:
       NEW_VERSION="v${MAJOR}.${MINOR}.${PATCH}"
       echo "New version: $NEW_VERSION"
       
-      # Create version file first
+      # Create version file
       echo "APP_VERSION=${MAJOR}.${MINOR}.${PATCH}" > build.env
       
-      # Only try to tag if we have permissions
-      if git tag -a "$NEW_VERSION" -m "Version $NEW_VERSION"; then
-        git push origin "$NEW_VERSION" || echo "Failed to push tag - continuing anyway"
-      else
-        echo "Failed to create tag - continuing anyway"
-      fi
+      # Push tag using CI token
+      git tag -a "$NEW_VERSION" -m "Version $NEW_VERSION"
+      git push "https://gitlab-ci-token:${CI_JOB_TOKEN}@${CI_REPOSITORY_URL#*@}" "$NEW_VERSION" || echo "Tag push failed - check CI permissions"
   artifacts:
     paths:
       - build.env
