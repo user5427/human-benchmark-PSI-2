@@ -86,9 +86,10 @@ dockerize_backend:
 
 bump_version:
   stage: build
-  image: alpine
+  image: debian:latest  # Explicitly use Debian image
+  before_script:
+    - apt-get update -qq && apt-get install -y -qq git
   script:
-    - apk add --no-cache git
     - git fetch --tags
     - |
       # Get current version from git tags or use default
@@ -115,11 +116,13 @@ bump_version:
       echo "New version: $NEW_VERSION"
       
       # Create git tag
+      git config --global user.email "gitlab-runner@example.com"
+      git config --global user.name "GitLab Runner"
       git tag -a "$NEW_VERSION" -m "Version $NEW_VERSION"
       git push origin "$NEW_VERSION"
       
       # Set version variable for subsequent jobs
-      echo "APP_VERSION=${MAJOR}.${MINOR}.${PATCH}" >> build.env
+      echo "APP_VERSION=${MAJOR}.${MINOR}.${PATCH}" > build.env
   artifacts:
     reports:
       dotenv: build.env
