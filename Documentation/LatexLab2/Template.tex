@@ -479,6 +479,13 @@ Before commiting the developer must include either 'patch', 'minor' or 'major' i
 The versioning is done in the build stage of the CI pipeline. The versioning must be manually triggered by the developer.
 Versioning allows us to keep track of changes made to the application and document the progress of the project.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{images/version.png}
+    \caption{Versioning Process}
+    \label{fig:versioning-process}
+\end{figure}
+
 \subsubsection{Versioning Table}
 The versioning of the application follows the Semantic Versioning scheme (MAJOR.MINOR.PATCH). The version number is incremented based on the type of changes included in the commit message. Below is a table indicating how the versions change based on the commit messages:
 
@@ -622,6 +629,12 @@ Additionally, monitoring and logging SSH access attempts can help in identifying
 \subsection{Conclusion}
 This section provided an overview of how our CI/CD process works, what are the minimal and recommended system specifications. Furthermore we provided possible risks of this system and ways to mitigate these risks.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/pipelinefromgitlab.png}
+    \caption{CI/CD Pipeline screenshot from GitLab}
+    \label{fig:pipelinefromgitlab}
+\end{figure}
 
 \section{Results and Discusion}
 
