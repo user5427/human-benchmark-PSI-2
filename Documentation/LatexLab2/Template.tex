@@ -105,6 +105,8 @@ For any written work, you must refer to the methodology guidelines of the respec
 \section{CI/CD}
 This section will discuss continous integration and continous delivery of the application. 
 The CI (continous integration) is the first process that is done which is then followed by CD (continous delivery).
+For the CI/CD process we used GitLab CI/CD pipeline, .Net, Node, Docker, and OpenNebula virtual machine. The pipeline is triggered when a developer pushes his commit to a branch that has CI/CD action script.
+
 
 \begin{figure}[H]
     \centering
@@ -582,6 +584,7 @@ These requirements closely match the specs of consumer-grade small computers lik
     \label{fig:example-image}
 \end{figure}
 
+
 \subsubsection{Threats and mitigations}
 Both pipeline and hosting runs on the same machine. A catastrophic failure in CI/CD could bring down the VM, including the website. This would cause downtimes for the users.
 It would be better to host the website on cloud services like Azure, however, because we had to use GitLab, our team was uncertain how the 
@@ -589,8 +592,10 @@ GitLab CI/CD process would communicate with the Azure as our faculty VPN may be 
 Furthermore, the machine has SSH setup on it, which means if the password was to be found for it, an attacker could gain access to the VM and potentially compromise the entire system. To mitigate this threat, it is crucial to implement strong password policies, regularly update passwords, and consider using SSH key-based authentication instead of password-based authentication. 
 Additionally, monitoring and logging SSH access attempts can help in identifying and responding to potential security breaches promptly.
 
+
 \subsection{Conclusion}
 This section provided an overview of how our CI/CD process works, what are the minimal and recommended system specifications. Furthermore we provided possible risks of this system and ways to mitigate these risks.
+
 
 \section{Results and Discusion}
 
