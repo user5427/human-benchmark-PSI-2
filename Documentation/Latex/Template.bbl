@@ -1,5 +1,5 @@
 % $ biblatex auxiliary file $
-% $ biblatex bbl format version 3.2 $
+% $ biblatex bbl format version 3.3 $
 % Do not modify the above lines!
 %
 % This is an auxiliary file used by the 'biblatex' package.
@@ -18,8 +18,8 @@
 
 
 \refsection{0}
-  \datalist[entry]{anyt/global//global/global}
-    \entry{BlockAds}{online}{}
+  \datalist[entry]{anyt/global//global/global/global}
+    \entry{BlockAds}{online}{}{}
       \field{sortinit}{2}
       \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labeltitlesource}{title}
@@ -35,7 +35,7 @@
       \verb https://blockthrough.com
       \endverb
     \endentry
-    \entry{CognitiveFunction}{article}{}
+    \entry{CognitiveFunction}{article}{}{}
       \name{author}{3}{}{%
         {{hash=eb3dce7b3bbdeb6048982e7ab6ff4bd6}{%
            family={A},
@@ -57,10 +57,12 @@
       }
       \strng{namehash}{93b8f88063fcde00ea28f07f51fc462b}
       \strng{fullhash}{93b8f88063fcde00ea28f07f51fc462b}
+      \strng{fullhashraw}{93b8f88063fcde00ea28f07f51fc462b}
       \strng{bibnamehash}{93b8f88063fcde00ea28f07f51fc462b}
       \strng{authorbibnamehash}{93b8f88063fcde00ea28f07f51fc462b}
       \strng{authornamehash}{93b8f88063fcde00ea28f07f51fc462b}
       \strng{authorfullhash}{93b8f88063fcde00ea28f07f51fc462b}
+      \strng{authorfullhashraw}{93b8f88063fcde00ea28f07f51fc462b}
       \field{sortinit}{A}
       \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
       \field{labelnamesource}{author}
@@ -71,7 +73,7 @@
       \field{volume}{20}
       \field{year}{2020}
     \endentry
-    \entry{AutoAds}{online}{}
+    \entry{AutoAds}{online}{}{}
       \field{sortinit}{A}
       \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
       \field{labeltitlesource}{title}
@@ -88,7 +90,7 @@
       \verb https://support.google.com/adsense/answer/7037624?hl=en
       \endverb
     \endentry
-    \entry{muckruck}{online}{}
+    \entry{muckruck}{online}{}{}
       \field{sortinit}{C}
       \field{sortinithash}{4d103a86280481745c9c897c925753c0}
       \field{labeltitlesource}{title}
@@ -104,7 +106,7 @@
       \verb https://muckrack.com
       \endverb
     \endentry
-    \entry{statista}{online}{}
+    \entry{statista}{online}{}{}
       \field{sortinit}{E}
       \field{sortinithash}{8da8a182d344d5b9047633dfc0cc9131}
       \field{labeltitlesource}{title}
@@ -120,7 +122,7 @@
       \verb https://statista.com
       \endverb
     \endentry
-    \entry{competitiveEdge}{article}{}
+    \entry{competitiveEdge}{article}{}{}
       \name{author}{4}{}{%
         {{hash=c4ee9e9653a254a6ea5ea3c2281737d8}{%
            family={Hasyim},
@@ -137,10 +139,12 @@
       }
       \strng{namehash}{fb0fa7d0b7fd898210bf595e5c9c6873}
       \strng{fullhash}{fb0fa7d0b7fd898210bf595e5c9c6873}
+      \strng{fullhashraw}{fb0fa7d0b7fd898210bf595e5c9c6873}
       \strng{bibnamehash}{fb0fa7d0b7fd898210bf595e5c9c6873}
       \strng{authorbibnamehash}{fb0fa7d0b7fd898210bf595e5c9c6873}
       \strng{authornamehash}{fb0fa7d0b7fd898210bf595e5c9c6873}
       \strng{authorfullhash}{fb0fa7d0b7fd898210bf595e5c9c6873}
+      \strng{authorfullhashraw}{fb0fa7d0b7fd898210bf595e5c9c6873}
       \field{sortinit}{H}
       \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
       \field{labelnamesource}{author}
@@ -156,7 +160,7 @@
       \verb 10.55098/tjbmr.v6i2.660
       \endverb
     \endentry
-    \entry{humanbenchmark}{online}{}
+    \entry{humanbenchmark}{online}{}{}
       \field{sortinit}{H}
       \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
       \field{labeltitlesource}{title}
@@ -172,7 +176,7 @@
       \verb https://www.humanbenchmark.com
       \endverb
     \endentry
-    \entry{GameplayEngagement}{article}{}
+    \entry{GameplayEngagement}{article}{}{}
       \name{author}{2}{}{%
         {{hash=eb96cff02c7792cf2913eea24aef15bd}{%
            family={Jabbar},
@@ -187,10 +191,12 @@
       }
       \strng{namehash}{3d1498040ad25f28e597b3c8bac273ca}
       \strng{fullhash}{3d1498040ad25f28e597b3c8bac273ca}
+      \strng{fullhashraw}{3d1498040ad25f28e597b3c8bac273ca}
       \strng{bibnamehash}{3d1498040ad25f28e597b3c8bac273ca}
       \strng{authorbibnamehash}{3d1498040ad25f28e597b3c8bac273ca}
       \strng{authornamehash}{3d1498040ad25f28e597b3c8bac273ca}
       \strng{authorfullhash}{3d1498040ad25f28e597b3c8bac273ca}
+      \strng{authorfullhashraw}{3d1498040ad25f28e597b3c8bac273ca}
       \field{sortinit}{J}
       \field{sortinithash}{b2f54a9081ace9966a7cb9413811edb4}
       \field{labelnamesource}{author}
@@ -206,7 +212,7 @@
       \verb 10.3102/0034654315577210
       \endverb
     \endentry
-    \entry{MinimalDesign}{article}{}
+    \entry{MinimalDesign}{article}{}{}
       \name{author}{6}{}{%
         {{hash=da4afe4849aedcacc375a2e691e193ff}{%
            family={Lekaj},
@@ -229,10 +235,12 @@
       }
       \strng{namehash}{c628b37374373f83bd27d8ad26856423}
       \strng{fullhash}{c628b37374373f83bd27d8ad26856423}
+      \strng{fullhashraw}{c628b37374373f83bd27d8ad26856423}
       \strng{bibnamehash}{c628b37374373f83bd27d8ad26856423}
       \strng{authorbibnamehash}{c628b37374373f83bd27d8ad26856423}
       \strng{authornamehash}{c628b37374373f83bd27d8ad26856423}
       \strng{authorfullhash}{c628b37374373f83bd27d8ad26856423}
+      \strng{authorfullhashraw}{c628b37374373f83bd27d8ad26856423}
       \field{sortinit}{L}
       \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
       \field{labelnamesource}{author}
@@ -248,7 +256,7 @@
       \verb 10.56321/ijmbs.9.14.5
       \endverb
     \endentry
-    \entry{PersonalizedLearning}{article}{}
+    \entry{PersonalizedLearning}{article}{}{}
       \name{author}{6}{}{%
         {{hash=8d06493ab6f0fb31e791d2171b2bf444}{%
            family={Makhambetova},
@@ -271,10 +279,12 @@
       }
       \strng{namehash}{9e307b39fe9323bc7186055593f5e1ff}
       \strng{fullhash}{9e307b39fe9323bc7186055593f5e1ff}
+      \strng{fullhashraw}{9e307b39fe9323bc7186055593f5e1ff}
       \strng{bibnamehash}{9e307b39fe9323bc7186055593f5e1ff}
       \strng{authorbibnamehash}{9e307b39fe9323bc7186055593f5e1ff}
       \strng{authornamehash}{9e307b39fe9323bc7186055593f5e1ff}
       \strng{authorfullhash}{9e307b39fe9323bc7186055593f5e1ff}
+      \strng{authorfullhashraw}{9e307b39fe9323bc7186055593f5e1ff}
       \field{sortinit}{M}
       \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
       \field{labelnamesource}{author}
@@ -290,7 +300,7 @@
       \verb 10.4018/IJWLTT.286743
       \endverb
     \endentry
-    \entry{PopulationDemographics}{online}{}
+    \entry{PopulationDemographics}{online}{}{}
       \field{sortinit}{P}
       \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
       \field{labeltitlesource}{title}
@@ -306,7 +316,7 @@
       \verb https://population.un.org
       \endverb
     \endentry
-    \entry{VideoGamesReaction}{article}{}
+    \entry{VideoGamesReaction}{article}{}{}
       \name{author}{2}{}{%
         {{hash=e63a3d5b0e3999385d453317676621e7}{%
            family={Qazi},
@@ -321,10 +331,12 @@
       }
       \strng{namehash}{5a96522fdaa98868684b713ce2581b33}
       \strng{fullhash}{5a96522fdaa98868684b713ce2581b33}
+      \strng{fullhashraw}{5a96522fdaa98868684b713ce2581b33}
       \strng{bibnamehash}{5a96522fdaa98868684b713ce2581b33}
       \strng{authorbibnamehash}{5a96522fdaa98868684b713ce2581b33}
       \strng{authornamehash}{5a96522fdaa98868684b713ce2581b33}
       \strng{authorfullhash}{5a96522fdaa98868684b713ce2581b33}
+      \strng{authorfullhashraw}{5a96522fdaa98868684b713ce2581b33}
       \field{sortinit}{Q}
       \field{sortinithash}{ce69a400a872ddd02ee7fdb3b38c6abd}
       \field{labelnamesource}{author}
@@ -339,7 +351,7 @@
       \verb 10.30574/ijsra.2023.10.1.0798
       \endverb
     \endentry
-    \entry{googletrends}{online}{}
+    \entry{googletrends}{online}{}{}
       \field{sortinit}{S}
       \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
       \field{labeltitlesource}{title}

@@ -500,7 +500,100 @@ BPMN diagrams are used to model the business processes of the system. The follow
 \end{itemize}
 
 \subsection{UML Diagrams}
-UML diagrams are used to model the system's architecture and structure. The following UML diagrams are used to model the Human Benchmark system:
+UML diagrams are used to model the system's architecture and structure. We follow the \textbf{4+1 View Model}. The following UML diagrams are used to model the Human Benchmark system:
+
+\begin{itemize}
+    \item \textbf{Logical View:} Class diagrams define key system components.
+    \item \textbf{Process View:} Activity diagrams illustrate system workflows.
+    \item \textbf{Physical View:} Deployment diagrams map software to hardware.
+    \item \textbf{Development View:} Component diagrams show code organization.
+    \item \textbf{Scenarios (Use Case View):} Use case diagrams capture user interactions.
+\end{itemize}
+
+\subsubsection{Creating Games / Private and Public games}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/newUMLs/privatePublicClass.png}
+    \caption{Creating / Private and Public games class diagram (Logical View)}
+    \label{fig:ERD}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/newUMLs/creatingPlayingGamesActivity.png}
+    \caption{Creating / Private and Public games / Playing games activity diagram (Process View)}
+    \label{fig:ERD}
+\end{figure}
+
+
+\subsubsection{Game History}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/newUMLs/GameHistoryClass.png}
+    \caption{Game History class diagram (Logical View)}
+    \label{fig:ERD}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/newUMLs/gameHostoryActivity.png}
+    \caption{Game History activity diagram (Process View)}
+    \label{fig:ERD}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/newUMLs/gamehistoryUseCase.png}
+    \caption{Game History Use case diagram (Use case View)}
+    \label{fig:ERD}
+\end{figure}
+
+
+\subsubsection{HighScores / Leaderboard}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/newUMLs/highScoresClass.png}
+    \caption{HighScores / Leaderboard class diagram (Logical View)}
+    \label{fig:ERD}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/newUMLs/highScoreSavingActivity.png}
+    \caption{HighScores activity diagram (Process View)}
+    \label{fig:ERD}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/newUMLs/viewingLeaderBoardActivity.png}
+    \caption{Leaderboard activity diagram (Process View)}
+    \label{fig:ERD}
+\end{figure}
+
+
+\subsubsection{Game rating}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/newUMLs/ratingClass.png}
+    \caption{ Game rating class diagram (Logical View)}
+    \label{fig:ERD}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/newUMLs/ratingGameActivity.png}
+    \caption{ Game rating activity diagram (Process View)}
+    \label{fig:ERD}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/newUMLs/ratingUseCase.png}
+    \caption{ Game rating use case diagram (Use case View)}
+    \label{fig:ERD}
+\end{figure}
+
 
 \subsubsection{Entity relation diagram}
 The entity relation diagram models the entities and their relationships in the system. The following figure shows the entity relation diagram of the Human Benchmark system.
