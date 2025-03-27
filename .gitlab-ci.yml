@@ -7,7 +7,18 @@ stages:
   - build
   - test
   - dockerize
+  - updateDatabase
   - deploy
+
+# Update Database
+updateDatabase:
+  stage: updateDatabase
+  image: mcr.microsoft.com/dotnet/sdk:7.0
+  script:
+    - cd AimReactionAPI
+    - dotnet ef database update
+  rules:
+    - when: manual
 
 # Build Frontend
 build_frontend:
