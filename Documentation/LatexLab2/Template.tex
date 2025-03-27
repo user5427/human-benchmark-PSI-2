@@ -102,6 +102,127 @@ This section is for when symbols are used. For example:
 \sectionnonum{Introduction}
 For any written work, you must refer to the methodology guidelines of the respective study programme\footnote{The latest methodology requirements for all programmes can be found here, in the respective programme: \url{https://mif.vu.lt/lt3/en/studies/bachelor-studies}}. These contain all the guidelines for citations, structure, length, etc.
 
+
+
+\section{UML Diagrams}
+UML diagrams are used to model the system's architecture and structure. We follow the \textbf{4+1 View Model}. The following UML diagrams are used to model the Human Benchmark system:
+
+\begin{itemize}
+    \item \textbf{Logical View:} Class diagrams define key system components.
+    \item \textbf{Process View:} Activity diagrams illustrate system workflows.
+    \item \textbf{Physical View:} Deployment diagrams map software to hardware.
+    \item \textbf{Development View:} Component diagrams show code organization.
+    \item \textbf{Scenarios (Use Case View):} Use case diagrams capture user interactions.
+\end{itemize}
+
+\subsection{Creating Games / Private and Public games}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/newUMLs/privatePublicClass.png}
+    \caption{Creating / Private and Public games class diagram (Logical View)}
+    \label{fig:ERD}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/newUMLs/creatingPlayingGamesActivity.png}
+    \caption{Creating / Private and Public games / Playing games activity diagram (Process View)}
+    \label{fig:ERD}
+\end{figure}
+
+
+\subsection{Game History}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/newUMLs/GameHistoryClass.png}
+    \caption{Game History class diagram (Logical View)}
+    \label{fig:ERD}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/newUMLs/gameHostoryActivity.png}
+    \caption{Game History activity diagram (Process View)}
+    \label{fig:ERD}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/newUMLs/gamehistoryUseCase.png}
+    \caption{Game History Use case diagram (Use case View)}
+    \label{fig:ERD}
+\end{figure}
+
+
+\subsection{HighScores / Leaderboard}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/newUMLs/highScoresClass.png}
+    \caption{HighScores / Leaderboard class diagram (Logical View)}
+    \label{fig:ERD}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/newUMLs/highScoreSavingActivity.png}
+    \caption{HighScores activity diagram (Process View)}
+    \label{fig:ERD}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/newUMLs/viewingLeaderBoardActivity.png}
+    \caption{Leaderboard activity diagram (Process View)}
+    \label{fig:ERD}
+\end{figure}
+
+
+\subsection{Game rating}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/newUMLs/ratingClass.png}
+    \caption{ Game rating class diagram (Logical View)}
+    \label{fig:ERD}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/newUMLs/ratingGameActivity.png}
+    \caption{ Game rating activity diagram (Process View)}
+    \label{fig:ERD}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/newUMLs/ratingUseCase.png}
+    \caption{ Game rating use case diagram (Use case View)}
+    \label{fig:ERD}
+\end{figure}
+
+\subsection{Package and component diagram}
+
+\subsection{Component Diagram}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/Arno/component.png}
+    \caption{Component Diagram (Development View)}
+    \label{fig:component-diagram}
+\end{figure}
+
+\subsection{Package Diagram}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/Arno/package.png}
+    \caption{Package Diagram (Development View)}
+    \label{fig:package-diagram}
+\end{figure}
+
+
+
+
+
+
+
 \section{CI/CD}
 This section will discuss continous integration and continous delivery of the application. 
 The CI (continous integration) is the first process that is done which is then followed by CD (continous delivery).
@@ -110,8 +231,8 @@ For the CI/CD process we used GitLab CI/CD pipeline, .Net, Node, Docker, and Ope
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{images/"Deployment Diagram.drawio.png"}
-    \caption{Deployment Diagram}
+    \includegraphics[width=0.8\textwidth]{images/"Deployment Diagram.drawio.png"}
+    \caption{Deployment Sequence Diagram}
     \label{fig:deployment-diagram}
 \end{figure}
 
@@ -123,7 +244,7 @@ a branch that has CI action script.
 The CI is done in this order:
 \begin{itemize}
     \item Stage 1: build the application (The order in which the application is built does not matter, the frontend or backend build process does not depend on each other).
-    If building of frontend or backend fails, the CI is cancelled.
+    If building of frontend or backend fails, the CI is cancelled. \\ During this stage, the developer can manually trigger the versioning process \ref{sec:versioning}.
     \item Stage 2: test the application (Tests are done to frontend and backend in random order just like in the build stage).
     IF testing of frontend or backend fails, the CI is cancelled.
 \end{itemize}
@@ -150,7 +271,7 @@ To build the frontend:
 
 \textbf{Storage needs}
 
-\textbf{Notice:} all of these backend mesurments were done using dotnet 9.0.100 version. \\
+\textbf{Notice:} all of these backend mesurments were done using dotnet 9.0.100 version and Node v22.9.0 version. We will not be mesuring versioning process resourse needs as this is too resource light process. \\
 To build the backend around 47 megabytes are needed (this includes the bin and obj folder size while excluding all source files). To build integration tests it takes 28 megabytes. To build unit tests it takes 28 megabytes.
 The source files for backend take up around 64 kilobytes. The integration test source files take up around 23 kilobytes and the unit test files take up 5 kilobytes. \ref{tab:storage-needs}
 
@@ -299,9 +420,10 @@ dockerized using Docker and then deployed to a hosting service (in our case our 
 \subsubsection{CD order}
 The CD is done in this order:
 \begin{itemize}
-    \item Stage 1: dockerize the application (The order in which the application is dockerized does not matter, the frontend or backend build dockerization does not depend on each other).
+    \item Stage 3: dockerize the application (The order in which the application is dockerized does not matter, the frontend or backend build dockerization does not depend on each other).
     If dockerization of frontend or backend fails, the CD is cancelled.
-    \item Stage 2: deploy the application (The application is deployd to VM)
+    \item Stage 4: update database (The database is updated with the latest changes). This stage is optional and can be triggered manually.
+    \item Stage 5: deploy the application (The application is deployd to VM)
     IF deployment fails, the CD is cancelled.
 \end{itemize}
 
@@ -317,13 +439,26 @@ of the basic \textbf{docker} commands. These exact commands are used to dockeriz
 \end{enumerate}
 
 In both cases the docker service finds the images necessary to run the frontend and backend automatically.
+Then the developer can choose to update the database with the latest changes. The command \texttt{dotnet ef database update} is used to update the DB.
+And lastly the command \texttt{docker-compose up -d} is used to deploy the application.
 
-The command \texttt{docker-compose up -d} is used to deploy the application.
+\subsubsection{Deployment, a general view}
+The diagram below shows communication paths and artifact allocations to nodes.
+The frontend-app uses NodeJS environment while the backend-app uses .Net environment.
+Notice that our database is hosted on Aiven and not on the same VM as the application and as a result we do not have the ability to deploy the database using the CD pipeline (we can still update it). 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/CICD/DeploymentEnv.drawio.png}
+    \caption{Deployment Environment Diagram}
+    \label{fig:deployment-environment}
+\end{figure}
+
+
 
 \subsubsection{CD resource needs}
 
 \textbf{Storage needs}
-
+\textbf{Notice: } all of these mesurments were carried out on a Debian 12 minimal console only installation. We used Docker version 20.10.24+dfsg1.
 The commands \texttt{sudo docker ps -a -s}, \texttt{sudo docker system df} and \texttt{sudo docker system df -v} will be used to retrieve this data.\\
 
 SIZE: This is the amount of data that is used by the writable layer of the container (i.e., the changes made to the container's filesystem).
@@ -386,6 +521,8 @@ We will run the processes 4 times and average the result out.
         \hline
         Dockerize Frontend & 52; 4; 7; 3 \\
         \hline
+        Update database & 17; 10; 15; 15 \\
+        \hline
         Deploy application & 16; 8; 4; 4 \\
         \hline
     \end{tabular}
@@ -395,7 +532,7 @@ We will run the processes 4 times and average the result out.
 
 The mesurments were done in the order that they are displayed in table (first 4 for mesurments for backend dockerization then 4 mesurments for frontend dockerization). 
 Clearly, when there are changes to backend or frontend, the process takes way longer to build. And if there are no changes done to backend or frontend, the process quickly finishes which is a great 
-optimization if the CD pipeline is used often.
+optimization if the CD pipeline is used often. Similar thing can be observed with the database update process.
 
 
 The average times for each process are calculated as follows:
@@ -408,7 +545,9 @@ The average times for each process are calculated as follows:
         \hline
         Dockerize Backend & \(\frac{35 + 4 + 3 + 3}{4} = 11.25\) \\ 
         \hline
-        Dockerize Frontend & \(\frac{52 + 4 + 7 + 3}{4} = 16.5\) \\ 
+        Dockerize Frontend & \(\frac{52 + 4 + 7 + 3}{4} = 16.5\) \\
+        \hline
+        Update database & \(\frac{17 + 10 + 15 + 15}{4} = 14.25\) \\ 
         \hline
         Deploy Application & \(\frac{16 + 8 + 4 + 4}{4} = 8\) \\
         \hline
@@ -430,6 +569,8 @@ Because of that, the min and max time \ref{tab:min-max-dockerize-process-time} t
         \hline
         Dockerize Frontend & 3 & 52 \\ 
         \hline
+        Update database & 10 & 17 \\
+        \hline
         Deploy Application & 4 & 16 \\
         \hline
     \end{tabular}
@@ -447,6 +588,8 @@ Because of that, the min and max time \ref{tab:min-max-dockerize-process-time} t
         \hline
         Dockerize Frontend & 52 - 3 = 49 \\ 
         \hline
+        Update database & 17 - 10 = 7 \\
+        \hline
         Deploy Application & 16 - 8 = 8 \\
         \hline
     \end{tabular}
@@ -455,7 +598,7 @@ Because of that, the min and max time \ref{tab:min-max-dockerize-process-time} t
 \end{table}
 
 Here we can easily observe cashing mechanisms and optimizations. We can see if the CD pipeline will be run often, the time 
-to build and test the application will reduce in total about 90 seconds.
+to build and test the application will reduce in total about 97 seconds.
 
 \subsubsection{Networks}
 During the deployment of backend and frontend, the backend container is assigned 
@@ -473,10 +616,11 @@ are manageable. The deployment process is straightforward, utilizing basic
 Docker commands to build and deploy the application.
 
 \subsection{Versioning}
+\label{sec:versioning}
 The versioning of the application (v 0.0.1 - v 0.0.2 - ...) is done using GitLab CI/CD pipeline.
 Before commiting the developer must include either 'patch', 'minor' or 'major' in the commit message.
 
-The versioning is done in the build stage of the CI pipeline. The versioning must be manually triggered by the developer.
+The versioning is done in the build stage of the CI pipeline (we decided that it was better to leave this process in the build stage and not crete a new stage as this process is quite insignificant). The versioning must be manually triggered by the developer.
 Versioning allows us to keep track of changes made to the application and document the progress of the project.
 
 \begin{figure}[H]
@@ -484,6 +628,16 @@ Versioning allows us to keep track of changes made to the application and docume
     \includegraphics[width=0.4\textwidth]{images/version.png}
     \caption{Versioning Process}
     \label{fig:versioning-process}
+\end{figure}
+
+\subsubsection{Versioning sequence diagram}
+Below is a more detailed versioning sequence diagram for stage 1.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{images/CICD/Versioning.drawio.png}
+    \caption{Versioning Sequence Diagram}
+    \label{fig:versioning-sequence-diagram}
 \end{figure}
 
 \subsubsection{Versioning Table}
@@ -506,15 +660,22 @@ The versioning of the application follows the Semantic Versioning scheme (MAJOR.
     \label{tab:versioning}
 \end{table}
 
+Because versioning is done manually and it is quite light on resources, it is not necessary to measure the storage, memory or CPU needs.
+
+\subsection{Database}
+\label{sec:database}
+
 \subsection{Technologies used}
 \subsubsection{Application building and testing}
 As we already mentioned we use .Net and Node technologies to build and test the application. For testing the backend we used NUnit and for testing the frontend we used Vitest.
+For dockerization and deployment we used Docker.
 
-\subsubsection{Used data storage}
+\subsubsection{Database}
 We use PostgreSQL database that is hosted on 
 Aiven. This database runs on 1 CPU, 1 GB RAM and 5 GB storage machine. This is plenty enough for our application as most
 of the data is stored as strings and we do not store any images or other high volume files. Furthermore, Aiven service provides
-a reliable method to backup the database in set time intervals which is important to ensure that user data is not lost.
+a reliable method to backup the database in set time intervals which is important to ensure that user data is not lost.\\
+Updates to this database must be done manually (can be triggered in CI/CD pipeline) by the developer to avoid unexpected data loss.
 
 \subsubsection{GitLab runner}
 We use GitLab runner on our VM machine to execute the CI/CD pipeline. ]This ensures that our pipeline remains simple as hosting is also done by the same VM.
@@ -526,6 +687,16 @@ We used OpenNebula to create the VM and manage its configuration (RAM, storage, 
 The hosting is done on our faculty virtual machine. The machine is running Debian 12 operating system.
 All the management of the machine is handled with OpenNebula. The machine can also be managed by connecting to it via SSH.
 
+Below is a diagram that shows the production environment of the application. Its shows the communication paths between frontend and backend, backend and database.
+Notice that our database is hosted on Aiven and not on the same VM as the application.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{images/CICD/PROD Diagram.drawio.png}
+    \caption{Production Environment Diagram}
+    \label{fig:prod-environment}
+\end{figure}
+
+
 \subsubsection{Storage requirements}
 As previously in sections CI and CD we discussed, the building and images of the application take 
 up around 3 gigabytes in total (300 MB files and 2.5 gigabytes from all the images, including .Net and Node).
@@ -533,6 +704,8 @@ up around 3 gigabytes in total (300 MB files and 2.5 gigabytes from all the imag
 Furthermore, the Debian 12 minimal console only installation takes up around 2 gigabytes. In total, the system would require at least 
 5 to 6 gigabytes for functioning. However, as the application will improve, it is likely that it will require more storage.
 Ideally it would be better to assign somewhere around 10 gigabytes to the virtual machine. In our case, we assigned 20 gigabytes.
+
+User files will be stored on database and not on the VM. As a result, the storage requirements for the VM are quite low.
 
 \subsubsection{Memory requirements}
 Mesuring the RAM needs is more difficult, especially for the CI/CD pipeline. However if we look at the average usage of RAM on our virtual machine,
@@ -545,7 +718,7 @@ we can see that it is only using around 300 megabytes at idle \ref{fig:screensho
     \label{fig:screenshot}
 \end{figure}
 
-If we trigger the pipeline, we can the usage patterns change
+If we trigger the pipeline, we can see the usage patterns change
 
 \begin{figure}[H]
     \centering
@@ -554,8 +727,8 @@ If we trigger the pipeline, we can the usage patterns change
         \textbf{(a)} Backend Build & \textbf{(b)} Frontend Build \\
         \includegraphics[width=0.45\textwidth]{images/backtest.png} & \includegraphics[width=0.45\textwidth]{images/fronttest.png} \\
         \textbf{(c)} Backend Test & \textbf{(d)} Frontend Test \\
-        \includegraphics[width=0.45\textwidth]{images/docker.png} & \\
-        \textbf{(e)} Docker Process & \\
+        \includegraphics[width=0.45\textwidth]{images/docker.png} & \includegraphics[width=0.45\textwidth]{images/databaseTest.png} \\
+        \textbf{(e)} Docker Process & \textbf{(f)} Database Update \\
     \end{tabular}
     \caption{Memory usage patterns during CI/CD pipeline}
     \label{fig:memory-usage}
