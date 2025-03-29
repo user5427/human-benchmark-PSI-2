@@ -9,8 +9,8 @@ namespace AimReactionAPI.Services;
 public class MultiplayerService
 {
     private readonly IServiceProvider _serviceProvider;
-    private ConcurrentDictionary<int, Player> Players = new();
-    private ConcurrentDictionary<Guid, Room> Rooms = new();
+    private readonly ConcurrentDictionary<int, Player> Players = new();
+    private readonly ConcurrentDictionary<Guid, Room> Rooms = new();
     private const int ROUND_DURATION_SECONDS = 5;
     public MultiplayerService(IServiceProvider serviceProvider)
     {
@@ -35,12 +35,10 @@ public class MultiplayerService
             throw new InvalidDataException($"User {playerId} not found.");
         }
         ValidateNotPlaying(playerId);
-        Guid roomGuid = new();
+        Guid roomGuid = Guid.NewGuid();
         Room room = new(roomGuid, playerId, roomName);
         Rooms.TryAdd(roomGuid, room);
     }
-
-
 
     public void JoinRoom(int playerId, Guid roomId)
     {
@@ -133,11 +131,11 @@ public class MultiplayerService
     private void BroadcastRoundResults(Room room, HashSet<int> eliminatedPlayerIds)
     {
         List<RoomPlayerDto> eliminatedPlayers = Players.Where(p => eliminatedPlayerIds.Contains(p.Key))
-                                                        .Select(p => new RoomPlayerDto(p.Value.Username, p.Key, room.PlayerTimes.GetValueOrDefault(p.Key)))
-                                                        .ToList();
+                    .Select(p => new RoomPlayerDto(p.Value.Username, p.Key, room.PlayerTimes.GetValueOrDefault(p.Key)))
+                    .ToList();
         List<RoomPlayerDto> remainingPlayers = Players.Where(p => room.Players.Contains(p.Key) && !eliminatedPlayerIds.Contains(p.Key))
-                                                      .Select(p => new RoomPlayerDto(p.Value.Username, p.Key, room.PlayerTimes.GetValueOrDefault(p.Key)))
-                                                      .ToList();
+                    .Select(p => new RoomPlayerDto(p.Value.Username, p.Key, room.PlayerTimes.GetValueOrDefault(p.Key)))
+                    .ToList();
         var results = new RoomRoundResultsDto(remainingPlayers, eliminatedPlayers);
         var serializedResults = JsonSerializer.Serialize(results);
         BroadcastMessageToRoom(room, serializedResults);
@@ -169,10 +167,15 @@ public class MultiplayerService
         {
             return;
         }
-        foreach (var room in Rooms.Values)
+        foreach (var room in Rooms)
         {
-            room.RemoveFromRoom(playerId);
+            room.Value.RemoveFromRoom(playerId);
+            if (room.Value.Players.Count == 0)
+            {
+                Rooms.TryRemove(room);
+            }
         }
+        
         player.Connection.Close();
     }
     private void ValidateNotPlaying(int playerId)
