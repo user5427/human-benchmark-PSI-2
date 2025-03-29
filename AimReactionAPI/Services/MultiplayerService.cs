@@ -11,8 +11,8 @@ public class MultiplayerService
     private readonly IServiceProvider _serviceProvider;
     private ConcurrentDictionary<int, Player> Players = new();
     private ConcurrentDictionary<Guid, Room> Rooms = new();
-    private const int ROUND_DURATION_SECONDS = 3;
-   public MultiplayerService(IServiceProvider serviceProvider)
+    private const int ROUND_DURATION_SECONDS = 5;
+    public MultiplayerService(IServiceProvider serviceProvider)
     {
         _serviceProvider = serviceProvider;
     }
@@ -26,7 +26,6 @@ public class MultiplayerService
 
         Player player = new(user.Name, ws);
         Players.TryAdd(playerId, player);
-        Console.WriteLine("Connected");
     }
 
     public void CreateRoom(int playerId, string roomName)
@@ -35,26 +34,27 @@ public class MultiplayerService
         {
             throw new InvalidDataException($"User {playerId} not found.");
         }
-        Console.WriteLine("Created");
+        ValidateNotPlaying(playerId);
         Guid roomGuid = new();
         Room room = new(roomGuid, playerId, roomName);
         Rooms.TryAdd(roomGuid, room);
     }
+
+
+
     public void JoinRoom(int playerId, Guid roomId)
     {
-        Console.WriteLine("Joined");
-
         if (!Players.ContainsKey(playerId) ||
             !Rooms.TryGetValue(roomId, out var room))
         {
             throw new InvalidDataException($"User {playerId} Or room {roomId} not found");
         }
+        ValidateNotPlaying(playerId);
+
         room.AddToRoom(playerId);
     }
     public void StartRoom(int playerId, Guid roomId)
     {
-        Console.WriteLine("StartEd");
-
         if (!Rooms.TryGetValue(roomId, out var room))
         {
             throw new InvalidDataException($"Room {roomId} not found");
@@ -145,8 +145,6 @@ public class MultiplayerService
 
     public void RegisterTargetHit(int playerId, Guid roomId, double reactionTime)
     {
-        Console.WriteLine("Registered");
-
         if (!Rooms.TryGetValue(roomId, out var room) ||
             !room.Players.Contains(playerId))
         {
@@ -154,7 +152,7 @@ public class MultiplayerService
         }
         if (room.RoomStatus != RoomStatus.PLAYING)
         {
-            throw new InvalidOperationException($"Room {roomId} is not in a playing state."); 
+            throw new InvalidOperationException($"Room {roomId} is not in a playing state.");
         }
         room.RegisterPlayerHit(playerId, reactionTime);
     }
@@ -167,8 +165,6 @@ public class MultiplayerService
     }
     public void Disconnect(int playerId)
     {
-        Console.WriteLine("Disoneected");
-
         if (!Players.TryRemove(playerId, out var player))
         {
             return;
@@ -178,5 +174,15 @@ public class MultiplayerService
             room.RemoveFromRoom(playerId);
         }
         player.Connection.Close();
+    }
+    private void ValidateNotPlaying(int playerId)
+    {
+        foreach (var (roomId, room) in Rooms)
+        {
+            if (room.Players.Contains(playerId))
+            {
+                throw new InvalidOperationException($"User {playerId} is already in the room {roomId}");
+            }
+        }
     }
 }
