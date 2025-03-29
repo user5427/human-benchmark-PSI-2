@@ -1,7 +1,7 @@
 using AimReactionAPI.Data;
 using AimReactionAPI.DTOs;
+using AimReactionAPI.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 
 namespace AimReactionAPI.Controllers;
@@ -11,20 +11,18 @@ namespace AimReactionAPI.Controllers;
 public class UsersController : ControllerBase
 {
     private readonly AppDbContext _context;
-
-    public UsersController(AppDbContext context)
+    private readonly UserService _userService;
+    public UsersController(AppDbContext context, UserService userService)
     {
         _context = context;
+        _userService = userService;
     }
 
 
     [HttpGet]
     public async Task<ActionResult<List<UserDto>>> GetUsers([FromQuery] int userId)
     {
-        return await _context.Users
-                        .Where(u => u.UserId != userId)
-                        .Select(u => new UserDto(u.Name, u.UserId))
-                        .ToListAsync();
+        return await _userService.GetUsers(userId);
     }
 }
 

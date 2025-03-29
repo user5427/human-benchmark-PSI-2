@@ -2,6 +2,7 @@ using AimReactionAPI.Data;
 using AimReactionAPI.Services;
 using Microsoft.EntityFrameworkCore;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -31,9 +32,11 @@ builder.Services.AddScoped<GameService>();
 builder.Services.AddScoped<GameUserService>();
 builder.Services.AddScoped<TargetService>();
 builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped(typeof(GameSessionHandler<>));
 
 var app = builder.Build();
+
 
 // Ensure CORS is applied before routing and authentication
 app.UseCors("AllowAll");
