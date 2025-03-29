@@ -1,6 +1,7 @@
 ﻿using AimReactionAPI.Data;
 using AimReactionAPI.DTOs;
 using AimReactionAPI.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace AimReactionAPI.Services;
 
@@ -27,25 +28,19 @@ public class GameService
     }
     public virtual async Task<Game?> CreateOrUpdateGameAsync(GameConfigDto gameConfig)
     {
+        if (gameConfig == null)
+        {
+            throw new ArgumentNullException("Game configuration cannot be null.");
+        }
+
         try
         {
-            Game game;
+            Game game = await _context.Games.FirstOrDefaultAsync(g => g.GameId == gameConfig.GameId)
+                        ?? new Game { CreatorId = gameConfig.CreatorId };
 
-            if (gameConfig.GameId.HasValue)
+            if (gameConfig.GameId.HasValue && game.CreatorId != gameConfig.CreatorId)
             {
-                game = await _context.Games.FindAsync(gameConfig.GameId.Value)
-                    ?? throw new Exception("Game not found");
-
-                if (game.CreatorId != gameConfig.CreatorId)
-                    throw new UnauthorizedAccessException("User is not allowed to make changes.");
-            }
-            else
-            {
-                game = new Game
-                {
-                    CreatorId = gameConfig.CreatorId,
-                };
-                _context.Games.Add(game);
+                throw new UnauthorizedAccessException("User is not allowed to make changes.");
             }
 
             game.GameName = gameConfig.Name;
@@ -58,11 +53,16 @@ public class GameService
             game.GameType = gameConfig.GameType;
             game.Targets = _targetService.GenerateTargets(gameConfig.MaxTargets, gameConfig.TargetSpeed);
 
+            if (!gameConfig.GameId.HasValue)
+            {
+                _context.Games.Add(game);
+            }
+
             await _context.SaveChangesAsync();
 
             if (game.Visibility == GameVisibility.PRIVATE)
             {
-                await _gameUserService.SetGameUsersAsync(game.GameId, gameConfig.AllowedUsers);
+                await _gameUserService.SetGameUsersAsync(game.GameId, gameConfig.AllowedUsers ?? new List<int>());
             }
             else if (gameConfig.GameId.HasValue)
             {
@@ -70,6 +70,11 @@ public class GameService
             }
 
             return game;
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            _logger.LogWarning(ex, "Unauthorized users attempts to create/update a game.");
+            throw;
         }
         catch (Exception ex)
         {

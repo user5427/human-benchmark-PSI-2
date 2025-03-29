@@ -23,6 +23,11 @@ public class GameUserService
 
     public async Task SetGameUsersAsync(int gameId, List<int> userIds)
     {
+        if (userIds == null || userIds.Count == 0)
+        {
+            return;
+        }
+
         await DeleteCurrentGameUsersAsync(gameId);
 
         var gameUsers = userIds.Select(userId => new GameUser
@@ -37,7 +42,11 @@ public class GameUserService
 
     public async Task DeleteCurrentGameUsersAsync(int gameId)
     {
-        var usersToDelete = _context.GameUsers.Where(gu => gu.GameId == gameId);
-        _context.GameUsers.RemoveRange(usersToDelete);
+        var usersToDelete = await _context.GameUsers.Where(gu => gu.GameId == gameId).ToListAsync();
+        if (usersToDelete.Count != 0)
+        {
+            _context.GameUsers.RemoveRange(usersToDelete);
+            await _context.SaveChangesAsync();
+        }
     }
 }
