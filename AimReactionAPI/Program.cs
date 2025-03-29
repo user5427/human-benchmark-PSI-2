@@ -1,7 +1,9 @@
 using AimReactionAPI.Data;
 using AimReactionAPI.Services;
 using Microsoft.EntityFrameworkCore;
-
+using Fleck;
+using WebSocketBoilerplate;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,10 +35,38 @@ builder.Services.AddScoped<GameUserService>();
 builder.Services.AddScoped<TargetService>();
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<UserService>();
+builder.Services.AddSingleton<MultiplayerService>();
 builder.Services.AddScoped(typeof(GameSessionHandler<>));
 
+var clientEventHandlers = builder.FindAndInjectClientEventHandlers(Assembly.GetExecutingAssembly());
 var app = builder.Build();
 
+var multiplayerService = app.Services.GetRequiredService<MultiplayerService>();
+var wsServer = new WebSocketServer("ws://0.0.0.0:8080");
+wsServer.Start(ws =>
+{
+    int? userId;
+    ws.OnOpen = async () =>
+    {
+        // ws.ConnectionInfo.
+        // await multiplayerService.Connect(ws);
+    };
+    ws.OnMessage = async message =>
+    {
+        try
+        {
+            await app.InvokeClientEventHandler(clientEventHandlers, ws, message);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
+    };
+    ws.OnClose = () =>
+    {
+
+    };
+});
 
 // Ensure CORS is applied before routing and authentication
 app.UseCors("AllowAll");

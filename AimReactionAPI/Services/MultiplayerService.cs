@@ -1,0 +1,182 @@
+using System.Collections.Concurrent;
+using System.Text.Json;
+using AimReactionAPI.DTOs;
+using AimReactionAPI.Models;
+using Fleck;
+
+namespace AimReactionAPI.Services;
+
+public class MultiplayerService
+{
+    private readonly IServiceProvider _serviceProvider;
+    private ConcurrentDictionary<int, Player> Players = new();
+    private ConcurrentDictionary<Guid, Room> Rooms = new();
+    private const int ROUND_DURATION_SECONDS = 3;
+   public MultiplayerService(IServiceProvider serviceProvider)
+    {
+        _serviceProvider = serviceProvider;
+    }
+
+    public async Task Connect(int playerId, IWebSocketConnection ws)
+    {
+        using var scope = _serviceProvider.CreateScope();
+        var userService = scope.ServiceProvider.GetRequiredService<UserService>();
+        User? user = await userService.FindUser(playerId) ??
+            throw new InvalidDataException($"User with ID {playerId} not found.");
+
+        Player player = new(user.Name, ws);
+        Players.TryAdd(playerId, player);
+        Console.WriteLine("Connected");
+    }
+
+    public void CreateRoom(int playerId, string roomName)
+    {
+        if (!Players.ContainsKey(playerId))
+        {
+            throw new InvalidDataException($"User {playerId} not found.");
+        }
+        Console.WriteLine("Created");
+        Guid roomGuid = new();
+        Room room = new(roomGuid, playerId, roomName);
+        Rooms.TryAdd(roomGuid, room);
+    }
+    public void JoinRoom(int playerId, Guid roomId)
+    {
+        Console.WriteLine("Joined");
+
+        if (!Players.ContainsKey(playerId) ||
+            !Rooms.TryGetValue(roomId, out var room))
+        {
+            throw new InvalidDataException($"User {playerId} Or room {roomId} not found");
+        }
+        room.AddToRoom(playerId);
+    }
+    public void StartRoom(int playerId, Guid roomId)
+    {
+        Console.WriteLine("StartEd");
+
+        if (!Rooms.TryGetValue(roomId, out var room))
+        {
+            throw new InvalidDataException($"Room {roomId} not found");
+        }
+        if (room.CreatorId != playerId)
+        {
+            throw new InvalidOperationException($"User {playerId} not allowed to start.");
+        }
+        if (room.Players.Count < 2)
+        {
+            throw new InvalidOperationException($"Minimum 2 players required(Room {roomId}).");
+        }
+        room.RoomStatus = RoomStatus.PLAYING;
+        StartRound(room);
+    }
+
+    private void StartRound(Room room)
+    {
+        room.ResetPlayerTimes();
+        Target target = TargetService.GenerateTarget();
+        BroadcastTargetToRoom(room, target);
+        Task.Delay(ROUND_DURATION_SECONDS * 1000).ContinueWith(t => HandleRoundEnd(room));
+    }
+
+    private void BroadcastTargetToRoom(Room room, Target target)
+    {
+        var targetDto = new TargetDto(target.Size, target.X, target.Y);
+        var serializedTarget = JsonSerializer.Serialize(targetDto);
+        BroadcastMessageToRoom(room, serializedTarget);
+    }
+
+    private void BroadcastMessageToRoom(Room room, string message)
+    {
+        foreach (var playerId in room.Players)
+        {
+            SendMessageToPlayer(playerId, message);
+        }
+    }
+
+    private void SendMessageToPlayer(int playerId, string message)
+    {
+        if (Players.TryGetValue(playerId, out var player))
+        {
+            player.Connection.Send(message);
+        }
+    }
+
+    private void HandleRoundEnd(Room room)
+    {
+        var eliminatedPlayers = room.Players
+            .Where(playerId => !room.PlayerTimes.ContainsKey(playerId))
+            .ToHashSet();
+        if (eliminatedPlayers.Count == 0)
+        {
+            var slowestPlayer = room.PlayerTimes
+                        .OrderBy(p => p.Value)
+                        .FirstOrDefault();
+            eliminatedPlayers.Add(slowestPlayer.Key);
+        }
+
+        BroadcastRoundResults(room, eliminatedPlayers);
+        foreach (var player in eliminatedPlayers)
+        {
+            room.RemoveFromRoom(player);
+        }
+        if (room.Players.Count > 1)
+        {
+            StartRound(room);
+        }
+        else
+        {
+            Rooms.TryRemove(room.Id, out var _);
+        }
+    }
+
+    private void BroadcastRoundResults(Room room, HashSet<int> eliminatedPlayerIds)
+    {
+        List<RoomPlayerDto> eliminatedPlayers = Players.Where(p => eliminatedPlayerIds.Contains(p.Key))
+                                                        .Select(p => new RoomPlayerDto(p.Value.Username, p.Key, room.PlayerTimes.GetValueOrDefault(p.Key)))
+                                                        .ToList();
+        List<RoomPlayerDto> remainingPlayers = Players.Where(p => room.Players.Contains(p.Key) && !eliminatedPlayerIds.Contains(p.Key))
+                                                      .Select(p => new RoomPlayerDto(p.Value.Username, p.Key, room.PlayerTimes.GetValueOrDefault(p.Key)))
+                                                      .ToList();
+        var results = new RoomRoundResultsDto(remainingPlayers, eliminatedPlayers);
+        var serializedResults = JsonSerializer.Serialize(results);
+        BroadcastMessageToRoom(room, serializedResults);
+    }
+
+    public void RegisterTargetHit(int playerId, Guid roomId, double reactionTime)
+    {
+        Console.WriteLine("Registered");
+
+        if (!Rooms.TryGetValue(roomId, out var room) ||
+            !room.Players.Contains(playerId))
+        {
+            throw new InvalidDataException($"User {playerId} not in room Or room {roomId} not found");
+        }
+        if (room.RoomStatus != RoomStatus.PLAYING)
+        {
+            throw new InvalidOperationException($"Room {roomId} is not in a playing state."); 
+        }
+        room.RegisterPlayerHit(playerId, reactionTime);
+    }
+    public List<RoomDto> GetJoinableRooms()
+    {
+        return Rooms.Values
+        .Where(room => room.RoomStatus == RoomStatus.WAITING)
+        .Select(room => new RoomDto(room.Id, room.Name, room.CreatorId, room.Players.Count, room.RoomStatus.ToString()))
+        .ToList();
+    }
+    public void Disconnect(int playerId)
+    {
+        Console.WriteLine("Disoneected");
+
+        if (!Players.TryRemove(playerId, out var player))
+        {
+            return;
+        }
+        foreach (var room in Rooms.Values)
+        {
+            room.RemoveFromRoom(playerId);
+        }
+        player.Connection.Close();
+    }
+}
