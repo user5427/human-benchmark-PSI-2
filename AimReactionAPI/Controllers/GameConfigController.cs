@@ -40,7 +40,7 @@ public class GameConfigController : ControllerBase
                 return StatusCode(500, "Operation failed.");
             }
 
-            return Ok();
+            return Ok(game);
         }
         catch (UnauthorizedAccessException ex)
         {

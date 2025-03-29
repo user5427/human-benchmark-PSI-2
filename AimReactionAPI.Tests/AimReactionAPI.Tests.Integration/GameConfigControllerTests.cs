@@ -48,7 +48,7 @@ namespace AimReactionAPI.Tests.Integration
             });
             _context.SaveChanges();
             _gameServiceLoggerMock = new Mock<ILogger<GameService>>();
-            _targetService = new TargetService(_context);
+            _targetService = new TargetService();
             _gameUserService = new GameUserService(_context);
             _gameService = new GameService(_context, _gameServiceLoggerMock.Object, _targetService, _gameUserService);
             _controller = new GameConfigController(_context, _logger, _gameService);
