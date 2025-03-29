@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 
 import styles from "./ConfigForm.module.css";
 import Button from "../Button/Button";
-import { GameType } from "../GameType/GameType";
 import { useAuth } from "../../contexts/AuthContext";
 import { useLocation, useNavigate } from "react-router";
 import { GameConfig } from "../../types/props";
@@ -25,7 +24,6 @@ const ConfigForm = () => {
   const { userId } = useAuth();
   const navigate = useNavigate();
   const apiUrl = import.meta.env.VITE_API_URL;
-  console.log(allowedUsers);
   useEffect(() => {
     const fetchGame = async () => {
       if (!gameId) return;
@@ -52,8 +50,8 @@ const ConfigForm = () => {
       setDifficulty(gameConfig.difficultyLevel.toString());
       setSpeed(gameConfig.targetSpeed.toString());
       setType(gameConfig.gameType);
-      setVisibility(gameConfig.visibility || 1);
-      setAllowedUsers(gameConfig.allowedUsers || []);
+      setVisibility(gameConfig.visibility ?? 0);
+      setAllowedUsers((gameConfig.allowedUsers ?? []).map(Number));
     }
   }, [gameConfig]);
 
@@ -72,13 +70,6 @@ const ConfigForm = () => {
     fetchUsers();
   }, [apiUrl, userId]);
 
-  const gameTypeMap: Record<string, GameType> = {
-    MovingTargets: GameType.MovingTargets,
-    ReflexTest: GameType.ReflexTest,
-    CustomChallenge: GameType.CustomChallenge,
-    ReactionTest: GameType.ReactionTimeChallenge,
-  };
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const gameConfigDto = {
@@ -89,7 +80,7 @@ const ConfigForm = () => {
       targetSpeed: parseInt(speed),
       maxTargets: parseInt(targets),
       gameDuration: parseInt(duration),
-      gameType: gameTypeMap[type] || 2,
+      gameType: type ?? 2,
       allowedUsers,
       creatorId: userId,
       visibility,
@@ -131,7 +122,7 @@ const ConfigForm = () => {
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
-      <p>Please specify required configuration to create a game.</p>
+      <p>Please specify required game configuration.</p>
 
       <div className={styles.formContent}>
         <div className={styles.inputItem}>

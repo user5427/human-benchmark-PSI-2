@@ -31,7 +31,6 @@ public class GameConfigController : ControllerBase
         {
             return BadRequest("Invalid game configuration data.");
         }
-
         try
         {
             Game? game = await _gameService.CreateOrUpdateGameAsync(gameConfig);
@@ -41,7 +40,7 @@ public class GameConfigController : ControllerBase
                 return StatusCode(500, "Operation failed.");
             }
 
-            return Ok(game);
+            return Ok();
         }
         catch (UnauthorizedAccessException ex)
         {

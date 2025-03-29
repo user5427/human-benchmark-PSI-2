@@ -83,7 +83,7 @@ const Navbar = () => {
           <Link to="/leaderboards" className={styles.navbarLink}>Leaderboards</Link>
         </li>
         <li className={styles.navbarItem}>
-          <Link to="/create-game" className={styles.navbarLink}>Create Game</Link>
+          <Link to="/game-config" className={styles.navbarLink}>Create Game</Link>
         </li>
     
         <Button label={"Logout"} variant='primary' onClick={handleLogout} />
@@ -100,7 +100,7 @@ const Navbar = () => {
               <Link to="/leaderboards" onClick={toggleMenu}>Leaderboards</Link>
             </li>
             <li>
-              <Link to="/create-game" onClick={toggleMenu}>Create Game</Link>
+              <Link to="/game-config" onClick={toggleMenu}>Create Game</Link>
             </li>   
 
             <Button label={"Logout"} variant='primary' onClick={handleLogout}/>         
