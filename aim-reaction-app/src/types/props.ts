@@ -45,3 +45,8 @@ export interface GameDescription {
   gameDescr: string;
   gameType: GameType;
 }
+
+export interface User {
+  id: number;
+  name: string;
+}

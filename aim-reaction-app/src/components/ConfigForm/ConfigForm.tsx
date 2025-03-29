@@ -5,7 +5,8 @@ import styles from "./ConfigForm.module.css";
 import Button from "../Button/Button";
 import { useAuth } from "../../contexts/AuthContext";
 import { useLocation, useNavigate } from "react-router";
-import { GameConfig } from "../../types/props";
+import { GameConfig, User } from "../../types/props";
+import { AllowedUserList } from "./AllowedUserList";
 
 const ConfigForm = () => {
   const location = useLocation();
@@ -20,7 +21,7 @@ const ConfigForm = () => {
   const [type, setType] = useState<number>(0);
   const [visibility, setVisibility] = useState<number>(0);
   const [allowedUsers, setAllowedUsers] = useState<number[]>([]);
-  const [availableUsers, setAvailableUsers] = useState<any[]>([]);
+  const [availableUsers, setAvailableUsers] = useState<User[]>([]);
   const { userId } = useAuth();
   const navigate = useNavigate();
   const apiUrl = import.meta.env.VITE_API_URL;
@@ -108,16 +109,6 @@ const ConfigForm = () => {
         alert("An unexpected error occurred.");
       }
     }
-  };
-
-  const handleUserSelection = (event: any) => {
-    const userId = parseInt(event.target.value);
-    if (!userId) return;
-    setAllowedUsers((prev) =>
-      prev.includes(userId)
-        ? prev.filter((id) => id !== userId)
-        : [...prev, userId]
-    );
   };
 
   return (
@@ -242,22 +233,10 @@ const ConfigForm = () => {
           </select>
         </div>
         {visibility === 1 ? (
-          <div>
-            <label>Allowed Users</label>
-            <div className={styles.userList}>
-              {availableUsers?.map((user) => (
-                <div key={user.id}>
-                  <input
-                    type="checkbox"
-                    value={user.id}
-                    checked={allowedUsers.includes(user.id)}
-                    onChange={handleUserSelection}
-                  />
-                  <label>{user.name}</label>
-                </div>
-              ))}
-            </div>
-          </div>
+          <AllowedUserList
+            allowedUsers={allowedUsers}
+            setAllowedUsers={setAllowedUsers}
+            availableUsers={availableUsers} />
         ) : null}
       </div>
 
