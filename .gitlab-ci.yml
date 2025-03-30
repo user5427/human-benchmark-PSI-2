@@ -151,7 +151,7 @@ deploy:
   # - export ConnectionStrings__DefaultConnection="$DB_CONNECTION_STRING"
   script:
     - export ConnectionStrings__DefaultConnection="$DB_CONNECTION_STRING"
-    - echo '$DB_CONNECTION_STRING'
+    - echo "$DB_CONNECTION_STRING"
     - docker-compose up -d
   variables:
     FRONTEND_IMAGE: "frontend-app:${APP_VERSION}"
