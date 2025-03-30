@@ -37,11 +37,11 @@
 \newcommand{\RR}{\mathbb{R}}
 
 
-\studyprogramme{\{Study programme\}} %Write your study programme (example – Software engineering, Financial and Actuarial Mathematics, etc.)
-\worktype{\{Work type\}} % Bachelor's thesis or Master's thesis
-\worktitle{Work Title in English}
+\studyprogramme{\{Software Engineering\}} %Write your study programme (example – Software engineering, Financial and Actuarial Mathematics, etc.)
+\worktype{\{Analysis of system using UML\}} % Bachelor's thesis or Master's thesis
+\worktitle{Lab 2}
 \secondworktitle{UML 1 + 4, requirement implementation, CI/CD}
-\workauthor{a̶͗͆i̷̍͝ ̸͑͛ń̸̂e̷̿̎z̴̿̎ȉ̴nau Team}
+\workauthor{a̶͗͆i̷̍͝ ̸͑͛ń̸̂e̷̿̎z̴̿̎ȉ̴nau Team; Adrian, Arnas, Darius, Tadas}
 
 %There may be more than one author, in which case each author is written from a new line which is added in Titlepage.tex or LongerTitlePage.tex
 %\secondauthor{Name Surname} %If present, otherwise delete
@@ -667,16 +667,39 @@ Because versioning is done manually and it is quite light on resources, it is no
 As we already mentioned we use .Net and Node technologies to build and test the application. For testing the backend we used NUnit and for testing the frontend we used Vitest.
 For dockerization and deployment we used Docker.
 
+Version requirements for the technologies used are shown in \ref{tab:technology-requirements}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{Technology} & \textbf{Version} & \textbf{Notes} \\ 
+        \hline
+        .NET & 9.0.100 & Version can be higher \\ 
+        \hline
+        Node.js & v22.9.0 & Version can be higher \\ 
+        \hline
+        Docker & 20.10.24+dfsg1 & Version can be higher \\ 
+        \hline
+        Vitest & 3.0.9 & Version can be higher \\
+        \hline 
+        NUnit & 3.13.3 & Version can be higher \\       
+        \hline
+    \end{tabular}
+    \caption{Technology Requirements}
+    \label{tab:technology-requirements}
+\end{table}
+
 \subsubsection{Database}
 We use PostgreSQL database that is hosted on Aiven. 
 
 \subsubsection{GitLab runner}
-We use GitLab runner on our VM machine to execute the CI/CD pipeline. This ensures that our pipeline remains simple as hosting is also done by the same VM.
+We use GitLab runner on our VM machine to execute the CI/CD pipeline. This ensures that our pipeline remains simple as hosting is also done by the same VM. Our runner is named as 'VM-mif' and it is shell executor.
+It runs on linux operating system. The runner is can execute both untagged and tagged 'shell' jobs. The runner's version is 17.9.1.
 
 \subsubsection{OpenNebula}
-We used OpenNebula to create the VM and manage its configuration (RAM, storage, CPU count, networks).
+We used OpenNebula 4.14.2 by OpenNebula Systems to create the VM and manage its configuration (RAM, storage, CPU count, networks).
 
-\subsection{Database}
+\subsection{Database Hosting}
 \label{sec:database}
 In this section we will analyse the database that is used in our application. Mainly we will look at the usage patterns of the database and how it is used in the application.
 
@@ -718,8 +741,28 @@ of the data is stored as strings and we do not store any images or other high vo
 a reliable method to backup the database in set time intervals which is important to ensure that user data is not lost.\\
 
 \subsubsection{Requirements summary}
+From our tests it is clear that the 1 CPU, 1GB RAM and 5 GB storage is enough for our application. Likely the database could function just as well with 1 GB of storage as our traffic is not that high. 
+The database can handle around 100 users at the same time and the storage is enough for our application.
 
-\subsection{Hosting}
+Therefore, the database requirements are \ref{tab:system-requirements}:
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{Requirement Type} & \textbf{Minimal Requirements} & \textbf{Recommended Requirements} \\ 
+        \hline
+        Database CPU & 1 core & 1 core \\ 
+        \hline
+        Database RAM & 1 GB & 1 GB \\ 
+        \hline
+        Database Storage & 1 GB & 5 GB \\ 
+        \hline
+    \end{tabular}
+    \caption{System Requirements for Database and VM}
+    \label{tab:system-requirements}
+\end{table}
+
+\subsection{Application Hosting (frontend and backend)}
 The hosting is done on our faculty virtual machine. The machine is running Debian 12 operating system.
 All the management of the machine is handled with OpenNebula. The machine can also be managed by connecting to it via SSH. Our database is hosted on Aiven and not on the same VM as the application.
 
