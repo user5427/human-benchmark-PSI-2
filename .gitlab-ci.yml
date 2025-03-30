@@ -20,7 +20,8 @@ updateDatabase:
     - cd AimReactionAPI
     - dotnet ef database update
   rules:
-    - when: manual
+    - if: $CI_COMMIT_MESSAGE =~ /#migrate/
+      when: manual
 
 # Build Frontend
 build_frontend:
@@ -45,8 +46,6 @@ build_backend:
     - dotnet build --configuration Release
     - dotnet publish -c Release -o ./publish
     - ls -la # DEBUG: List all files in the directory
-  before_script:
-  - export ConnectionStrings__DefaultConnection="$DB_CONNECTION_STRING"
   artifacts:
     paths:
       - AimReactionAPI/publish/  # Relative path to the publish output
@@ -93,8 +92,6 @@ dockerize_backend:
   image: docker:latest
   services:
     - docker:dind
-  before_script:
-  - export ConnectionStrings__DefaultConnection="$DB_CONNECTION_STRING"
   script:
     - cd AimReactionAPI
     - docker build -t backend-app:${APP_VERSION} .
@@ -150,6 +147,8 @@ bump_version:
 # Deploy on the VM
 deploy:
   stage: deploy
+  before_script:
+  - export ConnectionStrings__DefaultConnection="$DB_CONNECTION_STRING"
   script:
     - docker-compose up -d
   variables:
