@@ -152,7 +152,6 @@ deploy:
   script:
     - export ConnectionStrings__DefaultConnection="$DB_CONNECTION_STRING"
     - echo "🔍 DB_CONNECTION_STRING is: '$DB_CONNECTION_STRING'
-    - if [ -z "$DB_CONNECTION_STRING" ]; then echo "❌ ERROR: DB_CONNECTION_STRING is missing"; exit 1; fi
     - docker-compose up -d
   variables:
     FRONTEND_IMAGE: "frontend-app:${APP_VERSION}"
