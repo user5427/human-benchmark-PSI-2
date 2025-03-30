@@ -14,6 +14,8 @@ stages:
 updateDatabase:
   stage: updateDatabase
   image: mcr.microsoft.com/dotnet/sdk:7.0
+  before_script:
+  - export ConnectionStrings__DefaultConnection="$DB_CONNECTION_STRING"
   script:
     - cd AimReactionAPI
     - dotnet ef database update
@@ -43,6 +45,8 @@ build_backend:
     - dotnet build --configuration Release
     - dotnet publish -c Release -o ./publish
     - ls -la # DEBUG: List all files in the directory
+  before_script:
+  - export ConnectionStrings__DefaultConnection="$DB_CONNECTION_STRING"
   artifacts:
     paths:
       - AimReactionAPI/publish/  # Relative path to the publish output
@@ -89,6 +93,8 @@ dockerize_backend:
   image: docker:latest
   services:
     - docker:dind
+  before_script:
+  - export ConnectionStrings__DefaultConnection="$DB_CONNECTION_STRING"
   script:
     - cd AimReactionAPI
     - docker build -t backend-app:${APP_VERSION} .
