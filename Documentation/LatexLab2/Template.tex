@@ -227,7 +227,7 @@ UML diagrams are used to model the system's architecture and structure. We follo
 This section will discuss continous integration and continous delivery of the application. 
 The CI (continous integration) is the first process that is done which is then followed by CD (continous delivery).
 For the CI/CD process we used GitLab CI/CD pipeline, .Net, Node, Docker, and OpenNebula virtual machine. The pipeline is triggered when a developer pushes his commit to a branch that has CI/CD action script.
-
+Diagram below \ref{fig:deployment-diagram} shows the deployment sequence diagram. The diagram shows the order in which the application is built, tested, dockerized, and deployed. The diagram also shows the order in which the database is updated.
 
 \begin{figure}[H]
     \centering
@@ -407,6 +407,10 @@ In total that is about 110 seconds to complete the CI process or about 2 minutes
 
 Here we can easily observe cashing mechanisms and optimizations. We can see if the CI pipeline will be run often, the time 
 to build and test the application will reduce in total about 40 seconds.
+
+\subsubsection{Versioning}
+The versioning process during the build stage can be triggered manually by the developer. The developer must include either 'patch', 'minor' or 'major' in the commit message. After that the developer must click the 'start' button in GitLab jobs. If the developer does not click the start button, the pipeline process will halt.
+More about the versioning process can be found in \ref{sec:versioning}.
 
 \subsubsection{CI conclusion}
 In conclusion, the CI pipeline is not very time intensive nor memory intensive. 
@@ -600,6 +604,10 @@ Because of that, the min and max time \ref{tab:min-max-dockerize-process-time} t
 Here we can easily observe cashing mechanisms and optimizations. We can see if the CD pipeline will be run often, the time 
 to build and test the application will reduce in total about 97 seconds.
 
+\subsubsection{Database}
+The database update CD pipeline can only be triggered when the developer includes message '\#migrate' in the commit message. Then the start button for the database update process in GitLab jobs must be clicked. If the developer does not click the start button, the pipeline process will halt.
+More about the database can be found \ref{sec:database}.
+
 \subsubsection{Networks}
 During the deployment of backend and frontend, the backend container is assigned 
 the ports 8084 and 8082 for https and http requests while the frontend container is 
@@ -615,13 +623,14 @@ reducing the time required for subsequent builds. The storage requirements
 are manageable. The deployment process is straightforward, utilizing basic 
 Docker commands to build and deploy the application.
 
+
 \subsection{Versioning}
 \label{sec:versioning}
 The versioning of the application (v 0.0.1 - v 0.0.2 - ...) is done using GitLab CI/CD pipeline.
 Before commiting the developer must include either 'patch', 'minor' or 'major' in the commit message.
 
-The versioning is done in the build stage of the CI pipeline (we decided that it was better to leave this process in the build stage and not crete a new stage as this process is quite insignificant). The versioning must be manually triggered by the developer.
-Versioning allows us to keep track of changes made to the application and document the progress of the project.
+The versioning is done in the build stage of the CI pipeline (we decided that it was better to leave this process in the build stage and not crete a new stage as this process is quite insignificant). The versioning must be manually triggered by the developer (before that the commit message must contain 'patch', 'minor' or 'major').
+Versioning allows us to keep track of changes made to the application and document the progress of the project \ref{fig:versioning-process}
 
 \begin{figure}[H]
     \centering
@@ -704,7 +713,7 @@ We used OpenNebula 4.14.2 by OpenNebula Systems to create the VM and manage its 
 In this section we will analyse the database that is used in our application. Mainly we will look at the usage patterns of the database and how it is used in the application.
 
 This database runs on 1 CPU, 1 GB RAM and 5 GB storage machine. 
-Updates to this database must be done manually (can be triggered in CI/CD pipeline) by the developer to avoid unexpected data loss.
+Updates to this database must be done manually (can be triggered in CI/CD pipeline) by the developer to avoid unexpected data loss. The commit message must contain '\#migrate' to make the database update stage available for the developer.
 
 \subsubsection{Database usage}
 As our database is quite small, it is important to look at the usage patterns of the database to determine if the current specifications of the database are enough for our application.
@@ -812,7 +821,7 @@ If we trigger the pipeline, we can see the usage patterns change
     \label{fig:memory-usage}
 \end{figure}
 
-During the CI/CD pipeline, it is clear that the memory usage increasese about 400 megabytes. In addition, there are spikes in virtual CPU usages.
+During the CI/CD pipeline \ref{fig:memory-usage}, it is clear that the memory usage increasese about 400 megabytes. In addition, there are spikes in virtual CPU usages.
 Especially during the dockerization proccess all of the virtual CPU units spike to 70\%. During this CI/CD stage, users may experience stuttering or lag
 as the application is hosted on the same runner. As a result, it would be better to deploy changes to application during the time the application is least used.
 
@@ -839,6 +848,83 @@ In our analysis, we used a system that had 0.4 physical CPU assigned to it and 4
 especially durring the backend testing stage, as NUnit utilizes multithreading. In that case, it would be better to turn of multithreading for testing or increase CPU count. Ideally the system should
 be assigned atleast 1 cpu core.
 
+\subsubsection{Network requirements}
+Notice: all of these mesurments were handled on weekend (2025-03-30 16:00). During other times, the network usage may be higher or lower.
+By opening up developer tools and inspecting how much data one user uses, we can make a rough estimation of how much data bandwidth is needed for the application to run smoothly.
+
+We ran the \texttt{speedtest} command to see how much bandwidth we have. The results are shown below \ref{tab:network-speed}:
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{Metric} & \textbf{Speed (Mbit/s)} & \textbf{Speed (MB/s)} \\ 
+        \hline
+        Download Speed & 211.82 Mbit/s & 26.48 MB/s \\ 
+        \hline
+        Upload Speed & 692.55 Mbit/s & 86.57 MB/s \\ 
+        \hline
+        \end{tabular}
+    \caption{Network Speed Test Results}
+    \label{tab:network-speed}
+\end{table}
+ 
+We analized how much resources were downloaded to user's browser by refreshing the homepage. In total it was about 2.8 megabytes of data that was downloaded.
+Because we were downloading the data on client side, we will be analysing the upload speed. 629.55 Mbit/s is about 86 megabytes per second.
+As a result, we can see that the application can handle about 30 users at the same time loading up page (86 MB/s / 2.8 MB ≈ 31 users).
+Considering the fact, that our application runs on a virtual machine, it is likely that the bandwidth is shared with other users. As a result, this number may be lower.
+
+It is also important to consider the fact that our application runs on low specifications machine and that our database at max can handle about 100 users at the same time.
+As a result, it is likely that our current network bandwidth is enough for our application to run smoothly. However, for future improvements, it would be better to have at 1 Gbit/s stable upload speed to ensure that the application can handle more users at the same time.
+
+We also analyzed how much data is uploaded to the server when a user plays a game. Because most of the game logic is handled on the client side, the upload data is quite low.
+In total, it was about 25.7kB of data that was uploaded to the server during one game session. This is a very low amount of data and it is unlikely that the application will run out of bandwidth in the future.
+In total, we could handle about 1000 users at the same time playing a game (26 MB/s / 25.7 kB ≈ 1040 users). Clearly, the download speed (on server side) is not a problem for our application. Considering the fact, that 
+the upload side can at max handle about 30 users at the same time, it is likely that we will run out of upload bandwidth before we run out of download bandwidth.
+
+The minimal requirements for the download speed are calculated by multiplying the max users upload bandwidth can handle by the data that was uploaded to the server during one game session. 
+\[
+\text{downloadUsers} = \text{dataUploaded} \times \text{uploadBandwidthMaxUsers} = 25.7 \text{kB} \times 30 = 771 kB
+\]
+
+Because there could be system updates that require download bandwidth, it is better to have a higher download speed than the one calculated above. Or to disable the updates during the time when the application is used by users. Ourr
+recommendation is to have 200 Mbits/s download speed as that is what we have on our VM and we did not experience any problems with it.
+
+
+We also did ping tests to ensure that our network is responsive, as our application focuses on games, it is important that the latency is low.
+The following table summarizes the results of a ping test to \texttt{google.com} (IP: 216.58.215.110). The test was conducted to measure round-trip time (RTT) and packet loss.
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline
+        \textbf{Metric} & \textbf{Value} \\
+        \hline
+        Packets Transmitted & 13 \\
+        \hline
+        Packets Received & 13 \\
+        \hline
+        Packet Loss & 0\% \\
+        \hline
+        Total Time & 12021 ms \\
+        \hline
+        RTT Minimum & 9.317 ms \\
+        \hline
+        RTT Average & 9.576 ms \\
+        \hline
+        RTT Maximum & 9.932 ms \\
+        \hline
+        RTT Mean Deviation (mdev) & 0.200 ms \\
+        \hline
+    \end{tabular}
+    \caption{Ping Test Results to \texttt{google.com}}
+    \label{tab:ping-test-results}
+\end{table}
+
+The test demonstrates stable connectivity with no packet loss and low latency, indicating a reliable network connection. 
+For the application, this is important as it ensures that users can play games without experiencing lag or delays. 
+The average RTT of 9.576 ms is quite low and should not cause any issues for users.
+We looked on the internet what is the maximum latency that is acceptable for online games and it is abuot 30 ms.
+
+
 \subsubsection{Sum up of requirement}
 Below is a table with minimal requirements for functional system and recommended requirements for a smooth experience.
 
@@ -854,12 +940,19 @@ Below is a table with minimal requirements for functional system and recommended
         \hline
         CPU & 0.4 core & 1 core \\ 
         \hline
+        Network Upload & 629 Mbit/s & 1 Gbit/s \\
+        \hline
+        Network Download & 8 Mbit/s & 200 Mbit/s \\
+        \hline
+        Network Latency & ≈30 ms & ≈10 ms \\
+        \hline
     \end{tabular}
-    \caption{Resource Types}
+    \caption{Resource Needs}
     \label{tab:resource-types}
 \end{table}
 
-These requirements closely match the specs of consumer-grade small computers like the Raspberry Pi 4, making it an ideal and cost-effective choice for hosting lightweight applications or small websites while maintaining energy efficiency and compactness.
+
+These requirements closely match the specs of consumer-grade small computers like the Raspberry Pi 4, \ref{fig:example-image}, making it an ideal and cost-effective choice for hosting lightweight applications or small websites while maintaining energy efficiency and compactness.
 
 \begin{figure}[H]
     \centering
@@ -878,7 +971,7 @@ Additionally, monitoring and logging SSH access attempts can help in identifying
 
 
 \subsection{Conclusion}
-This section provided an overview of how our CI/CD process works, what are the minimal and recommended system specifications. Furthermore we provided possible risks of this system and ways to mitigate these risks.
+This section provided an overview of how our CI/CD process works \ref{fig:pipelinefromgitlab}, what are the minimal and recommended system specifications. Furthermore we provided possible risks of this system and ways to mitigate these risks.
 
 \begin{figure}[H]
     \centering
