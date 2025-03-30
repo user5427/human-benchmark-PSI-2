@@ -662,33 +662,68 @@ The versioning of the application follows the Semantic Versioning scheme (MAJOR.
 
 Because versioning is done manually and it is quite light on resources, it is not necessary to measure the storage, memory or CPU needs.
 
-\subsection{Database}
-\label{sec:database}
-
-\subsection{Technologies used}
+\subsection{Technologies used and required}
 \subsubsection{Application building and testing}
 As we already mentioned we use .Net and Node technologies to build and test the application. For testing the backend we used NUnit and for testing the frontend we used Vitest.
 For dockerization and deployment we used Docker.
 
 \subsubsection{Database}
-We use PostgreSQL database that is hosted on 
-Aiven. This database runs on 1 CPU, 1 GB RAM and 5 GB storage machine. This is plenty enough for our application as most
-of the data is stored as strings and we do not store any images or other high volume files. Furthermore, Aiven service provides
-a reliable method to backup the database in set time intervals which is important to ensure that user data is not lost.\\
-Updates to this database must be done manually (can be triggered in CI/CD pipeline) by the developer to avoid unexpected data loss.
+We use PostgreSQL database that is hosted on Aiven. 
 
 \subsubsection{GitLab runner}
-We use GitLab runner on our VM machine to execute the CI/CD pipeline. ]This ensures that our pipeline remains simple as hosting is also done by the same VM.
+We use GitLab runner on our VM machine to execute the CI/CD pipeline. This ensures that our pipeline remains simple as hosting is also done by the same VM.
 
 \subsubsection{OpenNebula}
 We used OpenNebula to create the VM and manage its configuration (RAM, storage, CPU count, networks).
 
+\subsection{Database}
+\label{sec:database}
+In this section we will analyse the database that is used in our application. Mainly we will look at the usage patterns of the database and how it is used in the application.
+
+This database runs on 1 CPU, 1 GB RAM and 5 GB storage machine. 
+Updates to this database must be done manually (can be triggered in CI/CD pipeline) by the developer to avoid unexpected data loss.
+
+\subsubsection{Database usage}
+As our database is quite small, it is important to look at the usage patterns of the database to determine if the current specifications of the database are enough for our application.
+We will be using pgbench to measure database performance. The pgbench is a benchmarking tool for PostgreSQL that allows us to simulate multiple clients and measure the performance of the database under load.
+We will be using these commands variantions:
+
+\begin{enumerate}
+    \item \texttt{pgbench -i}  \# Initialize the database
+    \item \texttt{pgbench -c 10 -T 60} \# Run the benchmark with 10 clients for 60 seconds
+\end{enumerate}
+
+The images below shows the database state before \ref{fig:db-before} and after \ref{fig:db-after} test.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/CICD//DBBefore.png}
+    \caption{Database state before tests}
+    \label{fig:db-before}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/CICD/DbAfter1.png}
+    \caption{Database state after tests}
+    \label{fig:db-after}
+\end{figure}
+
+It is clear that with 10 users the database can handle around 957 transactions in 60 seconds (from console report). The CPU usage only barelly increased (about 4\%) \ref{fig:db-after}.
+We were not able to run the tests with more users as we ran into connection problems but from the single test it is clear that the current database could handle about 100 users.
+
+\subsubsection{Database storage needs}
+
+The database could store as much as 5 gigabytes of data. This is plenty enough for our application as most
+of the data is stored as strings and we do not store any images or other high volume files. Furthermore, Aiven service provides
+a reliable method to backup the database in set time intervals which is important to ensure that user data is not lost.\\
+
+\subsubsection{Requirements summary}
+
 \subsection{Hosting}
 The hosting is done on our faculty virtual machine. The machine is running Debian 12 operating system.
-All the management of the machine is handled with OpenNebula. The machine can also be managed by connecting to it via SSH.
+All the management of the machine is handled with OpenNebula. The machine can also be managed by connecting to it via SSH. Our database is hosted on Aiven and not on the same VM as the application.
 
-Below is a diagram that shows the production environment of the application. Its shows the communication paths between frontend and backend, backend and database.
-Notice that our database is hosted on Aiven and not on the same VM as the application.
+Below is a diagram \ref{fig:prod-environment} that shows the production environment of the application. Its shows the communication paths between frontend and backend, backend and database.
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{images/CICD/PROD Diagram.drawio.png}
