@@ -20,7 +20,7 @@ public class Rooms : ControllerBase
     }
 
     [HttpGet]
-    public List<RoomDto> GetRooms([FromQuery] int userId)
+    public List<RoomResponse> GetRooms([FromQuery] int userId)
     {
         return _multiplayerService.GetJoinableRooms();
     }
