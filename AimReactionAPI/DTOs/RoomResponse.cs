@@ -1,4 +1,3 @@
-using AimReactionAPI.Models;
 using WebSocketBoilerplate;
 
 namespace AimReactionAPI.DTOs;

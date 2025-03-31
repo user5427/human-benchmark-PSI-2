@@ -29,6 +29,7 @@ public class MultiplayerService
 
         Player player = new(user.Name, ws);
         Players.TryAdd(playerId, player);
+        SendMessageToPlayer(playerId, JsonSerializer.Serialize(new AvailableRoomsResponse(GetJoinableRooms())));
         _logger.LogInformation($"player({playerId}) connected");
     }
 
@@ -43,7 +44,8 @@ public class MultiplayerService
         Guid roomGuid = Guid.NewGuid();
         Room room = new(roomGuid, playerId, roomName);
         Rooms.TryAdd(roomGuid, room);
-        BroadcastMessageToRoom(room, JsonSerializer.Serialize(GetRoomResponse(room)));
+        SendMessageToPlayer(playerId, JsonSerializer.Serialize(GetRoomResponse(room)));
+        BroadcastToAll(JsonSerializer.Serialize(new AvailableRoomsResponse(GetJoinableRooms())));
         _logger.LogInformation($"player({playerId}) created room({roomName})");
     }
 
@@ -211,6 +213,14 @@ public class MultiplayerService
         var targetDto = new TargetResponse(target.X, target.Y);
         var serializedTarget = JsonSerializer.Serialize(targetDto);
         BroadcastMessageToRoom(room, serializedTarget);
+    }
+
+    private void BroadcastToAll(string message)
+    {
+        foreach (var player in Players)
+        {
+            SendMessageToPlayer(player.Key, message);
+        }
     }
 
     private void BroadcastMessageToRoom(Room room, string message)
