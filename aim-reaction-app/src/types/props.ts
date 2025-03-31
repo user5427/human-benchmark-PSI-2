@@ -50,3 +50,31 @@ export interface User {
   id: number;
   name: string;
 }
+
+export interface Room {
+  Id: string;
+  Name: string;
+  CreatorId: number;
+  Players: string[];
+  RoomStatus: string;
+}
+
+export interface AvailableRooms {
+  Rooms: Room[]
+}
+
+export interface RoomTarget {
+  X: number;
+  Y: number;
+}
+
+export interface RoomPlayer {
+  Name: string;
+  Id: number;
+  ReactionTime: number;
+}
+
+export interface RoomRoundResults {
+  RemainingPlayers: RoomPlayer[];
+  EliminatedPlayers: RoomPlayer[];
+}
