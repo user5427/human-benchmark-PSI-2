@@ -1,17 +1,11 @@
+using AimReactionAPI.DTOs;
 using AimReactionAPI.Services;
 using Fleck;
 using WebSocketBoilerplate;
 
 namespace AimReactionAPI.Events;
 
-
-public class StartRoomEventDto : BaseDto
-{
-    public int PlayerId { get; set; }
-    public required Guid RoomId { get; set; }
-}
-
-public class StartRoomEvent : BaseEventHandler<StartRoomEventDto>
+public class StartRoomEvent : BaseEventHandler<StartRoomRequest>
 {
     private readonly MultiplayerService _multiplayerService;
 
@@ -19,7 +13,7 @@ public class StartRoomEvent : BaseEventHandler<StartRoomEventDto>
     {
         _multiplayerService = multiplayerService;
     }
-    public override Task Handle(StartRoomEventDto dto, IWebSocketConnection socket)
+    public override Task Handle(StartRoomRequest dto, IWebSocketConnection socket)
     {
         _multiplayerService.StartRoom(dto.PlayerId, dto.RoomId);
         return Task.CompletedTask;

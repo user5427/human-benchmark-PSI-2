@@ -45,11 +45,14 @@ var multiplayerService = app.Services.GetRequiredService<MultiplayerService>();
 var wsServer = new WebSocketServer("ws://0.0.0.0:8080");
 wsServer.Start(ws =>
 {
-    int? userId;
+    int? userId = null;
     ws.OnOpen = async () =>
     {
-        // ws.ConnectionInfo.
-        // await multiplayerService.Connect(ws);
+        if (int.TryParse(ws.ConnectionInfo.Path.Trim('/'), out int id))
+        {
+            userId = id ;
+            await multiplayerService.Connect(id, ws);
+        }
     };
     ws.OnMessage = async message =>
     {
@@ -64,7 +67,10 @@ wsServer.Start(ws =>
     };
     ws.OnClose = () =>
     {
-
+        if (userId.HasValue)
+        {
+            multiplayerService.Disconnect(userId.Value);
+        }
     };
 });
 
