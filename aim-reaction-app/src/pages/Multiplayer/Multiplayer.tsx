@@ -16,13 +16,12 @@ const Multiplayer = () => {
     const [roundStartTime, setRoundStartTime] = useState<number | null>(null);
     const [rooms, setRooms] = useState<Room[]>([]);
     const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket(`${apiWs}/${userId}`, {reconnectInterval: 3000});
-    console.log(target);
 
     useEffect(() => {
-        console.log(lastJsonMessage);
         if (!lastJsonMessage)
             return;
-        switch (lastJsonMessage.eventType) {
+        const message = lastJsonMessage as { eventType: string };
+        switch (message.eventType) {
             case 'RoomResponse':
                 setRoom(lastJsonMessage as Room);
                 break;
@@ -38,7 +37,7 @@ const Multiplayer = () => {
                 setRoundResults(lastJsonMessage as RoomRoundResults);
                 break;
             default:
-                console.log('invalid response type');
+                console.error('invalid response type');
         }
       }, [lastJsonMessage]);
 
