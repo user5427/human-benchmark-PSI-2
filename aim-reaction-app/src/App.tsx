@@ -11,6 +11,7 @@ import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import Login from "./pages/Login/Login";
 import { AuthProvider } from "./contexts/AuthContext";
 import Games from "./pages/Games/Games";
+import Multiplayer from "./pages/Multiplayer/Multiplayer";
 
 const Layout: React.FC<React.PropsWithChildren<object>> = ({ children }) => {
   const location = useLocation();
@@ -55,6 +56,7 @@ function App() {
               element={<PrivateRoute element={ReflexTest} />}
             />
             <Route path="/games" element={<PrivateRoute element={Games} />} />
+            <Route path="/multiplayer" element={<PrivateRoute element={Multiplayer} />} />
             <Route path="/login" element={<Login />} />
           </Routes>
         </Layout>

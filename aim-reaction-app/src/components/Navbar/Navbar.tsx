@@ -85,6 +85,9 @@ const Navbar = () => {
         <li className={styles.navbarItem}>
           <Link to="/game-config" className={styles.navbarLink}>Create Game</Link>
         </li>
+        <li className={styles.navbarItem}>
+          <Link to="/multiplayer" className={styles.navbarLink}>Multiplayer</Link>
+        </li>
     
         <Button label={"Logout"} variant='primary' onClick={handleLogout} />
       </ul>
@@ -101,8 +104,10 @@ const Navbar = () => {
             </li>
             <li>
               <Link to="/game-config" onClick={toggleMenu}>Create Game</Link>
-            </li>   
-
+            </li>
+            <li>
+              <Link to="/multiplayer">Multiplayer</Link>
+            </li>
             <Button label={"Logout"} variant='primary' onClick={handleLogout}/>         
           </ul>
         </div>
