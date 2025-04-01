@@ -115,13 +115,34 @@ UML diagrams are used to model the system's architecture and structure. We follo
     \item \textbf{Scenarios (Use Case View):} Use case diagrams capture user interactions.
 \end{itemize}
 
-\subsection{Creating Games / Private and Public games}
+
+
+\subsection{Logical View}
+
+\subsubsection{AppDbContext}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/newUMLs/privatePublicClass.png}
-    \caption{Creating / Private and Public games class diagram (Logical View)}
-    \label{fig:ERD}
+    \includegraphics[width=0.8\textwidth]{images/AppDbClass.png}
+    \caption{AppDbContext class diagram (Logical View)}
+    \label{fig:appdb}
 \end{figure}
+\textbf{AppDbContext}: Acts as the bridge between C\# code and the database, managing all entity collections and relationships.
+
+\subsubsection{Creating Private and Public Games}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/GameCreationClassImg.png}
+    \caption{Creating Private and Public Games Class Diagram (Logical View)}
+    \label{fig:gamecreation}
+\end{figure}
+\begin{itemize}
+    \item \textbf{GameConfigDto}: Carries user input.
+    \item \textbf{GameConfigController}: Receives user input, validates it, and calls \textbf{GameService}.
+    \item \textbf{GameService}: Orchestrates creation, delegates to TargetService/GameUserService.
+    \item \textbf{GameUserService}: Manages private game access (only called when Visibility=PRIVATE).
+    \item \textbf{Game}: Root entity storing all game data.
+    \item \textbf{GameVisibility}: Enum controlling access logic (PUBLIC/PRIVATE).
+\end{itemize}
 
 \begin{figure}[H]
     \centering
