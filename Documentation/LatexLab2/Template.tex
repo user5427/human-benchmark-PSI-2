@@ -128,21 +128,41 @@ UML diagrams are used to model the system's architecture and structure. We follo
 \end{figure}
 \textbf{AppDbContext}: Acts as the bridge between C\# code and the database, managing all entity collections and relationships.
 
-\subsubsection{Creating Private and Public Games}
+\subsubsection{Creating Private and Public games class diagram}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{images/GameCreationClassImg.png}
-    \caption{Creating Private and Public Games Class Diagram (Logical View)}
+    \caption{Creating Private and Public games class diagram (Logical View)}
     \label{fig:gamecreation}
+    Green color distinquishes more important parts specifically in PRIVATE/PUBLIC game creation.
 \end{figure}
 \begin{itemize}
     \item \textbf{GameConfigDto}: Carries user input.
-    \item \textbf{GameConfigController}: Receives user input, validates it, and calls \textbf{GameService}.
-    \item \textbf{GameService}: Orchestrates creation, delegates to TargetService/GameUserService.
+    \item \textbf{GameConfigController}: Receives user input, validates it and calls \textbf{GameService}.
+    \item \textbf{GameService}: Orchestrates creation, delegates to \textbf{TargetService}/\textbf{GameUserService}.
     \item \textbf{GameUserService}: Manages private game access (only called when Visibility=PRIVATE).
     \item \textbf{Game}: Root entity storing all game data.
     \item \textbf{GameVisibility}: Enum controlling access logic (PUBLIC/PRIVATE).
 \end{itemize}
+
+\subsubsection{Creating Public games sequence diagram}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/seqPublic.png}
+    \caption{Creating Public games sequence diagram (Logical View)}
+    \label{fig:gamecreation}
+\end{figure}
+Public game creation involves a client submitting a \textbf{GameConfigDto} to the \textbf{GameConfigController}, which converts it to a \textbf{GameConfig} and calls \textbf{GameService.CreateGameFromAsync()}. The service generates targets via \textbf{TargetService}, saves the game and targets via \textbf{AppDbContext}, and returns the created game. 
+
+\subsubsection{Creating Private games sequence diagram}
+Green color shows what is different from Public game creating sequence diagram.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/seqPrivate.png}
+    \caption{Creating Private game sequence diagram (Logical View)}
+    \label{fig:gamecreation}
+\end{figure}
+Private games follow the same initial flow but add extra steps: after saving the game, \textbf{GameService} calls \textbf{GameUserService.SetGameUsersAsync()} to delete existing and insert new \textbf{GameUser} records, enforcing access control. Both flows return the \textbf{Game} entity, but private games require two database transactions (game + targets and user permissions) versus public games' single transaction.
 
 \begin{figure}[H]
     \centering
