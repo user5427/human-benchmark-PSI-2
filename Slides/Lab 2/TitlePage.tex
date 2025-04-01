@@ -13,7 +13,7 @@
 %    TITLE PAGE
 %----------------------------------------------------------------------------------------
 
-\title{Humen-Benchmark}
+\title{Human-Benchmark}
 \subtitle{Lab 2}
 
 \author{Adrian, Arnas, Darius, Tadas}
@@ -48,13 +48,21 @@
 \begin{frame}{CI/CD Stage 1}
     \begin{columns}[T] % Align columns to the top
         \column{0.5\textwidth} % Left column for the image
-        \begin{figure}
-            \includegraphics[width=\linewidth]{images/cicd/"stage 1.png"}
-            \caption{Stage 1}
-        \end{figure}
-        \column{0.5\textwidth} % Right column for the text
-        \textbf{Description:} \\
-        Add your description or explanation for Stage 1 here.
+            \begin{figure}
+                \includegraphics[width=\linewidth]{images/cicd/"stage 1.png"}
+                \caption{Stage 1}
+            \end{figure}
+            \column{0.5\textwidth} % Right column for the text
+            \textbf{Stage 1 Description:} \\
+            Application building commands:
+            \begin{itemize}
+                \item \texttt{dotnet build}
+                \item \texttt{npm run build}
+            \end{itemize}
+            Average time: 58s
+            
+            The developer can include \textbf{\#patch}, \textbf{\#minor}, \textbf{\#major} in the commit message to automatically update the version of the application.
+
     \end{columns}
 \end{frame}
 
