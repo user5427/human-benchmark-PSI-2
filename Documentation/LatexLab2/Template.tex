@@ -271,32 +271,34 @@ Private games follow the same initial flow but add extra steps: after saving the
 \subsection{Package and component diagram}
 
 \subsection{Component Diagram}
+These diagrams show the logic behind the fufillment of the requirements laid out for the implementation of the needs specified in Lab1.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{images/Arno/Component diagramF.drawio.png}
     \caption{Component Diagram (Multiplayer and Private Games)}
     \label{fig:component-diagram 1}
 \end{figure}
-
+In this diagram \emph{Game engine} is responsible for running the game and initialises its rules. \emph{Game session} is responsible for users joining and interacting with the game.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{images/Arno/RankingF.drawio.png}
     \caption{Component Diagram (Rating system)}
     \label{fig:component-diagram 2}
 \end{figure}
-
+\emph{Rating Calculator} is responsible for querying the data and calculating the score, while \emph{Rating} is responsible for setting up the request from the information gotten from the API.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{images/Arno/GameHistoryF.drawio.png}
     \caption{Component Diagram (Game history)}
     \label{fig:component-diagram 3}
 \end{figure}
-
+\emph{History service} queries the last few entries by sorting according to the user who sent the request.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{images/Arno/highscoresandleaderboardF.drawio.png}
     \caption{Component Diagram (High-score and Leaderboard)}
     \label{fig:component-diagram 4}
+    The same structure is used for both game leaderboards and personal top scores. As such the \emph{filter} component implements the logic that is used to filter by user, game or any combination of the two and \emph{High-score calculator} prepares the objects required for the requested data.
 \end{figure}
 \subsection{Package Diagram}
 \begin{figure}[H]
