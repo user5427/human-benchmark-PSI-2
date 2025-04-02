@@ -6,3 +6,4 @@ sudo ip set link eth0 up
 sudo dhclient eth0
 
 trigger
+trigger
