@@ -26,3 +26,8 @@ div {
   font-style: normal;
   font-weight: 400;
 }
+
+.editButton {
+  font-size: 12px;
+  padding: 3px 9px;
+}

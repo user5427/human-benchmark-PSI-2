@@ -18,6 +18,7 @@ namespace AimReactionAPI.Tests.Integration
     {
         private AppDbContext _context;
         private GameService _gameService;
+        private GameUserService _gameUserService;
         private Mock<ILogger<GameService>> _gameServiceLoggerMock;
         private TargetService _targetService;
         private ILogger<GameConfigController> _logger;
@@ -31,14 +32,30 @@ namespace AimReactionAPI.Tests.Integration
                 .Options;
 
             _context = new AppDbContext(options);
+            _context.Users.Add(new User
+            {
+                UserId = 1,
+                Name = "test1",
+                Email = "test1@gmail.com",
+                PasswordHash = "hashed"
+            });
+            _context.Users.Add(new User
+            {
+                UserId = 2,
+                Name = "test2",
+                Email = "test2@gmail.com",
+                PasswordHash = "hashed"
+            });
+            _context.SaveChanges();
             _gameServiceLoggerMock = new Mock<ILogger<GameService>>();
-            _targetService = new TargetService(_context);
-            _gameService = new GameService(_context, _gameServiceLoggerMock.Object, _targetService);
+            _targetService = new TargetService();
+            _gameUserService = new GameUserService(_context);
+            _gameService = new GameService(_context, _gameServiceLoggerMock.Object, _targetService, _gameUserService);
             _controller = new GameConfigController(_context, _logger, _gameService);
         }
 
         [Test]
-        public async Task UploadGameConfig_ValidDto_ReturnsOkRequest()
+        public async Task CreateOrUpdateGame_ValidDto_ReturnsOkRequest()
         {
             var gameConfigDto = new GameConfigDto
             {
@@ -48,10 +65,11 @@ namespace AimReactionAPI.Tests.Integration
                 TargetSpeed = 1,
                 MaxTargets = 1,
                 GameDuration = 1,
-                GameType = GameType.MovingTargets
+                GameType = GameType.MovingTargets,
+                AllowedUsers = []
             };
 
-            var result = await _controller.UploadGameConfig(gameConfigDto);
+            var result = await _controller.CreateOrUpdateGame(gameConfigDto);
 
             Assert.IsInstanceOf<OkObjectResult>(result);
             var okResult = result as OkObjectResult;
@@ -63,9 +81,9 @@ namespace AimReactionAPI.Tests.Integration
         }
 
         [Test]
-        public async Task UploadGameConfig_gameConfigDtoIsNull_ReturnsBadRequest()
+        public async Task CreateOrUpdateGame_gameConfigDtoIsNull_ReturnsBadRequest()
         {
-            var result = await _controller.UploadGameConfig(null);
+            var result = await _controller.CreateOrUpdateGame(null);
 
             var badRequestResult = result as BadRequestObjectResult;
             Assert.IsInstanceOf<BadRequestObjectResult>(result);
@@ -73,7 +91,7 @@ namespace AimReactionAPI.Tests.Integration
         }
 
         [Test]
-        public async Task UploadGameConfig_gameIsNull_ReturnsServerError()
+        public async Task CreateOrUpdateGame_gameIsNull_ReturnsServerError()
         {
             var gameConfigDto = new GameConfigDto
             {
@@ -83,18 +101,156 @@ namespace AimReactionAPI.Tests.Integration
                 TargetSpeed = 1,
                 MaxTargets = 1,
                 GameDuration = 1,
-                GameType = GameType.MovingTargets
+                GameType = GameType.MovingTargets,
+                AllowedUsers = []
             };
 
-            _gameService = new GameService(_context, _gameServiceLoggerMock.Object, _targetService);
+            _gameService = new GameService(_context, _gameServiceLoggerMock.Object, _targetService, _gameUserService);
             _controller = new GameConfigController(_context, _logger, new GameServiceStub(null));
 
-            var result = await _controller.UploadGameConfig(gameConfigDto);
+            var result = await _controller.CreateOrUpdateGame(gameConfigDto);
 
             Assert.IsInstanceOf<ObjectResult>(result);
             var serverErrorResult = result as ObjectResult;
             Assert.AreEqual(500, serverErrorResult.StatusCode);
-            Assert.AreEqual("Game creation failed.", serverErrorResult.Value);
+            Assert.AreEqual("Operation failed.", serverErrorResult.Value);
+        }
+
+        [Test]
+        public async Task CreateOrUpdateGame_ExistingGamePublic_UpdatesAndReturnsOk()
+        {
+            var existingGame = new Game
+            {
+                GameId = 1,
+                CreatorId = 1,
+                GameName = "Existing Game",
+                GameDescription = "Old Description",
+                DifficultyLevel = "Easy",
+                TargetSpeed = 1,
+                MaxTargets = 5,
+                GameDuration = 10,
+                GameType = GameType.ReflexTest,
+                Visibility = GameVisibility.PUBLIC
+            };
+
+            _context.Games.Add(existingGame);
+            await _context.SaveChangesAsync();
+
+            var gameConfigDto = new GameConfigDto
+            {
+                GameId = 1,
+                CreatorId = 1,
+                Name = "Updated Game",
+                Description = "New Description",
+                DifficultyLevel = "Hard",
+                TargetSpeed = 2,
+                MaxTargets = 10,
+                GameDuration = 20,
+                GameType = GameType.MovingTargets,
+                Visibility = GameVisibility.PUBLIC,
+                AllowedUsers = []
+            };
+
+            var result = await _controller.CreateOrUpdateGame(gameConfigDto);
+
+            Assert.IsInstanceOf<OkObjectResult>(result);
+            var okResult = result as OkObjectResult;
+            Assert.IsNotNull(okResult);
+
+            var updatedGame = okResult.Value as Game;
+            Assert.IsNotNull(updatedGame);
+            Assert.AreEqual("Updated Game", updatedGame.GameName);
+            Assert.AreEqual("New Description", updatedGame.GameDescription);
+            Assert.AreEqual("Hard", updatedGame.DifficultyLevel);
+            Assert.AreEqual(2, updatedGame.TargetSpeed);
+            Assert.AreEqual(10, updatedGame.MaxTargets);
+            Assert.AreEqual(20, updatedGame.GameDuration);
+            Assert.AreEqual(GameType.MovingTargets, updatedGame.GameType);
+        }
+
+        [Test]
+        public async Task CreateOrUpdateGame_ExistingGamePrivate_UpdatesAndReturnsOk()
+        {
+            var existingGame = new Game
+            {
+                GameId = 1,
+                CreatorId = 1,
+                GameName = "Existing Game",
+                GameDescription = "Old Description",
+                DifficultyLevel = "Easy",
+                TargetSpeed = 1,
+                MaxTargets = 5,
+                GameDuration = 10,
+                GameType = GameType.ReflexTest,
+                Visibility = GameVisibility.PUBLIC
+            };
+
+            _context.Games.Add(existingGame);
+            await _context.SaveChangesAsync();
+
+            var gameConfigDto = new GameConfigDto
+            {
+                GameId = 1,
+                CreatorId = 1,
+                Name = "Updated Game",
+                Description = "New Description",
+                DifficultyLevel = "Hard",
+                TargetSpeed = 2,
+                MaxTargets = 10,
+                GameDuration = 20,
+                GameType = GameType.MovingTargets,
+                Visibility = GameVisibility.PRIVATE,
+                AllowedUsers = [2]
+            };
+
+            var result = await _controller.CreateOrUpdateGame(gameConfigDto);
+
+            Assert.IsInstanceOf<OkObjectResult>(result);
+            var okResult = result as OkObjectResult;
+            Assert.IsNotNull(okResult);
+
+            var updatedGame = okResult.Value as Game;
+            Assert.IsNotNull(updatedGame);
+            Assert.AreEqual("Updated Game", updatedGame.GameName);
+            Assert.AreEqual("New Description", updatedGame.GameDescription);
+            Assert.AreEqual("Hard", updatedGame.DifficultyLevel);
+            Assert.AreEqual(2, updatedGame.TargetSpeed);
+            Assert.AreEqual(10, updatedGame.MaxTargets);
+            Assert.AreEqual(20, updatedGame.GameDuration);
+            Assert.AreEqual(GameType.MovingTargets, updatedGame.GameType);
+        }
+
+        [Test]
+        public async Task CreateOrUpdateGame_UserNotCreator_ReturnsForbidden()
+        {
+            var existingGame = new Game
+            {
+                GameId = 2,
+                CreatorId = 456,
+                GameName = "Existing Game",
+                GameDescription = "New Description",
+                DifficultyLevel = "Hard",
+            };
+
+            _context.Games.Add(existingGame);
+            await _context.SaveChangesAsync();
+
+            var gameConfigDto = new GameConfigDto
+            {
+                GameId = 2,
+                CreatorId = 123,
+                Name = "Unauthorized Update",
+                Description = "New Description",
+                DifficultyLevel = "Hard",
+                AllowedUsers = []
+            };
+
+            var result = await _controller.CreateOrUpdateGame(gameConfigDto);
+
+            Assert.IsInstanceOf<ObjectResult>(result);
+            var badRequest = result as ObjectResult;
+            Assert.AreEqual(400, badRequest.StatusCode);
+            Assert.AreEqual("User is not allowed to make changes.", badRequest.Value);
         }
 
         [TearDown]
@@ -106,7 +262,6 @@ namespace AimReactionAPI.Tests.Integration
         }
     }
 
-    //simulating _gameService.CreateGameFromAsync failure 
     public class GameServiceStub : GameService
     {
         private readonly Game _returnValue;
@@ -116,7 +271,7 @@ namespace AimReactionAPI.Tests.Integration
             _returnValue = returnValue;
         }
 
-        public override Task<Game?> CreateGameFromAsync(GameConfig gameConfig)
+        public override Task<Game?> CreateOrUpdateGameAsync(GameConfigDto gameConfig)
         {
             return Task.FromResult(_returnValue);
         }

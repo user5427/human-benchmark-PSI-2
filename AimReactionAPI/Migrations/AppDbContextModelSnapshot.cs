@@ -30,6 +30,9 @@ namespace AimReactionAPI.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("GameId"));
 
+                    b.Property<int>("CreatorId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("DifficultyLevel")
                         .IsRequired()
                         .HasColumnType("text");
@@ -55,7 +58,13 @@ namespace AimReactionAPI.Migrations
                     b.Property<int>("TargetSpeed")
                         .HasColumnType("integer");
 
+                    b.Property<string>("Visibility")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("GameId");
+
+                    b.HasIndex("CreatorId");
 
                     b.ToTable("Games");
                 });
@@ -86,6 +95,21 @@ namespace AimReactionAPI.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("GameSessions");
+                });
+
+            modelBuilder.Entity("AimReactionAPI.Models.GameUser", b =>
+                {
+                    b.Property<int>("GameId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("GameId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("GameUsers");
                 });
 
             modelBuilder.Entity("AimReactionAPI.Models.Score", b =>
@@ -179,6 +203,17 @@ namespace AimReactionAPI.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("AimReactionAPI.Models.Game", b =>
+                {
+                    b.HasOne("AimReactionAPI.Models.User", "Creator")
+                        .WithMany()
+                        .HasForeignKey("CreatorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Creator");
+                });
+
             modelBuilder.Entity("AimReactionAPI.Models.GameSession", b =>
                 {
                     b.HasOne("AimReactionAPI.Models.User", "User")
@@ -186,6 +221,25 @@ namespace AimReactionAPI.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("AimReactionAPI.Models.GameUser", b =>
+                {
+                    b.HasOne("AimReactionAPI.Models.Game", "Game")
+                        .WithMany("GameUsers")
+                        .HasForeignKey("GameId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AimReactionAPI.Models.User", "User")
+                        .WithMany("GameUsers")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Game");
 
                     b.Navigation("User");
                 });
@@ -220,6 +274,8 @@ namespace AimReactionAPI.Migrations
 
             modelBuilder.Entity("AimReactionAPI.Models.Game", b =>
                 {
+                    b.Navigation("GameUsers");
+
                     b.Navigation("Scores");
 
                     b.Navigation("Targets");
@@ -228,6 +284,8 @@ namespace AimReactionAPI.Migrations
             modelBuilder.Entity("AimReactionAPI.Models.User", b =>
                 {
                     b.Navigation("GameSessions");
+
+                    b.Navigation("GameUsers");
 
                     b.Navigation("Scores");
                 });
