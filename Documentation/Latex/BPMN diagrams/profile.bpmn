@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="sid-38422fae-e03e-43a3-bef4-bd33b32041b2" targetNamespace="http://bpmn.io/bpmn" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="18.3.1">
+  <collaboration id="Collaboration_0dewq14">
+    <participant id="Participant_0ypjuay" name="Profile" processRef="Process_1" />
+  </collaboration>
+  <process id="Process_1" isExecutable="false">
+    <startEvent id="StartEvent_1y45yut" name="User wants to check his profile">
+      <outgoing>Flow_0xcqygo</outgoing>
+    </startEvent>
+    <dataStoreReference id="DataStoreReference_1s39jmc" name="Games database" />
+    <dataStoreReference id="DataStoreReference_1st2ac9" name="Score database" />
+    <dataStoreReference id="DataStoreReference_17oldrk" name="User database" />
+    <serviceTask id="Activity_15qq0in" name="Gathers all data regarding user">
+      <incoming>Flow_0xcqygo</incoming>
+      <outgoing>Flow_1y4tg53</outgoing>
+      <dataOutputAssociation id="DataOutputAssociation_0qf2ia2">
+        <targetRef>DataStoreReference_17oldrk</targetRef>
+      </dataOutputAssociation>
+      <dataOutputAssociation id="DataOutputAssociation_0d9n3fy">
+        <targetRef>DataStoreReference_1st2ac9</targetRef>
+      </dataOutputAssociation>
+      <dataOutputAssociation id="DataOutputAssociation_11vp9u1">
+        <targetRef>DataStoreReference_1s39jmc</targetRef>
+      </dataOutputAssociation>
+    </serviceTask>
+    <serviceTask id="Activity_1o7w9hl" name="Displays data in a clear format for user">
+      <incoming>Flow_1y4tg53</incoming>
+      <outgoing>Flow_1mya0yl</outgoing>
+    </serviceTask>
+    <endEvent id="Event_05hxnu1" name="User got to see his profile information">
+      <incoming>Flow_1mya0yl</incoming>
+    </endEvent>
+    <sequenceFlow id="Flow_0xcqygo" sourceRef="StartEvent_1y45yut" targetRef="Activity_15qq0in" />
+    <sequenceFlow id="Flow_1y4tg53" sourceRef="Activity_15qq0in" targetRef="Activity_1o7w9hl" />
+    <sequenceFlow id="Flow_1mya0yl" sourceRef="Activity_1o7w9hl" targetRef="Event_05hxnu1" />
+  </process>
+  <bpmndi:BPMNDiagram id="BpmnDiagram_1">
+    <bpmndi:BPMNPlane id="BpmnPlane_1" bpmnElement="Collaboration_0dewq14">
+      <bpmndi:BPMNShape id="Participant_0ypjuay_di" bpmnElement="Participant_0ypjuay" isHorizontal="true">
+        <omgdc:Bounds x="160" y="78" width="640" height="272" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_1y45yut_di" bpmnElement="StartEvent_1y45yut">
+        <omgdc:Bounds x="232" y="122" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="211" y="165" width="80" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataStoreReference_1s39jmc_di" bpmnElement="DataStoreReference_1s39jmc">
+        <omgdc:Bounds x="535" y="235" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="518" y="292" width="85" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataStoreReference_1st2ac9_di" bpmnElement="DataStoreReference_1st2ac9">
+        <omgdc:Bounds x="425" y="265" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="411" y="322" width="78" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataStoreReference_17oldrk_di" bpmnElement="DataStoreReference_17oldrk">
+        <omgdc:Bounds x="315" y="235" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="304" y="292" width="73" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1894trs_di" bpmnElement="Activity_15qq0in">
+        <omgdc:Bounds x="400" y="100" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_06hs59e_di" bpmnElement="Activity_1o7w9hl">
+        <omgdc:Bounds x="560" y="100" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_05hxnu1_di" bpmnElement="Event_05hxnu1">
+        <omgdc:Bounds x="722" y="122" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="702" y="165" width="76" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0xcqygo_di" bpmnElement="Flow_0xcqygo">
+        <omgdi:waypoint x="268" y="140" />
+        <omgdi:waypoint x="400" y="140" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1y4tg53_di" bpmnElement="Flow_1y4tg53">
+        <omgdi:waypoint x="500" y="140" />
+        <omgdi:waypoint x="560" y="140" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1mya0yl_di" bpmnElement="Flow_1mya0yl">
+        <omgdi:waypoint x="660" y="140" />
+        <omgdi:waypoint x="722" y="140" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_0qf2ia2_di" bpmnElement="DataOutputAssociation_0qf2ia2">
+        <omgdi:waypoint x="413" y="180" />
+        <omgdi:waypoint x="363" y="235" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_0d9n3fy_di" bpmnElement="DataOutputAssociation_0d9n3fy">
+        <omgdi:waypoint x="450" y="180" />
+        <omgdi:waypoint x="450" y="265" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_11vp9u1_di" bpmnElement="DataOutputAssociation_11vp9u1">
+        <omgdi:waypoint x="488" y="180" />
+        <omgdi:waypoint x="541" y="235" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

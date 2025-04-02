@@ -1,0 +1,1082 @@
+%%%%%
+%%%%%  Use LUALATEX, not LATEX.
+%%%%%
+%%%%
+\documentclass[]{VUMIFTemplateClass}
+
+\usepackage{indentfirst}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{mathtools}
+\usepackage{physics}
+\usepackage{graphicx}
+\usepackage{verbatim}
+\usepackage[hidelinks]{hyperref}
+\usepackage{color,algorithm,algorithmic}
+\usepackage[nottoc]{tocbibind}
+\usepackage{tocloft}
+\setlength{\cftfignumwidth}{4em} % Adjust the width as needed
+\setlength{\cfttabnumwidth}{4em} % Adjust the width as needed
+\usepackage{makecell}
+\usepackage{titlesec}
+
+\usepackage{titlesec}
+\newcommand{\sectionbreak}{\clearpage}
+
+\makeatletter
+\renewcommand{\fnum@algorithm}{\thealgorithm}
+\makeatother
+\renewcommand\thealgorithm{\arabic{algorithm} algorithm}
+
+\usepackage{biblatex}
+\bibliography{bibliografija}
+%% to change the numbering (numeric or alphabetic) of bibliographic sources, make the change in VUMIFTemplateClass.cls, line 139
+
+% Author's MACROS
+\newcommand{\EE}{\mathbb{E}\,} % Mean
+\newcommand{\ee}{{\mathrm e}}  % nice exponent
+\newcommand{\RR}{\mathbb{R}}
+
+
+\studyprogramme{\{Software Engineering\}} %Write your study programme (example – Software engineering, Financial and Actuarial Mathematics, etc.)
+\worktype{\{Analysis of system using UML\}} % Bachelor's thesis or Master's thesis
+\worktitle{Lab 2}
+\secondworktitle{UML 1 + 4, requirement implementation, CI/CD}
+\workauthor{a̶͗͆i̷̍͝ ̸͑͛ń̸̂e̷̿̎z̴̿̎ȉ̴nau Team; Adrian Klimaševski, Arnas Šniokaitis, Darius Spruogis, Tadas Riksas}
+
+%There may be more than one author, in which case each author is written from a new line which is added in Titlepage.tex or LongerTitlePage.tex
+%\secondauthor{Name Surname} %If present, otherwise delete
+
+\supervisor{Artūras Jankus, Lekt.}
+
+\begin{document}
+\selectlanguage{english}
+
+\onehalfspacing
+\input{TitlePage}
+
+%% Acknowledgements Section
+\sectionnonumnocontent{Acknowledgements}
+The team is thankful to VU Mathemathics and Informatics faculty lecturers for their continous involment in helping students understand software engineering principles. Our team is also thankful for the free virtual machine hosting service by our faculty. 
+
+%%Summary
+\sectionnonum{Summary}
+
+This work will analyse the application from the system perspective by using UML 4 + 1 method. Other methods will be implemented too that the reader can find below in table of contents. \\
+
+
+\textbf{Keywords:} Human Benchmark, Cognitive test, Reaction time, Reflex training.
+
+
+
+
+
+\singlespacing
+\selectlanguage{english}
+% list of figures, delete if not needed
+\listoffigures 
+
+%list of tables, delete if not needed
+\listoftables
+
+%Turinys
+\tableofcontents
+\onehalfspacing
+
+
+%Section for symbols
+\sectionnonum{List of symbols} %Leave if necessary
+This section is for when symbols are used. For example:
+\begin{itemize}
+    \item $\EE X$ denotes the mean of the random variable $X$.
+\end{itemize}
+
+
+%Section for abbreviations
+\sectionnonum{List of abbreviations} %Leave if necessary
+
+\begin{tabular}{rcp{.7\textwidth}}
+    {UML} & {} & {Unified Modeling Language}
+    % {VM} & {} & {Virtual Machine}
+\end{tabular}
+
+\sectionnonum{Introduction}
+For any written work, you must refer to the methodology guidelines of the respective study programme\footnote{The latest methodology requirements for all programmes can be found here, in the respective programme: \url{https://mif.vu.lt/lt3/en/studies/bachelor-studies}}. These contain all the guidelines for citations, structure, length, etc.
+
+
+
+\section{UML Diagrams}
+UML diagrams are used to model the system's architecture and structure. We follow the \textbf{4+1 View Model}. The following UML diagrams are used to model the Human Benchmark system:
+
+\begin{itemize}
+    \item \textbf{Logical View:} Class diagrams define key system components.
+    \item \textbf{Process View:} Activity diagrams illustrate system workflows.
+    \item \textbf{Physical View:} Deployment diagrams map software to hardware.
+    \item \textbf{Development View:} Component diagrams show code organization.
+    \item \textbf{Scenarios (Use Case View):} Use case diagrams capture user interactions.
+\end{itemize}
+
+
+
+\subsection{Logical View}
+
+\subsubsection{AppDbContext}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/AppDbClass.png}
+    \caption{AppDbContext class diagram (Logical View)}
+    \label{fig:appdb}
+\end{figure}
+\textbf{AppDbContext}: Acts as the bridge between C\# code and the database, managing all entity collections and relationships.
+
+\subsubsection{Creating Private and Public games class diagram}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/GameCreationClassImg.png}
+    \caption{Creating Private and Public games class diagram (Logical View)}
+    \label{fig:gamecreation}
+    Green color distinquishes more important parts specifically in PRIVATE/PUBLIC game creation.
+\end{figure}
+\begin{itemize}
+    \item \textbf{GameConfigDto}: Carries user input.
+    \item \textbf{GameConfigController}: Receives user input, validates it and calls \textbf{GameService}.
+    \item \textbf{GameService}: Orchestrates creation, delegates to \textbf{TargetService}/\textbf{GameUserService}.
+    \item \textbf{GameUserService}: Manages private game access (only called when Visibility = PRIVATE).
+    \item \textbf{Game}: Root entity storing all game data.
+    \item \textbf{GameVisibility}: Enum controlling access logic (PUBLIC/PRIVATE).
+\end{itemize}
+
+\subsubsection{Game History class diagram}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/clasNEWGameHistory.png}
+    \caption{Game history class diagram (Logical View)}
+    \label{fig:gamehistory}
+\end{figure}
+Yellow color distinquishes conceptual classes needed for requirment implementation.
+\begin{itemize}
+    \item \textbf{User}: Anchor for all history data (scores + sessions).
+    \item \textbf{Score}: Stores points earned and game type.
+    \item \textbf{GameSession}: Tracks play duration (EndTime - StartTime).
+    \item \textbf{Game}: Stores diffiulty setting.
+    \par Conceptual classes:
+    \item \textbf{HistoryController}: Delivers organized data - game history.
+    \item \textbf{GameHistoryDto}: Combines data from 3 tables for client-friendly output
+\end{itemize}
+
+
+
+
+\subsection{Process View}
+
+\subsubsection{Creating Public games sequence diagram}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/seqPublic.png}
+    \caption{Creating Public games sequence diagram (Process View)}
+    \label{fig:privseq}
+\end{figure}
+Public game creation involves a client submitting a \textbf{GameConfigDto} to the \textbf{GameConfigController}, which converts it to a \textbf{GameConfig} and calls \textbf{GameService.CreateGameFromAsync()}. The service generates targets via \textbf{TargetService}, saves the game and targets via \textbf{AppDbContext}, and returns the created game. 
+
+\subsubsection{Creating Private games sequence diagram}
+Private games follow the same initial flow but add extra steps: after saving the game, \textbf{GameService} calls \textbf{GameUserService.SetGameUsersAsync()} to delete existing and insert new \textbf{GameUser} records, enforcing access control. Both flows return the \textbf{Game} entity, but private games require two database transactions (game + targets and user permissions) versus public games' single transaction.
+\par Green color shows what is different from creating Public game sequence diagram.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/seqPrivate.png}
+    \caption{Creating Private game sequence diagram (Process View)}
+    \label{fig:pubseq}
+\end{figure}
+
+
+
+\subsection{Use Case View}
+\subsubsection{Creating Private and Public games activity diagram}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/activPrivPubl.png}
+    \caption{Private and Public game creation simplified activity diagram (Use Case View)}
+    \label{fig:ERD}
+\end{figure}
+
+
+
+\subsection{Game History}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/newUMLs/GameHistoryClass.png}
+    \caption{Game History class diagram (Logical View)}
+    \label{fig:ERD}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/newUMLs/gameHostoryActivity.png}
+    \caption{Game History activity diagram (Process View)}
+    \label{fig:ERD}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/newUMLs/gamehistoryUseCase.png}
+    \caption{Game History Use case diagram (Use case View)}
+    \label{fig:ERD}
+\end{figure}
+
+
+\subsection{HighScores / Leaderboard}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/newUMLs/highScoresClass.png}
+    \caption{HighScores / Leaderboard class diagram (Logical View)}
+    \label{fig:ERD}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/newUMLs/highScoreSavingActivity.png}
+    \caption{HighScores activity diagram (Process View)}
+    \label{fig:ERD}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/newUMLs/viewingLeaderBoardActivity.png}
+    \caption{Leaderboard activity diagram (Process View)}
+    \label{fig:ERD}
+\end{figure}
+
+
+\subsection{Game rating}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/newUMLs/ratingClass.png}
+    \caption{ Game rating class diagram (Logical View)}
+    \label{fig:ERD}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/newUMLs/ratingGameActivity.png}
+    \caption{ Game rating activity diagram (Process View)}
+    \label{fig:ERD}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/newUMLs/ratingUseCase.png}
+    \caption{ Game rating use case diagram (Use case View)}
+    \label{fig:ERD}
+\end{figure}
+
+\subsection{Package and component diagram}
+
+\subsection{Component Diagram}
+These diagrams show the logic behind the fufillment of the requirements laid out for the implementation of the needs specified in Lab1.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/Arno/Component diagramF.drawio.png}
+    \caption{Component Diagram (Multiplayer and Private Games)}
+    \label{fig:component-diagram 1}
+\end{figure}
+In this diagram \emph{Game engine} is responsible for running the game and initialises its rules. \emph{Game session} is responsible for users joining and interacting with the game.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/Arno/RankingF.drawio.png}
+    \caption{Component Diagram (Rating system)}
+    \label{fig:component-diagram 2}
+\end{figure}
+\emph{Rating Calculator} is responsible for querying the data and calculating the score, while \emph{Rating} is responsible for setting up the request from the information gotten from the API.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/Arno/GameHistoryF.drawio.png}
+    \caption{Component Diagram (Game history)}
+    \label{fig:component-diagram 3}
+\end{figure}
+\emph{History service} queries the last few entries by sorting according to the user who sent the request.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/Arno/highscoresandleaderboardF.drawio.png}
+    \caption{Component Diagram (High-score and Leaderboard)}
+    \label{fig:component-diagram 4}
+    The same structure is used for both game leaderboards and personal top scores. As such the \emph{filter} component implements the logic that is used to filter by user, game or any combination of the two and \emph{High-score calculator} prepares the objects required for the requested data.
+\end{figure}
+\subsection{Package Diagram}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/Arno/package.png}
+    \caption{Package Diagram (Development View)}
+    \label{fig:package-diagram}
+\end{figure}
+
+
+
+
+
+
+
+\section{CI/CD}
+This section will discuss continous integration and continous delivery of the application. 
+The CI (continous integration) is the first process that is done which is then followed by CD (continous delivery).
+For the CI/CD process we used GitLab CI/CD pipeline, .Net, Node, Docker, and OpenNebula virtual machine. The pipeline is triggered when a developer pushes his commit to a branch that has CI/CD action script.
+Diagram below \ref{fig:deployment-diagram} shows the deployment sequence diagram. The diagram shows the order in which the application is built, tested, dockerized, and deployed. The diagram also shows the order in which the database is updated.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/"Deployment Diagram.drawio.png"}
+    \caption{Deployment Sequence Diagram}
+    \label{fig:deployment-diagram}
+\end{figure}
+
+\subsection{CI}
+The CI (continious integration) is a process where where the application is built and tested after a developer pushes his commit to 
+a branch that has CI action script. 
+
+\subsubsection{CI order}
+The CI is done in this order:
+\begin{itemize}
+    \item Stage 1: build the application (The order in which the application is built does not matter, the frontend or backend build process does not depend on each other).
+    If building of frontend or backend fails, the CI is cancelled. \\ During this stage, the developer can manually trigger the versioning process \ref{sec:versioning}.
+    \item Stage 2: test the application (Tests are done to frontend and backend in random order just like in the build stage).
+    IF testing of frontend or backend fails, the CI is cancelled.
+\end{itemize}
+
+In case CI fails, a red 'X' appears near the commit message in GitLab.
+The developer could be informed by an email or other types of communication that the CI proccess for his commit has failed but this is beyond our 
+focus.
+
+\subsubsection{CI commands}
+The CI process usually is quite straight forward and in our case requires the use
+of the basic \textbf{dotnet} and \textbf{npm} commands. These exact commands are used to build the backend:
+\begin{enumerate}
+    \item \texttt{dotnet restore}
+    \item \texttt{dotnet build --configuration Release}
+    \item \texttt{dotnet publish -c Release -o ./publish}
+\end{enumerate} 
+To build the frontend:
+\begin{enumerate}
+    \item \texttt{npm install}
+    \item \texttt{npm run build}
+\end{enumerate}
+
+\subsubsection{CI resource needs}
+
+\textbf{Storage needs}
+
+\textbf{Notice:} all of these backend mesurments were done using dotnet 9.0.100 version and Node v22.9.0 version. We will not be mesuring versioning process resourse needs as this is too resource light process. \\
+To build the backend around 47 megabytes are needed (this includes the bin and obj folder size while excluding all source files). To build integration tests it takes 28 megabytes. To build unit tests it takes 28 megabytes.
+The source files for backend take up around 64 kilobytes. The integration test source files take up around 23 kilobytes and the unit test files take up 5 kilobytes. \ref{tab:storage-needs}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{Part of application} & \textbf{Source files} & \textbf{bin and obj} \\
+        \hline
+        Backend files & 64 KB & 47 MB \\
+        \hline
+        Integration test files & 23 KB & 28 MB \\
+        \hline
+        Unit test files & 5 KB & 28 MB \\
+        \hline
+    \end{tabular}
+    \caption{Storage needs for the backend}
+    \label{tab:storage-needs}
+\end{table}
+
+To build the frontent it takes around 87 megabytes (this includes only the node\_modules folder). 
+The source files take around 2.6 megabytes. \ref{tab:frontend-storage-needs}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{Part of application} & \textbf{Source files} & \textbf{node\_modules} \\
+        \hline
+        Frontend files & 2.6 MB & 87 MB \\ 
+        \hline
+    \end{tabular}
+    \caption{Storage needs for the frontend}
+    \label{tab:frontend-storage-needs}
+\end{table}
+
+\textbf{Memory and CPU needs}
+Unfortunately it is quite difficult to measure how much certain building or testing processes require memory or CPU on OS platforms such as Windows.
+Because of that, we will be measuring the time it takes to build and test the application on our virtual machine.
+
+We will run the processes 4 times and average the result out.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline
+        \textbf{Process} & \textbf{Time Taken (seconds)} \\
+        \hline
+        Build Backend & 40; 37; 19; 20  \\
+        \hline
+        Build Frontend & 32; 27; 27; 31  \\
+        \hline
+        Test Backend Integration & 18; 17; 11; 10 \\
+        \hline
+        Test Backend Unit & 14; 18; 14; 13  \\
+        \hline
+        Test Frontend & 19; 17; 19; 18 \\
+        \hline
+    \end{tabular}
+    \caption{Time taken for various processes}
+    \label{tab:process-time}
+\end{table}
+
+The mesurments were done in the order that they are displayed in table (first 4 for mesurments for backend building then 4 mesurments for backend integration testing and etc. ). 
+It is clear that there is caching done on the building and testing processes as the second mesurment almost always takes less time.\\
+
+The average times for each process are calculated as follows:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline
+        \textbf{Process} & \textbf{Average Time (seconds)} \\
+        \hline
+        Build Backend & \(\frac{40 + 37 + 19 + 20}{4} = 29\) \\
+        \hline
+        Build Frontend & \(\frac{32 + 27 + 27 + 31}{4} = 29.25\) \\
+        \hline
+        Test Backend Integration & \(\frac{18 + 17 + 11 + 10}{4} = 14\) \\
+        \hline
+        Test Backend Unit & \(\frac{14 + 18 + 14 + 13}{4} = 14.75\) \\
+        \hline
+        Test Frontend & \(\frac{19 + 17 + 19 + 18}{4} = 18.25\) \\
+        \hline
+    \end{tabular}
+    \caption{Average time taken for various processes}
+    \label{tab:average-process-time}
+\end{table}
+
+In total that is about 110 seconds to complete the CI process or about 2 minutes.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{Process} & \textbf{Min Time (seconds)} & \textbf{Max Time (seconds)} \\
+        \hline
+        Build Backend & 19 & 40 \\
+        \hline
+        Build Frontend & 27 & 32 \\
+        \hline
+        Test Backend Integration & 10 & 18 \\
+        \hline
+        Test Backend Unit & 13 & 18 \\
+        \hline
+        Test Frontend & 17 & 19 \\
+        \hline
+    \end{tabular}
+    \caption{Min and Max time taken for various processes}
+    \label{tab:min-max-process-time}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline
+        \textbf{Process} & \textbf{Difference (seconds)} \\
+        \hline
+        Build Backend & 40 - 19 = 21 \\
+        \hline
+        Build Frontend & 32 - 27 = 5 \\
+        \hline
+        Test Backend Integration & 18 - 10 = 8 \\
+        \hline
+        Test Backend Unit & 18 - 13 = 5 \\
+        \hline
+        Test Frontend & 19 - 17 = 2 \\
+        \hline
+    \end{tabular}
+    \caption{Difference between max and min time taken for various processes}
+    \label{tab:diff-process-time}
+\end{table}
+
+Here we can easily observe cashing mechanisms and optimizations. We can see if the CI pipeline will be run often, the time 
+to build and test the application will reduce in total about 40 seconds.
+
+\subsubsection{Versioning}
+The versioning process during the build stage can be triggered manually by the developer. The developer must include either 'patch', 'minor' or 'major' in the commit message. After that the developer must click the 'start' button in GitLab jobs. If the developer does not click the start button, the pipeline process will halt.
+More about the versioning process can be found in \ref{sec:versioning}.
+
+\subsubsection{CI conclusion}
+In conclusion, the CI pipeline is not very time intensive nor memory intensive. 
+It requires only the most basic command usage. 
+In case a failure occurs, the pipeline is canceled and a red 'X' appears near the commit.
+
+\subsection{CD}
+The CD (continous delivery) is a process where the application is 
+dockerized using Docker and then deployed to a hosting service (in our case our faculty virtual machine).
+
+\subsubsection{CD order}
+The CD is done in this order:
+\begin{itemize}
+    \item Stage 3: dockerize the application (The order in which the application is dockerized does not matter, the frontend or backend build dockerization does not depend on each other).
+    If dockerization of frontend or backend fails, the CD is cancelled.
+    \item Stage 4: update database (The database is updated with the latest changes). This stage is optional and can be triggered manually.
+    \item Stage 5: deploy the application (The application is deployd to VM)
+    IF deployment fails, the CD is cancelled.
+\end{itemize}
+
+In case CD fails, a red 'X' appears near the commit message in GitLab.
+Just like in CI section, the developer could be informed by other means but this is beyond the scope of our document.
+
+\subsubsection{CD commands}
+The CD process just like CI is straight forward and in our case requires the use
+of the basic \textbf{docker} commands. These exact commands are used to dockerize the backend and frontend:
+\begin{enumerate}
+    \item \texttt{docker build -t frontend-app .}
+    \item \texttt{docker build -t backend-app .}
+\end{enumerate}
+
+In both cases the docker service finds the images necessary to run the frontend and backend automatically.
+Then the developer can choose to update the database with the latest changes. The command \texttt{dotnet ef database update} is used to update the DB.
+And lastly the command \texttt{docker-compose up -d} is used to deploy the application.
+
+\subsubsection{Deployment, a general view}
+The diagram below shows communication paths and artifact allocations to nodes.
+The frontend-app uses NodeJS environment while the backend-app uses .Net environment.
+Notice that our database is hosted on Aiven and not on the same VM as the application and as a result we do not have the ability to deploy the database using the CD pipeline (we can still update it). 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/CICD/DeploymentEnv.drawio.png}
+    \caption{Deployment Environment Diagram}
+    \label{fig:deployment-environment}
+\end{figure}
+
+
+
+\subsubsection{CD resource needs}
+
+\textbf{Storage needs}
+\textbf{Notice: } all of these mesurments were carried out on a Debian 12 minimal console only installation. We used Docker version 20.10.24+dfsg1.
+The commands \texttt{sudo docker ps -a -s}, \texttt{sudo docker system df} and \texttt{sudo docker system df -v} will be used to retrieve this data:
+
+\begin{itemize}
+    \item SIZE: This is the amount of data that is used by the writable layer of the container (i.e., the changes made to the container's filesystem).
+    \item VIRTUAL SIZE: This is the total size of the container, including the read-only image layers and the writable layer.
+\end{itemize}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{Part of application} & \textbf{Size} & \textbf{Virtual size} \\
+        \hline
+        Backend & 0 B & 242 MB \\
+        \hline
+        Frontend size & 1.09 KB & 50 MB \\ 
+        \hline
+    \end{tabular}
+    \caption{Storage needs retrieved using \texttt{sudo docker ps -a -s}}
+    \label{tab:docker-storage-needs}
+\end{table}
+
+In total both backend and frontend containers take up around 300 megabytes. 
+The reason why the backend container has 0 B for the first column is because the backend container does not write any data to its file system. 
+Rather all of the data is stored on a PostgreSQL database.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        \textbf{TYPE} & \textbf{TOTAL} & \textbf{ACTIVE} & \textbf{SIZE} & \textbf{RECLAIMABLE} \\ 
+        \hline
+        Images & 15 & 2 & 2.467GB & 2.439GB (98\%) \\ 
+        \hline
+        Containers & 2 & 2 & 1.095kB & 0B (0\%) \\ 
+        \hline
+        Local Volumes & 1 & 1 & 0B & 0B \\ 
+        \hline
+        Build Cache & 0 & 0 & 0B & 0B \\ 
+        \hline
+    \end{tabular}
+    \caption{Docker resource usage retrieved using \texttt{sudo docker system df}}
+    \label{tab:docker-resource-usage}
+\end{table}
+
+In table \ref{tab:docker-resource-usage} we can see that the entire application with .Net and Node images takes around 2.5 gigabytes of storage.
+
+
+\textbf{Memory and CPU needs}
+Just like with CI proceses, we will be mesuring the time it takes to dockerize backend and frontend to roughly determine the CPU needs.
+
+We will run the processes 4 times and average the result out.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline
+        \textbf{Process} & \textbf{Time Taken (seconds)} \\
+        \hline
+        Dockerize Backend & 35; 4; 3; 3 \\
+        \hline
+        Dockerize Frontend & 52; 4; 7; 3 \\
+        \hline
+        Update database & 17; 10; 15; 15 \\
+        \hline
+        Deploy application & 16; 8; 4; 4 \\
+        \hline
+    \end{tabular}
+    \caption{Time taken for various processes}
+    \label{tab:dockerize-process-time}
+\end{table}
+
+The mesurments were done in the order that they are displayed in table (first 4 for mesurments for backend dockerization then 4 mesurments for frontend dockerization). 
+Clearly, when there are changes to backend or frontend, the process takes way longer to build. And if there are no changes done to backend or frontend, the process quickly finishes which is a great 
+optimization if the CD pipeline is used often. Similar thing can be observed with the database update process.
+
+
+The average times for each process are calculated as follows:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline
+        \textbf{Process} & \textbf{Average Time (seconds)} \\
+        \hline
+        Dockerize Backend & \(\frac{35 + 4 + 3 + 3}{4} = 11.25\) \\ 
+        \hline
+        Dockerize Frontend & \(\frac{52 + 4 + 7 + 3}{4} = 16.5\) \\
+        \hline
+        Update database & \(\frac{17 + 10 + 15 + 15}{4} = 14.25\) \\ 
+        \hline
+        Deploy Application & \(\frac{16 + 8 + 4 + 4}{4} = 8\) \\
+        \hline
+    \end{tabular}
+    \caption{Average time taken for dockerization processes}
+    \label{tab:average-dockerize-process-time}
+\end{table}
+
+In this case, the average time table is quite inaccurate due to the way how docker works when there are no changes done to backend or frontend.
+Because of that, the min and max time \ref{tab:min-max-dockerize-process-time} table will reflect time needs more accurately.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{Process} & \textbf{Min Time (seconds)} & \textbf{Max Time (seconds)} \\ 
+        \hline
+        Dockerize Backend & 3 & 35 \\ 
+        \hline
+        Dockerize Frontend & 3 & 52 \\ 
+        \hline
+        Update database & 10 & 17 \\
+        \hline
+        Deploy Application & 4 & 16 \\
+        \hline
+    \end{tabular}
+    \caption{Min and Max time taken for dockerization processes}
+    \label{tab:min-max-dockerize-process-time}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline
+        \textbf{Process} & \textbf{Difference (seconds)} \\ 
+        \hline
+        Dockerize Backend & 35 - 3 = 32 \\ 
+        \hline
+        Dockerize Frontend & 52 - 3 = 49 \\ 
+        \hline
+        Update database & 17 - 10 = 7 \\
+        \hline
+        Deploy Application & 16 - 8 = 8 \\
+        \hline
+    \end{tabular}
+    \caption{Difference between max and min time taken for dockerization processes}
+    \label{tab:diff-dockerize-process-time}
+\end{table}
+
+Here we can easily observe cashing mechanisms and optimizations. We can see if the CD pipeline will be run often, the time 
+to build and test the application will reduce in total about 97 seconds.
+
+\subsubsection{Database}
+The database update CD pipeline can only be triggered when the developer includes message '\#migrate' in the commit message. Then the start button for the database update process in GitLab jobs must be clicked. If the developer does not click the start button, the pipeline process will halt.
+More about the database can be found \ref{sec:database}.
+
+\subsubsection{Networks}
+During the deployment of backend and frontend, the backend container is assigned 
+the ports 8084 and 8082 for https and http requests while the frontend container is 
+assigned the port 3005. These ports are then forwarded to public ip address 193.219.91.104 which was assigned to us by OpenNebula.
+Furthermore, a subdomain could be assigned using free .is-a.dev service but this is beyond our
+simple CI/CD requirement.
+
+
+\subsubsection{CD conclusion}
+In conclusion, the CD pipeline is efficient and optimized for frequent use. 
+The dockerization process benefits significantly from caching mechanisms, 
+reducing the time required for subsequent builds. The storage requirements 
+are manageable. The deployment process is straightforward, utilizing basic 
+Docker commands to build and deploy the application.
+
+
+\subsection{Versioning}
+\label{sec:versioning}
+The versioning of the application (v 0.0.1 - v 0.0.2 - ...) is done using GitLab CI/CD pipeline.
+Before commiting the developer must include either 'patch', 'minor' or 'major' in the commit message.
+
+The versioning is done in the build stage of the CI pipeline (we decided that it was better to leave this process in the build stage and not crete a new stage as this process is quite insignificant). The versioning must be manually triggered by the developer (before that the commit message must contain 'patch', 'minor' or 'major').
+Versioning allows us to keep track of changes made to the application and document the progress of the project \ref{fig:versioning-process}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{images/version.png}
+    \caption{Versioning Process}
+    \label{fig:versioning-process}
+\end{figure}
+
+% \subsubsection{Versioning sequence diagram}
+% Below is a more detailed versioning sequence diagram for stage 1.
+
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=1\textwidth]{images/CICD/Versioning.drawio.png}
+%     \caption{Versioning Sequence Diagram}
+%     \label{fig:versioning-sequence-diagram}
+% \end{figure}
+
+\subsubsection{Versioning Table}
+The versioning of the application follows the Semantic Versioning scheme (MAJOR.MINOR.PATCH). The version number is incremented based on the type of changes included in the commit message. Below is a table indicating how the versions change based on the commit messages:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{Commit Message} & \textbf{Version Change} & \textbf{Example} \\
+        \hline
+        Contains 'major' & Increments MAJOR version & 1.0.0 to 2.0.0 \\
+        \hline
+        Contains 'minor' & Increments MINOR version & 1.0.0 to 1.1.0 \\
+        \hline
+        Contains 'patch' & Increments PATCH version & 1.0.0 to 1.0.1 \\
+        \hline
+    \end{tabular}
+    \caption{Versioning based on commit messages}
+    \label{tab:versioning}
+\end{table}
+
+Because versioning is done manually and it is quite light on resources, it is not necessary to measure the storage, memory or CPU needs.
+
+\subsection{Technologies used and required}
+\subsubsection{Application building and testing}
+As we already mentioned we use .Net and Node technologies to build and test the application. For testing the backend we used NUnit and for testing the frontend we used Vitest.
+For dockerization and deployment we used Docker.
+
+Version requirements for the technologies used are shown in \ref{tab:technology-requirements}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{Technology} & \textbf{Version} & \textbf{Notes} \\ 
+        \hline
+        .NET & 9.0.100 & Version can be higher \\ 
+        \hline
+        Node.js & v22.9.0 & Version can be higher \\ 
+        \hline
+        Docker & 20.10.24+dfsg1 & Version can be higher \\ 
+        \hline
+        Vitest & 3.0.9 & Version can be higher \\
+        \hline 
+        NUnit & 3.13.3 & Version can be higher \\       
+        \hline
+    \end{tabular}
+    \caption{Technology Requirements}
+    \label{tab:technology-requirements}
+\end{table}
+
+\subsubsection{Database}
+We use PostgreSQL database that is hosted on Aiven. The database version is PostgreSQL 16.8.
+
+\subsubsection{GitLab runner}
+We use GitLab runner on our VM machine to execute the CI/CD pipeline. This ensures that our pipeline remains simple as hosting is also done by the same VM. Our runner is named as 'VM-mif' and it is shell executor.
+It runs on linux operating system. The runner is can execute both untagged and tagged 'shell' jobs. The runner's version is 17.9.1.
+
+\subsubsection{OpenNebula}
+We used OpenNebula 4.14.2 by OpenNebula Systems to create the VM and manage its configuration (RAM, storage, CPU count, networks).
+
+\subsection{Database Hosting}
+\label{sec:database}
+In this section we will analyse the database that is used in our application. Mainly we will look at the usage patterns of the database and how it is used in the application.
+
+This database runs on 1 CPU, 1 GB RAM and 5 GB storage machine. 
+Updates to this database must be done manually (can be triggered in CI/CD pipeline) by the developer to avoid unexpected data loss. The commit message must contain '\#migrate' to make the database update stage available for the developer.
+
+\subsubsection{Database usage}
+As our database is quite small, it is important to look at the usage patterns of the database to determine if the current specifications of the database are enough for our application.
+We will be using pgbench to measure database performance. The pgbench is a benchmarking tool for PostgreSQL that allows us to simulate multiple clients and measure the performance of the database under load.
+We will be using these commands variantions:
+
+\begin{enumerate}
+    \item \texttt{pgbench -i}  \# Initialize the database
+    \item \texttt{pgbench -c 10 -T 60} \# Run the benchmark with 10 clients for 60 seconds
+\end{enumerate}
+
+The images below shows the database state before \ref{fig:db-before} and after \ref{fig:db-after} test.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/CICD//DBBefore.png}
+    \caption{Database state before tests}
+    \label{fig:db-before}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/CICD/DbAfter1.png}
+    \caption{Database state after tests}
+    \label{fig:db-after}
+\end{figure}
+
+It is clear that with 10 users the database can handle around 957 transactions in 60 seconds (from console report). The CPU usage only barelly increased (about 4\%) \ref{fig:db-after}.
+We were not able to run the tests with more users as we ran into connection problems but from the single test it is clear that the current database could handle about 100 users.
+
+\subsubsection{Database storage needs}
+
+The database could store as much as 5 gigabytes of data. This is plenty enough for our application as most
+of the data is stored as strings and we do not store any images or other high volume files. Furthermore, Aiven service provides
+a reliable method to backup the database in set time intervals which is important to ensure that user data is not lost.\\
+
+\subsubsection{Requirements summary}
+From our tests it is clear that the 1 CPU, 1GB RAM and 5 GB storage is enough for our application. Likely the database could function just as well with 1 GB of storage as our traffic is not that high. 
+The database can handle around 100 users at the same time and the storage is enough for our application.
+
+Therefore, the database requirements are \ref{tab:system-requirements}:
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{Requirement Type} & \textbf{Minimal Requirements} & \textbf{Recommended Requirements} \\ 
+        \hline
+        Database CPU & 1 core & 1 core \\ 
+        \hline
+        Database RAM & 1 GB & 1 GB \\ 
+        \hline
+        Database Storage & 1 GB & 5 GB \\ 
+        \hline
+    \end{tabular}
+    \caption{System Requirements for Database}
+    \label{tab:system-requirements}
+\end{table}
+
+\subsection{Application Hosting (frontend and backend)}
+The hosting is done on our faculty virtual machine. The machine is running Debian 12 operating system.
+All the management of the machine is handled with OpenNebula. The machine can also be managed by connecting to it via SSH. Our database is hosted on Aiven and not on the same VM as the application.
+
+Below is a diagram \ref{fig:prod-environment} that shows the production environment of the application. Its shows the communication paths between frontend and backend, backend and database.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{images/CICD/PROD Diagram.drawio.png}
+    \caption{Production Environment Diagram}
+    \label{fig:prod-environment}
+\end{figure}
+
+
+\subsubsection{Storage requirements}
+As previously in sections CI and CD we discussed, the building and images of the application take 
+up around 3 gigabytes in total (300 MB files and 2.5 gigabytes from all the images, including .Net and Node).
+
+Furthermore, the Debian 12 minimal console only installation takes up around 2 gigabytes. In total, the system would require at least 
+5 to 6 gigabytes for functioning. However, as the application will improve, it is likely that it will require more storage.
+Ideally it would be better to assign somewhere around 10 gigabytes to the virtual machine. In our case, we assigned 20 gigabytes.
+
+User files will be stored on database and not on the VM. As a result, the storage requirements for the VM are quite low.
+
+\subsubsection{Memory requirements}
+Mesuring the RAM needs is more difficult, especially for the CI/CD pipeline. However if we look at the average usage of RAM on our virtual machine,
+we can see that it is only using around 300 megabytes at idle \ref{fig:screenshot}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/Screenshot 2025-03-23 132928.png}
+    \caption{VM memory usage}
+    \label{fig:screenshot}
+\end{figure}
+
+If we trigger the pipeline, we can see the usage patterns change
+
+\begin{figure}[H]
+    \centering
+    \begin{tabular}{cc}
+        \includegraphics[width=0.45\textwidth]{images/backbuild.png} & \includegraphics[width=0.45\textwidth]{images/frontbuild.png} \\
+        \textbf{(a)} Backend Build & \textbf{(b)} Frontend Build \\
+        \includegraphics[width=0.45\textwidth]{images/backtest.png} & \includegraphics[width=0.45\textwidth]{images/fronttest.png} \\
+        \textbf{(c)} Backend Test & \textbf{(d)} Frontend Test \\
+        \includegraphics[width=0.45\textwidth]{images/docker.png} & \includegraphics[width=0.45\textwidth]{images/databaseTest.png} \\
+        \textbf{(e)} Docker Process & \textbf{(f)} Database Update \\
+    \end{tabular}
+    \caption{Memory usage patterns during CI/CD pipeline}
+    \label{fig:memory-usage}
+\end{figure}
+
+During the CI/CD pipeline \ref{fig:memory-usage}, it is clear that the memory usage increasese about 400 megabytes. In addition, there are spikes in virtual CPU usages.
+Especially during the dockerization proccess all of the virtual CPU units spike to 70\%. During this CI/CD stage, users may experience stuttering or lag
+as the application is hosted on the same runner. As a result, it would be better to deploy changes to application during the time the application is least used.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.45\textwidth]{images/beforeCICD.png}
+    \caption{CPU usage before CI/CD pipeline}
+    \label{fig:before-cicd}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.45\textwidth]{images/afterCICD.png}
+    \caption{CPU usage after CI/CD pipeline}
+    \label{fig:after-cicd}
+\end{figure}
+
+The spikes in CPU ussage can also be opserved through OpenNebula web page. From the previous analysis of CI/CD pipeline
+we can observe that these spikes can last from around max 4 minutes if there are changes to both backend and frontend or
+about 1 and a half minutes if there are no changes to frontend and backend. \\
+
+In conclusion, it is clear that the minimal RAM needed is around 1 gigabyte, however it would be better to have around 2 gigabytes to avoid unexpected system crashed from running out of RAM.
+In our analysis, we used a system that had 0.4 physical CPU assigned to it and 4 virtual CPUs. It is clear that in high usage of the system by users and CI/CD, stuttering and lagging may occur,
+especially durring the backend testing stage, as NUnit utilizes multithreading. In that case, it would be better to turn of multithreading for testing or increase CPU count. Ideally the system should
+be assigned atleast 1 cpu core.
+
+\subsubsection{Network requirements}
+Notice: all of these mesurments were handled on weekend (2025-03-30 16:00). During other times, the network usage may be higher or lower.
+By opening up developer tools and inspecting how much data one user uses, we can make a rough estimation of how much data bandwidth is needed for the application to run smoothly.
+
+We ran the \texttt{speedtest} command to see how much bandwidth we have. The results are shown below \ref{tab:network-speed}:
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{Metric} & \textbf{Speed (Mbit/s)} & \textbf{Speed (MB/s)} \\ 
+        \hline
+        Download Speed & 211.82 Mbit/s & 26.48 MB/s \\ 
+        \hline
+        Upload Speed & 692.55 Mbit/s & 86.57 MB/s \\ 
+        \hline
+        \end{tabular}
+    \caption{Network Speed Test Results}
+    \label{tab:network-speed}
+\end{table}
+ 
+We analized how much resources were downloaded to user's browser by refreshing the homepage. In total it was about 2.8 megabytes of data that was downloaded.
+Because we were downloading the data on client side, we will be analysing the upload speed. 629.55 Mbit/s is about 86 megabytes per second.
+As a result, we can see that the application can handle about 30 users at the same time loading up page (86 MB/s / 2.8 MB ≈ 31 users).
+Considering the fact, that our application runs on a virtual machine, it is likely that the bandwidth is shared with other users. As a result, this number may be lower.
+
+It is also important to consider the fact that our application runs on low specifications machine and that our database at max can handle about 100 users at the same time.
+As a result, it is likely that our current network bandwidth is enough for our application to run smoothly. However, for future improvements, it would be better to have at 1 Gbit/s stable upload speed to ensure that the application can handle more users at the same time.
+
+We also analyzed how much data is uploaded to the server when a user plays a game. Because most of the game logic is handled on the client side, the upload data is quite low.
+In total, it was about 25.7kB of data that was uploaded to the server during one game session. This is a very low amount of data and it is unlikely that the application will run out of bandwidth in the future.
+In total, we could handle about 1000 users at the same time playing a game (26 MB/s / 25.7 kB ≈ 1040 users). Clearly, the download speed (on server side) is not a problem for our application. Considering the fact, that 
+the upload side can at max handle about 30 users at the same time, it is likely that we will run out of upload bandwidth before we run out of download bandwidth.
+
+The minimal requirements for the download speed are calculated by multiplying the max users upload bandwidth can handle by the data that was uploaded to the server during one game session. 
+\[
+\text{downloadUsers} = \text{dataUploaded} \times \text{uploadBandwidthMaxUsers} = 25.7 \text{kB} \times 30 = 771 kB
+\]
+
+Because there could be system updates that require download bandwidth, it is better to have a higher download speed than the one calculated above. Or to disable the updates during the time when the application is used by users. Ourr
+recommendation is to have 200 Mbits/s download speed as that is what we have on our VM and we did not experience any problems with it.
+
+
+We also did ping tests to ensure that our network is responsive, as our application focuses on games, it is important that the latency is low.
+The following table summarizes the results of a ping test to \texttt{google.com} (IP: 216.58.215.110). The test was conducted to measure round-trip time (RTT) and packet loss.
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline
+        \textbf{Metric} & \textbf{Value} \\
+        \hline
+        Packets Transmitted & 13 \\
+        \hline
+        Packets Received & 13 \\
+        \hline
+        Packet Loss & 0\% \\
+        \hline
+        Total Time & 12021 ms \\
+        \hline
+        RTT Minimum & 9.317 ms \\
+        \hline
+        RTT Average & 9.576 ms \\
+        \hline
+        RTT Maximum & 9.932 ms \\
+        \hline
+        RTT Mean Deviation (mdev) & 0.200 ms \\
+        \hline
+    \end{tabular}
+    \caption{Ping Test Results to \texttt{google.com}}
+    \label{tab:ping-test-results}
+\end{table}
+
+The test demonstrates stable connectivity with no packet loss and low latency, indicating a reliable network connection. 
+For the application, this is important as it ensures that users can play games without experiencing lag or delays. 
+The average RTT of 9.576 ms is quite low and should not cause any issues for users.
+We looked on the internet what is the maximum latency that is acceptable for online games and it is abuot 30 ms.
+
+
+\subsubsection{Sum up of requirement}
+Below is a table with minimal requirements for functional system and recommended requirements for a smooth experience.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{Resource Type} & {Minimal needs} & {Recommended} \\ 
+        \hline
+        Storage & 6 GB & 10 GB \\ 
+        \hline
+        RAM & 1 GB & 2 GB \\ 
+        \hline
+        CPU & 0.4 core & 1 core \\ 
+        \hline
+        Network Upload & 629 Mbit/s & 1 Gbit/s \\
+        \hline
+        Network Download & 8 Mbit/s & 200 Mbit/s \\
+        \hline
+        Network Latency & ≈30 ms & ≈10 ms \\
+        \hline
+    \end{tabular}
+    \caption{Resource Needs}
+    \label{tab:resource-types}
+\end{table}
+
+
+These requirements closely match the specs of consumer-grade small computers like the Raspberry Pi 4, \ref{fig:example-image}, making it an ideal and cost-effective choice for hosting lightweight applications or small websites while maintaining energy efficiency and compactness.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/"R (1).png"}
+    \caption{Raspberry Pi 4}
+    \label{fig:example-image}
+\end{figure}
+
+
+\subsubsection{Threats and mitigations}
+Both pipeline and hosting runs on the same machine. A catastrophic failure in CI/CD could bring down the VM, including the website. This would cause downtimes for the users.
+It would be better to host the website on cloud services like Azure, however, because we had to use GitLab, our team was uncertain how the 
+GitLab CI/CD process would communicate with the Azure as our faculty VPN may be troubling. To mitigate this threat, our team would need to switch to Github and setup Azure hosting.
+Furthermore, the machine has SSH setup on it, which means if the password was to be found for it, an attacker could gain access to the VM and potentially compromise the entire system. To mitigate this threat, it is crucial to implement strong password policies, regularly update passwords, and consider using SSH key-based authentication instead of password-based authentication. 
+Additionally, monitoring and logging SSH access attempts can help in identifying and responding to potential security breaches promptly.
+
+
+\subsection{Conclusion}
+This section provided an overview of how our CI/CD process works \ref{fig:pipelinefromgitlab}, what are the minimal and recommended system specifications. Furthermore we provided possible risks of this system and ways to mitigate these risks.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/pipelinefromgitlab.png}
+    \caption{CI/CD Pipeline screenshot from GitLab}
+    \label{fig:pipelinefromgitlab}
+\end{figure}
+
+\section{Results and Discusion}
+
+
+\section{Conclusion}
+
+\printbibliography[title = {References and sources}]
+
+\end{document}

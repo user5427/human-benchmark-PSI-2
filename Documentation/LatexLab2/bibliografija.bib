@@ -1,0 +1,166 @@
+%% Plačiau apie šaltinių tipus ir jų atributus:
+%% http://mirror.datacenter.by/pub/mirrors/CTAN/macros/latex/contrib/biblatex/doc/biblatex.pdf#subsection.2.1
+
+%% Internetinių puslapių citavimas
+@online{PvzInternetinisPuslapis,
+    author = {Internetinis puslapis},
+    title = {Puslapio pavadinimas},
+    url = {puslapio nuoroda},
+    urldate = {2024-04-25},
+}
+
+%% Dirbtinio intelekto modelių citavimo pavyzdys 
+@online{chatgpt_bendrai,
+  author    = {OpenAI},
+  title     = {ChatGPT},
+  year      = {2024},
+  url       = {https://www.openai.com/},
+  urldate   = {2024-06-06}
+}
+
+%% Norint cituoti konkretų dirbtinio intelekto pokalbį, tai galima atlikti štai taip 
+@online{chatgpt_pokalbis,
+  author    = {OpenAI},
+  title     = {ChatGPT},
+  year      = {2024},
+  note      = {Atsakymas į klausimą apie citavimo pavyzdį},
+  url       = {https://chatgpt.com/share/550cde77-019d-414d-b36a-f3ac9b857b9c},
+  urldate   = {2024-06-06}
+}
+
+%% Duomenų rinkinio citavimas
+@dataset{dataset,
+     title = {Duomenų rinkinio pavadinimas},
+     url = {nuoroda},
+     author = {A. Pavardenis and B. Pavardonis and C. Pavardauskas},
+     year = {2022},
+}
+
+%% Lietuviškų straipsnių citavimas 
+@article{PvzStraipsnLt,
+    author={A. Pavardenis and B. Pavardonis and C. Pavardauskas},
+    title={Straipsnio pavadinimas},
+    journal={Žurnalo pavadinimas},
+    year={2001},
+    volume={IV},
+    pages={8-17},
+} 
+
+%% Angliškų straipsnių citavimas
+@article{PvzStraipsnEn,
+    author={A. Surname and B. Tsurname and C. Usurname},
+    title={Article Title},
+    journal={Journal Title},
+    year={2001},
+    volume={IV},
+    pages={3-15},
+    langid={english},
+} 
+
+%% Lietuviškų straipsnių iš konferencijų citavimas
+@inproceedings{PvzKonfLt,
+    author={A. Pavardenis and B. Pavardonis and C. Pavardauskas and D. Pavardinskas},
+    title={Straipsnio pavadinimas},
+    booktitle={Rinkinio pavadinimas},
+    year={2002},
+    publisher={Leidykla},
+    address={Miestas, šalis},
+    pages={3-15},
+}
+
+%% Angliškų straipsnių iš konferecijų citavimas
+@inproceedings{PvzKonfEn,
+    author={A. Surname and B. Tsurname and C. Usurname and D. Vsurname},
+    title={Article title},
+    booktitle={Conference book title},
+    year={2002},
+    publisher={Publisher},
+    address={City, country},
+    pages={3-15},
+    langid={english},
+}
+
+%% Lietuviškų knygų citavimas
+@book{PvzKnygLt,  
+    author={A. Pavardenis and B. Pavardonis and C. Pavardauskas},
+    title={Knygos pavadinimas},
+    publisher={Leidykla},
+    year={2003},
+    address={Miestas, šalis},
+    note={172 psl.},
+}
+
+%% Angliškų knygų citavimas
+@book{PvzKnygEn,  
+    author={A. Surname and B. Tsurname and C. Usurname},
+    title={Book title},
+    publisher={Publisher},
+    year={2003},
+    address={City, country},
+    note={172 p.},
+    langid={english},
+}
+
+%% Lietuviškų publikacijų citavimas
+@misc{PvzElPubLt,
+    author={A. Pavardenis and B. Pavardonis and C. Pavardauskas},
+    title={Elektroninės publikacijos pavadinimas},
+    howpublished={\url{http://example.com/kelias/iki/straipsnio.pdf}},
+    year={2004}, 
+    note={45 KB, žiūrėta 2015-02-01},
+}
+
+%% Angliškų publikacijų citavimas
+@misc{PvzElPubEn,
+    author={A. Surname and B. Tsurname and C. Usurname},
+    title={Online Publication Title},
+    howpublished={\url{http://example.com/path/to/the/article.pdf}},
+    year={2004}, 
+    note={45 KB, žiūrėta 2015-02-01.},
+    langid={english},
+}
+
+%% Magistrinio baigiamojo darbo citavimas
+@mastersthesis{PvzMagistrLt,
+    author={A. Pavardonis},
+    title={Magistrinio darbo pavadinimas},
+    school={Universiteto pavadinimas},
+    year={2005},
+}
+
+
+@phdthesis{PvzPhdEn,
+    author={A. Surname},
+    title={Ttitle fo PhD thesis},
+    school={Title of university},
+    year={2005},
+    langid={english},
+}
+  
+%% Internetinių puslapių citavimas
+@online{amssymb,
+    author = {Internetinis puslapis},
+    title = {Puslapio pavadinimas},
+    url = {puslapio nuoroda},
+    urldate = {2024-04-25},
+}
+@online{amsdoc,
+    author = {American Mathematical Society and the \LaTeX\ Project},
+    title = {User’s Guide for the amsmath Package (Version 2.1)},
+    url = {https://mirror.macomnet.net/pub/CTAN/macros/latex/required/amsmath/amsldoc.pdf},
+    urldate = {2024-06-27},
+}
+
+@online{mtoolsdoc,
+    author = {M.~Høgholm and L.~Madsen and the \LaTeX3\ project},
+    title = {The mathtools package},
+    url = {https://sunsite.icm.edu.pl/pub/CTAN/macros/latex/contrib/mathtools/mathtools.pdf},
+    urldate = {2024-06-27},
+}
+
+@online{physdoc,
+    author = {Sergio C. de la Barrera},
+    title = {The physics package},
+    url = {https://ctan.altspu.ru/macros/latex/contrib/physics/physics.pdf},
+    urldate = {2024-06-27},
+}

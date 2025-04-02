@@ -1,8 +1,8 @@
-<img src="https://imgur.com/2VByXMn.png" width="20%">
+<!-- <img src="https://imgur.com/2VByXMn.png" width="20%"> -->
 
 # PSI 2
 
-<img src="https://imgur.com/uSvo7Xm.png" width="100%">
+<!-- <img src="https://imgur.com/uSvo7Xm.png" width="100%"> -->
 
 ## Team:
 
@@ -12,7 +12,7 @@
 - Tadas
 - Arnas
 
-<img src="https://imgur.com/qwiIfr9.png" width="100%">
+<!-- <img src="https://imgur.com/qwiIfr9.png" width="100%"> -->
 
 ## How to run the project:
 ### Frontend:
