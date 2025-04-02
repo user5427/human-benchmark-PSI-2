@@ -37,6 +37,7 @@ const Multiplayer = () => {
                 setRoundResults(lastJsonMessage as RoomRoundResults);
                 break;
             default:
+                console.error(JSON.stringify(message));
                 console.error('invalid response type');
         }
       }, [lastJsonMessage]);
@@ -53,11 +54,13 @@ const Multiplayer = () => {
         });
     }
 
-    const createRoom = (roomName: string) => {
+    const createRoom = (roomName: string, visibility: number, allowedPlayers: number[] ) => {
         sendJsonMessage({
             "eventType": "CreateRoomEvent",
             "playerId": playerId,
-            "roomName": roomName
+            "roomName": roomName,
+            "visibility": visibility,
+            "allowedPlayers": allowedPlayers
         });
     }
 
@@ -71,6 +74,7 @@ const Multiplayer = () => {
 
     const hitTarget = () => {
         const reactionTime = Date.now() - roundStartTime!;
+        console.log(reactionTime);
         sendJsonMessage({
         "eventType": "HitTargetEvent",
         "playerId": playerId,

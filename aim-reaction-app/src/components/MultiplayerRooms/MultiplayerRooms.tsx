@@ -1,21 +1,41 @@
-import { useState } from "react";
-import { Room } from "../../types/props";
+import { useEffect, useState } from "react";
+import { Room, User } from "../../types/props";
 import styles from "./MultiplayerRooms.module.css"
+import { useAuth } from "../../contexts/AuthContext";
+import { AllowedUserList } from "../ConfigForm/AllowedUserList";
 
 type OnlineRoomsProp = {
   joinRoom: (roomId: string) => void;
-  createRoom: (roomName: string) => void;
+  createRoom: (roomName: string, visibility: number, allowedPlayers: number[]) => void;
   rooms: Room[];
 }
 
 
 const OnlineRooms = ({ joinRoom, createRoom, rooms }: OnlineRoomsProp) => {
-  console.log(rooms)
+  const { userId } = useAuth();
   const [showModal, setShowModal] = useState(false);
   const [newRoomName, setNewRoomName] = useState("");
+  const [allowedUsers, setAllowedUsers] = useState<number[]>([]);
+  const [availableUsers, setAvailableUsers] = useState<User[]>([]);
+  const [visibility, setVisibility] = useState<number>(0);
+  
+  const apiUrl = import.meta.env.VITE_API_URL;
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch(`${apiUrl}/Users?userId=${userId}`);
+        const users = await response.json();
+        setAvailableUsers(users);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      }
+    };
+
+    fetchUsers();
+  }, [apiUrl, userId]);
 
   const handleCreateRoom = (roomName: string) => {
-    createRoom(roomName);
+    createRoom(roomName, visibility, allowedUsers);
     setNewRoomName("");
     setShowModal(false);
   }
@@ -36,7 +56,7 @@ const OnlineRooms = ({ joinRoom, createRoom, rooms }: OnlineRoomsProp) => {
         {rooms.map((room) => (
           <div className={styles.roomItem} key={room.Id}>
             <span>{room.Name}</span>
-            <span>{room.Players.length} players</span>
+            <span>{room.Players.length} player</span>
             <button onClick={() => joinRoom(room.Id)}>Join</button>
           </div>
         ))}
@@ -50,6 +70,25 @@ const OnlineRooms = ({ joinRoom, createRoom, rooms }: OnlineRoomsProp) => {
             onChange={(e) => setNewRoomName(e.target.value)}
             placeholder="Enter room title"
           />
+          <div className={styles.inputItem}>
+            <label htmlFor="visibility">Visibility</label>
+            <select
+              id="visibility"
+              value={visibility}
+              onChange={(e) => setVisibility(parseInt(e.target.value))}
+              className={styles.input}
+              required
+            >
+              <option value="0">Public</option>
+              <option value="1">Private</option>
+            </select>
+          </div>
+          {visibility === 1 ? (
+                    <AllowedUserList
+                      allowedUsers={allowedUsers}
+                      setAllowedUsers={setAllowedUsers}
+                      availableUsers={availableUsers} />
+                  ) : null}
           <button onClick={() => handleCreateRoom(newRoomName)}>Create</button>
           <button onClick={handleCancel}>Cancel</button>
         </div>

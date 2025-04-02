@@ -52,6 +52,12 @@
   z-index: -1;
 }
 
+.inputItem {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
 .roomItem {
   display: flex;
   gap: 10px;
