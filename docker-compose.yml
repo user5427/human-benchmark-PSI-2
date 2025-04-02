@@ -1,0 +1,24 @@
+﻿version: '3.8'
+
+services:
+  backend:
+    build: 
+      context: ./AimReactionAPI
+      dockerfile: Dockerfile
+    ports:
+      - "8082:80"
+      - "8084:443"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+
+  frontend:
+    build: 
+      context: ./aim-reaction-app
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - "3005:80"    
+    depends_on:
+      - backend 

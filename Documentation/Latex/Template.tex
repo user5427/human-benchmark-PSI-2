@@ -14,6 +14,8 @@
 \usepackage{color,algorithm,algorithmic}
 \usepackage[nottoc]{tocbibind}
 \usepackage{tocloft}
+\setlength{\cftfignumwidth}{4em} % Adjust the width as needed
+\setlength{\cfttabnumwidth}{4em} % Adjust the width as needed
 \usepackage{makecell}
 \usepackage{titlesec}
 % \usepackage{zref}
@@ -94,9 +96,9 @@ The team is thankful to the lecturers of Vilnius University for their guidance a
 
 %%Summary
 \sectionnonum{Summary}
-This work documents the Human Benchmark system business logic and system overview. Various analysis are conducted to understand the current system, bussiness and its improvment capibilities. The work is divided into four main sections (see introduction \ref{sec:introduction} for more details).
+This work documents the Human Benchmark system business logic and system overview. Various analysis are conducted to understand the current system, business and its improvment capibilities. The work is divided into four main sections (see introduction \ref{sec:introduction} for more details).
 
-\textbf{Keywords:} Human Benchmark, SWOT, MOST, SMART, BPMN, UML.
+\textbf{Keywords:} Human Benchmark, Cognitive test, Reaction time, Reflex training.
 
 % \sectionnonum{Santrauka}
 
@@ -132,28 +134,26 @@ This work documents the Human Benchmark system business logic and system overvie
 % This section is for when abbreviations are used. For example:
 
 \begin{tabular}{rcp{.7\textwidth}}
-    {SWOT} & {} & {Strengths, Weaknesses, Opportunities, Threats} \\
-    {MOST} & {} & {Mission, Objectives, Strategies, Tactics} \\
-    {SMART} & {} & {Specific, Measurable, Achievable, Relevant, Time-bound} \\
+    {\textbf{SWOT}} & {} & {Strengths, Weaknesses, Opportunities, Threats} \\
+    {\textbf{MOST}} & {} & {Mission, Objectives, Strategies, Tactics} \\
+    {\textbf{SMART}} & {} & {Specific, Measurable, Achievable, Relevant, Time-bound} \\
     % {u.d.i.r.v.} & {} & {uniformly distributed independent random variables}
 \end{tabular}
 
 \sectionnonum{Introduction}
 \label{sec:introduction}
-This work documents the Human Benchmark system that was developed in third semester. The system is a collection of mini-games that test various cognitive abilities such as reaction time, 
-memory, and mathematical skills. The system is built using modern web technologies such as HTML, CSS, and JavaScript and ASPNet. The system is open source and the code is available on GitHub 
-for anyone to use and contribute to.
+This work documents an app developed in the third semester. It features mini-games designed to measure and improve reaction time. The app is built with modern web technologies, including HTML, CSS, JavaScript, and ASP.NET.
 
 
 This work will provide an overview of the system and its features. It will also discuss the demerits of the system and suggest possible improvements that can be made to the system.
-The work will be divided into four main sections: 
+The content is structured into the following sections: 
 \begin{itemize}
-    \item Section \ref{sec:system_overview} will provide an overview of the system and its bussiness logic.
-    \item Section \ref{sec:bussiness_boundaries} will focus on the bussiness and system boundaries.
-    \item Section \ref{sec:bpmn_uml_use_cases} will focus on BPMN diagrams and UML diagrams.
-    \item Section \ref{sec:requirements} will focus on user needs and requirements.
-    \item Section \ref{sec:results} - short summary of the results and discussion.
-    \item Section \ref{sec:conclusion} - conclusions of lab 1.
+    \item Section \ref{sec:system_overview} - Overview of the system and its business logic.
+    \item Section \ref{sec:business_boundaries} - Business and system boundaries.
+    \item Section \ref{sec:bpmn_uml_use_cases} - BPMN diagrams and UML diagrams.
+    \item Section \ref{sec:requirements} - User needs and requirements.
+    \item Section \ref{sec:results} - Short summary of the results and discussion.
+    \item Section \ref{sec:conclusion} - Conclusions.
 \end{itemize}
 % For any written work, you must refer to the methodology guidelines of the respective study programme\footnote{The latest methodology requirements for all programmes can be found here, in the respective programme: \url{https://mif.vu.lt/lt3/en/studies/bachelor-studies}}. These contain all the guidelines for citations, structure, length, etc.
 
@@ -161,121 +161,83 @@ The work will be divided into four main sections:
 \pagebreak
 
 
-\section{System and bussiness overview}
+\section{System and business overview}
 \label{sec:system_overview}
 
-This section will discuss about the Human Benchmark system and its bussiness logic. Strategies such as SWOT, MOST, SMART, etc. will be used to analyze the system and its features.
-
+This section provides an overview of the Human Benchmark system and its business logic. Various analysis methods, including SWOT, MOST, and SMART, will be used to analyze the system and its features.
 
 \subsection{VISION analysis}
-People manage to faster process information which can greatly benefit them in daily life.
+People can process information at least 10\% faster, which can greatly benefit them in daily life.
 
 \subsection{MISSION analysis}
 Provide an engaging and competitive app for users to measure, track, and improve their reaction speed. 
 
 \subsection{SWOT analysis}
-
-SWOT analysis is a strategic planning technique used to help a person or organization identify strengths, weaknesses, opportunities, and threats related to business competition or project planning. It is intended to specify the objectives of the business venture or project and identify the internal and external factors that are favorable and unfavorable to achieving those objectives.
+SWOT analysis is a tool used to identify strengths, weaknesses, opportunities, and threats in business planning. This section provides an analysis of these aspects in relation to our system.
 
 \subsubsection{Strengths}
 \begin{itemize}
-    \item Enhance Cognitive function: studies indicate that faster reaction times (RTs) are associated with better cognitive functions, including memory, verbal fluency, processing speed, and intelligence.
-    \item Increased Engagement through Gamification: Integrating game elements like leaderboards can enhance motivation and engagement in learning activities.
-    \item Positive User Reception to Minimalist Design: Research indicates that all generations have a positive attitude toward minimalism in design.
+    \item \textbf{Enhance cognitive function}: Faster reaction times (RTs) are linked to improved cognitive functions like memory, verbal fluency, and processing speed. Studies, including those on medical students, show that quicker RTs are associated with higher academic performance \cite{CognitiveFunction}.
+    \item \textbf{Increased engagement through gamification}: Integrating game elements like leaderboards can boost motivation and engagement in learning activities. Gamification not only makes learning enjoyable but also inherently motivates students, as competition is a primary driver for game participation \cite{GameplayEngagement}.
+    \item \textbf{Minimalistic design}: Research shows that minimalist design is appreciated across all generations, creating a satisfying user experience \cite{MinimalDesign}.
+    \item \textbf{Increasing interest in improving reaction Time}: Search queries such as "improve reaction time" show an upward trend from 2015 to 2025 worldwide \cite{googletrends}, indicating growing interest in reaction time training. 
 \end{itemize}
 \subsubsection{Weaknesses}
 \begin{itemize}
-    \item Risk of Overemphasis on Competition: While leaderboards can motivate some users, they may lead to feelings of sadness or disappointment among those who consistently rank lower, potentially decreasing engagement.
+    \item \textbf{Technical dependence}: User experience depends on device performance, devices can affect reaction time accuracy, potentially adding 10-50ms to the measurements\cite{humanbenchmark}.
+    \item \textbf{Competitive market}: The reaction training market is already competitive, with approximately 211 apps available across Google Play, the Apple App Store, and Steam. As such it is easy for new apps to take the market.
+    \item \textbf{Niche subject}: Over the last 12 months, there have been 1,955 articles associated with the term “improve reaction time”, compared to 26,212 articles related to “improve memory” \cite{muckruck}. This means that articles on reaction time improvement are published over 20 times less frequently than those on memory improvement, another aspect of cognitive performace. Fewer articles suggest that reaction time training is a niche subject, with smaller target audience.
 \end{itemize}
 \subsubsection{Opportunities}
 \begin{itemize}
-    \item Personalized Learning Experiences: Incorporating adaptive learning technologies can improve training effectiveness and user satisfaction.
+    \item \textbf{Integration of personalized learning tools}: Research indicates that personalized learning improves both learning performance and motivation, making it a valuable approach for increasing user satisfaction\cite{PersonalizedLearning}.
+    \item \textbf{Aging population}: As global demographics age, there is likely to be an increased interest in cognitive maintenance. The population aged 65 and older is projected to double by 2050 \cite{PopulationDemographics}.
+    \item \textbf{Growing demand in esports \& gaming}: The esports industry is experiencing rapid growth, with the number of global esports users expected to reach 896 million by 2029 \cite{statista}. As reaction time plays a crucial role in gaming \cite{VideoGamesReaction}, there could be increasing demand for tools and apps that can help improve reaction times.
+
 \end{itemize}
 \subsubsection{Threats}
 \begin{itemize}
-    \item Competition: The presence of similar apps or platforms offering reaction training poses a competitive threat.
+    \item \textbf{Repetitiveness}:  Users may lose long-term interest if the app lacks regular content updates\cite{GameplayEngagement}.
+    \item \textbf{Risk of overemphasis on competition}: While leaderboards can motivate some users, it may also contribute to feelings of frustration or discouragement among lower-ranked individuals, potentially reducing overall engagement \cite{GameplayEngagement}.
+    \item \textbf{Reliance on Ad Revenue}: By Q2 2023, there were 912 million active ad-blocking users worldwide, an 11\% increase from Q4 2021 \cite{BlockAds}. Relying heavily on ad-based revenue can lead to inconsistent earnings, as the growing use of ad blockers reduces ad visibility, directly impacting potential revenue streams.
+    
 \end{itemize}
 
-% https://bmcmededuc.biomedcentral.com/articles/10.1186/s12909-020-02416-7
-Faster VRTs and ARTs are correlated with better academic performance among undergraduate students.
-The results from our study indicate that faster RTs were one of the predictors of better academic performance among the recruited participants. Faster RTs are indicative of better cognitive functions, including memory and verbal fluency, processing speed, and intelligence 
-Prabhavathi et al. studied the impact of RT on academic performance among undergraduate medical students. They found that students with faster RTs had higher academic scores, and they attributed it to better attention, concentration, cortical arousal and processing speed. \cite{CognitiveFunction}
-
-
-% https://papers.academic-conferences.org/index.php/ecgbl/article/view/1788/1716
-‘For a simple focused learning activity, the addition of a game, that offers additional intrinsic or extrinsic motivation, will result in greater engagement as measured by recall tests' in the study. \cite{Gamification}
-
-
-% https://link.springer.com/article/10.1007/s10639-024-12726-8
- “repetitive gaming elements” and the “poor documentation and tutorial” are the most significant de-engagement factors for the selected educational video games. \cite{LearningMotivation}
-
-
-% https://hillkm.com/EDUC_715/Unit_9/abdul_jabbar_felicia_2015.pdf
-Competition is one of the six established uses and gratifications for playing computer games (Lucas \& Sherry, 2004). This suggests that learning could become engaging and rewarding if perceived as being competitive, as competing may have been the reason for playing in the first place.
-Studies have demonstrated that by offering challenges, gameplay can be both enjoyable and motivating, as challenges are almost inherently motivational.
-The findings also imply that challenges may sometimes cause more frustration than enjoyment for students (Bopp, 2006; Simkins et al., 2012). The results from this review indicate that challenges could threaten engagement and learning if they do not match students’ abilities. \cite{GameplayEngagement}
-
-
-% https://link.springer.com/article/10.1007/s10639-024-12845-2
-Gamification elements to be adopted in online learning environments could be utilized as an innovative, fun, and stimulating way to show learners their progress. As one example, leaderboards could be used as a source of motivation for learners to embrace gamified learning environments because learners are 
-able to see their activities being processed publicly and instantly and compare their progress with their classmates (Domínguez et al., 2013). Therefore, using leaderboards as external incentives is considered to improve learners’ academic performance (Mekler et al., 2017). Considering this argument, the 
-positive effect of leaderboards on learners’ achievement was also in line with the findings of some other studies (Bai et al., 2021; Ibáñez et al., 2014; Landers et al., 2017; Landers et al., 2019; Mekler et al., 2017) claiming that leaderboards could directly or indirectly improve learners’ performance. 
-On the other hand, the studies of Hanus and Fox (2015) as well as de-Marcos et al. (2014) contradicted with this finding by stating that learners’ scores could be lower even after participating in a gamified learning environment. 
-
-
-Analysis Review Behind the Usage in Gamification pdf
-On the negative aspects some users reacted with sadness
-and disappointment with the leaderboard achievement, due
-to low esteem created by the continuous defeat in the
-leaderboard system by their peers (Fortunate \& Cruz, 2018).
-This is more relevant in the world of online gam-ing, where
-when cheaters or hackers constantly mod their games to their
-advantage, resulting in the fall of usage by other normal
-players. \cite{GamificationInEducation}
-
-
-% https://hrcak.srce.hr/file/443871
-Overall, all generations have positive attitude toward minimalism. \cite{GamificationInMarketing}
-
-% https://www.theneighborhoodacademy.org/editoruploads/files/Tyrone%20Final%20Final%202024.pdf
-Similar to Kearney, we found that video games can stimulate your mind and benefit people’s cognitive skills. 
-In a prior study, Klicka measured the effect of video games on college football players. He found that 
-video gamers had faster reaction times and therefore may improve hand-eye coordination for a person. This 
-relates to our study because, in our
-experiment, the gaming group had significantly faster scores than the non-gaming group which supports my hypothesis. This 
-suggests games might play a role in reaction time. \cite{ReactionTime}
-
 \subsection{MOST analysis}
-MOST analysis is a strategic planning technique used to help a person or organization identify mission, objectives, strategies, and tactics related to business competition or project planning. It is intended to specify the objectives of the business venture or project and identify the internal and external factors that are favorable and unfavorable to achieving those objectives.
+MOST analysis is a strategic tool used to evaluate the Mission, Objectives, Strategy, and Tactics of a business or project. This section provides an analysis of these aspects in relation to our system.
 
 \subsubsection{Mission}
 \begin{itemize}
-    \item Users improve their reaction speed and reflexes through games.
+    \item To provide a reaction time training app that enhances cognitive performance.
 \end{itemize}
 
 \subsubsection{Objectives}
 \begin{itemize}
-    \item Provide a user-friendly web app.
-    \item Make training fun and non-repetitive.
-    \item Use social, competitive aspect to motivate players.
-    \item Make it accessible for users of different skill levels.
-    \item Enable users to track and visualize their progress over time.
+
+    \item Achieve a measurable improvement of at least 10\% in reaction time for regular users within the first 6 months. This will be tracked using \textbf{reaction scores}\ref{sec:reactionScores}.
+    \item Achieve at least 10000 registered accounts within the first 6 months, indicating growth in the platform's user base.
+    \item Reach an average of 500 "peak users today" (\ref{sec:steamCharts}) within the first 6 months, indicating strong daily user activity.
+    \item Maintain a consistency coefficient \textbf{consistency coefficient}(\ref{sec:consistencyCoef}) of at least 0.5 across all users every month, proving user long-term retention.
 \end{itemize}
 
 \subsubsection{Strategies}
 \begin{itemize}
-    \item Simple and minimal UI to keep users focused on gameplay.
-    \item Multiple game modes with adjustable difficulty.
-    \item Leaderboards to encourage competition and comparison with others.
-    \item Point system \& each attempt tracking to display progress over time.
+    \item Integrate evidence-based findings and best practices into game modes to optimize cognitive training.
+    \item Design user friendly app for users of different ages and skill levels.
+    \item Utilize gamification techniques to ensure the app remains engaging and prevents repetition.
+    \item Enable easy tracking of user progress with simple visual feedback.
+    \item Increase the app's visibility.
 \end{itemize}
 
 \subsubsection{Tactics}
 \begin{itemize} 
-    \item Minimal color palette.
-    \item Responsive, lightweight UI to minimize input lag.
-    \item Customizable game settings for non-competitive modes.
-    \item Personalized statistics dashboard displaying average, best scores, progress.
+    \item Collaborate with cognitive scientists.
+    \item Use a minimal color palette.
+    \item Provide customizable app settings.
+    \item Offer multiple game modes with adjustable difficulty.
+    \item Implement leaderboards to promote competition and user comparison.
+    \item Create a personalized statistics dashboard that displays average scores, best performance, and progress over time.
+    \item Promote app through Google Ads.  
 \end{itemize}
 
 \subsection{Porter's Methods, Base needs and additional value}
@@ -284,20 +246,23 @@ MOST analysis is a strategic planning technique used to help a person or organiz
 \begin{itemize}
  \item New competators
 
-Since there are various ways to check one's reaction time and cognitive abilities it is relatively easy for new competators to joining the market. Because of this our business needs to constantly develop and add new value to our product to make sure that we continue to be a viable rival in the market.
+Since developing a reaction time training app is not technologically challenging, many new competitors may enter the market. To compete with established businesses, new entrants must prioritize customer service. A customer-centric approach that delivers unique value and personalized experiences is essential for differentiation\cite{competitiveEdge}. Existing businesses must also focus on these aspects to maintain their competitive edge.
+ \item Barganaing power of suppliers
 
- \item Barganaing Power of Suppliers
 
-Since our product offers all of it's services up-front without the need for additional services supliers have a low level of influence on our product. As such only the host of our product and the provider that offers storage of data needed for the opperation of our product have power to influence our product.
+Since our product provides all its services upfront without requiring additional functionality-based services, suppliers have minimal influence over it. As a result, only the product host, the essential data storage provider, and non-technical suppliers, such as marketing services, affect our product.
+
  \item Substitutes
 
- Due to various other applications already having themselves established in the market substitutes have a strong influence to our service since there is a large risk of users switching to another product if the alternatives have more features or provide a product of  higher quality. As such substitutes provide a strong risk of our costumers switching to a competator.
- \item Barganaing of Buyers
+ Due to various other applications already having themselves established in the market, substitutes have a strong influence to our service since there is a large risk of users switching to another product if the alternative has more features or provide a product of higher quality. One example of a substitute is action games, which, according to research, can significantly improve reaction time \cite{VideoGamesReaction}. As a result, substitutes pose a significant risk, as they are more prevalent and widely used than services similar to ours.
 
- Due to the alternatives available to users as mentioned above users have a strong power of barganaing as failing to follow users demands could lead them to use a different product.
+ \item Barganaing of buyers
+
+Due to the available alternatives, users hold strong bargaining power. Failing to meet their demands could lead to them switching to a different product.
+ 
  \item Market Rivalry
 
- Due to to the nature of our product it could be said that the service we provide is rather niche. As such the impact of other players in the market is negligable in comprison to the other driving forces.
+ Due to to the nature of our product it could be said that the service we provide is rather niche. As such the impact of other players in the market is significant. According to preliminary figures, by searching `Reaction Training` for apps (In Google play store for Android, Apple store for IOS and Steam for PC), the total result is approximately equal to 211. The figure obtained highlights that there are many options to choose from as such the impact of market rivalry is considerable.
 \end{itemize}
 
 \subsubsection{Base needs}
@@ -308,14 +273,25 @@ In order for our project to function two basic needs need to be met:
  \item We need to have resources to host our product to allow users to utilize it.
 \end{itemize}
 
-Without these Basic Needs we will either be unable to supply our product to the consumer base or we will be wasting or resources for a product that generates no return. As such these two Basic Needs are distinguished as being the foundational needs.
+Without these Basic Needs we will either be unable to supply our product to the consumer base or we will be wasting our resources for a product that generates no return.
 
-\subsubsection{Additional Value}
-TODO WHEN WE CHOOSE WHAT TO DEVELOP
+\subsubsection{Additional value}
+ We will add additional value to our product by implementing these functionalities:
+ \begin{itemize}
+  \item Users will be able to view their high scores
+  \item Private games will be implemented
+  \item A game history will be added
+  \item A rating system for user-created games will be developed
+  \item Users will be able to view the top 10 players for each game
+ \end{itemize}
 
 
 \subsection{Stakeholders and their needs}
 This section will discuss the stakeholders of the Human Benchmark system and their needs.
+
+\subsubsection{Stakeholder}
+\textit{Modern Sports Technologies} is a company focused on helping athletes and sports teams improve their performance through innovative training tools. They are particularly interested in improving reaction times, which are crucial in fast-paced sports like football, basketball, and esports. As a potential stakeholder, \textit{Modern Sports Technologies} could offer the app to both professional and amateur athletes, which would sharpen their reaction time speed and overall performance.
+\subsubsection{Stakeholder's needs}
 
 % table where the first column is the reference to the stakeholder requirement id, the second column is the requirement, the third column is the description.
 \begin{table}[H]
@@ -324,11 +300,11 @@ This section will discuss the stakeholders of the Human Benchmark system and the
         \hline
         \textbf{IDs} & \textbf{Requirement} & \textbf{Description} \\
         \hline
-        \makecell[l]{\hyperlink{SR1}{SR1}, \hyperlink{SR3}{SR3}, \hyperlink{SR11}{SR11},\\ \hyperlink{SR17}{SR17 (leaderboard UI)}} & \makecell[l]{Improve user \\experience (UX)} & \makecell[l]{All buttons should be functional and\\ responsive \hyperlink{SR1}{SR1}. The screen should size correctly\\ on all devices \hyperlink{SR3}{SR3}. The theme should be toggleable\\ between dark and light \hyperlink{SR11}{SR11}. The leaderboard UI\\ should be enhanced \hyperlink{SR17}{SR17}.} \\        \hline
-        \makecell[l]{\hyperlink{SR2}{SR2}, \hyperlink{SR5}{SR5}, \hyperlink{SR14}{SR14},\\ \hyperlink{SR15}{SR15}, \hyperlink{SR16}{SR16}, \hyperlink{SR17}{SR17}} & \makecell[l]{Improve game \\customizability} & \makecell[l]{Different game types should have different\\ parameters \hyperlink{SR2}{SR2}. Users should be able to change\\ the game image (background image, \\currently it is blue) \hyperlink{SR5}{SR5}. Different Reflex Test\\ variations should be created \hyperlink{SR14}{SR14}: \\- Test where the game stops when you miss a \\  cerain number of targets \hyperlink{SR15}{SR15}.\\- Test where there is a fixed number of \\  targets \hyperlink{SR16}{SR16}.} \\        \hline
-        \makecell[l]{\hyperlink{SR8}{SR8}, \hyperlink{SR9}{SR9}, \hyperlink{SR12}{SR12}, \hyperlink{SR18}{SR18},\\ \hyperlink{SR19}{SR19}} & \makecell[l]{Improve game \\engageability} & \makecell[l]{Users should be able to view their achievements\\ (high scores) \hyperlink{SR8}{SR8}. A game history should be\\ implemented \hyperlink{SR9}{SR9}. Sound design and \\VFX should be improved for Reflex \\ Test and Moving Targets \hyperlink{SR12}{SR12}. Users should be able to view\\ the top 10/top 20 players for each game separately\\ \hyperlink{SR18}{SR18}. A rating system for user-created games\\ should be implemented \hyperlink{SR19}{SR19}.} \\        \hline
-        \makecell[l]{\hyperlink{SR4}{SR4}, \hyperlink{SR6}{SR6}} & \makecell[l]{Improve security} & \makecell[l]{Scores should not be submitted before the game\\ ends \hyperlink{SR4}{SR4}. Private games (sessions) should be implemented\\ \hyperlink{SR6}{SR6}.} \\        \hline
-        \makecell[l]{\hyperlink{SR7}{SR7}, \hyperlink{SR13}{SR13}} & \makecell[l]{Make game \\ more dynamic} & \makecell[l]{A Moving Targets game should be added \hyperlink{SR7}{SR7}.\\Reflex Test scoring should be adjusted \\based on click speed and accuracy \hyperlink{SR13}{SR13}.} \\        \hline
+        \makecell[l]{\hyperlink{SR1}{SR1}, \hyperlink{SR3}{SR3}, \hyperlink{SR11}{SR11},\\ \hyperlink{SR17}{SR17}} & \textbf{\makecell[l]{Improve user \\experience }} & \makecell[l]{All buttons must be functional and\\ responsive( \hyperlink{SR1}{SR1}). The screen must size correctly\\ on all devices (\hyperlink{SR3}{SR3}). The theme must be toggleable\\ between dark and light (\hyperlink{SR11}{SR11}). The leaderboard UI\\ must be enhanced (\hyperlink{SR17}{SR17}).} \\        \hline
+        \makecell[l]{\hyperlink{SR2}{SR2}, \hyperlink{SR5}{SR5}, \hyperlink{SR14}{SR14},\\ \hyperlink{SR15}{SR15}, \hyperlink{SR16}{SR16}, \hyperlink{SR17}{SR17}} & \textbf{\makecell[l]{Improve game \\customizability}} & \makecell[l]{Different game types must have different\\ parameters (\hyperlink{SR2}{SR2}). Users must be able to change\\ the game image (background image, \\currently it is blue) (\hyperlink{SR5}{SR5}). Different Reflex Test\\ variations must be created (\hyperlink{SR14}{SR14}): \\- Test where the game stops when you miss a \\  certain number of targets (\hyperlink{SR15}{SR15}).\\- Test where there is a fixed number of \\  targets (\hyperlink{SR16}{SR16}).} \\        \hline
+        \makecell[l]{\hyperlink{SR8}{SR8}, \hyperlink{SR9}{SR9}, \hyperlink{SR12}{SR12}, \hyperlink{SR18}{SR18},\\ \hyperlink{SR19}{SR19}} & \textbf{\makecell[l]{Improve game \\engageability}} & \makecell[l]{Users must be able to view their achievements\\ (high scores) (\hyperlink{SR8}{SR8}). A game history must be\\ implemented (\hyperlink{SR9}{SR9}). Sound design and \\VFX must be improved for Reflex \\ Test and Moving Targets (\hyperlink{SR12}{SR12}). Users must be able to view\\ the top 10/top 20 players for each game separately\\ (\hyperlink{SR18}{SR18}). A rating system for user-created games\\ must be implemented (\hyperlink{SR19}{SR19}).} \\        \hline
+        \makecell[l]{\hyperlink{SR4}{SR4}, \hyperlink{SR6}{SR6}} & \textbf{\makecell[l]{Improve security}} & \makecell[l]{Scores must not be submitted before the game\\ ends (\hyperlink{SR4}{SR4}). Private games (sessions) must be implemented\\ (\hyperlink{SR6}{SR6}).} \\        \hline
+        \makecell[l]{\hyperlink{SR7}{SR7}, \hyperlink{SR13}{SR13}} & \textbf{\makecell[l]{Make game \\ more dynamic}} & \makecell[l]{A Moving Targets game must be added (\hyperlink{SR7}{SR7}).\\Reflex Test scoring must be adjusted \\based on click speed and accuracy (\hyperlink{SR13}{SR13}).} \\        \hline
  
     \end{tabular}
     \caption{Stakeholders needs}
@@ -338,22 +314,85 @@ This section will discuss the stakeholders of the Human Benchmark system and the
 
 
 
-\section{Bussiness and system boundaries}
-\label{sec:bussiness_boundaries}
+\section{Business and system boundaries}
+\label{sec:business_boundaries}
+This section will discuss the business and system boundaries of the Human Benchmark system. Analysis methods, including Input and Output Analysis, Blackbox Analysis, and Measurement Dimensions, will be used to analyze the system and its features.
 
 \subsection{Input and Output Analysis}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/inputoutput.png}
+    \includegraphics[width=0.8\textwidth]{images/inputOutput.png}
     \caption{Input and Output diagram}
     \label{fig:inputOutput}
 \end{figure}
 
+\subsubsection{INPUT}
+\begin{enumerate}
+    \item \textbf{Resources:}
+    \begin{itemize}
+        \item \textbf{Financial:} Initial investments for salaries and server hosting.
+        \item \textbf{Human Resources:} 1 Frontend Developer, 1 Backend Developer, 2 Full-Stack Developers.
+    \end{itemize}
+    \item \textbf{User Data Collection}
+    \begin{itemize}
+        
+        \item \textbf{Consistency:} The application counts users' \label{sec:activeDays}\textbf{active days} - at least one login and one game played. A \label{sec:consistencyCoef}\textbf{consistency coefficient} is calculated which resets every month:
+        \begin{equation*}
+            \text{Consistency coefficient} = \frac{\text{Active days this month}}{\text{Passed days of this month}}
+        \end{equation*}
+        \item \textbf{Time Spent:} Total playtime recorded, inspired by Steam profiles (e.g., last two weeks of activity). At the start of a game a timer will start and at the end it will stop. Then it will add up on the time spent playing games today and also this week.
+        \item \textbf{Popularity Metrics:} Application tracks the number of users that are logged in and playing games. Inspired by Steam Charts\label{sec:steamCharts}: active users now, peak users today (24-hour peak), all-time users peak.
+    \end{itemize}
+    \item \textbf{Marketing \& Revenue Generation:}
+    \begin{itemize}
+        \item \textbf{Marketing Company:} Third-party ad services dynamically assign ads based on user activity (e.g., Google AdSense). "We've seen a substantial revenue increase and a significant reduction in manual effort thanks to Auto ads in-page formats, while sustaining user engagement and retention. — Yangyang Xi, CEO of Lang-8, Inc."\cite{AutoAds}.
+    \end{itemize}
+\end{enumerate}
+
+\subsubsection{PROCESS}
+\begin{enumerate}
+    \item \textbf{Stage 1: Preparation}
+    \begin{itemize}
+        \item \textbf{Application/Game Development:} Programmers create/improve the application and interactive reaction-based games.
+        \item \textbf{Account creation:} Users sign up.
+        \item \textbf{Personalized Ad Assignment:} User activity is tracked via cookies, and ads are assigned via third-party marketing companies.
+    \end{itemize}
+    \item \textbf{Stage 2: Gaming}
+    \begin{itemize}
+        \item \textbf{Maintenance}: Bug Fixes \& Updates. Developers ensure smooth functionality and release of new games/features.
+        \item \textbf{User Interaction:} Users play games and see personalized ads.
+        \item \textbf{Ad Delivery \& Revenue Tracking:} The marketing company serves ads and records performance.
+    \end{itemize}
+    \item \textbf{Stage 3: Data Tracking \& Analytics}
+    \begin{itemize}
+        \item \textbf{User Progress Tracking:} The application logs \label{sec:reactionScores}\textbf{reaction scores} - the longer the user survives in a game and the higher level he reaches - the higher score he gets. The application will also log users improvement trends. User will be able to see if he has improved by compare his scores in leaderboards and past results.
+        \item \textbf{Leaderboard System:} Users are ranked based on performance over time and todays highest results. Leaderboard for ongoing month, highest scoring players. Leaderboard today - todays highest scoring users.
+        \item \textbf{Ad Analytics:} Ad views and clicks are analyzed to optimize revenue (Marketing company job).
+    \end{itemize}
+\end{enumerate}
+
+\subsubsection{OUTPUT}
+\begin{enumerate}
+    \item \textbf{Short-Term:}
+    \begin{itemize}
+        \item \textbf{User Engagement \& Satisfaction:} Measured via \textbf{Consistency Coefficient} - closer to 1 indicates higher user cosistency.
+        \item \textbf{Growing User Base:} Increasing active user counts and time spent on games (Growing popularity metrics).
+    \end{itemize}
+    \item \textbf{Long-Term:}
+    \begin{itemize}
+        \item \textbf{Improved Reaction Time:} Users' reaction scores should improve over time, with leaderboard rankings reflecting progress.
+        \item \textbf{Ad Revenue:} Funds ongoing development and investor returns.
+        \item \textbf{Potential Premium Features:} Subscription model, ad-free experience, or additional analytics for users.
+    \end{itemize}
+\end{enumerate}
+
+
+
 \subsection{Blackbox Analysis}
 Blackbox analysis is a method used to analyze the system's functionality without looking at the internal workings of the system. It focuses on the inputs and outputs of the system and how they are related. The following table shows the blackbox analysis of the Human Benchmark system.
 
-We can see that the system has five main categories (\ref{tab:blackbox}): User Registration, User Login, Game management, Leaderboard management, and Game play. Each category has specific inputs and outputs that are related to the functionality of the system.
+We can see that the system has five main categories (\ref{tab:blackbox}): user registration, user login, game management, leaderboard management, and gameplay. Each category has specific inputs and outputs that are related to the functionality of the system.
 
 % a table with three columns, one for category, one for input, one for output
 \begin{table}[H]
@@ -414,27 +453,147 @@ BPMN diagrams, UML diagrams and use cases are used to model the system and its f
 BPMN diagrams are used to model the business processes of the system. The following BPMN diagrams are used to model the Human Benchmark system:
 
 \begin{itemize}
-    \item \textbf{Main BPMN diagram} - \ref{fig:main_bpmn} diagram models the main business processes of the system. 
+    \item \textbf{Access to Application BPMN diagram} - \ref{fig:access_bpmn} this diagram models user access to the application/account creation (Sign up, Log in). 
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.8\textwidth]{images/overview-BPMN.png}
-        \caption{Main BPMN diagram}
-        \label{fig:main_bpmn}
+        \includegraphics[width=0.8\textwidth]{images/sign up log in BPMN.png}
+        \caption{Access to Application BPMN diagram}
+        \label{fig:access_bpmn}
     \end{figure}
-    \item \textbf{Game BPMN diagram} - this diagram models the game processes of the system.
-    \item \textbf{User BPMN diagram} - \ref{fig:user_bpmn} diagram models the user processes of the system.
+
+    \item \textbf{Game ranking BPMN diagram} - \ref{fig:gameranking} this diagram models how games are rated after one is finnished and depending on their rating displayed accordingly for the users.
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.8\textwidth]{images/user-BPMN.png}
+        \includegraphics[width=0.8\textwidth]{images/game ranking BPMN.png}
         \hspace{-2cm}
-        \caption{User BPMN diagram}
-        \label{fig:user_bpmn}
+        \caption{Game ranking BPMN diagram}
+        \label{fig:gameranking}
     \end{figure}
-    \item \textbf{Leaderboard BPMN diagram} - this diagram models the leaderboard processes of the system.
+
+    \item \textbf{Leaderboard / Game playing / Score saving BPMN diagram} - \ref{fig:leaderboard} this diagram models game playing. How scores are saved after game is finnished and how new activity effects leaderboards. These processes don't have separate BPMN because they are quite interconnected and really depend on each other.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{images/leaderboards. score saving BPMN.png}
+        \hspace{-2cm}
+        \caption{Leaderboard / Game playing / Score saving BPMN diagram}
+        \label{fig:leaderboard}
+    \end{figure}
+
+    \item \textbf{Profile BPMN diagram} - \ref{fig:profile} This diagram models how profile information is loaded and displayed for the user.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{images/profile BPMN.png}
+        \hspace{-2cm}
+        \caption{Profile BPMN diagram}
+        \label{fig:profile}
+    \end{figure}
+
+    \item \textbf{Public and Private games BPMN diagram} - \ref{fig:publicprivate} This diagram models how public and private games are selected and displayed accordingly.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{images/public and private games BPMN.png}
+        \hspace{-2cm}
+        \caption{Public and Private games BPMN diagram}
+        \label{fig:publicprivate}
+    \end{figure}
+
 \end{itemize}
 
 \subsection{UML Diagrams}
-UML diagrams are used to model the system's architecture and structure. The following UML diagrams are used to model the Human Benchmark system:
+UML diagrams are used to model the system's architecture and structure. We follow the \textbf{4+1 View Model}. The following UML diagrams are used to model the Human Benchmark system:
+
+\begin{itemize}
+    \item \textbf{Logical View:} Class diagrams define key system components.
+    \item \textbf{Process View:} Activity diagrams illustrate system workflows.
+    \item \textbf{Physical View:} Deployment diagrams map software to hardware.
+    \item \textbf{Development View:} Component diagrams show code organization.
+    \item \textbf{Scenarios (Use Case View):} Use case diagrams capture user interactions.
+\end{itemize}
+
+\subsubsection{Creating Games / Private and Public games}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/newUMLs/privatePublicClass.png}
+    \caption{Creating / Private and Public games class diagram (Logical View)}
+    \label{fig:ERD}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/newUMLs/creatingPlayingGamesActivity.png}
+    \caption{Creating / Private and Public games / Playing games activity diagram (Process View)}
+    \label{fig:ERD}
+\end{figure}
+
+
+\subsubsection{Game History}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/newUMLs/GameHistoryClass.png}
+    \caption{Game History class diagram (Logical View)}
+    \label{fig:ERD}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/newUMLs/gameHostoryActivity.png}
+    \caption{Game History activity diagram (Process View)}
+    \label{fig:ERD}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/newUMLs/gamehistoryUseCase.png}
+    \caption{Game History Use case diagram (Use case View)}
+    \label{fig:ERD}
+\end{figure}
+
+
+\subsubsection{HighScores / Leaderboard}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/newUMLs/highScoresClass.png}
+    \caption{HighScores / Leaderboard class diagram (Logical View)}
+    \label{fig:ERD}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/newUMLs/highScoreSavingActivity.png}
+    \caption{HighScores activity diagram (Process View)}
+    \label{fig:ERD}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/newUMLs/viewingLeaderBoardActivity.png}
+    \caption{Leaderboard activity diagram (Process View)}
+    \label{fig:ERD}
+\end{figure}
+
+
+\subsubsection{Game rating}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/newUMLs/ratingClass.png}
+    \caption{ Game rating class diagram (Logical View)}
+    \label{fig:ERD}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/newUMLs/ratingGameActivity.png}
+    \caption{ Game rating activity diagram (Process View)}
+    \label{fig:ERD}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/newUMLs/ratingUseCase.png}
+    \caption{ Game rating use case diagram (Use case View)}
+    \label{fig:ERD}
+\end{figure}
+
 
 \subsubsection{Entity relation diagram}
 The entity relation diagram models the entities and their relationships in the system. The following figure shows the entity relation diagram of the Human Benchmark system.
@@ -459,7 +618,7 @@ Use case diagrams are used to model the use cases of the system. The following u
 
 \begin{itemize}
     \item 
-    The game use case diagram \ref{fig:game_use_case} models the game playing and creating.
+    The game use case diagram (\ref{fig:game_use_case}) models the game-playing and game-creation processes.
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.5\textwidth]{images/GameUC.drawio.png}
@@ -467,7 +626,7 @@ Use case diagrams are used to model the use cases of the system. The following u
         \label{fig:game_use_case}
     \end{figure}
     \item
-    The leaderboard use case diagram \ref{fig:leaderboard_use_case} models the leaderboard viewing.
+    The leaderboard use case diagram (\ref{fig:leaderboard_use_case}) models the leaderboard viewing.
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.5\textwidth]{images/LeaderBoardUC.drawio.png}
@@ -475,7 +634,7 @@ Use case diagrams are used to model the use cases of the system. The following u
         \label{fig:leaderboard_use_case}
     \end{figure}
     \item
-    The login use case diagram \ref{fig:login_use_case} models the login and registering process.
+    The login use case diagram (\ref{fig:login_use_case}) models the login and registering process.
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.5\textwidth]{images/LoginUC.drawio.png}
@@ -494,22 +653,97 @@ Use case diagrams are used to model the use cases of the system. The following u
 \section{Requirements}
 \label{sec:requirements}
 This section will discuss the user needs and requirements of the Human Benchmark system.
+\begin{itemize}
+ \item \textbf{User must be able to view their high scores}  Currently the system provides no means by which they can check their own progress in a certain game. To counteract this, we will add the ability to view each players high score for each game after the game is concluded. As such, users will be able to see whether they are improving or not. It is important for the our stakeholders, because they want users to be able to track their progress. This will be implemented by the software engineer team. The team will use Scrum as a way to ensure constant development and communication will occour during the beginning of the sprint when the team will discuss what changes need to be made, communicate, etc. The use case for this feature is simple. After playing a game the screen will not only display the score that was achieved during the session, but also the top score that that user has ever achieved. Maintenance for this requirement will be virtually not required since it will not interfere with any of the core functionality. To implement this we will add new entries in a database that will store the User, The game and the top score that has been achieved. Upon finishing the game this value will be retrieved and, if it has improved, updated accordingly.
+
+ \item \textbf{Private games must be implemented}   Our product currently only allows to play 'public' games i.e. if someone creates a game anyone has the ability to join the session. To fix this we will add private games - games which don't appear in the public list and where only select players can join. This is also important for our stakeholders, because it would make our product more appealing to teams or friend groups. This will also be implemented by our software engineer team and will follow the same methods in regards to the development and communication proccess. Maintenance will not be a large drawback, it will not affect the games itself only the connection. The use case is as follows: a user, when selecting a game may choose, via a checkbox, to have a private game, after which a new window will open showing the currently waiting players and a code, by which they can join the private game. Similarly, there will also be a standalone page in which a user may enter a code to join a private game. Once that is completed, the host(player that created the private game) may begin the game via click of a button upon which the game will commence and no new plyers will be allowed to join. This will be implemented by adding entries of private games storing the game, host, code, connected players, and "joinability". Upon the start of the game the joinability of the game will be set to false as to not allow new players to join.
+
+ \item \textbf{A game history must be implemented} Currently there is no way to see the history of the games that a logged in user has played. Stakeholder has expressed a need to have game history so that our app users can better track their progress. This task will also be carried out by the development team(Software Engineers) with the same methods for dialog and development. Maintenance will be minimal since it won't conflict with the main logic of games. The use case is as follows: when a user opens their profile, they will see a list which will contain all of the games that they have played which will include their score, the time of completion and what kind of game it was. This requirement will be achieved by adding new entries in the database which will have entries with the aforementioned data and a user.
+
+ \item \textbf{A rating system for user-created games must be implemented} By the current structure and functionality of our system, there is no way to rate games. This is important because there is no obvious way to determine the quality of the game, as such the stakeholders have expressed it as a need. This task will as well be caried out by our development team with the same methodology. The use case is as folows: When opening the page for a game a running total of "rates" will be shown. A logged in user then has the choice to either increase it by one or decrease it by one as such rating the game. Along with the absolute total, the site will also display a relative "rating" calculated as the ratio of those who liked it(chose to increase the rating) and those who didn't (decreaced the rating). This will be implemented by adding a new field to the database with the total number of "ups" and "Downs" and this data will be retrieved, shown and calculated when the game is opened. The expected maintenence is small since no changes to the games itself will take place.
+
+ \item \textbf{Users must be able to view the top 10 players for each game} Currently the product not only doesn't have a way to view the highest score of a specific user but also in general. As such staholders have made a request to add it. Simmilarly to the other requirements it will be implemented by the developer team and following the same methods. The use-case is as such: unlike the user's top score which will be diplayed after the game has ended; the "global" top score will be shown before as a list of usernames and their respective scores. The amount of entries in this list will be limited to 10 as to not clutter the screen and provide better user experience. This will be implemented in a similar manner to the requirement mentioned before, new entries added in the database to save these values. But unlike the previous requirement, since this data is subject to frequent change, a new entrie will be created that will uniquely store The top ranked players in each game.
+\end{itemize}
 
 \section{Results and discussion}
 \label{sec:results}
 This section will discuss the results of the system and its features. It will also discuss the demerits of the system and suggest possible improvements that can be made to the system.
 
+\subsection{System and Business Overview}
+SWOT analysis highlighted strengths like cognitive enhancement and gamification, 
+with challenges including device dependence and market competition. 
+MOST analysis set objectives (10\% reaction time improvement) and strategies like evidence-based practices and Google Ads.
+
+\subsection{Business and System Boundaries}
+Input/Output analysis identified resources needed and user data tracking. Blackbox analysis mapped core functionalities (user registration, game management). Key metrics (user registration, session duration) were established.
+
+\subsection{BPMN, UML, and Use Cases}
+BPMN modeled user interactions; Relationship diagram clarified business entity relations. Use Case diagrams mapped interactions like game creation and leaderboard viewing.
+
+\subsection{User Needs and Requirements}
+Stakeholder analysis identified needs: improve customizability, and add features such as private games, game history, achievements to boost engagement.
+
+\subsection{Potential Improvements}
+
+\begin{itemize}
+    \item Regular Content Updates: Introduce new game modes and challenges to make the platform less repetitive.
+    \item Ad Revenue Optimization: Explore premium features or subscriptions to reduce ad blocker impact on revenue.
+\end{itemize}
+
+\subsection{Limitations}
+The system's reliance on device performance may affect reaction time accuracy, especially on lower-end 
+devices. Market competition also poses challenges for user retention which necessitatates for continuous 
+innovation.
+
+\subsection{Conclusion of Results}
+The Human Benchmark system shows strong potential for reaction time improvment through specific training, supported by its engaging 
+design and progress tracking. Addressing weaknesses such as device dependence, market competition and implementing improvements like 
+personalization, content updates will be important for sustained success.
+
+
+
+
 \section{Conclusion}
 \label{sec:conclusion}
-This work has provided an overview of the Human Benchmark system and its features. It has also discussed the demerits of the system and suggested possible improvements that can be made to the system.
+This work has provided a deep examination of the Human Benchmark system, 
+focusing on its structure, functionality, and potential for growth. 
+Through a combination of analytical methods, we have gained a clear understanding of the system's current state, its strengths, and the challenges it faces. 
+The findings from this analysis highlight the system's potential, provide a roadmap for future development and improvement.
+
+\subsection{Reflecting on the System's Purpose}
+The Human Benchmark system was designed with the goal 
+of providing users with a platform to measure, track, 
+and improve their reaction times. This mission is clearly reflected
+by the system's engaging design, gamification elements, and 
+ability to track user progress. However, as the analysis has 
+shown, there are areas where the system can evolve to better 
+meet user needs and adapt to a competitive and ever-changing
+market.
+
+\subsection{Key Takeaway}
+
+\begin{itemize}
+\item Addresing Strengths: The system's strengths, such as its ability to enhance cognitive function, serve as a strong foundation for future growth.
+\item Addresing Weaknesses: Issues such as technical dependence on device performance.
+\item Opportunities for Innovation: The system has significant opportunities for innovation, specifically in areas like personalized learning, content updates, and alternative revenue models. By exploring these opportunities, the system can attract new users from diverse demographics.
+\item Mitigating Threats: Threats such as user disengagement and reliance on ad revenue pose risks to the system's sustainability. Proactive measures, such as introducing new game modes and diversifying revenue streams are essential to remove these threats.
+\end{itemize}
 
 
+
+\subsection{Moving Forward}
+The recommendations outlined in this work provide a clear path for the continued development of the Human Benchmark system. By focusing on enhancing user experience, increasing engagement, and exploring new revenue models, the business can position itself for long-term success.
+
+\subsection{Final Remarks}
+In conclusion, the Human Benchmark system represents a valuable tool for cognitive improvement, with a strong foundation and significant potential for growth. The insights gained from this analysis underscore the importance of continuous innovation and adaptation in maintaining the system's relevance and effectiveness. By implementing the proposed recommendations and remaining responsive to user needs, the Human Benchmark system can continue to thrive in the competitive landscape of cognitive training applications.
+
+This work serves as a starting point for future improvements, and we hope that the findings and recommendations will help to improve the system and business, ensuring it remains a valueble resource for users and a competitive platform in the market.
 
 
 % For details of what needs to be written in this section, please refer to the methodology requirements of the respective programme. 
 
 %add no numbered section for the requirement list
-\sectionnonum{Stakeholders needs}
+\sectionnonum{Stakeholders needs (Original list given to us by the stakeholders)}
 \label{sec:stakeholders_needs}
 These are all of the stakeholders needs. These needs are the foundation of our project and as such are the most important part of our project.
 

@@ -19,60 +19,162 @@
 
 \refsection{0}
   \datalist[entry]{anyt/global//global/global/global}
-    \entry{Gamification}{article}{}{}
-      \name{author}{2}{}{%
-        {{hash=19d9eff8e3c045c437127231eae73d03}{%
-           family={Dongjie\bibnamedelima Xu},
-           familyi={D\bibinitperiod\bibinitdelim X\bibinitperiod},
-           given={Janet\bibnamedelima Read},
-           giveni={J\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
-        {{hash=d56c7fec130e6aafa57c192b612561f1}{%
-           family={Allen},
-           familyi={A\bibinitperiod},
-           given={Julie},
-           giveni={J\bibinitperiod}}}%
-      }
-      \strng{namehash}{27239f9da9f79dcb6f0fbffc63d8e7d6}
-      \strng{fullhash}{27239f9da9f79dcb6f0fbffc63d8e7d6}
-      \strng{fullhashraw}{27239f9da9f79dcb6f0fbffc63d8e7d6}
-      \strng{bibnamehash}{27239f9da9f79dcb6f0fbffc63d8e7d6}
-      \strng{authorbibnamehash}{27239f9da9f79dcb6f0fbffc63d8e7d6}
-      \strng{authornamehash}{27239f9da9f79dcb6f0fbffc63d8e7d6}
-      \strng{authorfullhash}{27239f9da9f79dcb6f0fbffc63d8e7d6}
-      \strng{authorfullhashraw}{27239f9da9f79dcb6f0fbffc63d8e7d6}
-      \field{sortinit}{D}
-      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
-      \field{labelnamesource}{author}
+    \entry{BlockAds}{online}{}{}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labeltitlesource}{title}
-      \field{title}{Exploring the Effects of Progression Mechanics in Competitive and Collaborative Gamified Learning}
+      \field{title}{2023 eyeo Ad-Filtering Report}
+      \field{urlday}{1}
+      \field{urlmonth}{3}
+      \field{urlyear}{2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://blockthrough.com
+      \endverb
+      \verb{url}
+      \verb https://blockthrough.com
+      \endverb
     \endentry
-    \entry{LearningMotivation}{article}{}{}
-      \name{author}{2}{}{%
-        {{hash=5b2c85e5dda09d531361e79e6760e265}{%
-           family={Yitong\bibnamedelima Chen},
-           familyi={Y\bibinitperiod\bibinitdelim C\bibinitperiod},
-           given={Zerong\bibnamedelima Xie},
-           giveni={Z\bibinitperiod\bibinitdelim X\bibinitperiod}}}%
-        {{hash=4e65ec3420db65b99e723d768e569e32}{%
-           family={Chiu},
-           familyi={C\bibinitperiod},
-           given={Dickson\bibnamedelima K.W.},
-           giveni={D\bibinitperiod\bibinitdelim K\bibinitperiod}}}%
+    \entry{CognitiveFunction}{article}{}{}
+      \name{author}{3}{}{%
+        {{hash=eb3dce7b3bbdeb6048982e7ab6ff4bd6}{%
+           family={A},
+           familyi={A\bibinitperiod},
+           given={Prabu\bibnamedelima Kumar},
+           giveni={P\bibinitperiod\bibinitdelim K\bibinitperiod}}}%
+        {{hash=ae50ae11c9b649445b13f229dc3ef22c}{%
+           family={A.},
+           familyi={A\bibinitperiod},
+           given={Omprakash},
+           giveni={O\bibinitperiod}}}%
+        {{hash=951f2521f0e3112ce8cce3b169d86951}{%
+           family={al.},
+           familyi={a\bibinitperiod},
+           given={Kuppusamy\bibnamedelima M.},
+           giveni={K\bibinitperiod\bibinitdelim M\bibinitperiod},
+           prefix={et},
+           prefixi={e\bibinitperiod}}}%
       }
-      \strng{namehash}{ed71c3683ecaf437ae960379262d59b9}
-      \strng{fullhash}{ed71c3683ecaf437ae960379262d59b9}
-      \strng{fullhashraw}{ed71c3683ecaf437ae960379262d59b9}
-      \strng{bibnamehash}{ed71c3683ecaf437ae960379262d59b9}
-      \strng{authorbibnamehash}{ed71c3683ecaf437ae960379262d59b9}
-      \strng{authornamehash}{ed71c3683ecaf437ae960379262d59b9}
-      \strng{authorfullhash}{ed71c3683ecaf437ae960379262d59b9}
-      \strng{authorfullhashraw}{ed71c3683ecaf437ae960379262d59b9}
-      \field{sortinit}{Y}
-      \field{sortinithash}{8d291c51ee89b6cd86bf5379f0b151d8}
+      \strng{namehash}{93b8f88063fcde00ea28f07f51fc462b}
+      \strng{fullhash}{93b8f88063fcde00ea28f07f51fc462b}
+      \strng{fullhashraw}{93b8f88063fcde00ea28f07f51fc462b}
+      \strng{bibnamehash}{93b8f88063fcde00ea28f07f51fc462b}
+      \strng{authorbibnamehash}{93b8f88063fcde00ea28f07f51fc462b}
+      \strng{authornamehash}{93b8f88063fcde00ea28f07f51fc462b}
+      \strng{authorfullhash}{93b8f88063fcde00ea28f07f51fc462b}
+      \strng{authorfullhashraw}{93b8f88063fcde00ea28f07f51fc462b}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{Springer Nature Link}
-      \field{title}{Analytics of motivational factors of educational video games: LDA topic modeling and the 6 C’s learning motivation model}
+      \field{journaltitle}{BMC Medical Education}
+      \field{langid}{english}
+      \field{title}{How does cognitive function measured by the reaction time and critical flicker fusion frequency correlate with the academic performance of students?}
+      \field{volume}{20}
+      \field{year}{2020}
+    \endentry
+    \entry{AutoAds}{online}{}{}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labeltitlesource}{title}
+      \field{title}{Auto ads in-page formats bring 20\% total ad revenue uplift for HiNative}
+      \field{urlday}{1}
+      \field{urlmonth}{3}
+      \field{urlyear}{2024}
+      \field{year}{2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://support.google.com/adsense/answer/7037624?hl=en
+      \endverb
+      \verb{url}
+      \verb https://support.google.com/adsense/answer/7037624?hl=en
+      \endverb
+    \endentry
+    \entry{muckruck}{online}{}{}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labeltitlesource}{title}
+      \field{title}{Comparison of "improve reaction time" vs. "improve memory"}
+      \field{urlday}{5}
+      \field{urlmonth}{3}
+      \field{urlyear}{2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://muckrack.com
+      \endverb
+      \verb{url}
+      \verb https://muckrack.com
+      \endverb
+    \endentry
+    \entry{statista}{online}{}{}
+      \field{sortinit}{E}
+      \field{sortinithash}{8da8a182d344d5b9047633dfc0cc9131}
+      \field{labeltitlesource}{title}
+      \field{title}{Esports - Worldwide}
+      \field{urlday}{1}
+      \field{urlmonth}{3}
+      \field{urlyear}{2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://statista.com
+      \endverb
+      \verb{url}
+      \verb https://statista.com
+      \endverb
+    \endentry
+    \entry{competitiveEdge}{article}{}{}
+      \name{author}{4}{}{%
+        {{hash=c4ee9e9653a254a6ea5ea3c2281737d8}{%
+           family={Hasyim},
+           familyi={H\bibinitperiod}}}%
+        {{hash=c4ee9e9653a254a6ea5ea3c2281737d8}{%
+           family={Hasyim},
+           familyi={H\bibinitperiod}}}%
+        {{hash=9e75410344a16bbeff57ebb41b2ad2dd}{%
+           family={Bakri},
+           familyi={B\bibinitperiod}}}%
+        {{hash=0b25313888c462091a67dbacb78d39f3}{%
+           family={Muhammad},
+           familyi={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{fb0fa7d0b7fd898210bf595e5c9c6873}
+      \strng{fullhash}{fb0fa7d0b7fd898210bf595e5c9c6873}
+      \strng{fullhashraw}{fb0fa7d0b7fd898210bf595e5c9c6873}
+      \strng{bibnamehash}{fb0fa7d0b7fd898210bf595e5c9c6873}
+      \strng{authorbibnamehash}{fb0fa7d0b7fd898210bf595e5c9c6873}
+      \strng{authornamehash}{fb0fa7d0b7fd898210bf595e5c9c6873}
+      \strng{authorfullhash}{fb0fa7d0b7fd898210bf595e5c9c6873}
+      \strng{authorfullhashraw}{fb0fa7d0b7fd898210bf595e5c9c6873}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{The Journal of Business and Management Research}
+      \field{month}{07}
+      \field{title}{Challenges and Strategies for Small Business Survival}
+      \field{volume}{6}
+      \field{year}{2024}
+      \field{pages}{80\bibrangedash 90}
+      \range{pages}{11}
+      \verb{doi}
+      \verb 10.55098/tjbmr.v6i2.660
+      \endverb
+    \endentry
+    \entry{humanbenchmark}{online}{}{}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{labeltitlesource}{title}
+      \field{title}{Human Benchmark - Reaction Time Test}
+      \field{urlday}{1}
+      \field{urlmonth}{3}
+      \field{urlyear}{2025}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.humanbenchmark.com
+      \endverb
+      \verb{url}
+      \verb https://www.humanbenchmark.com
+      \endverb
     \endentry
     \entry{GameplayEngagement}{article}{}{}
       \name{author}{2}{}{%
@@ -99,53 +201,171 @@
       \field{sortinithash}{b2f54a9081ace9966a7cb9413811edb4}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{title}{Gameplay Engagement and Learning in GameBased Learning: A Systematic Review}
+      \field{journaltitle}{Review of Educational Research}
+      \field{number}{4}
+      \field{title}{Gameplay Engagement and Learning in Game-Based Learning: A Systematic Review}
+      \field{volume}{85}
+      \field{year}{2015}
+      \field{pages}{740\bibrangedash 779}
+      \range{pages}{40}
+      \verb{doi}
+      \verb 10.3102/0034654315577210
+      \endverb
     \endentry
-    \entry{GamificationInMarketing}{article}{}{}
-      \name{author}{1}{}{%
-        {{hash=728c8fe81d7ba1d969332392d0043283}{%
-           family={MARIO\bibnamedelima FRACULJ},
-           familyi={M\bibinitperiod\bibinitdelim F\bibinitperiod},
-           given={LORDAN\bibnamedelima KONDIĆ},
-           giveni={L\bibinitperiod\bibinitdelim K\bibinitperiod},
-           suffix={LUCIAN\bibnamedelima LEKAJ},
-           suffixi={L\bibinitperiod\bibinitdelim L\bibinitperiod}}}%
+    \entry{MinimalDesign}{article}{}{}
+      \name{author}{6}{}{%
+        {{hash=da4afe4849aedcacc375a2e691e193ff}{%
+           family={Lekaj},
+           familyi={L\bibinitperiod}}}%
+        {{hash=c7a450a6038409b05b4c0c7f1fcfe784}{%
+           family={Lucian},
+           familyi={L\bibinitperiod}}}%
+        {{hash=5540e9ff5c5e67b6cbf9642167c39446}{%
+           family={Kondic},
+           familyi={K\bibinitperiod}}}%
+        {{hash=a7034c19fc50fb1cdda90c766510c328}{%
+           family={Lordan},
+           familyi={L\bibinitperiod}}}%
+        {{hash=75f9dd453c939fc4704bb5456974c9dc}{%
+           family={Fraculj},
+           familyi={F\bibinitperiod}}}%
+        {{hash=1cc477616bb182e87ec7285bfbf8c34b}{%
+           family={Mario},
+           familyi={M\bibinitperiod}}}%
       }
-      \strng{namehash}{728c8fe81d7ba1d969332392d0043283}
-      \strng{fullhash}{728c8fe81d7ba1d969332392d0043283}
-      \strng{fullhashraw}{728c8fe81d7ba1d969332392d0043283}
-      \strng{bibnamehash}{728c8fe81d7ba1d969332392d0043283}
-      \strng{authorbibnamehash}{728c8fe81d7ba1d969332392d0043283}
-      \strng{authornamehash}{728c8fe81d7ba1d969332392d0043283}
-      \strng{authorfullhash}{728c8fe81d7ba1d969332392d0043283}
-      \strng{authorfullhashraw}{728c8fe81d7ba1d969332392d0043283}
+      \strng{namehash}{c628b37374373f83bd27d8ad26856423}
+      \strng{fullhash}{c628b37374373f83bd27d8ad26856423}
+      \strng{fullhashraw}{c628b37374373f83bd27d8ad26856423}
+      \strng{bibnamehash}{c628b37374373f83bd27d8ad26856423}
+      \strng{authorbibnamehash}{c628b37374373f83bd27d8ad26856423}
+      \strng{authornamehash}{c628b37374373f83bd27d8ad26856423}
+      \strng{authorfullhash}{c628b37374373f83bd27d8ad26856423}
+      \strng{authorfullhashraw}{c628b37374373f83bd27d8ad26856423}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{International journal of multidisciplinarity in business and science}
+      \field{month}{08}
+      \field{title}{Research on attitudes toward minimalistic design in marketing communications}
+      \field{volume}{9}
+      \field{year}{2023}
+      \field{pages}{5\bibrangedash 14}
+      \range{pages}{10}
+      \verb{doi}
+      \verb 10.56321/ijmbs.9.14.5
+      \endverb
+    \endentry
+    \entry{PersonalizedLearning}{article}{}{}
+      \name{author}{6}{}{%
+        {{hash=8d06493ab6f0fb31e791d2171b2bf444}{%
+           family={Makhambetova},
+           familyi={M\bibinitperiod}}}%
+        {{hash=bf4621e979026615e76cd80138e15b57}{%
+           family={Aliya},
+           familyi={A\bibinitperiod}}}%
+        {{hash=8e1c168c7b092086b2090ea482d8a47d}{%
+           family={Zhiyenbayeva},
+           familyi={Z\bibinitperiod}}}%
+        {{hash=71ac5222a79f575f7e44a6914e11f9c9}{%
+           family={Nadezhda},
+           familyi={N\bibinitperiod}}}%
+        {{hash=009db6bf873a6027e5d757998a9c1118}{%
+           family={Ergesheva},
+           familyi={E\bibinitperiod}}}%
+        {{hash=e4392a67989b2de9b5f5e7e1c5913373}{%
+           family={Elena},
+           familyi={E\bibinitperiod}}}%
+      }
+      \strng{namehash}{9e307b39fe9323bc7186055593f5e1ff}
+      \strng{fullhash}{9e307b39fe9323bc7186055593f5e1ff}
+      \strng{fullhashraw}{9e307b39fe9323bc7186055593f5e1ff}
+      \strng{bibnamehash}{9e307b39fe9323bc7186055593f5e1ff}
+      \strng{authorbibnamehash}{9e307b39fe9323bc7186055593f5e1ff}
+      \strng{authornamehash}{9e307b39fe9323bc7186055593f5e1ff}
+      \strng{authorfullhash}{9e307b39fe9323bc7186055593f5e1ff}
+      \strng{authorfullhashraw}{9e307b39fe9323bc7186055593f5e1ff}
       \field{sortinit}{M}
       \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{title}{RESEARCH ON ATTITUDES TOWARD MINIMALISTIC DESIGN IN MARKETING COMMUNICATIONS}
+      \field{journaltitle}{International Journal of Web-Based Learning and Teaching Technologies}
+      \field{month}{01}
+      \field{title}{Personalized Learning Strategy as a Tool to Improve Academic Performance and Motivation of Students}
+      \field{volume}{16}
+      \field{year}{2021}
+      \field{pages}{1\bibrangedash 17}
+      \range{pages}{17}
+      \verb{doi}
+      \verb 10.4018/IJWLTT.286743
+      \endverb
     \endentry
-    \entry{ReactionTime}{article}{}{}
-      \name{author}{1}{}{%
-        {{hash=e2b725bd752510be58ddb6a386351e91}{%
-           family={Scott},
-           familyi={S\bibinitperiod},
-           given={Jason},
-           giveni={J\bibinitperiod}}}%
+    \entry{PopulationDemographics}{online}{}{}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labeltitlesource}{title}
+      \field{title}{Population division}
+      \field{urlday}{1}
+      \field{urlmonth}{3}
+      \field{urlyear}{2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://population.un.org
+      \endverb
+      \verb{url}
+      \verb https://population.un.org
+      \endverb
+    \endentry
+    \entry{VideoGamesReaction}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=e63a3d5b0e3999385d453317676621e7}{%
+           family={Qazi},
+           familyi={Q\bibinitperiod},
+           given={Mumtaz},
+           giveni={M\bibinitperiod}}}%
+        {{hash=92662a52988f7b3df8748203e3e84167}{%
+           family={Matharu},
+           familyi={M\bibinitperiod},
+           given={Hardeep\bibnamedelima Singh},
+           giveni={H\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
       }
-      \strng{namehash}{e2b725bd752510be58ddb6a386351e91}
-      \strng{fullhash}{e2b725bd752510be58ddb6a386351e91}
-      \strng{fullhashraw}{e2b725bd752510be58ddb6a386351e91}
-      \strng{bibnamehash}{e2b725bd752510be58ddb6a386351e91}
-      \strng{authorbibnamehash}{e2b725bd752510be58ddb6a386351e91}
-      \strng{authornamehash}{e2b725bd752510be58ddb6a386351e91}
-      \strng{authorfullhash}{e2b725bd752510be58ddb6a386351e91}
-      \strng{authorfullhashraw}{e2b725bd752510be58ddb6a386351e91}
-      \field{sortinit}{S}
-      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \strng{namehash}{5a96522fdaa98868684b713ce2581b33}
+      \strng{fullhash}{5a96522fdaa98868684b713ce2581b33}
+      \strng{fullhashraw}{5a96522fdaa98868684b713ce2581b33}
+      \strng{bibnamehash}{5a96522fdaa98868684b713ce2581b33}
+      \strng{authorbibnamehash}{5a96522fdaa98868684b713ce2581b33}
+      \strng{authornamehash}{5a96522fdaa98868684b713ce2581b33}
+      \strng{authorfullhash}{5a96522fdaa98868684b713ce2581b33}
+      \strng{authorfullhashraw}{5a96522fdaa98868684b713ce2581b33}
+      \field{sortinit}{Q}
+      \field{sortinithash}{ce69a400a872ddd02ee7fdb3b38c6abd}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{title}{Reaction Time and Cognitive Abilities of Gamers and Non-Gamers}
+      \field{journaltitle}{International Journal of Science and Research Archive}
+      \field{title}{The effect of action and casual video games on visual reaction time and accommodation in non-gamers}
+      \field{volume}{10}
+      \field{year}{2023}
+      \field{pages}{745\bibrangedash 748}
+      \range{pages}{4}
+      \verb{doi}
+      \verb 10.30574/ijsra.2023.10.1.0798
+      \endverb
+    \endentry
+    \entry{googletrends}{online}{}{}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labeltitlesource}{title}
+      \field{title}{Search term: "improve reaction time"}
+      \field{urlday}{1}
+      \field{urlmonth}{3}
+      \field{urlyear}{2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://trends.google.com
+      \endverb
+      \verb{url}
+      \verb https://trends.google.com
+      \endverb
     \endentry
   \enddatalist
 \endrefsection
