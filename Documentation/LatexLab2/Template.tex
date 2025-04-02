@@ -145,6 +145,24 @@ UML diagrams are used to model the system's architecture and structure. We follo
     \item \textbf{GameVisibility}: Enum controlling access logic (PUBLIC/PRIVATE).
 \end{itemize}
 
+\subsubsection{Game History class diagram}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/clasNEWGameHistory.png}
+    \caption{Game history class diagram (Logical View)}
+    \label{fig:gamehistory}
+\end{figure}
+Yellow color distinquishes conceptual classes needed for requirment implementation.
+\begin{itemize}
+    \item \textbf{User}: Anchor for all history data (scores + sessions).
+    \item \textbf{Score}: Stores points earned and game type.
+    \item \textbf{GameSession}: Tracks play duration (EndTime - StartTime).
+    \item \textbf{Game}: Stores diffiulty setting.
+    \par Conceptual classes:
+    \item \textbf{HistoryController}: Delivers organized data - game history.
+    \item \textbf{GameHistoryDto}: Combines data from 3 tables for client-friendly output
+\end{itemize}
+
 
 
 
@@ -155,7 +173,7 @@ UML diagrams are used to model the system's architecture and structure. We follo
     \centering
     \includegraphics[width=0.8\textwidth]{images/seqPublic.png}
     \caption{Creating Public games sequence diagram (Process View)}
-    \label{fig:gamecreation}
+    \label{fig:privseq}
 \end{figure}
 Public game creation involves a client submitting a \textbf{GameConfigDto} to the \textbf{GameConfigController}, which converts it to a \textbf{GameConfig} and calls \textbf{GameService.CreateGameFromAsync()}. The service generates targets via \textbf{TargetService}, saves the game and targets via \textbf{AppDbContext}, and returns the created game. 
 
@@ -166,7 +184,7 @@ Private games follow the same initial flow but add extra steps: after saving the
     \centering
     \includegraphics[width=0.8\textwidth]{images/seqPrivate.png}
     \caption{Creating Private game sequence diagram (Process View)}
-    \label{fig:gamecreation}
+    \label{fig:pubseq}
 \end{figure}
 
 
