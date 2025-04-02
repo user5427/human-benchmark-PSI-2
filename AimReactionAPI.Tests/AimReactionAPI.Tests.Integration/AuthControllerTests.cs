@@ -60,10 +60,10 @@ namespace AimReactionAPI.Tests.Integration
             await _context.Users.AddAsync(existingUser);
             await _context.SaveChangesAsync();
 
-            var userDto = new UserDto { Email = "test@example.com", Name = "test" };
+            var UserRegisterDto = new UserRegisterDto { Email = "test@example.com", Name = "test" };
 
             // Act: Call the Register method
-            var result = await _controller.Register(userDto);
+            var result = await _controller.Register(UserRegisterDto);
 
             // Assert: Ensure the response is a BadRequest
             Assert.IsInstanceOf<BadRequestObjectResult>(result.Result);
@@ -84,10 +84,10 @@ namespace AimReactionAPI.Tests.Integration
             await _context.Users.AddAsync(existingUser);
             await _context.SaveChangesAsync();
 
-            var userDto = new UserDto { Email = "different@example.com", Name = "test", Password = "" };
+            var UserRegisterDto = new UserRegisterDto { Email = "different@example.com", Name = "test", Password = "" };
 
             //Act 
-            var result = await _controller.Register(userDto);
+            var result = await _controller.Register(UserRegisterDto);
 
             //Assert
             Assert.IsInstanceOf<BadRequestObjectResult>(result.Result);
@@ -98,7 +98,7 @@ namespace AimReactionAPI.Tests.Integration
         public async Task Register_NewUser_ReturnsUser()
         {
             // Arrange:
-            var userDto = new UserDto
+            var UserRegisterDto = new UserRegisterDto
             {
                 Email = "newuser@example.com",
                 Name = "test",
@@ -106,7 +106,7 @@ namespace AimReactionAPI.Tests.Integration
             };
 
             // Act
-            var result = await _controller.Register(userDto);
+            var result = await _controller.Register(UserRegisterDto);
 
             // Assert that the result is a CreatedAtActionResult
             var createdAtResult = result.Result as CreatedAtActionResult;
@@ -116,9 +116,9 @@ namespace AimReactionAPI.Tests.Integration
             var createdUser = createdAtResult.Value as User;
             Assert.IsNotNull(createdUser, "Expected the result to contain a User object");
 
-            // Assert that the returned User contains the same email and name as provided in the UserDto
-            Assert.AreEqual(userDto.Email, createdUser.Email, "The created user's email does not match the input email");
-            Assert.AreEqual(userDto.Name, createdUser.Name, "The created user's name does not match the input name");
+            // Assert that the returned User contains the same email and name as provided in the UserRegisterDto
+            Assert.AreEqual(UserRegisterDto.Email, createdUser.Email, "The created user's email does not match the input email");
+            Assert.AreEqual(UserRegisterDto.Name, createdUser.Name, "The created user's name does not match the input name");
 
             // Ensure the result is a valid ActionResult<User>
             Assert.IsInstanceOf<ActionResult<User>>(result);

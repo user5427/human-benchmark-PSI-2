@@ -5,6 +5,7 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import hitSound from "../../assets/Target-sound.mp3";
 import countSound from "../../assets/CountDown.mp3";
 import gameSound from "../../assets/GameStart-Sound.mp3";
+import { TargetArea } from "../../components/TargetArea/TargetArea";
 
 const DIFFICULTY_SETTINGS = {
   easy: { spawnInterval: 1200, expiryTime: 1200 },
@@ -213,19 +214,12 @@ const ReflexTest: React.FC = () => {
           <button onClick={handleStopGame}>Stop Game</button>
         </div>
       )}
-      <div className={styles.targetArea}>
         {countdown !== null && <div className={styles.countdown}>{countdown}</div>}
-        {target !== null && (
-          <div
-            className={styles.target}
-            style={{
-              top: `${Math.random() * 80}%`,
-              left: `${Math.random() * 80}%`,
-            }}
-            onClick={handleHitTarget}
-          />
-        )}
-      </div>
+        <TargetArea
+          showTarget={!countdown}
+          targetX={Math.random()}
+          targetY={Math.random()}
+          hitTarget={handleHitTarget} />
     </div>
   );
 };

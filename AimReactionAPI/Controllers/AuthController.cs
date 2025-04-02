@@ -29,9 +29,10 @@ public class AuthController : ControllerBase
 
     // Serilog, nlog?????
     [HttpPost("register")]
-    public async Task<ActionResult<User>> Register(UserDto userDto)
+    public async Task<ActionResult<User>> Register(UserRegisterDto userDto)
     {
-        try {
+        try
+        {
             if (await _context.Users.AnyAsync(u => u.Email == userDto.Email))
             {
                 throw new UserAlreadyExistsException("Email is already registered.");
@@ -56,13 +57,19 @@ public class AuthController : ControllerBase
 
             return CreatedAtAction(nameof(GetUserById), new { id = user.UserId }, user);
 
-        } catch (UserAlreadyExistsException ex) {
-            _logger.LogError(ex, "User Registration failed: {Email}",userDto.Email);
+        }
+        catch (UserAlreadyExistsException ex)
+        {
+            _logger.LogError(ex, "User Registration failed: {Email}", userDto.Email);
             return BadRequest(ex.Message);
-        } catch (PasswordEmptyException ex) {
+        }
+        catch (PasswordEmptyException ex)
+        {
             _logger.LogError(ex, "Password is empty for email: {Email}", userDto.Email);
             return BadRequest(ex.Message);
-        } catch (Exception ex) {
+        }
+        catch (Exception ex)
+        {
             _logger.LogError(ex, "Unexpected error during registration for email: {Email}", userDto.Email);
             return StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occured.");
         }
@@ -71,7 +78,8 @@ public class AuthController : ControllerBase
     [HttpPost("login")]
     public async Task<ActionResult<string>> Login(LoginDto loginDto)
     {
-        try {
+        try
+        {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == loginDto.Email);
             if (user == null)
             {
@@ -85,13 +93,19 @@ public class AuthController : ControllerBase
             }
 
             return Ok(user.UserId);
-        } catch (UserNotFoundException ex) {
+        }
+        catch (UserNotFoundException ex)
+        {
             _logger.LogWarning(ex, "User not found during login attempt for email {Email}.", loginDto.Email);
             return Unauthorized(ex.Message);
-        } catch (InvalidPasswordException ex) {
+        }
+        catch (InvalidPasswordException ex)
+        {
             _logger.LogWarning(ex, "Invalid password during login attempt for email {Email}.", loginDto.Email);
             return Unauthorized(ex.Message);
-        } catch (Exception ex) {
+        }
+        catch (Exception ex)
+        {
             _logger.LogError(ex, "Unexpected error occurred during login for email {Email}.", loginDto.Email);
             return StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
         }

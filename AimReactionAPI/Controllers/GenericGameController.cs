@@ -36,12 +36,18 @@ public class GenericGameController : ControllerBase
     }
 
     [HttpGet("games")]
-    public async Task<ActionResult> GetAllGames()
+    public async Task<ActionResult> GetAllGames([FromQuery] int userId)
     {
         var games = await _context.Games
-            .Select(g => new
+            .Where(g =>
+                g.CreatorId == userId ||
+                g.Visibility == GameVisibility.PUBLIC ||
+                _context.GameUsers.Any(gu => gu.GameId == g.GameId && gu.UserId == userId)
+            )
+            .Select(g => new MiniGameDto
             {
                 GameId = g.GameId,
+                CreatorId = g.CreatorId,
                 GameDescription = new GameDescription(g.GameName, g.GameDescription, g.GameType),
                 GameDifficulty = g.DifficultyLevel
             })
@@ -51,7 +57,7 @@ public class GenericGameController : ControllerBase
     }
 
     [HttpGet("games/{id}")]
-    public async Task<ActionResult<GameDto>> GetGameById(int id)
+    public async Task<ActionResult<GameDto>> GetGameById(int id, [FromQuery] int userId)
     {
         Game? game = await _context.Games.FirstOrDefaultAsync(g => g.GameId == id);
 
@@ -60,16 +66,29 @@ public class GenericGameController : ControllerBase
             return NotFound("Game not found");
         }
 
+        if (!HasAccess(game, userId))
+        {
+            return Unauthorized("Unauthorized access");
+        }
+
+        List<int> allowedUsers = _context.GameUsers
+                                    .Where(gu => gu.GameId == game.GameId)
+                                    .Select(gu => gu.UserId)
+                                    .ToList();
+
         var gameDto = new GameDto
         {
             GameId = game.GameId,
-            GameName = game.GameName,
-            GameDescription = game.GameDescription,
+            Name = game.GameName,
+            Description = game.GameDescription,
             DifficultyLevel = game.DifficultyLevel,
             TargetSpeed = game.TargetSpeed,
             MaxTargets = game.MaxTargets,
             GameDuration = game.GameDuration,
-            GameType = game.GameType
+            GameType = game.GameType,
+            AllowedUsers = allowedUsers,
+            CreatorId = game.CreatorId,
+            Visibility = game.Visibility
         };
 
         return Ok(gameDto);
@@ -91,13 +110,18 @@ public class GenericGameController : ControllerBase
     }
 
     [HttpDelete("games/{id}")]
-    public async Task<IActionResult> DeleteGame(int id)
+    public async Task<IActionResult> DeleteGame(int id, [FromQuery] int userId)
     {
         Game? game = await _context.Games.FindAsync(id);
 
         if (game == null)
         {
             return NotFound("Game not found");
+        }
+
+        if (!HasAccess(game, userId))
+        {
+            return Unauthorized("Unauthorized access");
         }
 
         _context.Games.Remove(game);
@@ -109,7 +133,7 @@ public class GenericGameController : ControllerBase
     [HttpPost("{userId}/addscore")]
     public async Task<IActionResult> AddScore([FromRoute] int userId, [FromBody] AddScoreDto scoreDto)
     {
-        Console.WriteLine($"Received gameId: {scoreDto.GameId}, userId: {userId}");;
+        Console.WriteLine($"Received gameId: {scoreDto.GameId}, userId: {userId}"); ;
         var user = await _context.Users
             .FirstOrDefaultAsync(u => u.UserId == userId);
 
@@ -119,8 +143,8 @@ public class GenericGameController : ControllerBase
         }
 
         var game = await _context.Games.FirstOrDefaultAsync(g => g.GameId == scoreDto.GameId);
-        if (game == null) 
-        {   
+        if (game == null)
+        {
             return NotFound("Game not found");
         }
 
@@ -146,5 +170,13 @@ public class GenericGameController : ControllerBase
     {
         var activeCount = _gameSessionHandler.GetActiveSessionCount();
         return Ok(new { activeSessions = activeCount });
+    }
+
+
+    private bool HasAccess(Game game, int userId)
+    {
+        return game.CreatorId == userId ||
+            game.Visibility == GameVisibility.PUBLIC ||
+            _context.GameUsers.Any(gu => gu.GameId == game.GameId && gu.UserId == userId);
     }
 }

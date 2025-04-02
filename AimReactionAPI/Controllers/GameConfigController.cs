@@ -22,36 +22,30 @@ public class GameConfigController : ControllerBase
         _gameService = gameService;
     }
 
-    // POST api/gameconfig/upload
-    [HttpPost("upload")]
-    public async Task<IActionResult> UploadGameConfig([FromBody] GameConfigDto gameConfigDto)
+
+    // PUT api/gameconfig
+    [HttpPut]
+    public async Task<IActionResult> CreateOrUpdateGame([FromBody] GameConfigDto gameConfig)
     {
-        if (gameConfigDto == null)
+        if (gameConfig == null)
         {
             return BadRequest("Invalid game configuration data.");
         }
-
-        GameConfig? gameConfig = new GameConfig
-        {
-            Name = gameConfigDto.Name,
-            Description = gameConfigDto.Description,
-            DifficultyLevel = gameConfigDto.DifficultyLevel,
-            TargetSpeed = gameConfigDto.TargetSpeed,
-            MaxTargets = gameConfigDto.MaxTargets,
-            GameDuration = gameConfigDto.GameDuration,
-            GameType = gameConfigDto.GameType
-        };
-
         try
         {
-            Game? game = await _gameService.CreateGameFromAsync(gameConfig);
+            Game? game = await _gameService.CreateOrUpdateGameAsync(gameConfig);
 
             if (game == null)
             {
-                return StatusCode(500, "Game creation failed.");
+                return StatusCode(500, "Operation failed.");
             }
 
             return Ok(game);
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            return StatusCode(400, ex.Message);
+
         }
         catch (Exception ex)
         {
