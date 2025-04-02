@@ -29,7 +29,6 @@
 
 .modal input {
   color: black;
-  width: 100%;
   padding: 8px;
   margin-bottom: 15px;
   border: 1px solid #ccc;
@@ -39,7 +38,6 @@
 .modal button {
   margin: 5px;
 }
-
 
 .modal::before {
   content: "";
@@ -52,10 +50,22 @@
   z-index: -1;
 }
 
+.enterRoomInput {
+  width: 100%;
+}
+
 .inputItem {
   display: flex;
   flex-direction: column;
   margin-bottom: 10px;
+}
+
+.inputItem select {
+  color: black;
+}
+
+.inputItem option {
+  color: black;
 }
 
 .roomItem {
@@ -64,6 +74,3 @@
   align-items: center;
   margin-bottom: 10px;
 }
-
-
-

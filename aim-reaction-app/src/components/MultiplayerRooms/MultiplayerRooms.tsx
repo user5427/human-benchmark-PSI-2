@@ -11,7 +11,7 @@ type OnlineRoomsProp = {
 }
 
 
-const OnlineRooms = ({ joinRoom, createRoom, rooms }: OnlineRoomsProp) => {
+const MultiplayerRooms = ({ joinRoom, createRoom, rooms }: OnlineRoomsProp) => {
   const { userId } = useAuth();
   const [showModal, setShowModal] = useState(false);
   const [newRoomName, setNewRoomName] = useState("");
@@ -67,11 +67,11 @@ const OnlineRooms = ({ joinRoom, createRoom, rooms }: OnlineRoomsProp) => {
           <input
             type="text"
             value={newRoomName}
+            className={styles.enterRoomInput}
             onChange={(e) => setNewRoomName(e.target.value)}
             placeholder="Enter room title"
           />
           <div className={styles.inputItem}>
-            <label htmlFor="visibility">Visibility</label>
             <select
               id="visibility"
               value={visibility}
@@ -97,4 +97,4 @@ const OnlineRooms = ({ joinRoom, createRoom, rooms }: OnlineRoomsProp) => {
   );
 };
 
-export default OnlineRooms;
+export default MultiplayerRooms;
