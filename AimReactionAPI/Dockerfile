@@ -6,6 +6,7 @@ USER app
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
+EXPOSE 8080
 
 
 # This stage is used to build the service project

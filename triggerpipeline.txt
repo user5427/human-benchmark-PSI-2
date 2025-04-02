@@ -1,1 +1,6 @@
 migrate and minor
+
+in case vm interface goes down again:
+ip a
+sudo ip set link eth0 up
+sudo dhclient eth0
