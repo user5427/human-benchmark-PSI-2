@@ -108,16 +108,14 @@ For any written work, you must refer to the methodology guidelines of the respec
 UML diagrams are used to model the system's architecture and structure. We follow the \textbf{4+1 View Model}. The following UML diagrams are used to model the Human Benchmark system:
 
 \begin{itemize}
-    \item \textbf{Logical View:} Class diagrams define key system components.
-    \item \textbf{Process View:} Activity diagrams illustrate system workflows.
+    \item \textbf{Logical View:} Class diagrams define key system components (\autoref{sec:logical}).
+    \item \textbf{Process View:} Activity diagrams illustrate system workflows (\autoref{sec:process}).
     \item \textbf{Physical View:} Deployment diagrams map software to hardware.
     \item \textbf{Development View:} Component diagrams show code organization.
-    \item \textbf{Scenarios (Use Case View):} Use case diagrams capture user interactions.
+    \item \textbf{Scenarios (Use Case View):} Use case diagrams capture user interactions (\autoref{sec:usecase}).
 \end{itemize}
 
-
-
-\subsection{Logical View}
+\subsection{Logical View} \label{sec:logical}
 
 \subsubsection{AppDbContext}
 \begin{figure}[H]
@@ -128,14 +126,16 @@ UML diagrams are used to model the system's architecture and structure. We follo
 \end{figure}
 \textbf{AppDbContext}: Acts as the bridge between C\# code and the database, managing all entity collections and relationships.
 
-\subsubsection{Creating Private and Public games class diagram}
+\subsubsection{Creating Private and Public Games Class Diagram}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{images/GameCreationClassImg.png}
     \caption{Creating Private and Public games class diagram (Logical View)}
     \label{fig:gamecreation}
-    Green color distinquishes more important parts specifically in PRIVATE/PUBLIC game creation.
+    
 \end{figure}
+See also: \autoref{fig:privpubactivity} for related activity diagram.
+\par Green color distinguishes more important parts specifically in PRIVATE/PUBLIC game creation.
 \begin{itemize}
     \item \textbf{GameConfigDto}: Carries user input.
     \item \textbf{GameConfigController}: Receives user input, validates it and calls \textbf{GameService}.
@@ -145,39 +145,51 @@ UML diagrams are used to model the system's architecture and structure. We follo
     \item \textbf{GameVisibility}: Enum controlling access logic (PUBLIC/PRIVATE).
 \end{itemize}
 
-\subsubsection{Game History class diagram}
+\subsubsection{Highscore and Leaderboard}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/highLeadClass.png}
+    \caption{Highscore and leaderboard class diagram (Logical View)}
+    \label{fig:leaderboard}
+\end{figure}
+See also: \autoref{fig:leaderhighactivity} for related activity diagram.
+\par Yellow color shows what is conceptual and green - what's more important for Highscores/Leaderboards
+\begin{itemize}
+    \item \textbf{User}: Anchor for score relationships.
+    \item \textbf{Score}: Records individual attempts.
+    \par Conceptual classes:
+    \item \textbf{Leaderboard}: Maintains top 10 rankings.
+    \item \textbf{LeaderboardController}: Manages ranking data.
+\end{itemize}
+
+\subsubsection{Game History}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{images/clasNEWGameHistory.png}
-    \caption{Game history class diagram (Logical View)}
-    \label{fig:gamehistory}
+    \caption{Game History class diagram (Logical View)}
+    \label{fig:gameHistory}
 \end{figure}
-Yellow color distinquishes conceptual classes needed for requirment implementation.
+\par Yellow color shows what is conceptual.
 \begin{itemize}
-    \item \textbf{User}: Anchor for all history data (scores + sessions).
-    \item \textbf{Score}: Stores points earned and game type.
-    \item \textbf{GameSession}: Tracks play duration (EndTime - StartTime).
-    \item \textbf{Game}: Stores diffiulty setting.
+    \item \textbf{User}: Root entity that owns all game history through score and session relationships.
+    \item \textbf{Score}: Immutable record of game results (points, reaction time, timestamp). 
+    \item \textbf{Game}: Contains static game properties (name, type, difficulty) for historical context.
     \par Conceptual classes:
-    \item \textbf{HistoryController}: Delivers organized data - game history.
-    \item \textbf{GameHistoryDto}: Combines data from 3 tables for client-friendly output
+    \item \textbf{GameHistoryDto}: Shows history entries.
+    \item \textbf{HistoryController}: Orchestrates history retrieval.
 \end{itemize}
 
+\subsection{Process View} \label{sec:process}
 
-
-
-\subsection{Process View}
-
-\subsubsection{Creating Public games sequence diagram}
+\subsubsection{Creating Public Games Sequence Diagram}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{images/seqPublic.png}
     \caption{Creating Public games sequence diagram (Process View)}
     \label{fig:privseq}
 \end{figure}
-Public game creation involves a client submitting a \textbf{GameConfigDto} to the \textbf{GameConfigController}, which converts it to a \textbf{GameConfig} and calls \textbf{GameService.CreateGameFromAsync()}. The service generates targets via \textbf{TargetService}, saves the game and targets via \textbf{AppDbContext}, and returns the created game. 
 
-\subsubsection{Creating Private games sequence diagram}
+\subsubsection{Creating Private Games Sequence Diagram}
 Private games follow the same initial flow but add extra steps: after saving the game, \textbf{GameService} calls \textbf{GameUserService.SetGameUsersAsync()} to delete existing and insert new \textbf{GameUser} records, enforcing access control. Both flows return the \textbf{Game} entity, but private games require two database transactions (game + targets and user permissions) versus public games' single transaction.
 \par Green color shows what is different from creating Public game sequence diagram.
 \begin{figure}[H]
@@ -187,16 +199,28 @@ Private games follow the same initial flow but add extra steps: after saving the
     \label{fig:pubseq}
 \end{figure}
 
-
-
-\subsection{Use Case View}
-\subsubsection{Creating Private and Public games activity diagram}
+\subsection{Use Case View} \label{sec:usecase}
+\subsubsection{Creating Private and Public Games Activity Diagram}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{images/activPrivPubl.png}
     \caption{Private and Public game creation simplified activity diagram (Use Case View)}
-    \label{fig:ERD}
+    \label{fig:privpubactivity}
 \end{figure}
+See also: \autoref{fig:gamecreation} for the corresponding class diagram.
+
+\subsubsection{Leaderboard Activity Diagram}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/leaderHighAct.png}
+    \caption{Leaderboard activity diagram (Use Case View)}
+    \label{fig:leaderhighactivity}
+\end{figure}
+See also: \autoref{fig:leaderboard} for the corresponding class diagram.
+
+
+
+
 
 
 
