@@ -532,11 +532,12 @@ Notice that our database is hosted on Aiven and not on the same VM as the applic
 
 \textbf{Storage needs}
 \textbf{Notice: } all of these mesurments were carried out on a Debian 12 minimal console only installation. We used Docker version 20.10.24+dfsg1.
-The commands \texttt{sudo docker ps -a -s}, \texttt{sudo docker system df} and \texttt{sudo docker system df -v} will be used to retrieve this data.\\
+The commands \texttt{sudo docker ps -a -s}, \texttt{sudo docker system df} and \texttt{sudo docker system df -v} will be used to retrieve this data:
 
-SIZE: This is the amount of data that is used by the writable layer of the container (i.e., the changes made to the container's filesystem).
-
-VIRTUAL SIZE: This is the total size of the container, including the read-only image layers and the writable layer.
+\begin{itemize}
+    \item SIZE: This is the amount of data that is used by the writable layer of the container (i.e., the changes made to the container's filesystem).
+    \item VIRTUAL SIZE: This is the total size of the container, including the read-only image layers and the writable layer.
+\end{itemize}
 
 \begin{table}[H]
     \centering
@@ -836,7 +837,7 @@ Therefore, the database requirements are \ref{tab:system-requirements}:
         Database Storage & 1 GB & 5 GB \\ 
         \hline
     \end{tabular}
-    \caption{System Requirements for Database and VM}
+    \caption{System Requirements for Database}
     \label{tab:system-requirements}
 \end{table}
 

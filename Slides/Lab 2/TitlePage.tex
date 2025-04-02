@@ -53,7 +53,7 @@
                 \caption{Stage 1}
             \end{figure}
             \column{0.5\textwidth} % Right column for the text
-            \textbf{Stage 1 Description:} \\
+            \textbf{Stage 1 description:} \\
             Application building commands:
             \begin{itemize}
                 \item \texttt{dotnet build}
@@ -74,8 +74,56 @@
             \caption{Stages 2-3}
         \end{figure}
         \column{0.5\textwidth} % Right column for the text
-        \textbf{Description:} \\
-        Add your description or explanation for Stages 2-3 here.
+        \textbf{Stage 2 description:} \\
+        Application testing commands:
+        \begin{itemize}
+            \item \texttt{dotnet test}
+            \item \texttt{npm run test}
+        \end{itemize}
+        Average time: 37s
+        
+        Vitest and NUnit are used for testing frontend and backend. 
+    \end{columns}
+\end{frame}
+
+\begin{frame}{CI/CD Stages 2-3}
+    \begin{columns}[T] % Align columns to the top
+        \column{0.5\textwidth} % Left column for the image
+        \begin{figure}
+            \includegraphics[width=\linewidth]{images/cicd/"stage 2-3.png"}
+            \caption{Stages 2-3}
+        \end{figure}
+        \column{0.5\textwidth} % Right column for the text
+        \textbf{Stage 3 description:} \\
+        Application dockerization commands:
+        \begin{itemize}
+            \item \texttt{docker build -t frontend-app .}
+            \item \texttt{docker build -t backend-app .}
+        \end{itemize}
+        Average time: 17s
+
+        Max time: 87s
+
+        Min time: 6s
+    \end{columns}
+\end{frame}
+
+\begin{frame}{CI/CD Stages 4-5}
+    \begin{columns}[T] % Align columns to the top
+        \column{0.5\textwidth} % Left column for the image
+        \begin{figure}
+            \includegraphics[width=\linewidth]{images/cicd/"stage 4-5.png"}
+            \caption{Stages 4-5}
+        \end{figure}
+        \column{0.5\textwidth} % Right column for the text
+        \textbf{Stage 4 description:} \\
+        Database update command:
+        \begin{itemize}
+            \item \texttt{dotnet ef database update}
+        \end{itemize}
+        Average time: 14s
+
+        The developer must include \textbf{\#migration} in the commit message to trigger this stage.
     \end{columns}
 \end{frame}
 
@@ -88,8 +136,74 @@
         \end{figure}
         \column{0.5\textwidth} % Right column for the text
         \textbf{Description:} \\
-        Add your description or explanation for Stages 4-5 here.
+        Deployment command:
+        \begin{itemize}
+            \item \texttt{docker-compose up -d}
+        \end{itemize}
+        Average time: 8s
     \end{columns}
+\end{frame}
+
+
+\begin{frame}{Deployment Environment}
+    \begin{figure}
+        \includegraphics[width=0.8\linewidth]{images/cicd/DeploymentEnv.drawio.png}
+        \caption{Deployment Environment}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Production Diagram}
+    \begin{figure}
+        \includegraphics[width=0.65\linewidth]{images/cicd/PROD Diagram.drawio.png}
+        \caption{Production Diagram}
+    \end{figure}
+\end{frame}
+
+
+\begin{frame}{Resource Needs}
+    Database resource needs:
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|c|c|c|}
+            \hline
+            \textbf{Requirement Type} & \textbf{Minimal Requirements} & \textbf{Recommended Requirements} \\ 
+            \hline
+            Database CPU & 1 core & 1 core \\ 
+            \hline
+            Database RAM & 1 GB & 1 GB \\ 
+            \hline
+            Database Storage & 1 GB & 5 GB \\ 
+            \hline
+        \end{tabular}
+        \caption{System Requirements for Database}
+        \label{tab:system-requirements}
+    \end{table}
+\end{frame}
+
+\begin{frame}{Resource Needs}
+    Host device resource needs:
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|c|c|c|}
+            \hline
+            \textbf{Resource Type} & {Minimal needs} & {Recommended} \\ 
+            \hline
+            Storage & 6 GB & 10 GB \\ 
+            \hline
+            RAM & 1 GB & 2 GB \\ 
+            \hline
+            CPU & 0.4 core & 1 core \\ 
+            \hline
+            Network Upload & 629 Mbit/s & 1 Gbit/s \\
+            \hline
+            Network Download & 8 Mbit/s & 200 Mbit/s \\
+            \hline
+            Network Latency & ≈30 ms & ≈10 ms \\
+            \hline
+        \end{tabular}
+        \caption{Host Device Resource Needs}
+        \label{tab:resource-types}
+    \end{table}
 \end{frame}
 
 
