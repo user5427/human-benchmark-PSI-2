@@ -53,7 +53,7 @@
                 \caption{Stage 1}
             \end{figure}
             \column{0.5\textwidth} % Right column for the text
-            \textbf{Stage 1 Description:} \\
+            \textbf{Stage 1 description:} \\
             Application building commands:
             \begin{itemize}
                 \item \texttt{dotnet build}
@@ -74,8 +74,56 @@
             \caption{Stages 2-3}
         \end{figure}
         \column{0.5\textwidth} % Right column for the text
-        \textbf{Description:} \\
-        Add your description or explanation for Stages 2-3 here.
+        \textbf{Stage 2 description:} \\
+        Application testing commands:
+        \begin{itemize}
+            \item \texttt{dotnet test}
+            \item \texttt{npm run test}
+        \end{itemize}
+        Average time: 37s
+        
+        Vitest and NUnit are used for testing frontend and backend. 
+    \end{columns}
+\end{frame}
+
+\begin{frame}{CI/CD Stages 2-3}
+    \begin{columns}[T] % Align columns to the top
+        \column{0.5\textwidth} % Left column for the image
+        \begin{figure}
+            \includegraphics[width=\linewidth]{images/cicd/"stage 2-3.png"}
+            \caption{Stages 2-3}
+        \end{figure}
+        \column{0.5\textwidth} % Right column for the text
+        \textbf{Stage 3 description:} \\
+        Application dockerization commands:
+        \begin{itemize}
+            \item \texttt{docker build -t frontend-app .}
+            \item \texttt{docker build -t backend-app .}
+        \end{itemize}
+        Average time: 17s
+
+        Max time: 87s
+
+        Min time: 6s
+    \end{columns}
+\end{frame}
+
+\begin{frame}{CI/CD Stages 4-5}
+    \begin{columns}[T] % Align columns to the top
+        \column{0.5\textwidth} % Left column for the image
+        \begin{figure}
+            \includegraphics[width=\linewidth]{images/cicd/"stage 4-5.png"}
+            \caption{Stages 4-5}
+        \end{figure}
+        \column{0.5\textwidth} % Right column for the text
+        \textbf{Stage 4 description:} \\
+        Database update command:
+        \begin{itemize}
+            \item \texttt{dotnet ef database update}
+        \end{itemize}
+        Average time: 14s
+
+        The developer must include \textbf{\#migration} in the commit message to trigger this stage.
     \end{columns}
 \end{frame}
 
@@ -88,9 +136,29 @@
         \end{figure}
         \column{0.5\textwidth} % Right column for the text
         \textbf{Description:} \\
-        Add your description or explanation for Stages 4-5 here.
+        Deployment command:
+        \begin{itemize}
+            \item \texttt{docker-compose up -d}
+        \end{itemize}
+        Average time: 8s
     \end{columns}
 \end{frame}
+
+
+\begin{frame}{Deployment Environment}
+    \begin{figure}
+        \includegraphics[width=0.8\linewidth]{images/cicd/DeploymentEnv.drawio.png}
+        \caption{Deployment Environment}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Production Diagram}
+    \begin{figure}
+        \includegraphics[width=0.65\linewidth]{images/cicd/PROD Diagram.drawio.png}
+        \caption{Production Diagram}
+    \end{figure}
+\end{frame}
+
 
 
 %------------------------------------------------
