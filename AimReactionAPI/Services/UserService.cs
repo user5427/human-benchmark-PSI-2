@@ -22,7 +22,7 @@ public class UserService
                         .ToListAsync();
     }
 
-    public async Task<User?> FindUser(int userId)
+    public virtual async Task<User?> FindUser(int userId)
     {
         return await _context.Users
             .Where(u => u.UserId == userId)
