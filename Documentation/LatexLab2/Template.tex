@@ -105,14 +105,15 @@ This work analyses the Human Benchmark application using UML 4 + 1 method. It al
 
 
 \section{UML Diagrams}
-UML diagrams are used to model the system's architecture and structure. We follow the \textbf{4+1 View Model}. The following UML diagrams are used to model the Human Benchmark system:
+UML diagrams are used to model the system's architecture and structure. We follow the \textbf{4+1 View Model}. 
+The following UML diagrams are used to model the Human Benchmark system:
 
 \begin{itemize}
     \item \textbf{Logical View:} Class diagrams define key system components (\autoref{sec:logical}).
-    \item \textbf{Process View:} Activity diagrams illustrate system workflows (\autoref{sec:process}).
-    \item \textbf{Physical View:} Deployment diagrams map software to hardware.
-    \item \textbf{Development View:} Component diagrams show code organization.
-    \item \textbf{Scenarios (Use Case View):} Use case diagrams capture user interactions (\autoref{sec:usecase}).
+    \item \textbf{Process View:} Sequence diagrams to illustrate system workflows (\autoref{sec:process}).
+    \item \textbf{Physical View:} Deployment diagrams map software to hardware. (\autoref{sec:deployment})
+    \item \textbf{Development View:} Component diagrams show code organization. (\autoref{sec:component})
+    \item \textbf{Use Case View:} Activity diagrams to show how everything works (\autoref{sec:usecase}).
 \end{itemize}
 
 \subsection{Logical View} \label{sec:logical}
@@ -132,9 +133,8 @@ UML diagrams are used to model the system's architecture and structure. We follo
     \includegraphics[width=0.8\textwidth]{images/GameCreationClassImg.png}
     \caption{Creating Private and Public games class diagram (Logical View)}
     \label{fig:gamecreation}
-    
 \end{figure}
-See also: \autoref{fig:privpubactivity} for related activity diagram.
+See also: \autoref{fig:privpubactivity} for related activity diagram or \autoref{fig:privseq} for sequence diagrams.
 \par Green color distinguishes more important parts specifically in PRIVATE/PUBLIC game creation.
 \begin{itemize}
     \item \textbf{GameConfigDto}: Carries user input.
@@ -153,12 +153,10 @@ See also: \autoref{fig:privpubactivity} for related activity diagram.
     \label{fig:leaderboard}
 \end{figure}
 See also: \autoref{fig:leaderhighactivity} for related activity diagram.
-\par Yellow color shows what is conceptual and green - what's more important for Highscores/Leaderboards
+\par Yellow color shows what is conceptual and green - what's more important for Highscores/Leaderboards.
 \begin{itemize}
     \item \textbf{User}: Anchor for score relationships.
     \item \textbf{Score}: Records individual attempts.
-    \par Conceptual classes:
-    \item \textbf{Leaderboard}: Maintains top 10 rankings.
     \item \textbf{LeaderboardController}: Manages ranking data.
 \end{itemize}
 
@@ -169,14 +167,32 @@ See also: \autoref{fig:leaderhighactivity} for related activity diagram.
     \caption{Game History class diagram (Logical View)}
     \label{fig:gameHistory}
 \end{figure}
+See also: \autoref{fig:gamehistoryactivity} for related activity diagram.
 \par Yellow color shows what is conceptual.
 \begin{itemize}
     \item \textbf{User}: Root entity that owns all game history through score and session relationships.
-    \item \textbf{Score}: Immutable record of game results (points, reaction time, timestamp). 
-    \item \textbf{Game}: Contains static game properties (name, type, difficulty) for historical context.
+    \item \textbf{Score}: Immutable record of game results. 
+    \item \textbf{Game}: Contains static game properties for historical context.
     \par Conceptual classes:
     \item \textbf{GameHistoryDto}: Shows history entries.
     \item \textbf{HistoryController}: Orchestrates history retrieval.
+\end{itemize}
+
+\subsubsection{Game Rating}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/gameRatingClassNEW.png}
+    \caption{Game Rating class diagram (Logical View)}
+    \label{fig:gameRating}
+\end{figure}
+See also: \autoref{fig:gameRatingSeq} for related sequence diagram.
+\par Yellow color shows what is conceptual.
+\begin{itemize}
+    \item \textbf{Game}: Root entity that owns all game history through score and session relationships.
+    \par Conceptual classes:
+    \item \textbf{GameRating}: Tracks upvotes/downvotes.
+    \item \textbf{GameRatingService}: Updates votes in database.
+    \item \textbf{GameRatingController}: Provides 2 API routes: Vote, Get rating.
 \end{itemize}
 
 \subsection{Process View} \label{sec:process}
@@ -190,16 +206,38 @@ See also: \autoref{fig:leaderhighactivity} for related activity diagram.
 \end{figure}
 
 \subsubsection{Creating Private Games Sequence Diagram}
-Private games follow the same initial flow but add extra steps: after saving the game, \textbf{GameService} calls \textbf{GameUserService.SetGameUsersAsync()} to delete existing and insert new \textbf{GameUser} records, enforcing access control. Both flows return the \textbf{Game} entity, but private games require two database transactions (game + targets and user permissions) versus public games' single transaction.
-\par Green color shows what is different from creating Public game sequence diagram.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{images/seqPrivate.png}
     \caption{Creating Private game sequence diagram (Process View)}
     \label{fig:pubseq}
 \end{figure}
+Private games follow the same initial flow but add extra steps: after saving the game, 
+\textbf{GameService} calls \textbf{GameUserService.SetGameUsersAsync()} to delete existing 
+and insert new \textbf{GameUser} records, enforcing access control. Both flows return the 
+\textbf{Game} entity, but private games require two database transactions 
+(game + targets and user permissions) versus public games' single transaction.
+\par Green color shows what is different from creating Public game sequence diagram.
+
+\subsubsection{Game rating Sequence Diagram}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/sqgameRating.png}
+    \caption{Game rating sequence diagram (Process View)}
+    \label{fig:gameRatingSeq}
+\end{figure}
+When a user upvotes a game, for example, Game ID 5, the client sends 
+a POST request to the \textbf{GameRatingController}. The controller delegates 
+the operation to the \textbf{GameRatingService}, which first checks if a rating 
+exists by querying the database via \textbf{AppDbContext}. If no record is found, 
+the service creates a new \textbf{GameRating} with Ups = 1; if one exists, it increments 
+the Ups count. The service then performs an UPSERT (update or insert) operation 
+through the \textbf{AppDbContext}.
+
+
 
 \subsection{Use Case View} \label{sec:usecase}
+
 \subsubsection{Creating Private and Public Games Activity Diagram}
 \begin{figure}[H]
     \centering
@@ -218,81 +256,21 @@ See also: \autoref{fig:gamecreation} for the corresponding class diagram.
 \end{figure}
 See also: \autoref{fig:leaderboard} for the corresponding class diagram.
 
-
-
-
-
-
-
-\subsection{Game History}
+\subsubsection{Game History Activity Diagram}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/newUMLs/GameHistoryClass.png}
-    \caption{Game History class diagram (Logical View)}
-    \label{fig:ERD}
+    \includegraphics[width=0.8\textwidth]{images/gameHistoryAct.png}
+    \caption{Game History activity diagram (Use Case View)}
+    \label{fig:gamehistoryactivity}
 \end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/newUMLs/gameHostoryActivity.png}
-    \caption{Game History activity diagram (Process View)}
-    \label{fig:ERD}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/newUMLs/gamehistoryUseCase.png}
-    \caption{Game History Use case diagram (Use case View)}
-    \label{fig:ERD}
-\end{figure}
+See also: \autoref{fig:gameHistory} for the corresponding class diagram.
 
 
-\subsection{HighScores / Leaderboard}
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/newUMLs/highScoresClass.png}
-    \caption{HighScores / Leaderboard class diagram (Logical View)}
-    \label{fig:ERD}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/newUMLs/highScoreSavingActivity.png}
-    \caption{HighScores activity diagram (Process View)}
-    \label{fig:ERD}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/newUMLs/viewingLeaderBoardActivity.png}
-    \caption{Leaderboard activity diagram (Process View)}
-    \label{fig:ERD}
-\end{figure}
 
 
-\subsection{Game rating}
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/newUMLs/ratingClass.png}
-    \caption{ Game rating class diagram (Logical View)}
-    \label{fig:ERD}
-\end{figure}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/newUMLs/ratingGameActivity.png}
-    \caption{ Game rating activity diagram (Process View)}
-    \label{fig:ERD}
-\end{figure}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/newUMLs/ratingUseCase.png}
-    \caption{ Game rating use case diagram (Use case View)}
-    \label{fig:ERD}
-\end{figure}
-
-\subsection{Package and component diagram}
+\subsection{Package and component diagram} \label{sec:component}
 
 \subsection{Component Diagram}
 These diagrams show the logic behind the fufillment of the requirements laid out for the implementation of the needs specified in Lab1.
@@ -332,7 +310,9 @@ In this diagram \emph{Game engine} is responsible for running the game and initi
     \label{fig:package-diagram}
 \end{figure}
 
-\subsection{Deployment Diagram}
+
+
+\subsection{Deployment Diagram}\label{sec:deployment}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{images/Arno/ArtifactsControllersW.drawio.png}
