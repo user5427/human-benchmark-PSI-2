@@ -83,7 +83,107 @@
 
 \section{UML}
 
-\begin{frame}{Component Diagram 1 }
+\begin{frame}{AppDbContext (Logical View)}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.6\textwidth]{images/AppDbClass.png}
+        \caption{AppDbContext class diagram (Logical View)}
+        \label{fig:appdb}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Creating Private and Public Games Class Diagram (Logical View)}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.5\textwidth]{images/GameCreationClassImg.png}
+        \caption{Creating Private and Public games class diagram (Logical View)}
+        \label{fig:gamecreation}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Highscore and Leaderboard (Logical View)}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.7\textwidth]{images/highLeadClass.png}
+        \caption{Highscore and leaderboard class diagram (Logical View)}
+        \label{fig:leaderboard}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Game History (Logical View)}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.55\textwidth]{images/clasNEWGameHistory.png}
+        \caption{Game History class diagram (Logical View)}
+        \label{fig:gameHistory}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Game Rating (Logical View)}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.6\textwidth]{images/gameRatingClassNEW.png}
+        \caption{Game Rating class diagram (Logical View)}
+        \label{fig:gameRating}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Creating Public Games Sequence Diagram (Process View)}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.6\textwidth]{images/seqPublic.png}
+        \caption{Creating Public games sequence diagram (Process View)}
+        \label{fig:privseq}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Creating Private Games Sequence Diagram (Process View)}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.6\textwidth]{images/seqPrivate.png}
+        \caption{Creating Private game sequence diagram (Process View)}
+        \label{fig:pubseq}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Game Rating Sequence Diagram (Process View)}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.6\textwidth]{images/sqgameRating.png}
+        \caption{Game rating sequence diagram (Process View)}
+        \label{fig:gameRatingSeq}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Private and Public Game Creation Activity Diagram (Use Case View)}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.4\textwidth]{images/activPrivPubl.png}
+        \caption{Private and Public game creation simplified activity diagram (Use Case View)}
+        \label{fig:privpubactivity}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Leaderboard Activity Diagram (Use Case View)}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.4\textwidth]{images/leaderHighAct.png}
+        \caption{Leaderboard activity diagram (Use Case View)}
+        \label{fig:leaderhighactivity}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Game History Activity Diagram (Use Case View)}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.4\textwidth]{images/gameHistoryAct.png}
+        \caption{Game History activity diagram (Use Case View)}
+        \label{fig:gamehistoryactivity}
+    \end{figure}
+\end{frame}
+
+
+\begin{frame}{Component Diagram 1 (Development View)}
     \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{images/Arno/highscoresandleaderboardF.drawio.png}
@@ -92,7 +192,7 @@
     \end{figure}
 \end{frame}
 
-\begin{frame}{Component Diagram 2}
+\begin{frame}{Component Diagram 2 (Development View)}
    \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{images/Arno/Component diagramF.drawio.png}
@@ -100,7 +200,7 @@
     \label{fig:component-diagram 1}
 \end{figure}
 \end{frame}
-\begin{frame}{Component Diagram 3}
+\begin{frame}{Component Diagram 3 (Development View)}
    \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{images/Arno/RankingF.drawio.png}
@@ -108,7 +208,7 @@
     \label{fig:component-diagram 2}
     \end{figure}
 \end{frame}
-\begin{frame}{Component Diagram 4}
+\begin{frame}{Component Diagram 4 (Development View)}
     \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{images/Arno/GameHistoryF.drawio.png}
@@ -116,7 +216,7 @@
     \label{fig:component-diagram 3}
     \end{figure}
 \end{frame}
-\begin{frame}{Package Diagram}
+\begin{frame}{Package Diagram (Development View)}
    \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{images/Arno/package.png}
@@ -124,7 +224,7 @@
     \label{fig:package-diagram}
     \end{figure}
 \end{frame}
-\begin{frame}{Artifact Diagram 1}
+\begin{frame}{Artifact Diagram 1 (Physical View)}
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.8\textwidth]{images/Arno/ArtifactsControllersW.drawio.png}
@@ -132,7 +232,7 @@
         \label{fig:package-diagram}
     \end{figure}
 \end{frame}
-\begin{frame}{Artifact Diagram 2}
+\begin{frame}{Artifact Diagram 2 (Physical View)}
    \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{images/Arno/ArtifactsServicesW.drawio.png}
@@ -141,6 +241,8 @@
     \end{figure}
 \end{frame}
 \section{CI/CD}
+
+
 
 
 
@@ -244,41 +346,23 @@
 \end{frame}
 
 
-\begin{frame}{Logical View}
-    \begin{figure}
-        \includegraphics[width=0.8\linewidth]{images/GameCreationClassImg.png}
-        \caption{Class diagram}
-    \end{figure}
-\end{frame}
-
-\begin{frame}{Process View}
-    \begin{figure}
-        \includegraphics[width=0.8\linewidth]{images/seqPrivate.png}
-        \caption{Sequence diagram}
-    \end{figure}
-\end{frame}
 
 
-\begin{frame}{Deployment Environment}
+\begin{frame}{Deployment Environment (Physical View)}
     \begin{figure}
         \includegraphics[width=0.8\linewidth]{images/cicd/DeploymentEnv.drawio.png}
         \caption{Deployment Environment}
     \end{figure}
 \end{frame}
 
-\begin{frame}{Production Diagram}
+\begin{frame}{Production Diagram (Physical View)}
     \begin{figure}
         \includegraphics[width=0.65\linewidth]{images/cicd/PROD Diagram.drawio.png}
         \caption{Production Diagram}
     \end{figure}
 \end{frame}
 
-\begin{frame}{Use case View}
-    \begin{figure}
-        \includegraphics[width=0.8\linewidth]{images/activPrivPubl.png}
-        \caption{Activity diagram}
-    \end{figure}
-\end{frame}
+
 
 
 \begin{frame}{Resource Needs}
