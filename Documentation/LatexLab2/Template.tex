@@ -623,7 +623,7 @@ To build the frontend:
 
 \textbf{Notice:} all of these backend mesurments were done using dotnet 9.0.100 version and Node v22.9.0 version. We will not be mesuring versioning process resourse needs as this is too resource light process. \\
 To build the backend around 47 megabytes are needed (this includes the bin and obj folder size while excluding all source files). To build integration tests it takes 28 megabytes. To build unit tests it takes 28 megabytes.
-The source files for backend take up around 64 kilobytes. The integration test source files take up around 23 kilobytes and the unit test files take up 5 kilobytes. \ref{tab:storage-needs}
+The source files for backend take up around 64 kilobytes. The integration test source files take up around 23 kilobytes and the unit test files take up 5 kilobytes (\ref{tab:storage-needs}).
 
 \begin{table}[H]
     \centering
@@ -643,7 +643,7 @@ The source files for backend take up around 64 kilobytes. The integration test s
 \end{table}
 
 To build the frontent it takes around 87 megabytes (this includes only the node\_modules folder). 
-The source files take around 2.6 megabytes. \ref{tab:frontend-storage-needs}
+The source files take around 2.6 megabytes (\ref{tab:frontend-storage-needs}).
 
 \begin{table}[H]
     \centering
@@ -685,7 +685,7 @@ We will run the processes 4 times and average the result out.
     \label{tab:process-time}
 \end{table}
 
-The mesurments were done in the order that they are displayed in table (first 4 for mesurments for backend building then 4 mesurments for backend integration testing and etc. ). 
+The mesurments were done in the order that they are displayed in table (\ref{tab:process-time}) (first 4 for mesurments for backend building then 4 mesurments for backend integration testing and etc. ). 
 It is clear that there is caching done on the building and testing processes as the second mesurment almost always takes less time.\\
 
 The average times for each process are calculated as follows:
@@ -711,7 +711,7 @@ The average times for each process are calculated as follows:
     \label{tab:average-process-time}
 \end{table}
 
-In total that is about 110 seconds to complete the CI process or about 2 minutes.
+In total that is about 110 seconds to complete the CI process or about 2 minutes (\ref{tab:average-process-time}).
 
 \begin{table}[H]
     \centering
@@ -755,7 +755,7 @@ In total that is about 110 seconds to complete the CI process or about 2 minutes
     \label{tab:diff-process-time}
 \end{table}
 
-Here we can easily observe cashing mechanisms and optimizations. We can see if the CI pipeline will be run often, the time 
+Here we can easily observe (\ref{tab:diff-process-time}) cashing mechanisms and optimizations. We can see if the CI pipeline will be run often, the time 
 to build and test the application will reduce in total about 40 seconds.
 
 \subsubsection{Versioning}
@@ -797,7 +797,7 @@ Then the developer can choose to update the database with the latest changes. Th
 And lastly the command \texttt{docker-compose up -d} is used to deploy the application.
 
 \subsubsection{Deployment, a general view}
-The diagram below shows communication paths and artifact allocations to nodes.
+The diagram below (\ref{fig:deployment-environment}) shows communication paths and artifact allocations to nodes.
 The frontend-app uses NodeJS environment while the backend-app uses .Net environment.
 Notice that our database is hosted on Aiven and not on the same VM as the application and as a result we do not have the ability to deploy the database using the CD pipeline (we can still update it). 
 \begin{figure}[H]
@@ -835,7 +835,7 @@ The commands \texttt{sudo docker ps -a -s}, \texttt{sudo docker system df} and \
     \label{tab:docker-storage-needs}
 \end{table}
 
-In total both backend and frontend containers take up around 300 megabytes. 
+In total both backend and frontend containers take up around 300 megabytes (\ref{tab:docker-storage-needs}). 
 The reason why the backend container has 0 B for the first column is because the backend container does not write any data to its file system. 
 Rather all of the data is stored on a PostgreSQL database.
 
@@ -858,7 +858,7 @@ Rather all of the data is stored on a PostgreSQL database.
     \label{tab:docker-resource-usage}
 \end{table}
 
-In table \ref{tab:docker-resource-usage} we can see that the entire application with .Net and Node images takes around 2.5 gigabytes of storage.
+In the table above (\ref{tab:docker-resource-usage}) we can see that the entire application with .Net and Node images takes around 2.5 gigabytes of storage.
 
 
 \textbf{Memory and CPU needs}
@@ -885,7 +885,7 @@ We will run the processes 4 times and average the result out.
     \label{tab:dockerize-process-time}
 \end{table}
 
-The mesurments were done in the order that they are displayed in table (first 4 for mesurments for backend dockerization then 4 mesurments for frontend dockerization). 
+The mesurments were done in the order that they are displayed in the table above (\ref{tab:dockerize-process-time}) (first 4 for mesurments for backend dockerization then 4 mesurments for frontend dockerization). 
 Clearly, when there are changes to backend or frontend, the process takes way longer to build. And if there are no changes done to backend or frontend, the process quickly finishes which is a great 
 optimization if the CD pipeline is used often. Similar thing can be observed with the database update process.
 
@@ -911,7 +911,7 @@ The average times for each process are calculated as follows:
     \label{tab:average-dockerize-process-time}
 \end{table}
 
-In this case, the average time table is quite inaccurate due to the way how docker works when there are no changes done to backend or frontend.
+In this case, the average time in the table above (\ref{tab:average-dockerize-process-time}) is quite inaccurate due to the way how docker works when there are no changes done to backend or frontend.
 Because of that, the min and max time \ref{tab:min-max-dockerize-process-time} table will reflect time needs more accurately.
 
 \begin{table}[H]
@@ -952,7 +952,7 @@ Because of that, the min and max time \ref{tab:min-max-dockerize-process-time} t
     \label{tab:diff-dockerize-process-time}
 \end{table}
 
-Here we can easily observe cashing mechanisms and optimizations. We can see if the CD pipeline will be run often, the time 
+Here we can easily observe (\ref{tab:diff-dockerize-process-time}) cashing mechanisms and optimizations. We can see if the CD pipeline will be run often, the time 
 to build and test the application will reduce in total about 97 seconds.
 
 \subsubsection{Database}
@@ -981,7 +981,7 @@ The versioning of the application (v 0.0.1 - v 0.0.2 - ...) is done using GitLab
 Before commiting the developer must include either 'patch', 'minor' or 'major' in the commit message.
 
 The versioning is done in the build stage of the CI pipeline (we decided that it was better to leave this process in the build stage and not crete a new stage as this process is quite insignificant). The versioning must be manually triggered by the developer (before that the commit message must contain 'patch', 'minor' or 'major').
-Versioning allows us to keep track of changes made to the application and document the progress of the project \ref{fig:versioning-process}
+Versioning allows us to keep track of changes made to the application and document the progress of the project (\ref{fig:versioning-process}).
 
 \begin{figure}[H]
     \centering
@@ -1001,7 +1001,7 @@ Versioning allows us to keep track of changes made to the application and docume
 % \end{figure}
 
 \subsubsection{Versioning Table}
-The versioning of the application follows the Semantic Versioning scheme (MAJOR.MINOR.PATCH). The version number is incremented based on the type of changes included in the commit message. Below is a table indicating how the versions change based on the commit messages:
+The versioning of the application follows the Semantic Versioning scheme (MAJOR.MINOR.PATCH). The version number is incremented based on the type of changes included in the commit message. Below is a table indicating how the versions change based on the commit messages (\ref{tab:versioning}):
 
 \begin{table}[H]
     \centering
@@ -1147,7 +1147,7 @@ User files will be stored on database and not on the VM. As a result, the storag
 
 \subsubsection{Memory requirements}
 Mesuring the RAM needs is more difficult, especially for the CI/CD pipeline. However if we look at the average usage of RAM on our virtual machine,
-we can see that it is only using around 300 megabytes at idle \ref{fig:screenshot}
+we can see that it is only using around 300 megabytes at idle (\ref{fig:screenshot}).
 
 \begin{figure}[H]
     \centering
@@ -1156,7 +1156,7 @@ we can see that it is only using around 300 megabytes at idle \ref{fig:screensho
     \label{fig:screenshot}
 \end{figure}
 
-If we trigger the pipeline, we can see the usage patterns change
+If we trigger the pipeline, we can see the usage patterns change (\ref{fig:memory-usage}).
 
 \begin{figure}[H]
     \centering
@@ -1190,7 +1190,7 @@ as the application is hosted on the same runner. As a result, it would be better
     \label{fig:after-cicd}
 \end{figure}
 
-The spikes in CPU ussage can also be opserved through OpenNebula web page. From the previous analysis of CI/CD pipeline
+The spikes in CPU ussage can also be opserved through OpenNebula web page (\ref{fig:after-cicd}). From the previous analysis of CI/CD pipeline
 we can observe that these spikes can last from around max 4 minutes if there are changes to both backend and frontend or
 about 1 and a half minutes if there are no changes to frontend and backend. \\
 
@@ -1203,7 +1203,7 @@ be assigned atleast 1 cpu core.
 Notice: all of these mesurments were handled on weekend (2025-03-30 16:00). During other times, the network usage may be higher or lower.
 By opening up developer tools and inspecting how much data one user uses, we can make a rough estimation of how much data bandwidth is needed for the application to run smoothly.
 
-We ran the \texttt{speedtest} command to see how much bandwidth we have. The results are shown below \ref{tab:network-speed}:
+We ran the \texttt{speedtest} command to see how much bandwidth we have. The results are shown below (\ref{tab:network-speed}):
 \begin{table}[H]
     \centering
     \begin{tabular}{|c|c|c|}
@@ -1242,7 +1242,7 @@ recommendation is to have 200 Mbits/s download speed as that is what we have on 
 
 
 We also did ping tests to ensure that our network is responsive, as our application focuses on games, it is important that the latency is low.
-The following table summarizes the results of a ping test to \texttt{google.com} (IP: 216.58.215.110). The test was conducted to measure round-trip time (RTT) and packet loss.
+The following table summarizes the results of a ping test to \texttt{google.com} (IP: 216.58.215.110). The test was conducted to measure round-trip time (RTT) and packet loss (\ref{tab:ping-test-results}).
 \begin{table}[H]
     \centering
     \begin{tabular}{|c|c|}
@@ -1277,7 +1277,7 @@ We looked on the internet what is the maximum latency that is acceptable for onl
 
 
 \subsubsection{Sum up of requirement}
-Below is a table with minimal requirements for functional system and recommended requirements for a smooth experience.
+Below is a table (\ref{tab:resource-types}) with minimal requirements for functional system and recommended requirements for a smooth experience.
 
 \begin{table}[H]
     \centering
