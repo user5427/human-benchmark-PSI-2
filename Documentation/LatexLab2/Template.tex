@@ -59,12 +59,12 @@
 The team is thankful to VU Mathemathics and Informatics faculty lecturers for their continous involment in helping students understand software engineering principles. Our team is also thankful for the free virtual machine hosting service by our faculty. 
 
 %%Summary
-\sectionnonum{Summary}
+% \sectionnonum{Summary}
 
-This work will analyse the application from the system perspective by using UML 4 + 1 method. Other methods will be implemented too that the reader can find below in table of contents. \\
+% This work will analyse the application from the system perspective by using UML 4 + 1 method. Other methods will be implemented too that the reader can find below in table of contents. \\
 
 
-\textbf{Keywords:} Human Benchmark, Cognitive test, Reaction time, Reflex training.
+% \textbf{Keywords:} Human Benchmark, Cognitive test, Reaction time, Reflex training.
 
 
 
@@ -101,6 +101,248 @@ This work will analyse the application from the system perspective by using UML 
 
 \sectionnonum{Introduction}
 This work analyses the Human Benchmark application using UML 4 + 1 method. It also analyses the CI/CD pipeline.
+
+\textbf{Keywords:} Human Benchmark, Cognitive test, Reaction time, Reflex training.
+
+\section{Requirements}
+
+Almost all of the requirements outlined in this document fall into the following categories:
+
+\begin{itemize}
+    \item \textbf{Connectivity:} Ensuring seamless communication between the client and server, such as WebSocket connections, multiplayer room management, and API interactions.
+    \item \textbf{Availability:} Guaranteeing that the system remains operational and accessible, including features like graceful disconnection, automatic user elimination, and CI/CD deployment reliability.
+    \item \textbf{Customizability:} Allowing users to tailor their experience, such as creating private or public game rooms, editing game rules, and managing user access.
+    \item \textbf{Responsiveness:} Providing a smooth and timely user experience, including tracking reaction times, updating UI elements dynamically, and minimizing latency in multiplayer interactions.
+\end{itemize}
+
+These categories collectively ensure that the system meets user expectations for functionality, reliability, and adaptability.
+
+\subsection{Multiplayer API \& UI TODOs}
+
+\subsubsection{Users can:}
+\begin{itemize}
+    \item Connect to the WebSocket server.
+    \item Create a game room (with a custom title).
+    \item Retrieve the list of available rooms.
+    \item Join a game room.
+    \item Start the game if they are the room creator.
+    \item Click on targets (client records times, server receives it).
+    \item Gracefully disconnect.
+\end{itemize}
+
+\textbf{System Requirements:}
+\begin{itemize}
+    \item The system allows users to connect to the server via WebSocket.
+    \item The UI has functionality that allows users to create a game room.
+    \item The UI allows players to start a game in a game room.
+    \item The system automatically disconnects users after a game in a game room concludes.
+    \item The UI allows users to click on the targets to count them as hit.
+\end{itemize}
+
+\subsubsection{Server Responsibilities:}
+\begin{itemize}
+    \item Send all room users a random target (\texttt{x, y, size}) when a round starts.
+    \item Track users' reaction times when they click the target.
+    \item After \textbf{5s}, eliminate:
+    \begin{itemize}
+        \item The slowest player.
+        \item Any player who didn’t respond.
+    \end{itemize}
+    \item Broadcast round results (remaining \& eliminated players).
+    \item If \textbf{more than one player remains}, start a new round.
+    \item If only \textbf{one player remains}, declare them the winner.
+\end{itemize}
+
+\textbf{System Requirements:}
+\begin{itemize}
+    \item The system sends all users connected to a certain game random targets.
+    \item The system tracks all users' reaction times when they hit a target.
+    \item The system eliminates players that didn't respond or the slowest player if all responded.
+    \item The system notifies users connected to a certain game about the remaining players and the players that were eliminated.
+    \item The system starts a new round if there are multiple players yet to be eliminated.
+    \item The system declares a winner if only one player remains not eliminated.
+\end{itemize}
+
+\subsubsection{API TODOs:}
+\begin{itemize}
+    \item Make rooms private (e.g., allow room creator to select users to give access to join).
+    \item Allow users to leave a room anytime gracefully.
+    \item Notify all users in a room when a player joins or leaves.
+    \item Add a short delay before starting the next round (to allow UI updates).
+\end{itemize}
+
+\textbf{System Requirements:}
+\begin{itemize}
+    \item The system allows created game rooms to be private.
+    \item The system allows users to leave a game room anytime.
+    \item The system has a delay before starting a round.
+\end{itemize}
+
+\subsubsection{UI TODOs:}
+\begin{itemize}
+    \item Navigate to the multiplayer page.
+    \item See the list of available rooms.
+    \item Click a button to \textbf{join a room}.
+    \item Click a button to \textbf{create a room} (enter room title).
+    \item See \textbf{who joined} the room (count + list of players).
+    \item If they are the creator, \textbf{start the game}.
+    \item See \textbf{the target} when a round starts.
+    \item See \textbf{“Waiting for the round to end”} between rounds.
+    \item See \textbf{eliminated \& remaining players} after each round.
+    \item See \textbf{final messages}:
+    \begin{itemize}
+        \item \texttt{"You are eliminated."}
+        \item \texttt{"You won!"}
+        \item A \textbf{button to return to the multiplayer page}.
+    \end{itemize}
+\end{itemize}
+
+\textbf{System Requirements:}
+\begin{itemize}
+    \item The UI has buttons that allow users to navigate the multiplayer page.
+    \item The UI has a list of currently available game rooms that are available to join.
+    \item The UI has a button to let players join a game room of their choosing.
+    \item The UI has a button to let users create a game room.
+    \item The UI has a button to let the creator of a game room start the game.
+    \item The UI has a panel in which targets will appear once a round begins.
+    \item The UI shows the message \texttt{"Waiting for the round to end"} for players who have finished the round early.
+    \item The UI has a list of players that are yet to be eliminated after each round.
+    \item The UI shows the message \texttt{"You are eliminated"} to the players who have been eliminated and \texttt{"You won!"} for the winner.
+    \item The UI has a button that lets users return to the multiplayer page.
+\end{itemize}
+
+\subsection{Private Games UI \& API TODOs}
+
+\subsubsection{UI:}
+\begin{itemize}
+    \item \textbf{Button} to edit games.
+    \item \textbf{Visibility dropdown} (PUBLIC/PRIVATE).
+    \item \textbf{Checkbox list} to allow access to selected users.
+\end{itemize}
+
+\textbf{System Requirements:}
+\begin{itemize}
+    \item The UI has a button to edit the game rules.
+    \item The UI has a combobox to choose whether a game room will be public or private upon creation.
+    \item The UI has a list of checkboxes to allow access to selected users.
+\end{itemize}
+
+\subsubsection{API:}
+\begin{itemize}
+    \item \textbf{Edit game}.
+    \item \textbf{Return existing users} (registered ones).
+    \item \textbf{Store user-to-game access} (many-to-many table).
+    \item \textbf{Return only games the user has access to} (public or granted private access).
+\end{itemize}
+
+\textbf{System Requirements:}
+\begin{itemize}
+    \item The system allows users to change the rules for a game.
+    \item The system allows users to retrieve a list of registered users.
+    \item The system stores user-to-game access in a many-to-many table.
+    \item The system allows the user to only view the game rooms that they have access to.
+\end{itemize}
+
+
+
+
+\section{Requirements Validation Methodology}
+Requirements Validation and Measurement
+To ensure that all requirements are properly implemented and functioning as expected, we will employ various validation techniques and measurements. This methodical approach will help verify that the system meets the outlined specifications across all requirement categories.
+
+\subsection{Validation Approaches by Category}
+
+\subsubsection{Connectivity Requirements} 
+\begin{itemize} \item \textbf{WebSocket Connection Testing:} 
+    \begin{itemize} 
+        \item Measure successful connection rate (target: >99.5\%) 
+        \item Validate connection establishment time (target: <500ms) 
+        \item Measure round-trip time between client actions and server responses
+        \item Test concurrent connections (up to 30 simultaneous users) 
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Availability Requirements} 
+\begin{itemize} 
+    \item \textbf{System Uptime:} 
+    \begin{itemize} 
+        \item Monitor and record system availability (target: 99.9\% uptime) 
+        \item Measure recovery time after planned deployments (target: <2 minutes) 
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Customizability Requirements} \begin{itemize} \item \textbf{Game Room Configuration:} \begin{itemize} \item Verify that game rules can be modified through the UI \item Validate public/private room creation functionality \item Test user access control for private rooms (authorized vs. unauthorized access) \end{itemize}
+
+\end{itemize}
+
+\subsubsection{Responsiveness Requirements} \begin{itemize} \item \textbf{Reaction Time Measurement:} \begin{itemize} \item Validate accuracy of client-side time tracking (within 10ms precision) \item Measure server processing time for click events (target: <50ms) \end{itemize}
+
+\end{itemize}
+
+\subsection{Testing Methodology}
+
+\begin{itemize} \item \textbf{Automated Testing:} Unit and integration tests will verify that each component functions as expected.
+
+\end{itemize}
+
+Through these validation approaches, we will ensure that all requirements are not only implemented but functioning at the expected performance levels, providing users with a responsive, available, and customizable multiplayer gaming experience.
+
+
+\section{Prioritizing Requirements Validation Metrics}
+
+When implementing the requirements validation methodology, we should prioritize certain metrics to ensure core functionality is validated first before moving to more peripheral features. Here's a recommended prioritization approach:
+
+\subsection{First Priority: Core Connectivity Metrics}
+\begin{itemize}
+\item 	\textbf{WebSocket Connection Success Rate:}
+\begin{itemize}
+\item Fundamental for multiplayer experience (target: >99.5\%)
+\end{itemize}
+\item 	\textbf{Connection Latency:}
+\begin{itemize}
+\item Critical for real-time gameplay
+\end{itemize}
+\end{itemize}
+
+\subsection{Second Priority: Game Mechanics Metrics}
+\begin{itemize}
+\item 	\textbf{Reaction Time Measurement Accuracy:}
+\begin{itemize}
+\item Essential for core game functionality (10ms precision)
+\end{itemize}
+\item 	\textbf{Elimination Logic Verification:}
+\begin{itemize}
+\item Confirm correct elimination and winner declaration
+\end{itemize}
+\end{itemize}
+
+\subsection{Third Priority: System Reliability Metrics}
+\begin{itemize}
+\item 	\textbf{System Uptime:}
+\begin{itemize}
+\item Monitor availability (target: 99.9\%)
+\end{itemize}
+\item 	\textbf{User State Management:}
+\begin{itemize}
+\item Verify user joins/leaves and disconnections
+\end{itemize}
+\end{itemize}
+
+\subsection{Fourth Priority: Feature Completeness Metrics}
+\begin{itemize}
+\item 	\textbf{Access Control Verification:}
+\begin{itemize}
+\item Test public/private room functionality
+\end{itemize}
+\item 	\textbf{UI Responsiveness:}
+\begin{itemize}
+\item Measure state change timing and UI functionality
+\end{itemize}
+\end{itemize}
+
+By focusing on connectivity and core game mechanics first, we can ensure the fundamental functionality is solid before addressing secondary features.
+
+
 
 
 

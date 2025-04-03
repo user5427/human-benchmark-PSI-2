@@ -41,6 +41,46 @@
     \tableofcontents
 \end{frame}
 
+\section{Requirements}
+
+\begin{frame}{Requirements (1/2)}
+    \textbf{Key Categories:}
+    \begin{itemize}
+        \item \textbf{Connectivity:} Seamless communication (WebSocket, multiplayer management, API interactions).
+        \item \textbf{Availability:} Reliable uptime (99.9\%), graceful disconnection, automatic user elimination.
+        \item \textbf{Customizability:} Private/public rooms, editable rules, user access control.
+        \item \textbf{Responsiveness:} Quick reaction tracking, dynamic UI updates, low latency.
+    \end{itemize}
+    
+    \textbf{User \& Server Responsibilities:}
+    \begin{itemize}
+        \item \textbf{Users:} Connect to WebSocket, create rooms, join games, start rounds, click targets, disconnect.
+        \item \textbf{Server:} Send targets, track reaction times, eliminate slow players, notify results, declare winners.
+    \end{itemize}
+    \end{frame}
+    
+    \begin{frame}{Requirements (2/2)}
+    \textbf{API \& UI:}
+    \begin{itemize}
+        \item \textbf{UI:} Room creation/joining, target visibility, player list, winner/loser messages.
+        \item \textbf{API:} Private game creation, user access control, game rule editing.
+    \end{itemize}
+    
+    \textbf{Validation Metrics:}
+    \begin{itemize}
+        \item \textbf{Core Connectivity:} WebSocket connection success >99.5\%, latency <500ms.
+        \item \textbf{Game Mechanics:} Reaction time accuracy within 10ms, correct elimination and winner declaration.
+        \item \textbf{System Reliability:} 99.9\% uptime, smooth user joins/leaves.
+        \item \textbf{Feature Completeness:} Public/private room access, UI responsiveness and state change.
+    \end{itemize}
+    
+    \textbf{Testing Methodology:}
+    \begin{itemize}
+        \item Automated unit and integration tests to ensure functionality at performance levels.
+    \end{itemize}
+\end{frame}
+    
+
 \section{UML}
 
 \begin{frame}{Component Diagram 1 }
