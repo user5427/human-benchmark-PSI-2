@@ -109,12 +109,18 @@ bump_version:
   script:
     - git fetch --tags
     - |
-      LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
+      LATEST_TAG=$(git tag --list 'v*' --sort=-v:refname | head -n 1)
+
+      # Validate tag format
+      if [[ ! "$LATEST_TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+        LATEST_TAG="v0.0.0"
+      fi
+
       echo "Latest tag: $LATEST_TAG"
-      
+
       VERSION=${LATEST_TAG#v}
       IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION"
-      
+
       if [[ "$CI_COMMIT_MESSAGE" == *"#major"* ]]; then
         MAJOR=$((MAJOR+1))
         MINOR=0
@@ -125,16 +131,15 @@ bump_version:
       else
         PATCH=$((PATCH+1))
       fi
-      
+
       NEW_VERSION="v${MAJOR}.${MINOR}.${PATCH}"
       echo "New version: $NEW_VERSION"
-      
-      # Create version file
+
       echo "APP_VERSION=${MAJOR}.${MINOR}.${PATCH}" > build.env
-      
-      # Push tag using CI token
+
       git tag -a "$NEW_VERSION" -m "Version $NEW_VERSION"
       git push "https://gitlab-ci-token:${CI_JOB_TOKEN}@${CI_REPOSITORY_URL#*@}" "$NEW_VERSION" || echo "Tag push failed - check CI permissions"
+
   artifacts:
     paths:
       - build.env
