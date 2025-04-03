@@ -14,16 +14,16 @@
 %----------------------------------------------------------------------------------------
 
 \title{Human-Benchmark}
-\subtitle{Lab 2}
+\subtitle{2 Laboratorinis}
 
 \author{Adrian, Arnas, Darius, Tadas}
 
 \institute
 {
-    Mathemathics and Informatics faculty \\
-    Vilnius University % Your institution for the title page
+    Matematikos ir informatikos fakultetas \\
+    Vilniaus universitetas % Your institution for the title page
 }
-\date{\today} % Date, can be changed to a custom date
+% \date{\today} % Date, can be changed to a custom date 
 
 %----------------------------------------------------------------------------------------
 %    PRESENTATION SLIDES
@@ -36,207 +36,207 @@
     \titlepage
 \end{frame}
 
-\begin{frame}{Overview}
+\begin{frame}{Apžvalga}
     % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
     \tableofcontents
 \end{frame}
 
-\section{Requirements}
+\section{Reikalavimai}
 
-\begin{frame}{Requirements (1/2)}
-    \textbf{Key Categories:}
+\begin{frame}{Reikalavimai (1/2)}
+    \textbf{Pagrindinės kategorijos:}
     \begin{itemize}
-        \item \textbf{Connectivity:} Seamless communication (WebSocket, multiplayer management, API interactions).
-        \item \textbf{Availability:} Reliable uptime (99.9\%), graceful disconnection, automatic user elimination.
-        \item \textbf{Customizability:} Private/public rooms, editable rules, user access control.
-        \item \textbf{Responsiveness:} Quick reaction tracking, dynamic UI updates, low latency.
+        \item \textbf{Jungiamumas:} Sklandus bendravimas (WebSocket, kelių žaidėjų valdymas, API sąveikos).
+        \item \textbf{Prieinamumas:} Patikimas veikimas (98\%), sklandus atjungimas, automatinis vartotojų pašalinimas.
+        \item \textbf{Pritaikomumas:} Privačios/viešos patalpos, redaguojamos taisyklės, vartotojų prieigos kontrolė.
+        \item \textbf{Reakcijos laikas:} Greitas reakcijos sekimas, dinamiški UI atnaujinimai, mažas vėlavimas.
     \end{itemize}
     
-    \textbf{User \& Server Responsibilities:}
+    \textbf{Vartotojų ir serverio atsakomybės:}
     \begin{itemize}
-        \item \textbf{Users:} Connect to WebSocket, create rooms, join games, start rounds, click targets, disconnect.
-        \item \textbf{Server:} Send targets, track reaction times, eliminate slow players, notify results, declare winners.
+        \item \textbf{Vartotojai:} Prisijungimas prie WebSocket, kambarių kūrimas, prisijungimas prie žaidimų, raundų pradėjimas, taikinių paspaudimai, atsijungimas.
+        \item \textbf{Serveris:} Taikinių siuntimas, reakcijos laiko sekimas, lėtų žaidėjų pašalinimas, rezultatų pranešimas, nugalėtojų paskelbimas.
     \end{itemize}
     \end{frame}
     
-    \begin{frame}{Requirements (2/2)}
-    \textbf{API \& UI:}
+    \begin{frame}{Reikalavimai (2/2)}
+    \textbf{API ir vartotojo sąsaja:}
     \begin{itemize}
-        \item \textbf{UI:} Room creation/joining, target visibility, player list, winner/loser messages.
-        \item \textbf{API:} Private game creation, user access control, game rule editing.
+        \item \textbf{Vartotojo sąsaja:} Kambarių kūrimas/prisijungimas, taikinių matomumas, žaidėjų sąrašas, nugalėtojo/pralaimėtojo pranešimai.
+        \item \textbf{API:} Privačių žaidimų kūrimas, vartotojų prieigos kontrolė, žaidimo taisyklių redagavimas.
     \end{itemize}
     
-    \textbf{Validation Metrics:}
+    \textbf{Patvirtinimo metrikos:}
     \begin{itemize}
-        \item \textbf{Core Connectivity:} WebSocket connection success >99.5\%, latency <500ms.
-        \item \textbf{Game Mechanics:} Reaction time accuracy within 10ms, correct elimination and winner declaration.
-        \item \textbf{System Reliability:} 99.9\% uptime, smooth user joins/leaves.
-        \item \textbf{Feature Completeness:} Public/private room access, UI responsiveness and state change.
+        \item \textbf{Pagrindinis jungiamumas:} WebSocket prisijungimo sėkmė >98\%, vėlavimas <500ms.
+        \item \textbf{Žaidimo mechanika:} Reakcijos laiko tikslumas 10ms ribose, teisingas pašalinimas ir nugalėtojo paskelbimas.
+        \item \textbf{Sistemos patikimumas:} 98\% veikimo laikas, sklandus vartotojų prisijungimas/atsijungimas.
+        \item \textbf{Funkcijų pilnumas:} Viešų/privačių kambarių prieiga, vartotojo sąsajos reagavimas ir būsenos keitimas.
     \end{itemize}
     
-    \textbf{Testing Methodology:}
+    \textbf{Testavimo metodologija:}
     \begin{itemize}
-        \item Automated unit and integration tests to ensure functionality at performance levels.
+        \item Automatizuoti vienetiniai ir integraciniai testai užtikrina funkcionalumą našumą.
     \end{itemize}
 \end{frame}
     
 
 \section{UML}
 
-\begin{frame}{AppDbContext (Logical View)}
+\begin{frame}{AppDbContext (Loginis pjūvis)}
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.6\textwidth]{images/AppDbClass.png}
-        \caption{AppDbContext class diagram (Logical View)}
+        \caption{AppDbContext klasių diagrama (Loginis pjūvis)}
         \label{fig:appdb}
     \end{figure}
 \end{frame}
 
-\begin{frame}{Creating Private and Public Games Class Diagram (Logical View)}
+\begin{frame}{Privačių ir viešų žaidimų kūrimo klasių diagrama (Loginis pjūvis)}
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.5\textwidth]{images/GameCreationClassImg.png}
-        \caption{Creating Private and Public games class diagram (Logical View)}
+        \caption{Privačių ir viešų žaidimų kūrimo klasių diagrama (Loginis pjūvis)}
         \label{fig:gamecreation}
     \end{figure}
 \end{frame}
 
-\begin{frame}{Highscore and Leaderboard (Logical View)}
+\begin{frame}{Geriausių rezultatų ir lyderių lentelė (Loginis pjūvis)}
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.7\textwidth]{images/highLeadClass.png}
-        \caption{Highscore and leaderboard class diagram (Logical View)}
+        \caption{Geriausių rezultatų ir lyderių lentelės klasių diagrama (Loginis pjūvis)}
         \label{fig:leaderboard}
     \end{figure}
 \end{frame}
 
-\begin{frame}{Game History (Logical View)}
+\begin{frame}{Žaidimų istorija (Loginis pjūvis)}
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.55\textwidth]{images/clasNEWGameHistory.png}
-        \caption{Game History class diagram (Logical View)}
+        \caption{Žaidimų istorijos klasių diagrama (Loginis pjūvis)}
         \label{fig:gameHistory}
     \end{figure}
 \end{frame}
 
-\begin{frame}{Game Rating (Logical View)}
+\begin{frame}{Žaidimų vertinimas (Loginis pjūvis)}
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.6\textwidth]{images/gameRatingClassNEW.png}
-        \caption{Game Rating class diagram (Logical View)}
+        \caption{Žaidimų vertinimo klasių diagrama (Loginis pjūvis)}
         \label{fig:gameRating}
     \end{figure}
 \end{frame}
 
-\begin{frame}{Creating Public Games Sequence Diagram (Process View)}
+\begin{frame}{Viešų žaidimų kūrimo sekos diagrama (Proceso pjūvis)}
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.6\textwidth]{images/seqPublic.png}
-        \caption{Creating Public games sequence diagram (Process View)}
+        \caption{Viešų žaidimų kūrimo sekos diagrama (Proceso pjūvis)}
         \label{fig:privseq}
     \end{figure}
 \end{frame}
 
-\begin{frame}{Creating Private Games Sequence Diagram (Process View)}
+\begin{frame}{Privačių žaidimų kūrimo sekos diagrama (Proceso pjūvis)}
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.6\textwidth]{images/seqPrivate.png}
-        \caption{Creating Private game sequence diagram (Process View)}
+        \caption{Privačių žaidimų kūrimo sekos diagrama (Proceso pjūvis)}
         \label{fig:pubseq}
     \end{figure}
 \end{frame}
 
-\begin{frame}{Game Rating Sequence Diagram (Process View)}
+\begin{frame}{Žaidimų vertinimo sekos diagrama (Proceso pjūvis)}
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.6\textwidth]{images/sqgameRating.png}
-        \caption{Game rating sequence diagram (Process View)}
+        \caption{Žaidimų vertinimo sekos diagrama (Proceso pjūvis)}
         \label{fig:gameRatingSeq}
     \end{figure}
 \end{frame}
 
-\begin{frame}{Private and Public Game Creation Activity Diagram (Use Case View)}
+\begin{frame}{Privačių ir viešų žaidimų kūrimo veiklos diagrama (Panaudojimo atvejų pjūvis)}
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.4\textwidth]{images/activPrivPubl.png}
-        \caption{Private and Public game creation simplified activity diagram (Use Case View)}
+        \includegraphics[width=0.3\textwidth]{images/activPrivPubl.png}
+        \caption{Supaprastinta privačių ir viešų žaidimų kūrimo veiklos diagrama (Panaudojimo atvejų pjūvis)}
         \label{fig:privpubactivity}
     \end{figure}
 \end{frame}
 
-\begin{frame}{Leaderboard Activity Diagram (Use Case View)}
+\begin{frame}{Lyderių lentelės veiklos diagrama (Panaudojimo atvejų pjūvis)}
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.4\textwidth]{images/leaderHighAct.png}
-        \caption{Leaderboard activity diagram (Use Case View)}
+        \caption{Lyderių lentelės veiklos diagrama (Panaudojimo atvejų pjūvis)}
         \label{fig:leaderhighactivity}
     \end{figure}
 \end{frame}
 
-\begin{frame}{Game History Activity Diagram (Use Case View)}
+\begin{frame}{Žaidimų istorijos veiklos diagrama (Panaudojimo atvejų pjūvis)}
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.4\textwidth]{images/gameHistoryAct.png}
-        \caption{Game History activity diagram (Use Case View)}
+        \caption{Žaidimų istorijos veiklos diagrama (Panaudojimo atvejų pjūvis)}
         \label{fig:gamehistoryactivity}
     \end{figure}
 \end{frame}
 
 
-\begin{frame}{Component Diagram 1 (Development View)}
+\begin{frame}{Komponentų diagrama 1 (Kūrimo pjūvis)}
     \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{images/Arno/highscoresandleaderboardF.drawio.png}
-    \caption{Component Diagram (High-score and Leaderboard)}
+    \caption{Komponentų diagrama (Geriausi rezultatai ir lyderių lentelė)}
     \label{fig:component-diagram 4}
     \end{figure}
 \end{frame}
 
-\begin{frame}{Component Diagram 2 (Development View)}
+\begin{frame}{Komponentų diagrama 2 (Kūrimo pjūvis)}
    \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{images/Arno/Component diagramF.drawio.png}
-    \caption{Component Diagram (Multiplayer and Private Games)}
+    \caption{Komponentų diagrama (Kelių žaidėjų ir privatūs žaidimai)}
     \label{fig:component-diagram 1}
 \end{figure}
 \end{frame}
-\begin{frame}{Component Diagram 3 (Development View)}
+\begin{frame}{Komponentų diagrama 3 (Kūrimo pjūvis)}
    \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{images/Arno/RankingF.drawio.png}
-    \caption{Component Diagram (Rating system)}
+    \caption{Komponentų diagrama (Vertinimo sistema)}
     \label{fig:component-diagram 2}
     \end{figure}
 \end{frame}
-\begin{frame}{Component Diagram 4 (Development View)}
+\begin{frame}{Komponentų diagrama 4 (Kūrimo pjūvis)}
     \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{images/Arno/GameHistoryF.drawio.png}
-    \caption{Component Diagram (Game history)}
+    \caption{Komponentų diagrama (Žaidimų istorija)}
     \label{fig:component-diagram 3}
     \end{figure}
 \end{frame}
-\begin{frame}{Package Diagram (Development View)}
+\begin{frame}{Paketų diagrama (Kūrimo pjūvis)}
    \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{images/Arno/package.png}
-    \caption{Package Diagram (Development View)}
+    \caption{Paketų diagrama (Kūrimo pjūvis)}
     \label{fig:package-diagram}
     \end{figure}
 \end{frame}
-\begin{frame}{Artifact Diagram 1 (Physical View)}
+\begin{frame}{Artefaktų diagrama 1 (Fizinis pjūvis)}
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.8\textwidth]{images/Arno/ArtifactsControllersW.drawio.png}
-        \caption{Artifact Diagram (Controller artifacts)}
+        \caption{Artefaktų diagrama (Valdiklių artefaktai)}
         \label{fig:package-diagram}
     \end{figure}
 \end{frame}
-\begin{frame}{Artifact Diagram 2 (Physical View)}
+\begin{frame}{Artefaktų diagrama 2 (Fizinis pjūvis)}
    \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{images/Arno/ArtifactsServicesW.drawio.png}
-    \caption{Artifact Diagram (Service artifacts)}
+    \caption{Artefaktų diagrama (Paslaugų artefaktai)}
     \label{fig:package-diagram}
     \end{figure}
 \end{frame}
@@ -246,167 +246,167 @@
 
 
 
-\begin{frame}{CI/CD Stage 1}
+\begin{frame}{CI/CD 1 etapas}
     \begin{columns}[T] % Align columns to the top
         \column{0.5\textwidth} % Left column for the image
             \begin{figure}
                 \includegraphics[width=\linewidth]{images/cicd/"stage 1.png"}
-                \caption{Stage 1}
+                \caption{1 etapas}
             \end{figure}
             \column{0.5\textwidth} % Right column for the text
-            \textbf{Stage 1 description:} \\
-            Application building commands:
+            \textbf{1 etapo aprašymas:} \\
+            Aplikacijos kompiliavimo komandos:
             \begin{itemize}
                 \item \texttt{dotnet build}
                 \item \texttt{npm run build}
             \end{itemize}
-            Average time: 58s
+            Vidutinis laikas: 58s
             
-            The developer can include \textbf{\#patch}, \textbf{\#minor}, \textbf{\#major} in the commit message to automatically update the version of the application.
+            Programuotojas gali įtraukti \textbf{\#patch}, \textbf{\#minor}, \textbf{\#major} į įrašo pranešimą, kad automatiškai atnaujintų aplikacijos versiją.
 
     \end{columns}
 \end{frame}
 
-\begin{frame}{CI/CD Stages 2-3}
+\begin{frame}{CI/CD 2-3 etapai}
     \begin{columns}[T] % Align columns to the top
         \column{0.5\textwidth} % Left column for the image
         \begin{figure}
             \includegraphics[width=\linewidth]{images/cicd/"stage 2-3.png"}
-            \caption{Stages 2-3}
+            \caption{2-3 etapai}
         \end{figure}
         \column{0.5\textwidth} % Right column for the text
-        \textbf{Stage 2 description:} \\
-        Application testing commands:
+        \textbf{2 etapo aprašymas:} \\
+        Aplikacijos testavimo komandos:
         \begin{itemize}
             \item \texttt{dotnet test}
             \item \texttt{npm run test}
         \end{itemize}
-        Average time: 37s
+        Vidutinis laikas: 37s
         
-        Vitest and NUnit are used for testing frontend and backend. 
+        Vitest ir NUnit naudojami frontendo ir backendo testavimui. 
     \end{columns}
 \end{frame}
 
-\begin{frame}{CI/CD Stages 2-3}
+\begin{frame}{CI/CD 2-3 etapai}
     \begin{columns}[T] % Align columns to the top
         \column{0.5\textwidth} % Left column for the image
         \begin{figure}
             \includegraphics[width=\linewidth]{images/cicd/"stage 2-3.png"}
-            \caption{Stages 2-3}
+            \caption{2-3 etapai}
         \end{figure}
         \column{0.5\textwidth} % Right column for the text
-        \textbf{Stage 3 description:} \\
-        Application dockerization commands:
+        \textbf{3 etapo aprašymas:} \\
+        Aplikacijos dockerizavimo komandos:
         \begin{itemize}
             \item \texttt{docker build -t frontend-app .}
             \item \texttt{docker build -t backend-app .}
         \end{itemize}
-        Average time: 17s
+        Vidutinis laikas: 17s
 
-        Max time: 87s
+        Maksimalus laikas: 87s
 
-        Min time: 6s
+        Minimalus laikas: 6s
     \end{columns}
 \end{frame}
 
-\begin{frame}{CI/CD Stages 4-5}
+\begin{frame}{CI/CD 4-5 etapai}
     \begin{columns}[T] % Align columns to the top
         \column{0.5\textwidth} % Left column for the image
         \begin{figure}
             \includegraphics[width=\linewidth]{images/cicd/"stage 4-5.png"}
-            \caption{Stages 4-5}
+            \caption{4-5 etapai}
         \end{figure}
         \column{0.5\textwidth} % Right column for the text
-        \textbf{Stage 4 description:} \\
-        Database update command:
+        \textbf{4 etapo aprašymas:} \\
+        Duomenų bazės atnaujinimo komanda:
         \begin{itemize}
             \item \texttt{dotnet ef database update}
         \end{itemize}
-        Average time: 14s
+        Vidutinis laikas: 14s
 
-        The developer must include \textbf{\#migration} in the commit message to trigger this stage.
+        Programuotojas privalo įtraukti \textbf{\#migration} į įrašo pranešimą, kad suaktyvintų šį etapą.
     \end{columns}
 \end{frame}
 
-\begin{frame}{CI/CD Stages 4-5}
+\begin{frame}{CI/CD 4-5 etapai}
     \begin{columns}[T] % Align columns to the top
         \column{0.5\textwidth} % Left column for the image
         \begin{figure}
             \includegraphics[width=\linewidth]{images/cicd/"stage 4-5.png"}
-            \caption{Stages 4-5}
+            \caption{4-5 etapai}
         \end{figure}
         \column{0.5\textwidth} % Right column for the text
-        \textbf{Description:} \\
-        Deployment command:
+        \textbf{Aprašymas:} \\
+        Diegimo komanda:
         \begin{itemize}
             \item \texttt{docker-compose up -d}
         \end{itemize}
-        Average time: 8s
+        Vidutinis laikas: 8s
     \end{columns}
 \end{frame}
 
 
 
 
-\begin{frame}{Deployment Environment (Physical View)}
+\begin{frame}{Diegimo aplinka (Fizinis pjūvis)}
     \begin{figure}
         \includegraphics[width=0.8\linewidth]{images/cicd/DeploymentEnv.drawio.png}
-        \caption{Deployment Environment}
+        \caption{Diegimo aplinka}
     \end{figure}
 \end{frame}
 
-\begin{frame}{Production Diagram (Physical View)}
+\begin{frame}{Produkcijos diagrama (Fizinis pjūvis)}
     \begin{figure}
         \includegraphics[width=0.65\linewidth]{images/cicd/PROD Diagram.drawio.png}
-        \caption{Production Diagram}
+        \caption{Produkcijos diagrama}
     \end{figure}
 \end{frame}
 
 
 
 
-\begin{frame}{Resource Needs}
-    Database resource needs:
+\begin{frame}{Išteklių poreikiai}
+    Duomenų bazės išteklių poreikiai:
     \begin{table}[H]
         \centering
         \begin{tabular}{|c|c|c|}
             \hline
-            \textbf{Requirement Type} & \textbf{Minimal Requirements} & \textbf{Recommended Requirements} \\ 
+            \textbf{Reikalavimo tipas} & \textbf{Minimalūs reikalavimai} & \textbf{Rekomenduojami reikalavimai} \\ 
             \hline
-            Database CPU & 1 core & 1 core \\ 
+            Duomenų bazės CPU & 1 branduolys & 1 branduolys \\ 
             \hline
-            Database RAM & 1 GB & 1 GB \\ 
+            Duomenų bazės RAM & 1 GB & 1 GB \\ 
             \hline
-            Database Storage & 1 GB & 5 GB \\ 
+            Duomenų bazės talpa & 1 GB & 5 GB \\ 
             \hline
         \end{tabular}
-        \caption{System Requirements for Database}
+        \caption{Sistemos reikalavimai duomenų bazei}
         \label{tab:system-requirements}
     \end{table}
 \end{frame}
 
-\begin{frame}{Resource Needs}
-    Host device resource needs:
+\begin{frame}{Išteklių poreikiai}
+    Įrenginio išteklių poreikiai:
     \begin{table}[H]
         \centering
         \begin{tabular}{|c|c|c|}
             \hline
-            \textbf{Resource Type} & {Minimal needs} & {Recommended} \\ 
+            \textbf{Ištekliaus tipas} & {Minimalūs poreikiai} & {Rekomenduojami} \\ 
             \hline
-            Storage & 6 GB & 10 GB \\ 
+            Talpa & 6 GB & 10 GB \\ 
             \hline
             RAM & 1 GB & 2 GB \\ 
             \hline
-            CPU & 0.4 core & 1 core \\ 
+            CPU & 0.4 branduolio & 1 branduolys \\ 
             \hline
-            Network Upload & 629 Mbit/s & 1 Gbit/s \\
+            Įkėlimas & 629 Mbit/s & 1 Gbit/s \\
             \hline
-            Network Download & 8 Mbit/s & 200 Mbit/s \\
+            Atsisiuntimas & 8 Mbit/s & 200 Mbit/s \\
             \hline
-            Network Latency & ≈30 ms & ≈10 ms \\
+            Tinklo vėlinimas & ≈30 ms & ≈10 ms \\
             \hline
         \end{tabular}
-        \caption{Host Device Resource Needs}
+        \caption{Įrenginio išteklių poreikiai}
         \label{tab:resource-types}
     \end{table}
 \end{frame}
@@ -415,118 +415,9 @@
 %------------------------------------------------
 
 \begin{frame}
-    \Huge{\centerline{\textbf{The End}}}
+    \Huge{\centerline{\textbf{Demo}}}
 \end{frame}
 
 %----------------------------------------------------------------------------------------
 
 \end{document}
-
-
-
-
-
-
-% %------------------------------------------------
-% \section{First Section}
-% %------------------------------------------------
-
-% \begin{frame}{Bullet Points}
-%     \begin{itemize}
-%         \item Lorem ipsum dolor sit amet, consectetur adipiscing elit
-%         \item Aliquam blandit faucibus nisi, sit amet dapibus enim tempus eu
-%         \item Nulla commodo, erat quis gravida posuere, elit lacus lobortis est, quis porttitor odio mauris at libero
-%         \item Nam cursus est eget velit posuere pellentesque
-%         \item Vestibulum faucibus velit a augue condimentum quis convallis nulla gravida
-%     \end{itemize}
-% \end{frame}
-
-% %------------------------------------------------
-
-% \begin{frame}{Blocks of Highlighted Text}
-%     In this slide, some important text will be \alert{highlighted} because it's important. Please, don't abuse it.
-
-%     \begin{block}{Block}
-%         Sample text
-%     \end{block}
-
-%     \begin{alertblock}{Alertblock}
-%         Sample text in red box
-%     \end{alertblock}
-
-%     \begin{examples}
-%         Sample text in green box. The title of the block is ``Examples".
-%     \end{examples}
-% \end{frame}
-
-% %------------------------------------------------
-
-% \begin{frame}{Multiple Columns}
-%     \begin{columns}[c] % The "c" option specifies centered vertical alignment while the "t" option is used for top vertical alignment
-
-%         \column{.45\textwidth} % Left column and width
-%         \textbf{Heading}
-%         \begin{enumerate}
-%             \item Statement
-%             \item Explanation
-%             \item Example
-%         \end{enumerate}
-
-%         \column{.45\textwidth} % Right column and width
-%         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lectus nisl, ultricies in feugiat rutrum, porttitor sit amet augue. Aliquam ut tortor mauris. Sed volutpat ante purus, quis accumsan dolor.
-
-%     \end{columns}
-% \end{frame}
-
-% %------------------------------------------------
-% \section{Second Section}
-% %------------------------------------------------
-
-% \begin{frame}{Table}
-%     \begin{table}
-%         \begin{tabular}{l l l}
-%             \toprule
-%             \textbf{Treatments} & \textbf{Response 1} & \textbf{Response 2} \\
-%             \midrule
-%             Treatment 1         & 0.0003262           & 0.562               \\
-%             Treatment 2         & 0.0015681           & 0.910               \\
-%             Treatment 3         & 0.0009271           & 0.296               \\
-%             \bottomrule
-%         \end{tabular}
-%         \caption{Table caption}
-%     \end{table}
-% \end{frame}
-
-% %------------------------------------------------
-
-% \begin{frame}{Theorem}
-%     \begin{theorem}[Mass--energy equivalence]
-%         $E = mc^2$
-%     \end{theorem}
-% \end{frame}
-
-% %------------------------------------------------
-
-% \begin{frame}{Figure}
-%     Uncomment the code on this slide to include your own image from the same directory as the template .TeX file.
-%     %\begin{figure}
-%     %\includegraphics[width=0.8\linewidth]{test}
-%     %\end{figure}
-% \end{frame}
-
-% %------------------------------------------------
-
-% \begin{frame}[fragile] % Need to use the fragile option when verbatim is used in the slide
-%     \frametitle{Citation}
-%     An example of the \verb|\cite| command to cite within the presentation:\\~
-
-%     This statement requires citation \cite{p1}.
-% \end{frame}
-
-% %------------------------------------------------
-
-% \begin{frame}{References}
-%     \footnotesize
-%     \bibliography{reference.bib}
-%     \bibliographystyle{apalike}
-% \end{frame}
