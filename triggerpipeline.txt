@@ -7,3 +7,5 @@ sudo dhclient eth0
 
 trigger
 trigger
+
+trigger test
