@@ -3,16 +3,18 @@ using System.Text.Json;
 using AimReactionAPI.DTOs;
 using AimReactionAPI.Models;
 using Fleck;
+using Microsoft.IdentityModel.Tokens;
 
 namespace AimReactionAPI.Services;
 
 public class MultiplayerService
 {
     private readonly IServiceProvider _serviceProvider;
-    private readonly ConcurrentDictionary<int, Player> Players = new();
-    private readonly ConcurrentDictionary<Guid, Room> Rooms = new();
+    private readonly ConcurrentDictionary<int, Player> _players = new();
+    private readonly ConcurrentDictionary<Guid, Room> _rooms = new();
     private readonly ILogger<MultiplayerService> _logger;
     private const int ROUND_DURATION_SECONDS = 5;
+    private const int UI_UPDATE_DURATION_SECONDS = 5;
     public MultiplayerService(IServiceProvider serviceProvider, ILogger<MultiplayerService> logger)
     {
         _serviceProvider = serviceProvider;
@@ -28,32 +30,32 @@ public class MultiplayerService
             throw new InvalidDataException($"User with ID {playerId} not found.");
 
         Player player = new(user.Name, ws);
-        Players.TryAdd(playerId, player);
-        SendMessageToPlayer(playerId, JsonSerializer.Serialize(new AvailableRoomsResponse(GetJoinableRooms())));
+        _players.TryAdd(playerId, player);
+        SendMessageToPlayer(playerId, JsonSerializer.Serialize(new AvailableRoomsResponse(GetJoinableRooms(playerId))));
         _logger.LogInformation($"player({playerId}) connected");
     }
 
-    public void CreateRoom(int playerId, string roomName)
+    public void CreateRoom(int playerId, string roomName, GameVisibility visibility, HashSet<int> playersWithAccess)
     {
         _logger.LogInformation($"player({playerId}) is creating room({roomName})");
-        if (!Players.ContainsKey(playerId))
+        if (!_players.ContainsKey(playerId))
         {
             throw new InvalidDataException($"User {playerId} not found.");
         }
-        ValidateCanJoin(playerId);
+        ValidateCanJoin(playerId);  
         Guid roomGuid = Guid.NewGuid();
-        Room room = new(roomGuid, playerId, roomName);
-        Rooms.TryAdd(roomGuid, room);
+        Room room = new(roomGuid, playerId, roomName, visibility, playersWithAccess);
+        _rooms.TryAdd(roomGuid, room);
         SendMessageToPlayer(playerId, JsonSerializer.Serialize(GetRoomResponse(room)));
-        BroadcastToAll(JsonSerializer.Serialize(new AvailableRoomsResponse(GetJoinableRooms())));
+        BroadcastJoinableGames();
         _logger.LogInformation($"player({playerId}) created room({roomName})");
     }
 
     public void JoinRoom(int playerId, Guid roomId)
     {
         _logger.LogInformation($"player({playerId}) is joining room({roomId})");
-        if (!Players.ContainsKey(playerId) ||
-            !Rooms.TryGetValue(roomId, out var room))
+        if (!_players.ContainsKey(playerId) ||
+            !_rooms.TryGetValue(roomId, out var room))
         {
             throw new InvalidDataException($"User {playerId} Or room {roomId} not found");
         }
@@ -65,7 +67,7 @@ public class MultiplayerService
     public void StartRoom(int playerId, Guid roomId)
     {
         _logger.LogInformation($"player({playerId}) is starting room({roomId})");
-        if (!Rooms.TryGetValue(roomId, out var room))
+        if (!_rooms.TryGetValue(roomId, out var room))
         {
             throw new InvalidDataException($"Room {roomId} not found");
         }
@@ -85,7 +87,7 @@ public class MultiplayerService
     public void RegisterTargetHit(int playerId, Guid roomId, double reactionTime)
     {
         _logger.LogInformation($"registering hit for player({playerId}) in room({roomId})");
-        if (!Rooms.TryGetValue(roomId, out var room) ||
+        if (!_rooms.TryGetValue(roomId, out var room) ||
             !room.Players.Contains(playerId))
         {
             throw new InvalidDataException($"User {playerId} not in room Or room {roomId} not found");
@@ -99,16 +101,20 @@ public class MultiplayerService
 
     }
 
-    public List<RoomResponse> GetJoinableRooms()
+    public List<RoomResponse> GetJoinableRooms(int playerId)
     {
-        return Rooms.Values
-        .Where(room => room.RoomStatus == RoomStatus.WAITING)
+        return _rooms.Values
+        .Where(room => room.RoomStatus == RoomStatus.WAITING &&
+                (room.RoomVisibility == GameVisibility.PUBLIC ||
+                (room.RoomVisibility == GameVisibility.PRIVATE &&
+                room.AllowedPlayers.Contains(playerId)))
+            )
         .Select(room => new RoomResponse(
             room.Id,
             room.Name,
             room.CreatorId,
             room.Players
-                .Select(id => Players[id].Username)
+                .Select(id => _players[id].Username)
                 .ToList(),
             room.RoomStatus.ToString()))
         .ToList();
@@ -117,16 +123,16 @@ public class MultiplayerService
     public void Disconnect(int playerId)
     {
         _logger.LogInformation($"player({playerId}) is disconnecting");
-        if (!Players.TryRemove(playerId, out var player))
+        if (!_players.TryRemove(playerId, out var player))
         {
             return;
         }
-        foreach (var room in Rooms)
+        foreach (var room in _rooms)
         {
             room.Value.RemoveFromRoom(playerId);
             if (room.Value.Players.Count == 0)
             {
-                Rooms.TryRemove(room);
+                _rooms.TryRemove(room);
             }
         }
         player.Connection.Close();
@@ -135,7 +141,7 @@ public class MultiplayerService
 
     private void ValidateCanJoin(int playerId, Guid roomId = new())
     {
-        foreach (var (id, room) in Rooms)
+        foreach (var (id, room) in _rooms)
         {
             if (room.Players.Contains(playerId) && id != roomId)
             {
@@ -151,17 +157,17 @@ public class MultiplayerService
             room.Name,
             room.CreatorId,
             room.Players
-                .Select(id => Players[id].Username)
+                .Select(id => _players[id].Username)
                 .ToList(),
             room.RoomStatus.ToString());
     }
 
     private void BroadcastRoundResults(Room room, HashSet<int> eliminatedPlayerIds)
     {
-        List<RoomPlayerDto> eliminatedPlayers = Players.Where(p => eliminatedPlayerIds.Contains(p.Key))
+        List<RoomPlayerDto> eliminatedPlayers = _players.Where(p => eliminatedPlayerIds.Contains(p.Key))
                     .Select(p => new RoomPlayerDto(p.Value.Username, p.Key, room.PlayerTimes.GetValueOrDefault(p.Key)))
                     .ToList();
-        List<RoomPlayerDto> remainingPlayers = Players.Where(p => room.Players.Contains(p.Key) && !eliminatedPlayerIds.Contains(p.Key))
+        List<RoomPlayerDto> remainingPlayers = _players.Where(p => room.Players.Contains(p.Key) && !eliminatedPlayerIds.Contains(p.Key))
                     .Select(p => new RoomPlayerDto(p.Value.Username, p.Key, room.PlayerTimes.GetValueOrDefault(p.Key)))
                     .ToList();
         var results = new RoomRoundResultsResponse(remainingPlayers, eliminatedPlayers);
@@ -171,15 +177,15 @@ public class MultiplayerService
 
     private void SendMessageToPlayer(int playerId, string message)
     {
-        if (Players.TryGetValue(playerId, out var player))
+        if (_players.TryGetValue(playerId, out var player))
         {
             player.Connection.Send(message);
         }
     }
 
-    private void HandleRoundEnd(Room room)
+    private async void HandleRoundEnd(Room room)
     {
-        _logger.LogInformation($"round of ({room.Id}) ended");
+        _logger.LogInformation($"round of room({room.Id}) ended");
 
         var eliminatedPlayers = room.Players
             .Where(playerId => !room.PlayerTimes.ContainsKey(playerId))
@@ -187,13 +193,14 @@ public class MultiplayerService
         if (eliminatedPlayers.Count == 0)
         {
             var slowestPlayer = room.PlayerTimes
-                        .OrderBy(p => p.Value)
+                        .OrderByDescending(p => p.Value)
                         .FirstOrDefault();
             eliminatedPlayers.Add(slowestPlayer.Key);
         }
+        _logger.LogInformation($"eliminated player ids: {string.Join(", ", eliminatedPlayers)}");
 
         BroadcastRoundResults(room, eliminatedPlayers);
-        Thread.Sleep(1000);
+        await Task.Delay(UI_UPDATE_DURATION_SECONDS * 1000); 
         foreach (var player in eliminatedPlayers)
         {
             room.RemoveFromRoom(player);
@@ -204,7 +211,7 @@ public class MultiplayerService
         }
         else
         {
-            Rooms.TryRemove(room.Id, out var _);
+            _rooms.TryRemove(room.Id, out var _);
         }
     }
 
@@ -215,11 +222,14 @@ public class MultiplayerService
         BroadcastMessageToRoom(room, serializedTarget);
     }
 
-    private void BroadcastToAll(string message)
+    private void BroadcastJoinableGames()
     {
-        foreach (var player in Players)
+        foreach (var (playerId, _) in _players)
         {
-            SendMessageToPlayer(player.Key, message);
+            var joinableRooms = GetJoinableRooms(playerId);
+            var response = new AvailableRoomsResponse(joinableRooms);
+            if (!joinableRooms.IsNullOrEmpty())
+                SendMessageToPlayer(playerId, JsonSerializer.Serialize(response));
         }
     }
 
@@ -233,7 +243,7 @@ public class MultiplayerService
     
     private void StartRound(Room room)
     {
-        _logger.LogInformation($"round of ({room.Id}) started");
+        _logger.LogInformation($"round of room({room.Id}) started");
         room.ResetPlayerTimes();
         Target target = TargetService.GenerateTarget();
         CreateAndBroadcastTargetToRoom(room, target);

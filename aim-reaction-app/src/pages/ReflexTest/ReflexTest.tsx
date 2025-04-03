@@ -214,9 +214,9 @@ const ReflexTest: React.FC = () => {
           <button onClick={handleStopGame}>Stop Game</button>
         </div>
       )}
-        {countdown !== null && <div className={styles.countdown}>{countdown}</div>}
+        {!!countdown && <div className={styles.countdown}>{countdown}</div>}
         <TargetArea
-          showTarget={!countdown}
+          showTarget={!countdown && !!sessionId}
           targetX={Math.random()}
           targetY={Math.random()}
           hitTarget={handleHitTarget} />

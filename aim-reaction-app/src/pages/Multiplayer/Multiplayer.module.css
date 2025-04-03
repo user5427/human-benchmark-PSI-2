@@ -3,3 +3,21 @@
     flex-direction: column;
     padding: 20px;
 }
+
+.userList {
+    padding: 10px 20px;
+    height: 60px;
+    overflow-y: auto;
+    overflow-x: auto;
+    width: 300px;
+    border: 1px solid #ccc;
+}
+
+.userList li {
+    white-space: nowrap; 
+}
+
+.userList span {
+    margin-left: 7px; 
+}
+

@@ -1,4 +1,4 @@
-import OnlineRooms from '../../components/MultiplayerRooms/MultiplayerRooms';
+import MultiplayerRooms from '../../components/MultiplayerRooms/MultiplayerRooms';
 import useWebSocket from 'react-use-websocket';
 import { useAuth } from '../../contexts/AuthContext';
 import { useEffect, useState } from 'react';
@@ -29,6 +29,7 @@ const Multiplayer = () => {
                 setTarget(lastJsonMessage as RoomTarget);
                 setRoundStartTime(Date.now())
                 setStarted(true);
+                setRoundResults(null);
                 break;
             case 'AvailableRoomsResponse':
                 setRooms((lastJsonMessage as AvailableRooms).Rooms);
@@ -53,11 +54,13 @@ const Multiplayer = () => {
         });
     }
 
-    const createRoom = (roomName: string) => {
+    const createRoom = (roomName: string, visibility: number, allowedPlayers: number[] ) => {
         sendJsonMessage({
             "eventType": "CreateRoomEvent",
             "playerId": playerId,
-            "roomName": roomName
+            "roomName": roomName,
+            "visibility": visibility,
+            "allowedPlayers": allowedPlayers
         });
     }
 
@@ -102,7 +105,7 @@ const Multiplayer = () => {
         (!room ?
             <section>
                 <div>
-                    <OnlineRooms rooms={rooms} joinRoom={joinRoom} createRoom={createRoom} />
+                    <MultiplayerRooms rooms={rooms} joinRoom={joinRoom} createRoom={createRoom} />
                 </div>
             </section>
             :
@@ -117,9 +120,34 @@ const Multiplayer = () => {
                     </div>
                     :
                     <div>
-                        <div>Remaining: {roundResult?.RemainingPlayers.map(p => <div key={p.Id}>{p.Name} {p.ReactionTime}</div>)} </div> 
-                        <div>Eliminated: {roundResult?.EliminatedPlayers.map(p => <div key={p.Id}>{p.Name} {p.ReactionTime}</div>)} </div>
-                        <TargetArea targetX={0.01 * (target?.X ?? 0)} targetY={0.01 *(target?.Y ?? 0)} showTarget={!!target} hitTarget={hitTarget}/>
+                        {roundResult && <div style={{ display: "flex", gap: "20px", alignItems: "flex-start" }}>
+                            <div>
+                                <span>Remaining: </span>
+                                <ul className={styles.userList}>
+                                    {roundResult?.RemainingPlayers.map(p =>
+                                        <li key={p.Id}>
+                                            <span>{p.Name}</span>
+                                            <span>{p.ReactionTime} ms</span>
+                                        </li>
+                                    )}
+                                </ul>
+                            </div> 
+                            <div>
+                                <span>Eliminated: </span>
+                                <ul className={styles.userList}>
+                                    {roundResult?.EliminatedPlayers.map(p =>
+                                        <li key={p.Id}>
+                                            <span>{p.Name}</span>
+                                            <span>{p.ReactionTime} ms</span>
+                                        </li>
+                                    )}
+                                </ul>
+                            </div>
+                        </div>  }  
+                        <TargetArea targetX={0.01 * (target?.X ?? 0)}
+                            targetY={0.01 * (target?.Y ?? 0)}
+                            showTarget={!!target}
+                            hitTarget={hitTarget} />
                     </div>
                 }
             </div>

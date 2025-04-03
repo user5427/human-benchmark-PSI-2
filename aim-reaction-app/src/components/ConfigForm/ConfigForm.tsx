@@ -56,7 +56,6 @@ const ConfigForm = () => {
     }
   }, [gameConfig]);
 
-  // Fetch available users once on mount
   useEffect(() => {
     const fetchUsers = async () => {
       try {

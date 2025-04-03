@@ -15,7 +15,7 @@ public class CreateRoomEvent : BaseEventHandler<CreateRoomRequest>
     }
     public override Task Handle(CreateRoomRequest dto, IWebSocketConnection socket)
     {
-        _multiplayerService.CreateRoom(dto.PlayerId, dto.RoomName);
+        _multiplayerService.CreateRoom(dto.PlayerId, dto.RoomName, dto.Visibility, dto.AllowedPlayers);
         return Task.CompletedTask;
     }
 }
