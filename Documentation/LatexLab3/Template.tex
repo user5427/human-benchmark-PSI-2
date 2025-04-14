@@ -97,9 +97,128 @@ This section is for when abbreviations are used. For example:
 \end{tabular}
 
 \sectionnonum{Introduction}
+This document presents the request to add real-time chat capabilities to the reaction time training web application. The goal is to improve user interaction  by allowing communication globally and within specific game rooms.
+
+\section{Description}
+Create a chat system enabling users to send and receive text-based messages. This system will operate in two scopes:
+\begin{itemize}
+\item Global scope. Accessible to all logged-in users outside of active game rooms.
+\item Room scope. Accessible only to users currently participating within the same active game room.
+\end{itemize}
+\section{Requirements}
+
+\subsection{Functional Requirements}
+
+\begin{itemize}
+
+    % UI Structure
+    \item The UI must include a togglable chat panel displayed on the right side of the application when the user is logged in.
+    \item The chat panel must display a title at the top to indicate its scope:
+    \begin{itemize}
+        \item \texttt{Global Chat} — when the user is not in an active game room.
+        \item \texttt{Room <room-name> Chat} — when the user is inside an active game room.
+    \end{itemize}
+    \item The panel must include the following UI elements:
+    \begin{itemize}
+        \item A scrollable area for message display.
+        \item A text input field for message composition, limited to 256 characters.
+        \item A \texttt{Send} button for message submission.
+    \end{itemize}
+
+    % Message Display
+    \item Each displayed message must show the following details:
+    \begin{itemize}
+        \item Sender's username.
+        \item Message timestamp (formatted as \texttt{HH:MM} or similar).
+        \item The actual text content.
+    \end{itemize}
+    \item Messages must be ordered chronologically, with the most recent messages appearing at the bottom.
+
+    % Message Handling
+    \item Typing a message and either clicking the \texttt{Send} button or pressing the \texttt{Enter} key must send the message to the server.
+    \item After sending a message:
+    \begin{itemize}
+        \item The input field must be cleared.
+        \item The message must immediately appear in the sender's chat panel.
+        \item Other users in the same chat scope (global or room) must receive the message in real time.
+    \end{itemize}
+    \item When the user opens the chat panel for the first time, the system must fetch and display a list of past messages relevant to that chat scope.
+    \item If an error occurs during sending:
+    \begin{itemize}
+        \item A popup notification must appear with the message \texttt{"Failed to send message"}.
+        \item The notification must disappear after 3 seconds or when manually closed by the user.
+    \end{itemize}
+     \item For each received message, system must determine the correct destination scope based on the sender's current state:
+    \begin{itemize}
+        \item If the user is associated with an active game room ID, the scope is that Room.
+        \item If the user is not associated with an active game room ID, the scope is Global Chat.
+    \end{itemize}
+    \item System must broadcast message to currently active users in destination scope
+    \item System must store messages in the database and provide rest endpoint to fetch those messages.
+\end{itemize}
+
+\subsection{Non-Functional Requirements}
+
+\begin{itemize}
+    \item (is this non-functional???) The system must implement basic input sanitization to prevent Cross-Site Scripting (XSS) attacks.
+\end{itemize}
+
+% USE ICONIX for requirements?
+
+\section{Impact Analysis}
+
+\section{Implementation alternatives}
+\subsection{External communication application Discord}
+ Instead of building chat features directly into the web app, users are encouraged to communicate via a pre-existing, external platform like a dedicated Discord server. 
+\subsubsection{Pros}
+\begin{description}
+    \item[Minimal Development Effort] Requires almost no coding effort within the core web application itself, aside from potentially adding links or notes related to Discord.
+    \item[Many existing features] Discord has rich text, voice channels, emote or file support, roles, bots, mobile apps, and many more.
+    \item[Offloaded Infrastructure] All costs and complexities related to hosting, scaling, and maintaining the chat service are handled by the external platform.
+    \item[User Familiarity] Many users may already be familiar with Discord.
+\end{description}
+\subsubsection{Cons}
+\begin{description}
+    \item[Poor Integration] Requires users to switch apps to chat. Can be disruptive to the user flow.
+    \item[Manual setup for users] Cannot provide chat within specific game rooms directly tied to the app's state. Room-specific chat logic has to be handled by users.
+    \item[Loss of Control] No control over the chat UI or platform availability.
+\end{description}
 
 
-\section{MySection}
+\subsection{Integrate Third-Party Chat SDK/Service - Stream}
+Use a specialized commercial service that provides chat functionality via an API and client-side SDKs. Your application's frontend integrates the SDK to display chat UI elements, and your backend interacts with the service's API to manage users and channels. The third party handles the real-time infrastructure.
+\subsubsection{Pros}
+\begin{description}
+    \item[Faster development] Significantly reduces development time compared to building from scratch, as the core real-time backend is already built.
+    \item[Managed infrastructure] Offloads the complexity of managing WebSockets, scaling connections, ensuring reliability, and handling infrastructure maintenance.
+    \item[Additional features included] Often comes with built-in features like presence indicators, typing notifications, message history, read receipts, and moderation tools.
+    \item[Good integration possible] Allows chat UI to be embedded directly within your web application.
+\end{description}
+\subsubsection{Cons}
+\begin{description}
+    \item[Additional costs for 3rd party sservice] Involves monthly subscription fees based on usage metrics (e.g., Monthly Active Users, concurrent connections) which can become significant if app is popular.
+    \item[Difficulty to migrate] Integrating with a specific service makes it potentially difficult and costly to switch providers later.
+    \item[Limited customization] Flexibility is bound by the features and customization options offered by the specific vendor; future requirements may be hard to implement.
+    \item[External dependency] Chat functionality's reliability is tied to the uptime and performance of the third-party service.
+\end{description}
+
+\subsection{Develop Full In-House Solution (From Scratch)}
+Implement the entire chat system (backend real-time server, frontend UI components, API logic) using websockets.
+\subsubsection{Pros}
+\begin{description}
+    \item[Complete control] Full flexibility over features, UI/UX, data management, performance optimization, and deep integration with existing application logic.
+    \item[No direct 3rd party costs] Avoids recurring subscription fees.
+    \item[Freedom to evolve] Easier to add new features, change technologies, or modify features without external constraints.
+\end{description}
+\subsubsection{Cons}
+\begin{description}
+    \item[Highest development effort] Requires significant development time and in-house expertise in real-time communication, backend scaling, security, and frontend development.
+    \item[Full infrastructure responsibility] Requires managing the deployment, scaling, monitoring, maintenance, and reliability of the chat server infrastructure.
+    \item[Higher initial cost] Requires a dedicated development team to implement the chat functionality from scratch.
+\end{description}
+\section{Estimates??}
+\section{Project plan}
+
 
 \printbibliography[title = {References and sources}]
 
