@@ -1,0 +1,106 @@
+%%%%%
+%%%%%  Use LUALATEX, not LATEX.
+%%%%%
+%%%%
+\documentclass[]{VUMIFTemplateClass}
+
+\usepackage{indentfirst}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{mathtools}
+\usepackage{physics}
+\usepackage{graphicx}
+\usepackage{verbatim}
+\usepackage[hidelinks]{hyperref}
+\usepackage{color,algorithm,algorithmic}
+\usepackage[nottoc]{tocbibind}
+\usepackage{tocloft}
+
+\usepackage{titlesec}
+\newcommand{\sectionbreak}{\clearpage}
+
+\makeatletter
+\renewcommand{\fnum@algorithm}{\thealgorithm}
+\makeatother
+\renewcommand\thealgorithm{\arabic{algorithm} algorithm}
+
+\usepackage{biblatex}
+\bibliography{bibliografija}
+%% to change the numbering (numeric or alphabetic) of bibliographic sources, make the change in VUMIFTemplateClass.cls, line 139
+
+% Author's MACROS
+\newcommand{\EE}{\mathbb{E}\,} % Mean
+\newcommand{\ee}{{\mathrm e}}  % nice exponent
+\newcommand{\RR}{\mathbb{R}}
+
+
+\studyprogramme{\{Study programme\}} %Write your study programme (example – Software engineering, Financial and Actuarial Mathematics, etc.)
+\worktype{\{Work type\}} % Bachelor's thesis or Master's thesis
+\worktitle{Work Title in English}
+\secondworktitle{Work Title in Lithuanian}
+\workauthor{Name Surname}
+
+%There may be more than one author, in which case each author is written from a new line which is added in Titlepage.tex or LongerTitlePage.tex
+%\secondauthor{Name Surname} %If present, otherwise delete
+
+\supervisor{pedagogical/scientific title Name Surname}
+\reviewer{pedagogical/scientific title Name Surname} %If present, otherwise delete
+\scientificadvisor{pedagogical/scientific title Name Surname} %If present, otherwise delete
+
+\begin{document}
+\selectlanguage{english}
+
+\onehalfspacing
+\input{TitlePage}
+
+%% Acknowledgements Section
+\sectionnonumnocontent{Acknowledgements}
+The author is thankful the Information Technology Research Center, Faculty of Mathematics and Informatics, Vilnius University, for providing the High-Performance Computing (HPC) resources for this research.
+
+%%Summary
+\sectionnonum{Summary}
+
+Summary in english.\\
+
+\textbf{Keywords:} work related keywords, with a \textit{\textbf{minimum of 3 keywords}}, but can be more.
+
+
+
+
+
+\singlespacing
+\selectlanguage{english}
+% list of figures, delete if not needed
+\listoffigures 
+
+%list of tables, delete if not needed
+\listoftables
+
+%Turinys
+\tableofcontents
+\onehalfspacing
+
+
+%Section for symbols
+\sectionnonum{List of symbols} %Leave if necessary
+This section is for when symbols are used. For example:
+\begin{itemize}
+    \item $\EE X$ denotes the mean of the random variable $X$.
+\end{itemize}
+
+
+%Section for abbreviations
+\sectionnonum{List of abbreviations} %Leave if necessary
+This section is for when abbreviations are used. For example:
+
+\begin{tabular}{rcp{.7\textwidth}}
+    % {u.d.i.r.v.} & {} & {uniformly distributed independent random variables}
+\end{tabular}
+
+\sectionnonum{Introduction}
+
+
+\section{MySection}
+
+\printbibliography[title = {References and sources}]
+
+\end{document}
