@@ -224,7 +224,7 @@ Implement the entire chat system (backend real-time server, frontend UI componen
 \section{Domain Model}
 These requirements (\ref{sec:FunctionalRequirements}; \ref{sec:NonFunctionalRequirements}) are a rich source of domain classes. Let’s put all the highlighted
 nouns and noun phrases into a list (in the process, we’ll turn all the plurals into singulars,
-and put them all in alphabetical order):
+and put them all into one table):
 
 \begin{table}[H]
     \centering
@@ -269,14 +269,16 @@ Let’s identify and examine candidate duplicates or terms that may not belong i
         \item “Popup” describes the form, not the concept. Let’s keep Notification.
     \end{itemize}
 
-    \item \textbf{Room Chat vs. Global Chat}
+    \item \textbf{Sender Username vs. Sender vs. User}
     \begin{itemize}
-        \item These are just types of Chat Scope, so we’ll keep Chat Scope as the general class.
+        \item Redundant. We’ll keep only User.
+        \item Sender is a role of the User in this context, so we can treat it as an attribute.
+        \item Sender Username is a specific attribute of the User.
     \end{itemize}
 
-    \item \textbf{Sender Username vs. Sender}
+    \item \textbf{User vs. Customer Account}
     \begin{itemize}
-        \item Redundant. We’ll keep Sender (with username as an attribute).
+        \item These terms are essentially describing the same concept. Let’s standardize on User and drop Customer Account.
     \end{itemize}
 \end{itemize}
 
@@ -288,6 +290,10 @@ These items are either:
     \item Purely UI,
     \item Too low-level (like primitives), or
     \item Better handled in use cases or elsewhere.
+    \item Room ID → implementation detail (likely an attribute).
+    \item Message Order → implementation detail (likely an attribute).
+    \item TextInput → UI element.
+    \item Timestamp → implementation detail (likely an attribute).
 \end{itemize}
 
 Let’s remove the following:
@@ -317,11 +323,9 @@ Here’s the refined list of candidate domain classes after tuning:
     \centering
     \begin{tabular}{p{0.3\textwidth} p{0.3\textwidth} p{0.3\textwidth}}
         \textbf{Column 1} & \textbf{Column 2} & \textbf{Column 3} \\
-        Chat Panel & Message Timestamp & Text Input \\
-        Chat Scope & Notification & Customer Account \\
-        Customer (User) & Room ID & Message Order \\
-        Game Room & Sender & Database \\
-        Message & & \\
+        Chat Panel & Chat Scope & Notification \\
+        Customer (User) & Game Room & Database \\
+        Message & Room Chat & Global Chat \\
     \end{tabular}
 \end{table}
 
