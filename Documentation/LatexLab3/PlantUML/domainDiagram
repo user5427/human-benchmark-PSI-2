@@ -1,0 +1,75 @@
+@startuml
+title Domain Model - Chat System
+
+class User {
+  +userId: String
+  +username: String
+}
+
+class CustomerAccount {
+  +accountId: String
+  +userId: String
+  +createdAt: DateTime
+}
+
+class ChatPanel {
+  +isVisible: Boolean
+}
+
+class ChatScope {
+  +scopeId: String
+  +type: ScopeType
+  +name: String
+}
+
+enum ScopeType {
+  Global
+  Room
+}
+
+class GameRoom {
+  +roomId: String
+  +roomName: String
+}
+
+class Message {
+  +messageId: String
+  +content: String
+  +timestamp: DateTime
+}
+
+class Notification {
+  +notificationId: String
+  +message: String
+  +timestamp: DateTime
+  +type: NotificationType
+}
+
+enum NotificationType {
+  Error
+  Info
+}
+
+class TextInput {
+  +maxLength: Int = 256
+  +content: String
+}
+
+class Database {
+  +storeMessage(message: Message)
+  +fetchMessages(scopeId: String): List<Message>
+}
+
+' Relationships
+User --> CustomerAccount : owns >
+User --> Message : sends >
+Message --> ChatScope : belongs to >
+ChatScope --> GameRoom : [optional] links to >
+User --> ChatScope : active in >
+User --> ChatPanel : views >
+ChatPanel --> TextInput : contains >
+Message --> Notification : triggers >
+Database --> Message : stores >
+Database --> ChatScope : references >
+
+@enduml
