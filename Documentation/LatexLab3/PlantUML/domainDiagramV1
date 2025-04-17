@@ -2,7 +2,6 @@
 
 rectangle ChatPanel
 rectangle Message
-rectangle ChatScope
 rectangle Notification
 rectangle GameRoom
 rectangle Database
@@ -18,9 +17,8 @@ rectangle GlobalChat
 :ChatPanel: o-- :Message:
 :ChatPanel: o-- :Notification:
 :Message: o-- :User:
-:ChatPanel: <|-- :ChatScope:
-:ChatScope: <|-- :RoomChat:
-:ChatScope: <|-- :GlobalChat:
+:ChatPanel: <|-- :RoomChat:
+:ChatPanel: <|-- :GlobalChat:
 
 
 

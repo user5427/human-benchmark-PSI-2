@@ -108,9 +108,6 @@ Create a chat system enabling users to send and receive text-based messages. Thi
 \end{itemize}
 \section{Requirements}
 
-\subsection{Functional Requirements}
-\label{sec:FunctionalRequirements}
-
 \begin{itemize}
 
     % UI Structure
@@ -159,12 +156,12 @@ Create a chat system enabling users to send and receive text-based messages. Thi
     \item System must store messages in the database and provide rest endpoint to fetch those messages.
 \end{itemize}
 
-\subsection{Non-Functional Requirements}
-\label{sec:NonFunctionalRequirements}
+% \subsection{Non-Functional Requirements}
+% \label{sec:NonFunctionalRequirements}
 
-\begin{itemize}
-    \item (is this non-functional???) The system must implement basic input sanitization to prevent Cross-Site Scripting (XSS) attacks.
-\end{itemize}
+% \begin{itemize}
+%     \item (is this non-functional???) The system must implement basic input sanitization to prevent Cross-Site Scripting (XSS) attacks.
+% \end{itemize}
 
 % USE ICONIX for requirements?
 
@@ -222,7 +219,7 @@ Implement the entire chat system (backend real-time server, frontend UI componen
 
 
 \section{Domain Model}
-These requirements (\ref{sec:FunctionalRequirements}; \ref{sec:NonFunctionalRequirements}) are a rich source of domain classes. Let’s put all the highlighted
+These requirements are a rich source of domain classes. Let’s put all the highlighted
 nouns and noun phrases into a list (in the process, we’ll turn all the plurals into singulars,
 and put them all into one table):
 
@@ -321,13 +318,26 @@ Here’s the refined list of candidate domain classes after tuning:
 
 \begin{table}[H]
     \centering
-    \begin{tabular}{p{0.3\textwidth} p{0.3\textwidth} p{0.3\textwidth}}
-        \textbf{Column 1} & \textbf{Column 2} & \textbf{Column 3} \\
+    \begin{tabular}{ccc}
         Chat Panel & Chat Scope & Notification \\
         Customer (User) & Game Room & Database \\
         Message & Room Chat & Global Chat \\
     \end{tabular}
 \end{table}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/domain2.png}
+    \caption{Domain Model Diagram}
+    \label{fig:domain-model}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/domain1.png}
+    \caption{Domain Model Diagram}
+    \label{fig:domain-model}
+\end{figure}
 
 
 \section{Estimates??}

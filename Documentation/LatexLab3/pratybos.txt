@@ -1,0 +1,14 @@
+alternatyvos, min, vidutiniai, max pakeitimai, kiek kainuos,
+jei siulome kazkoki work around, turime paaiskinti kiek kainuos klientui
+
+poveikio analize.
+
+kiek komandoje zmoniu, kiek kas daro...
+
+ganto diagrama??? kaip darbai vienas kita blokuoja, 
+scenarijai
+use case
+robustness
+sequence diagramos
+
+reikalavimus is scenariju issigryninti
