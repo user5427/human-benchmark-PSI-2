@@ -2,25 +2,35 @@
 
 rectangle ChatPanel
 rectangle Message
-rectangle ChatScope
 rectangle Notification
 rectangle GameRoom
 rectangle Database
 rectangle User
 rectangle RoomChat
 rectangle GlobalChat
+rectangle PrivateChat #line:red
+rectangle PinnedMessage #line:red
+rectangle SearchResults #line:red
+rectangle MessageList #line:red
+rectangle ChatScope
 
 
-:User: o-- :Customer:
+' ???
+:Customer: o-- :User: 
+ 
 :GameRoom: o-- :User:
 
 :GameRoom: o-- :ChatPanel:
 :ChatPanel: o-- :Message:
 :ChatPanel: o-- :Notification:
 :Message: o-- :User:
-:ChatPanel: <|-- :ChatScope:
 :ChatScope: <|-- :RoomChat:
 :ChatScope: <|-- :GlobalChat:
+:ChatScope: <|-- :PrivateChat:
+:ChatPanel: o-- :ChatScope:
+:Message: <|-- :PinnedMessage:
+:MessageList: o-- :Message:
+:MessageList: <|-- :SearchResults:
 
 
 

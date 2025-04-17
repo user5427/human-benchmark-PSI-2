@@ -12,3 +12,10 @@ robustness
 sequence diagramos
 
 reikalavimus is scenariju issigryninti
+
+poreikis: pokalbiu sistema
+scenarijai: parasyti zinute, ja pazureti etc...
+
+
+pasirinktai alternatyvai reikia daryti iconix, turime tris alternatyvas, reikia pasirinkti sudetingesne....
+kitas reikia tik aprasyti ir prirasyti trukumu kodel jos blogos...
