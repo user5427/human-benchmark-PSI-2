@@ -53,6 +53,26 @@
 \onehalfspacing
 \input{TitlePage}
 
+\sectionnonumnocontent{TODO}
+\vspace{2cm}
+\begin{center}
+    \textcolor{red}{\fontsize{150}{150}\selectfont \textbf{NOTICE}}
+\end{center}
+
+\begin{center}
+    \textcolor{black}{\fontsize{40}{40}\selectfont \textbf{THIS DOCUMENT MAY NOT BE UPLOADED UNTIL THE TODO MARKERS ARE REMOVED.}}
+\end{center}
+
+
+\begin{center}
+    \textcolor{red}{\fontsize{100}{100}\selectfont \textbf{TODO}}
+\end{center}
+
+\begin{enumerate}
+    \item The requirements currently only mention global and room scopes while the domain model and ui mockups contain global, room, group and private chat scopes. update the requirements.
+\end{enumerate}
+
+
 %% Acknowledgements Section
 \sectionnonumnocontent{Acknowledgements}
 The author is thankful the Information Technology Research Center, Faculty of Mathematics and Informatics, Vilnius University, for providing the High-Performance Computing (HPC) resources for this research.
@@ -386,7 +406,7 @@ These classes are quite simple and do not add much value to the domain model.
     \caption{Domain Model Diagram v6}
     \label{fig:domain-model}
 \end{figure}
-
+To simplify the diagram, the GroupChat and PrivateChat classes will also handle the responsibilities of the editing panels.
 Hopefully, this is the final version of the domain model. We will be using this domain model to implement the chat system.
 
 \section{UI Mockups}
