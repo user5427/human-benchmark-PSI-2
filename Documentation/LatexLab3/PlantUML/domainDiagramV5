@@ -1,0 +1,60 @@
+@startuml
+
+left to right direction
+
+
+rectangle ChatPanel
+rectangle Message
+rectangle Notification
+rectangle GameRoom
+rectangle Database
+rectangle User
+rectangle RoomChat
+rectangle GlobalChat
+rectangle PrivateChat #line:red
+rectangle PinnedMessage #line:red
+rectangle SearchMessagesResults #line:red
+rectangle MessageList #line:red
+rectangle ChatScope
+rectangle EmojiPanel #line:Orange
+rectangle FileUploadPanel #line:Orange
+rectangle GroupChat #line:Blue
+rectangle GlobalScope #line:Blue
+rectangle PrivateScope #line:Blue
+rectangle NotificationPanel #line:LimeGreen
+rectangle PinnedMessagesPanel #line:LimeGreen
+rectangle UserList #line:LimeGreen
+rectangle SearchUsersResults #line:LimeGreen
+
+
+' ???
+:Customer: o-- :User: 
+ 
+:GameRoom: o-- :User:
+
+:GameRoom: o-- :ChatPanel:
+:ChatPanel: o-- :Message:
+:ChatPanel: o-- :NotificationPanel:
+:NotificationPanel: o-- :Notification:
+:Message: o-- :User:
+:GlobalScope: <|-- :RoomChat:
+:GlobalScope: <|-- :GlobalChat:
+:PrivateScope: <|-- :PrivateChat:
+:ChatPanel: o-- :ChatScope:
+:Message: <|-- :PinnedMessage:
+:MessageList: o-- :Message:
+:MessageList: <|-- :SearchMessagesResults:
+:ChatPanel: o-- :EmojiPanel:
+:ChatPanel: o-- :FileUploadPanel:
+:PrivateScope: <|-- :GroupChat:
+:ChatScope: <|-- :GlobalScope:
+:ChatScope: <|-- :PrivateScope:
+:ChatPanel: o-- :PinnedMessagesPanel:
+:PinnedMessagesPanel: o-- :PinnedMessage:
+:UserList: o-- :User:
+:UserList: <|-- :SearchUsersResults:
+
+
+
+
+@enduml
