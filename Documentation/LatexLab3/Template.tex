@@ -218,6 +218,9 @@ Implement the entire chat system (backend real-time server, frontend UI componen
 \end{description}
 
 
+\section{Estimates??}
+\section{Project plan}
+
 \section{Domain Model}
 These requirements are a rich source of domain classes. Let’s put all the highlighted
 nouns and noun phrases into a list (in the process, we’ll turn all the plurals into singulars,
@@ -344,8 +347,221 @@ The classes "Private Chat", "Pinned Message" and "Search Results" and "Message L
     \label{fig:domain-model}
 \end{figure}
 
-\section{Estimates??}
-\section{Project plan}
+After drawing a few UI mockups, our team also realised that we will need to have emoji panel and file upload panel. These will be added to the domain model as well.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/domain3.png}
+    \caption{Domain Model Diagram v3}
+    \label{fig:domain-model}
+\end{figure}
+
+Furthermore, we notices that we are also missing the "Group chat" class. This class will be added to the domain model as well.
+We will also add the "Global Scope" and "Private Scope" classes to the domain model. These classes will be used to define the scope of the chat. 
+The "Global Scope" class will be used to define the global and room chat scopes. The "Private Scope" class will be used to define the group and private chat scopes.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/domain4.png}
+    \caption{Domain Model Diagram v4}
+    \label{fig:domain-model}
+\end{figure}
+
+Hopefully, this is the final version of the domain model. We will be using this domain model to implement the chat system.
+
+\section{UI Mockups}
+To better understant all of the possible scenarios, we will first create a mockup of the UI. The mockup will be created using Samsung Notes and will be saved as a PDF file.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{0.2\textwidth}|p{0.2\textwidth}|p{0.2\textwidth}|p{0.2\textwidth}|}
+        \hline
+        \textbf{Window Type} & \textbf{Main Scope Entity} & \textbf{Key Responsibilities} & \textbf{Special Features} \\ \hline
+        Global Chat & GlobalChat & Public messages, moderation & System messages, avatars, spam control \\ \hline
+        Room Chat & RoomChat & Game-room scoped chat, team comms & Team tagging, player list \\ \hline
+        Private Chat & PrivateChat & Direct user-to-user communication & Status, read receipts, avatar \\ \hline
+        Group Chat & GroupChat & Group user-to-user communication & Group tagging, read receipts \\ \hline
+        Search Window & SearchResults & Locate messages across/all scopes & Filters, jump-to, highlights \\ \hline
+        Notification Panel & Notification & Non-message or message alerts & Badge, jump-to-context, mention alerts \\ \hline
+        Pinned View & PinnedMessage & Show important/saved messages & Pin/unpin, who pinned \\ \hline
+        Chat Input & (any scope) & Message composing & Mentions, emojis, file support \\ \hline
+        Emoji Panel & (any scope) & Emoji selection & Emoji search, recent emojis \\ \hline
+        File Upload Panel & (any scope) & File selection & File type support, drag-and-drop \\ \hline
+        Group Editing Panel & GroupChat & Group management & Add/remove users, group name \\ \hline
+        Private Chat Editing Panel & PrivateChat & Delete chat & Delete confirmation \\ \hline 
+        Message editing and deleting & Message & Edit/delete messages & Edit history, delete confirmation \\ \hline
+    \end{tabular}
+    \caption{Chat System Features Overview}
+    \label{tab:chat-system-features}
+\end{table}
+
+\section{UI Mockups - Detailed Views}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/UI/cropped/H1.png}
+    \caption{UI Mockup H1}
+    \label{fig:ui-mockup-h1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/UI/cropped/H2.png}
+    \caption{UI Mockup H2}
+    \label{fig:ui-mockup-h2}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/UI/cropped/H3.png}
+    \caption{UI Mockup H3}
+    \label{fig:ui-mockup-h3}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/UI/cropped/H4.png}
+    \caption{UI Mockup H4}
+    \label{fig:ui-mockup-h4}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/UI/cropped/H5.png}
+    \caption{UI Mockup H5}
+    \label{fig:ui-mockup-h5}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/UI/cropped/G1.png}
+    \caption{UI Mockup G1}
+    \label{fig:ui-mockup-g1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/UI/cropped/G2.png}
+    \caption{UI Mockup G2}
+    \label{fig:ui-mockup-g2}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/UI/cropped/G3.png}
+    \caption{UI Mockup G3}
+    \label{fig:ui-mockup-g3}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/UI/cropped/G4.png}
+    \caption{UI Mockup G4}
+    \label{fig:ui-mockup-g4}
+\end{figure}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/UI/cropped/M1.png}
+    \caption{UI Mockup M1}
+    \label{fig:ui-mockup-m1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/UI/cropped/M2.png}
+    \caption{UI Mockup M2}
+    \label{fig:ui-mockup-m2}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/UI/cropped/M3.png}
+    \caption{UI Mockup M3}
+    \label{fig:ui-mockup-m3}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/UI/cropped/M4.png}
+    \caption{UI Mockup M4}
+    \label{fig:ui-mockup-m4}
+\end{figure}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/UI/cropped/N1.png}
+    \caption{UI Mockup N1}
+    \label{fig:ui-mockup-n1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/UI/cropped/N2.png}
+    \caption{UI Mockup N2}
+    \label{fig:ui-mockup-n2}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/UI/cropped/P1.png}
+    \caption{UI Mockup P1}
+    \label{fig:ui-mockup-p1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/UI/cropped/P2.png}
+    \caption{UI Mockup P2}
+    \label{fig:ui-mockup-p2}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/UI/cropped/L1.png}
+    \caption{UI Mockup L1}
+    \label{fig:ui-mockup-l1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/UI/cropped/E1.png}
+    \caption{UI Mockup E1}
+    \label{fig:ui-mockup-e1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/UI/cropped/E2.png}
+    \caption{UI Mockup E2}
+    \label{fig:ui-mockup-e2}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/UI/cropped/E3.png}
+    \caption{UI Mockup E3}
+    \label{fig:ui-mockup-e3}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/UI/cropped/E4.png}
+    \caption{UI Mockup E4}
+    \label{fig:ui-mockup-e4}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/UI/cropped/E5.png}
+    \caption{UI Mockup E5}
+    \label{fig:ui-mockup-e5}
+\end{figure}
+
+
+
+
 
 
 \printbibliography[title = {References and sources}]
