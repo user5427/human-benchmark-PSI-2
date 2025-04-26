@@ -1,0 +1,63 @@
+@startuml
+
+left to right direction
+
+
+rectangle ChatWindow
+rectangle Message
+rectangle Notification
+rectangle GameRoom
+rectangle Database
+rectangle User
+rectangle RoomChat
+rectangle GlobalChat
+rectangle PrivateChat #line:red
+rectangle PinnedMessage #line:red
+rectangle ChatScope
+rectangle EmojiWindow #line:Orange
+rectangle FileUploadWindow #line:Orange
+rectangle GroupChat #line:Blue
+rectangle GlobalScope #line:Blue
+rectangle PrivateScope #line:Blue
+rectangle NotificationWindow #line:LimeGreen
+rectangle PinnedMessagesWindow #line:LimeGreen
+rectangle GroupChatEditingWindow #line:Violet
+rectangle PrivateChatEditingWindow #line:Violet
+rectangle SearchMessagesWindow #line:DeepPink
+rectangle ChatButton #line:DeepPink
+rectangle ChatCreatingWindow #line:DeepPink
+
+
+' ???
+:Customer: o-- :User: 
+ 
+:GameRoom: o-- :User:
+
+:GameRoom: o-- :ChatButton:
+:GameRoom: o-- :ChatCreatingWindow:
+:ChatButton: o-- :ChatCreatingWindow:
+:ChatButton: o-- :ChatWindow:
+:ChatWindow: o-- :Message:
+:ChatWindow: o-- :NotificationWindow:
+:NotificationWindow: o-- :Notification:
+:Message: o-- :User:
+:GlobalScope: <|-- :RoomChat:
+:GlobalScope: <|-- :GlobalChat:
+:PrivateScope: <|-- :PrivateChat:
+:ChatWindow: o-- :ChatScope:
+:Message: <|-- :PinnedMessage:
+:ChatWindow: o-- :EmojiWindow:
+:ChatWindow: o-- :FileUploadWindow:
+:PrivateScope: <|-- :GroupChat:
+:ChatScope: <|-- :GlobalScope:
+:ChatScope: <|-- :PrivateScope:
+:ChatWindow: o-- :PinnedMessagesWindow:
+:PinnedMessagesWindow: o-- :PinnedMessage:
+:GroupChat: o-- :GroupChatEditingWindow:
+:PrivateChat: o-- :PrivateChatEditingWindow:
+:ChatWindow: o-- :SearchMessagesWindow:
+:SearchMessagesWindow: o-- :Message:
+
+
+
+@enduml

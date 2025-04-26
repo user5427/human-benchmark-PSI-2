@@ -70,6 +70,8 @@
 
 \begin{enumerate}
     \item The requirements currently only mention global and room scopes while the domain model and ui mockups contain global, room, group and private chat scopes. update the requirements.
+    \item for the chat use cases write what would happen if user tried to do sth in private scope chat when the game ended. he would be shown error message... etc.
+    \item make sure that the chat button and chat window terms are not mixed up. this is especially important in the use case descriptions.
 \end{enumerate}
 
 
@@ -367,7 +369,10 @@ The classes "Private Chat", "Pinned Message" and "Search Results" and "Message L
     \label{fig:domain-model}
 \end{figure}
 
-\section{UI Mockups}
+\section{UI Mockups And Updates to Domain Model}
+We will draw the UI mockups and then we will update the domain model based on the UI mockups.
+
+\subsection{UI Mockups}
 To better understant all of the possible use cases, we will first create a mockup of the UI. The mockup will be created using Samsung Notes and will be saved as a PDF file.
 
 \begin{table}[H]
@@ -386,8 +391,8 @@ To better understant all of the possible use cases, we will first create a mocku
         Emoji Panel & (any scope) & Emoji selection & Emoji search, recent emojis \\ \hline
         File Upload Panel & (any scope) & File selection & File type support, drag-and-drop \\ \hline
         Group Editing Panel & GroupChat & Group management & Add/remove users, group name \\ \hline
-        Private Chat Editing Panel & PrivateChat & Delete chat & Delete confirmation \\ \hline 
-        Message editing and deleting & Message & Edit/delete messages & Edit history, delete confirmation \\ \hline
+        Private Chat Editing Panel & PrivateChat & Delete chat & Edit, delete confirmation \\ \hline 
+        Message editing and deleting & Message & Edit/delete messages & Edit, delete confirmation \\ \hline
     \end{tabular}
     \caption{Chat System Features Overview}
     \label{tab:chat-system-features}
@@ -407,7 +412,7 @@ We seperated the UI mockups into these main secions:
 \end{itemize}
 
 
-\subsection{UI Mockups - Home page and generic chat functionality}
+\subsubsection{UI Mockups - Home page and generic chat functionality}
 \label{sec:ui-mockups-home-page}
 
 
@@ -471,7 +476,7 @@ Emoji button is also available in the room chat, group chat and private chat.
 User can also click on the search button to open the search window. Here he can search for the messages in the global chat, room chat, group chat and private chat.
 User can also click on the search button again to close the search window or click on the close button ('x') to close the search window.
 
-\subsection{UI Mockups - Game room chat functionality}
+\subsubsection{UI Mockups - Game room chat functionality}
 \label{sec:ui-game-room-chat}
 
 \begin{figure}[H]
@@ -519,7 +524,7 @@ When user clicks on the group button, he can choose to either join existing grou
 
 When user clicks on the private button, he can choose create a new private chat or join existing private chat with specific user.
 
-\subsection{UI Mockups - Multiple chat windows}
+\subsubsection{UI Mockups - Multiple chat windows}
 \label{sec:ui-mockups-multiple-chat-windows}
 
 \begin{figure}[H]
@@ -562,7 +567,7 @@ User can only have one room chat window button on the screen at the same time.
 
 This mockup displays how the chat windows would look like when user has 3 chat windows open.
 
-\subsection{UI Mockups - Notification panel}
+\subsubsection{UI Mockups - Notification panel}
 \label{sec:ui-mockups-notification-panel}
 
 \begin{figure}[H]
@@ -594,7 +599,7 @@ User may also see messages such as:
     \item etc.
 \end{itemize}
 
-\subsection{UI Mockups - Pinned messages}
+\subsubsection{UI Mockups - Pinned messages}
 \label{sec:ui-mockups-pinned-messages}
 
 \begin{figure}[H]
@@ -629,7 +634,7 @@ User can also click on the pinned messages button or on the 'x' button to close 
 
 This mockup displays the final layout of the pinned messages, notifications and search messages buttons layout.
 
-\subsection{UI Mockups - Editing and deleting}
+\subsubsection{UI Mockups - Editing and deleting}
 \label{sec:ui-mockups-editing-deleting}
 
 \begin{figure}[H]
@@ -673,7 +678,7 @@ To exit the edit group chat window, user can click on the 'x' button.
 In the edit private chat window, user can choose to delete the private chat. After that, user will be prompted to confirm the deletion of the private chat.
 To exit the edit private chat window, user can click on the 'x' button.
 
-\subsection{UI Mockups - Global chat and room chat scope}
+\subsubsection{UI Mockups - Global chat and room chat scope}
 \label{sec:ui-mockups-global-room-chat}
 
 \begin{figure}[H]
@@ -685,7 +690,7 @@ To exit the edit private chat window, user can click on the 'x' button.
 
 User can switch the room chat to global chat scope by clicking on the globe icon (or door icon).
 
-\section{Updates to the Domain Model}
+\subsection{Updates to the Domain Model}
 
 After drawing a few UI mockups, our team also realised that we will need to have emoji panel and file upload panel. These will be added to the domain model as well.
 \begin{figure}[H]
@@ -729,23 +734,20 @@ We noticed that we are also missing the group editing panel and private chat edi
 Using the updated domain model and the UI mockups, we will try our best to create the use cases for the chat system.
 It is likely that we will need to update our domain model once again after creating the use cases.
 
+\subsection{Rough Draft of Use Cases}
 Below is a rough draft of the use cases (these are not final, in fact, they do not even include the 'rainy-day' scenarios):
 \begin{itemize}
     \item \textbf{Core Chat Functionality}
     \begin{itemize}
         \item \textbf{Send Message}
         \begin{itemize}
-            \item User composes and sends a message to a chat (global, room, group, or private).
-            \item Includes text, emojis, and file attachments.
+            \item User composes and sends a message to a chat (global, room, group, or private) using \textbf{chat window}.
+            \item Includes text, emojis using \textbf{emoji window}, and file attachments using \textbf{file upload window}.
         \end{itemize}
-        \item \textbf{View Message History}
+        \item \textbf{Switch between Chats}
         \begin{itemize}
-            \item User views past messages in a chat.
-            \item Messages displayed with sender, timestamp, and content.
-        \end{itemize}
-        \item \textbf{Switch Chat Scope}
-        \begin{itemize}
-            \item User toggles between global chat and room chat views.
+            \item User switches between different chat windows using \textbf{chat button}.
+            \item System limits number of concurrent chats.
         \end{itemize}
     \end{itemize}
 
@@ -753,50 +755,70 @@ Below is a rough draft of the use cases (these are not final, in fact, they do n
     \begin{itemize}
         \item \textbf{Edit Message}
         \begin{itemize}
-            \item User modifies a previously sent message.
+            \item User modifies a previously sent message using \textbf{chat window}.
             \item System preserves edit history.
         \end{itemize}
         \item \textbf{Delete Message}
         \begin{itemize}
-            \item User removes a sent message (with confirmation).
-            \item Different permissions may apply based on chat type.
+            \item User removes a sent message (with confirmation) using \textbf{chat window}.
         \end{itemize}
         \item \textbf{Pin Message}
         \begin{itemize}
-            \item User marks important messages in group/private chats.
+            \item User marks important messages in group/private chats using \textbf{chat window}.
             \item Pinned messages get special visibility.
+        \end{itemize}
+        \item \textbf{View Pinned Messages}
+        \begin{itemize}
+            \item User accesses pinned messages in a chat using \textbf{pinned messages window}.
+        \end{itemize}
+        \item \textbf{Unpin Message}
+        \begin{itemize}
+            \item User removes the pinned status from a message using \textbf{pinned messages window}.
         \end{itemize}
         \item \textbf{Search Messages}
         \begin{itemize}
-            \item User searches message history across different chats.
-            \item Results can be filtered by chat scope.
+            \item User searches message history across different chats using \textbf{search messages window}.
+        \end{itemize}
+        \item \textbf{View Message History}
+        \begin{itemize}
+            \item User views past messages in a chat using the same \textbf{search messages window} but without inputting any search parameters.
+            \item Messages displayed with sender, timestamp, and content.
         \end{itemize}
     \end{itemize}
 
     \item \textbf{Chat Management}
     \begin{itemize}
+        \item \textbf{Switch Chat Scopes}
+        \begin{itemize}
+            \item User switches between global and room chat scopes using \textbf{chat button} or when they are in the \textbf{game room}.
+        \end{itemize}
         \item \textbf{Create Group Chat}
         \begin{itemize}
-            \item User initiates a new group conversation.
+            \item User initiates a new group conversation using \textbf{chat creating window}.
             \item Specifies group name and adds participants.
+            \item System limits number of concurrent chats.
         \end{itemize}
         \item \textbf{Join Group Chat}
         \begin{itemize}
-            \item User requests to join an existing group.
+            \item User requests to join an existing group using \textbf{chat creating window}.
             \item Group owner approves/rejects request.
         \end{itemize}
         \item \textbf{Manage Group Members}
         \begin{itemize}
-            \item Group owner adds/removes participants.
-            \item Updates group name and settings.
+            \item Group owner adds/removes participants using \textbf{group chat editing window}.
         \end{itemize}
         \item \textbf{Start Private Chat}
         \begin{itemize}
-            \item User initiates 1:1 conversation with another user.
+            \item User initiates 1:1 conversation with another user using \textbf{chat creating window}.
         \end{itemize}
         \item \textbf{Delete Chat}
         \begin{itemize}
-            \item User removes a private or group chat (with confirmation).
+            \item User removes a private or group chat (with confirmation) using either \textbf{private chat editing window} or \textbf{group chat editing window}.
+        \end{itemize}
+        \item \textbf{Change Chat Type}
+        \begin{itemize}
+            \item User switches between global, room, group, and private chat types using \textbf{chat button}.
+            \item System limits number of concurrent chats.
         \end{itemize}
     \end{itemize}
 
@@ -804,13 +826,16 @@ Below is a rough draft of the use cases (these are not final, in fact, they do n
     \begin{itemize}
         \item \textbf{Receive Notification}
         \begin{itemize}
-            \item System alerts user about new messages/events.
+            \item System alerts user about new messages/events using \textbf{notification window}.
+            \item System alers user about invitations to join group chats in the notification window using \textbf{notification window}.
+            \item System alers user about removal from group chats using \textbf{notification window}.
+            \item System alers user about deletion of group chats or private chats using \textbf{notification window}.
             \item Includes visual and auditory indicators.
         \end{itemize}
         \item \textbf{View Notifications}
         \begin{itemize}
-            \item User checks notification panel.
-            \item Can jump to relevant message/context.
+            \item User checks notifications using \textbf{notification window}.
+            \item Can jump to relevant message/context using \textbf{notification window}.
         \end{itemize}
     \end{itemize}
 
@@ -818,18 +843,24 @@ Below is a rough draft of the use cases (these are not final, in fact, they do n
     \begin{itemize}
         \item \textbf{Toggle Chat Window}
         \begin{itemize}
-            \item User opens/closes chat panels.
-            \item Manages multiple concurrent chat views.
+            \item User opens/closes chat windows using \textbf{chat button}.
+        \end{itemize}
+        \item \textbf{Create Multiple Chats}
+        \begin{itemize}
+            \item User can have multiple chat windows open.
+            \item System limits number of concurrent chats.
+            \item User can have only one \textbf{global scope} chat window open.
+            \item User can have multiple \textbf{private scope} chat windows open.
         \end{itemize}
         \item \textbf{Upload File}
         \begin{itemize}
-            \item User attaches and sends files.
+            \item User attaches and sends files using \textbf{file upload window}.
             \item System validates file type and size.
         \end{itemize}
         \item \textbf{Select Emoji}
         \begin{itemize}
             \item User adds emojis to messages.
-            \item Can browse/search emoji library.
+            \item Can browse/search emoji library using \textbf{emoji window}.
         \end{itemize}
     \end{itemize}
 
@@ -837,11 +868,514 @@ Below is a rough draft of the use cases (these are not final, in fact, they do n
     \begin{itemize}
         \item \textbf{Moderate Global Chat}
         \begin{itemize}
-            \item System enforces character limits.
-            \item Implements spam control measures.
+            \item System enforces character limits for \textbf{chat window}.
+            \item Implements spam control measures for the \textbf{global chat}.
         \end{itemize}
     \end{itemize}
 \end{itemize}
+
+\subsection{Refining Domain Model}
+Just looking at the rough use case outline, we can already notice some ambiguities and missing details in the domain model.
+We will need to update the domain model based on the rough use case outline.
+\begin{itemize}
+    \item Our domain model has a class called "ChatPanel" but we are naming it "Chat Window" in the use cases. We will use "Chat Window" in the domain model as well.
+    \item We will replase the "File Upload Panel" with "File Upload Window" in the domain model.
+    \item We will replace the "Emoji Panel" with "Emoji Window" in the domain model.
+    \item We will replace the "Notification Panel" with "Notification Window" in the domain model.
+    \item We will replace the "Pinned Messages Panel" with "Pinned Messages Window" in the domain model.
+    \item We will replace the "Private Chat Editing Panel" with "Private Chat Editing Window" in the domain model.
+    \item We will replace the "Group Chat Editing Panel" with "Group Chat Editing Window" in the domain model.
+    \item We will add "Search Messages Window" to the domain model.
+    \item In our UI mockups, there are chat buttons, which are not present in the domain model. We will add the "ChatButton" class to the domain model as these have more functionality than just being a UI element.
+    \item There is no "Chat Creating Window" in the domain model. We will add this class to the domain model as well.
+    \item We will remove "Message List" and "Search Message Results" classes from the domain model as it is getting already too crowded and we feel like there are more important classes to add.
+    \item We will remove the "User List" and "Search Users Results" classes from the domain model as well to make it less crowded.
+\end{itemize}
+
+Below is the updated domain model with all the changes made:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{images/domain7.png}
+    \caption{Domain Model Diagram v7}
+    \label{fig:domain-model}
+\end{figure}
+
+\subsection{Use Case Package Diagram}
+From the rough use case outline, we can create a package diagram. This will help us to understand the use cases better and create a detailed use case description.
+You can see that the package diagram below shows 6 packages. In the "Core Chat Functionality" package we also included the "User" class and in the "Administrative" package we included the "System" class.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/packageDiagram.png}
+    \caption{Use Case Package Diagram}
+    \label{fig:use-case-package-diagram}
+\end{figure}
+
+\subsection{Detailed Use Case Description}
+Finally, after all the work we did, we can create a detailed use case description.
+Before that, we feel that its very important to mention the difference between chat button and chat window: a chat button is a closed down chat window, that hase some functionality of its own, but it is not a chat window. A chat window is a chat button that is open and has functionality of its own.
+\subsubsection{Package: Core Chat Functionality}
+
+\begin{itemize}
+    \item 
+    Use Case: \textbf{Send Message}
+
+    \textbf{BASIC COURSE:}
+
+    The system displays the chat window. The user types a message in the text input field and clicks the send button. The system sends the message to the server and displays it in the chat window.
+
+    \textbf{ALTERNATIVE COURSES:}
+
+    \textbf{utf8 zero-width characters:}
+    User inputs utf8 zero-width space characters in the message. The system removes these characters and sends the message to the server. The system displays the message in the chat window.
+
+    \textbf{empty message:}
+    User does not input any message in the text input field. The system does not send the message to the server and displays an error message.
+
+    \textbf{too long message:}
+    User inputs a very long message in the text input field (eg. 1000 characters). The system does not send the message to the server and displays an error message.
+
+    \textbf{html editing:}
+    User tries to send a message to a group chat or private chat they do not have access to using html editing. The system does not send the message to the server and displays an error message.
+
+    \textbf{cross-site scripting:}
+    User inputs a cross-site scripting attack in the message. The system sanitizes the message and sends it to the server. The system displays the message in the chat window.
+
+    \item 
+    Use Case: \textbf{Switch between Chats}
+
+    \textbf{BASIC COURSE:}
+
+    The system displays multiple chat buttons. User can click on the chat buttons to open the chat windows. The system opens the chat window and displays the messages in the chat window. User can click on the close button to close the chat window. The system closes the chat window and displays the chat button again.
+
+    \textbf{ALTERNATIVE COURSES:}
+
+    \textbf{there are no chat buttons:}
+    The system displays game room and no chat buttons (user has closed down all of them). There are no chat buttons to open the chat windows as a result user cannot open the chat windows. The system does not display any error message.
+
+\end{itemize}
+
+\subsubsection{Package: Message Management}
+\begin{itemize}
+    \item 
+    Use Case: \textbf{Edit Message}
+
+    \textbf{BASIC COURSE:}
+
+    The system displays the chat window. User clicks on the edit button to edit the message. The system opens the edit message window and displays the message in the text input field. User edits the message and clicks on the save button. The system sends the edited message to the server and displays it in the chat window.
+
+    \textbf{ALTERNATIVE COURSES:}
+
+    \textbf{message not found (already deleted):}
+    User tries to edit a message that does not exist. The system does not send the message to the server and displays an error message.
+
+    \item
+    Use Case: \textbf{Delete Message}   
+
+    \textbf{BASIC COURSE:}
+
+    The system displays the chat window. User clicks on the delete button to delete the message. The system opens the delete message window and displays the message in the text input field. User clicks on the delete button. The system sends the delete request to the server and deletes the message from the chat window.
+    
+    \textbf{ALTERNATIVE COURSES:}
+
+    \textbf{message not found (already deleted):}
+    User tries to delete a message that does not exist. The system does not send the message to the server and displays an error message.
+
+    \item
+    Use Case: \textbf{Pin Message}
+
+    \textbf{BASIC COURSE:}
+
+    The system displays the chat window (private scope chat). User clicks on the pin button to pin the message. The system sends the pin request to the server and displays the pinned message in the chat window.
+
+    \textbf{ALTERNATIVE COURSES:}
+
+    \textbf{message not found (already deleted):}
+    User tries to pin a message that does not exist. The system does not send the message to the server and displays an error message.
+
+    \textbf{message already pinned:}
+    User tries to pin a message that is already pinned. The system does not send the message to the server and displays an error message.
+
+    \textbf{global scope chat:}
+    User tries to pin a message in the global scope chat. The system does not send the message to the server and displays an error message. User is informed that pinning messages is only available in the private scope chat.
+
+    \item 
+    Use Case: \textbf{View Pinned Messages}
+
+    \textbf{BASIC COURSE:}
+
+    The system displays the chat window (private scope chat). User clicks on the pinned messages button to view the pinned messages. The system opens the pinned messages window and displays the pinned messages in the chat window. User inputs text on the search bar on the pinned messages window and clicks on the search button. The system searches for the pinned messages in the chat window and displays the results in the pinned messages window.
+
+    \textbf{ALTERNATIVE COURSES:}
+
+    \textbf{pinned messages not found:}
+    User opens the pinned messages window but the private scope chat does not have any pinned messages. The system does not display any pinned messages in the chat window and displays an informational message.
+
+    \textbf{search criteria does not match any pinned messages:}
+    User inputs text on the search bar on the pinned messages window and clicks on the search button. The system searches for the pinned messages in the chat window and does not find any pinned messages that match the search criteria. The system does not display any pinned messages in the chat window and displays an informational message.
+
+    \item 
+    Use Case: \textbf{Unpin Message}
+
+    \textbf{BASIC COURSE:}
+
+    The system displays pinned messages window. User clicks on the unpin button to unpin the message. The system sends the unpin request to the server and unpins the message from the chat window.
+
+    \textbf{ALTERNATIVE COURSES:}
+
+    \textbf{message not found (already deleted):}
+    User tries to unpin a message that does not exist. The system does not send the message to the server and displays an error message.
+
+    \textbf{message already unpinned:}
+    User tries to unpin a message that is already unpinned. The system does not send the message to the server and displays an error message.
+
+    \item 
+    Use Case: \textbf{Search Messages}
+
+    \textbf{BASIC COURSE:}
+
+    The system displays chat panel. User clicks on the search messages icon which opens seperate window for searching messages. User inputs text on the search bar on the search window and clicks on the search button. The system searches for the messages in the chat window and displays the results in the search window. Messages are shown in paginated format. User can scroll down to see more messages. 
+
+    \textbf{ALTERNATIVE COURSES:}
+
+    \textbf{search criteria does not match any messages:}
+
+    User inputs text on the search bar on the search window and clicks on the search button. The system searches for the messages in the chat window and does not find any messages that match the search criteria. The system does not display any messages in the chat window and displays an informational message.
+
+    \textbf{search criteria is empty:}
+    User does not input any text on the search bar on the search window and clicks on the search button. The system searches for the messages in the chat window and displays all the messages in the chat window. The system performs view history use case.
+
+    \item 
+    Use Case: \textbf{View Message History}
+
+    \textbf{BASIC COURSE:}
+
+    The system displays chat panel. User clicks on the search messages icon which opens seperate window for searching messages. User does not input any text on the search bar on the search window and clicks on the search button. The system searches for the messages in the chat window and displays all the messages in the chat window. Messages are shown in paginated format. User can scroll down to see more messages. 
+
+    \textbf{ALTERNATIVE COURSES:}
+
+    \textbf{user has inputted search criteria:}
+    User inputs text on the search bar on the search window and clicks on the search button. The system searches for the messages in the chat window and displays all the messages in the chat window. The system performs a search use case.
+
+
+\end{itemize}
+
+\subsubsection{Package: Chat Management}
+\begin{itemize}
+
+    \item 
+    Use Case: \textbf{Create Group Chat}
+
+    \textbf{BASIC COURSE:}
+
+    The system displays game room. User clicks on the on create chat button which opens chat creating window.
+    User chooses group chat. User then chooses the create option and additionally user chooses users to add to 
+    the group chat. The system creates the group chat button. The system sends 
+    notifications to the users that were added to the group chat.
+
+    \textbf{ALTERNATIVE COURSES:}
+
+    \textbf{user has not selected any users:}
+
+    User clicks on the create chat button which opens chat creating window. User chooses group chat. User then chooses the create option and does not select any users to add to the group chat. The system does not create the group chat button and displays an error message.
+
+    \textbf{user has selected too many users:}
+
+    User clicks on the create chat button which opens chat creating window. User chooses group chat. User then chooses the create option and selects too many users (100+) to add to the group chat. The system does not create the group chat button and displays an error message.
+
+    \textbf{no group chat name:}
+
+    User clicks on the create chat button which opens chat creating window. User chooses group chat. User then chooses the create option and does not input any name for the group chat. The system does not create the group chat button and displays an error message.
+
+    \textbf{duplicate group chat name:}
+
+    User clicks on the create chat button which opens chat creating window. User chooses group chat. User then chooses the create option and inputs a name for the group chat that already exists. The system does not create the group chat button and displays an error message.
+
+    \item 
+    Use Case: \textbf{Join Group Chat}
+
+    \textbf{BASIC COURSE:}
+
+    The system displays game room. User clicks on the on create chat button which opens chat creating window. User chooses group chat. User then chooses the join option and inputs the name of the group chat. The system searches for the group chat and its owner then it sends a request to the group owner to join the group chat. The system displays a message that the request has been sent to the group owner.
+    If the group owner accepts the request, the system adds the group chat button. The system sends notifications to the user that they were added.
+    If the group owner rejects the request, the system displays a message that the request has been rejected.
+
+    \textbf{ALTERNATIVE COURSES:}
+
+    \textbf{group chat not found:}
+    User clicks on the create chat button which opens chat creating window. User chooses group chat. User then chooses the join option and inputs the name of the group chat that does not exist. The system does not send the request to the group owner and displays an error message.
+
+    \textbf{user is already in the group chat:}
+    User clicks on the create chat button which opens chat creating window. User chooses group chat. User then chooses the join option and inputs the name of the group chat that user is already in. The system does not send the request to the group owner and immediately adds the group chat button.
+
+    \item 
+    Use Case: \textbf{Manage Group Members}
+
+    \textbf{BASIC COURSE:}
+
+    The system displays game room. User clicks on the group chat button which opens group chat window. Then user clicks on the edit group button which opens group edditing window. User can add or remove users from the group chat. The system sends notifications to the users that were added to the group chat. The system sends notifications to the users that were removed from the group chat.
+
+    \textbf{ALTERNATIVE COURSES:}
+
+    \textbf{user is not the group owner:}
+    User clicks on the group chat button which opens group chat window. Then user clicks on the edit group button which opens group edditing window. The system does not allow the user to add or remove users from the group chat and displays an error message.
+
+    \textbf{user has not selected any users:}
+    User clicks on the group chat button which opens group chat window. Then user clicks on the edit group button which opens group edditing window. User does not select any users to add to the group chat. The system displays an informational message.
+
+    \textbf{the group chat is already deleted:}
+    User clicks on the group chat button which opens group chat window. Then user clicks on the edit group button which opens group edditing window. The system does not allow the user to add or remove users from the group chat and displays an error message that the group chat is already deleted.
+
+    \textbf{the group chat is already full:}
+    User clicks on the group chat button which opens group chat window. Then user clicks on the edit group button which opens group edditing window. User tries to add users to the group chat but the group chat is already full (100+ users). The system does not allow the user to add users to the group chat and displays an error message.
+
+    \textbf{user has selected too many users:}
+    User clicks on the group chat button which opens group chat window. Then user clicks on the edit group button which opens group edditing window. User tries to add too many users (100+) to the group chat. The system does not allow the user to add users to the group chat and displays an error message.
+
+    \item 
+    Use Case: \textbf{Start Private Chat}
+
+    \textbf{BASIC COURSE:}
+
+    The system displays game room. User clicks on the on create chat button which opens chat creating window. User chooses private chat. User then chooses the create option and additionally user chooses user to add to the private chat using search functionallity. The system creates the private chat button. The system sends notifications to the user that was added to the private chat.
+
+    \textbf{ALTERNATIVE COURSES:}
+
+    \textbf{user has not selected any user:}
+    User clicks on the create chat button which opens chat creating window. User chooses private chat. User then chooses the create option and does not select any user to add to the private chat. The system does not create the private chat button and displays an error message.
+
+    \textbf{user has selected too many users:}
+    User clicks on the create chat button which opens chat creating window. User chooses private chat. User then chooses the create option and selects more that one user to add to the private chat. The system does not create the private chat button and displays an error message.
+
+    \item 
+    Use Case: \textbf{Switch Chat Scopes}
+
+    \textbf{BASIC COURSE:}
+
+    The system displays game room and room chat. User can click on the room chat chat button to open settings and switch back to global chat. When user has his global chat open, he can click on the chat button to open settings and switch back to room chat.
+
+    \textbf{ALTERNATIVE COURSES:}
+
+    \textbf{room chat cannot be accessed from home page:}
+    User in on the home page. User opens up the global chat to try to switch to room chat. The system does not allow the user to switch to room chat and does not display the option to switch to room chat.
+
+    \textbf{private scope chat cannot be changed to global scope chat:}
+    User opens up group chat or private chat and searches for the switch from room chat to global chat or vise versa option. The system does not allow the user to switch to global chat (room chat) from private scope (group/private chat) and does not display the option to switch to global chat (room chat).
+    
+    \item 
+    Use Case: \textbf{Change Chat Type}
+
+    \textbf{BASIC COURSE:}
+
+    The system displays game room. User clicks on the chat button icon which opens a seperate menu for choosing a new type for that chat button. User chooses either room chat, group chat or private chat. The system then opens up the create chat window from where user follows the steps already previously described (users selects to create group chat or private chat...).
+
+    \textbf{ALTERNATIVE COURSES:}
+
+    \textbf{only one room chat allowed:}
+    User clicks on the chat button icon which opens a seperate menu for choosing a new type for that chat button. User chooses tries to choose room chat option but the system has disabled the option to choose room chat. The system does not allow the user to change the chat type and displays an error message.
+
+    \textbf{changing global chat type in home page is not allowed}
+    User clicks on the global chat button icon but it does not open any menus. System does not allow to change global chat type in home page.
+
+    \item 
+    Use Case: \textbf{Delete Chat}
+
+    \textbf{BASIC COURSE:}
+
+    The system displays game room. User clicks on the chat button which opens chat window. Then user clicks on the edit chat button which opens either group chat edditing window or private chat edditing window based on chat type. User can delete the group chat or private chat. The system asks for user confirmation. After deletion the system sends notifications to the users that were removed from the group chat or private chat.
+
+    \textbf{ALTERNATIVE COURSES:}
+
+    \textbf{user is not the group owner:}
+    User clicks on the chat button which opens chat window. Then user clicks on the edit chat button which opens either group chat edditing window or private chat edditing window based on chat type. The system does not allow the user to delete the group chat or private chat and displays an error message.
+
+    \textbf{chat is already deleted:}
+    User clicks on the chat button which opens chat window. Then user clicks on the edit chat button which opens either group chat edditing window or private chat edditing window based on chat type. The system does not allow the user to delete the group chat or private chat and displays an error message that the group chat or private chat is already deleted.
+
+\end{itemize}
+
+\subsubsection{Package: Notification System}
+\begin{itemize}
+    \item 
+    Use Case: \textbf{Receive Notification}
+
+    \textbf{BASIC COURSE:}
+
+    The system displays game room. User receives a notification about new messages/events. The system displays the notification in the notification window and plays a sound. 
+
+    \textbf{ALTERNATIVE COURSES:}
+
+    \textbf{the browser window is to narrow:}
+    The user receives a notification about new messages/events. The system plays a sound that the user has received a notification but the browser window is too narrow to display the notification. The system does not display an error message.
+
+    \item 
+    Use Case: \textbf{View Notifications}
+
+    \textbf{BASIC COURSE:}
+
+    The system displays game room. User clicks on the notification button which opens notification window. User can view all notifications in the notification window. User can click on the notification to jump to the relevant message/context.
+
+    \textbf{ALTERNATIVE COURSES:}
+
+    \textbf{no notifications:}
+    User tries to open the notification window but the system does not display any notifications. The system does not display an error message.
+
+    \textbf{notification link is inactive}
+    User tries to click on the notification link but the system does not display the relevant message/context (message/context may be deleted). The system does not display an error message.
+
+\end{itemize}
+
+\subsubsection{Package: UI Interactions}
+\begin{itemize}
+    \item 
+    Use Case: \textbf{Toggle Chat Window}
+
+    \textbf{BASIC COURSE:}
+
+    The system displays game room. User clicks on the chat button which opens chat window. User can click on the close button to close the chat window. The system closes the chat window and displays the chat button again.
+
+    \textbf{ALTERNATIVE COURSES:}
+
+    \textbf{chat window is already open:}
+    User tries to open the chat window but the system does duplicate the chat window. The system does not display an error message.
+
+    \item 
+    Use Case: \textbf{Create Multiple Chats}
+
+    \textbf{BASIC COURSE:}
+
+    The system displays game room. User can click on the create chat button and then follow the creation proccess on create chat window to opens a new chat button. After that the user can click on the chat button to open a new chat window.
+    
+    \textbf{ALTERNATIVE COURSES:}
+
+    \textbf{user has too many chat buttons:}
+    User tries to create a new chat button using the create chat window process but the system only allows 3 chat buttons (windows if opened) at max. System shows an error message.
+
+    \textbf{user already has a global scope chat open:}
+    The system displays game room. User tries to create a new global scope chat (room chat) button using the create chat window process but the system does not allow the user to create a new global scope chat button. The system shows an error message.
+
+    \textbf{chat creation is not allowed in home page:}
+    User tries to create a new chat button using the create chat window process but the button is not available. The system does not allow the user to create a new chat button and does not display an error message.
+
+    \item 
+    Use Case: \textbf{Select Emoji}
+
+    \textbf{BASIC COURSE:}
+
+    The system displays chat window. User clicks on the emoji button which opens emoji window. User can select an emoji from the emoji window or use search bar. The system adds the selected emoji to the message input field.
+
+    \textbf{ALTERNATIVE COURSES:}
+
+    \textbf{search criteria does not match any emojis:}
+    User inputs text on the search bar on the emoji window and clicks on the search button. The system searches for the emojis in the emoji window and does not find any emojis that match the search criteria. The system does not display any emojis in the emoji window and displays an informational message.
+
+    \textbf{user has not selected any emojis:}
+    User clicks on the emoji button which opens emoji window. User does not select any emojis from the emoji window. The system does not add any emojis to the message input field and does not display an error message.
+
+    \item 
+    Use Case: \textbf{Upload File}
+
+    \textbf{BASIC COURSE:}
+
+    The system displays chat window. User clicks on the file upload button which opens file upload window. User can select a file from the file upload window. User selects a .png, .jpg, .jpeg, .gif file and upload it. The system saves the selected file to the server and displays it in the chat window.
+
+    \textbf{ALTERNATIVE COURSES:}
+
+    \textbf{file type not allowed:}
+    User clicks on the file upload button which opens file upload window. User selects a .exe, .bat, .sh file and upload it. The system does not save the selected file to the server and displays an error message.
+
+    \textbf{file size too large:}
+    User clicks on the file upload button which opens file upload window. User selects a .png, .jpg, .jpeg, .gif file that is larger than 10MB and upload it. The system does not save the selected file to the server and displays an error message.
+
+    \textbf{file name too long:}
+    User clicks on the file upload button which opens file upload window. User selects a .png, .jpg, .jpeg, .gif file that has a name longer than 255 characters and upload it. The system does not save the selected file to the server and displays an error message.
+    
+    \textbf{file name contains special characters:}
+    User clicks on the file upload button which opens file upload window. User selects a .png, .jpg, .jpeg, .gif file that has a name that contains special characters and upload it. The system does not save the selected file to the server and displays an error message.
+
+\end{itemize}
+
+\subsubsection{Package: Administrative}
+\begin{itemize}
+    \item 
+    Use Case: \textbf{Moderate Global Chat}
+
+    \textbf{BASIC COURSE:}
+
+    The system moderated the global chat. User sends a message that is not malicious. The system displays the message in the chat window.
+
+    \textbf{ALTERNATIVE COURSES:}
+
+    \textbf{user has sent a malicious message:}
+    User sends a message that is malicious. The system does not display the message in the chat window and displays an error message.
+
+    \textbf{user has sent a spam message:}
+    User sends a message that is spam. The system does not display the message in the chat window and displays an error message.
+
+    \textbf{user has sent a message that is too long:}
+    User sends a message that is too long. The system does not display the message in the chat window and displays an error message.
+
+    \textbf{user has sent a message that contains special characters:}
+    User sends a message that contains special characters. The system does not display the message in the chat window and displays an error message.
+\end{itemize}
+
+\subsection{Use Case Diagrams}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/UseCaseDiagrams/adm.png}
+    \caption{Administrative Use Case Diagram}
+    \label{fig:adm-use-case-diagram}
+\end{figure}
+
+This diagram shows the administrative use case diagram. It shows the use cases that are related to the administrative package. The system is responsible for moderating the global chat.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/UseCaseDiagrams/chatMan.png}
+    \caption{Chat Management Use Case Diagram}
+    \label{fig:chat-man-use-case-diagram}
+\end{figure}
+
+This diagram shows the chat management use case diagram. It shows the use cases that are related to the chat management package. The user can create, join, delete chats.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{images/UseCaseDiagrams/corChat.png}
+    \caption{Core Chat Functionality Use Case Diagram}
+    \label{fig:cor-chat-use-case-diagram}
+\end{figure}
+
+This diagram shows the core chat functionality use case diagram. It shows the use cases that are related to the core chat functionality package. The user can send messages and switch between chats.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{images/UseCaseDiagrams/mesMan.png}
+    \caption{Message Management Use Case Diagram}
+    \label{fig:mes-man-use-case-diagram}
+\end{figure}
+
+This diagram shows the message management use case diagram. It shows the use cases that are related to the message management package. The user can edit, delete, pin, unpin messages and view pinned messages.
+The user can also view message history and search messages.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/UseCaseDiagrams/notSys.png}
+    \caption{Notification System Use Case Diagram}
+    \label{fig:not-sys-use-case-diagram}
+\end{figure}
+
+This diagram shows the notification system use case diagram. It shows the use cases that are related to the notification system package. The user can receive notifications and view notifications.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{images/UseCaseDiagrams/UIInt.png}
+    \caption{UI Interactions Use Case Diagram}
+    \label{fig:ui-int-use-case-diagram}
+\end{figure}
+
+This diagram shows the UI interactions use case diagram. It shows the use cases that are related to the UI interactions package. The user can toggle chat window, create multiple chats, select emoji and upload file.
+
 
 
 \printbibliography[title = {References and sources}]

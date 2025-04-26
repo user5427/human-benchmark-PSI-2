@@ -1,0 +1,61 @@
+@startuml usecasePackage
+
+left to right direction
+
+skinparam package {
+    BackgroundColor FloralWhite
+    BorderColor Black
+    FontStyle bold
+}
+
+skinparam usecase {
+    BackgroundColor White
+    BorderColor Black
+    FontColor Black
+}
+
+package "Core Chat Functionality" {
+    [Send Message] as (Send Message)
+    [Switch between Chats] as (Switch between Chats)
+    [User] as (User)
+}
+
+package "Message Management" {
+    [Edit Message] as (Edit Message)
+    [Delete Message] as (Delete Message)
+    [Pin Message] as (Pin Message)
+    [View Pinned Messages] as (View Pinned Messages)
+    [Unpin Message] as (Unpin Message)
+    [Search Messages] as (Search Messages)
+    [View Message History] as (View Message History)
+}
+
+package "Chat Management" {
+    [Switch Chat Scopes] as (Switch Chat Scopes)
+    [Change Chat Type] as (Change Chat Type)
+    [Create Group Chat] as (Create Group Chat)
+    [Join Group Chat] as (Join Group Chat)
+    [Manage Group Members] as (Manage Group Members)
+    [Start Private Chat] as (Start Private Chat)
+    [Delete Chat] as (Delete Chat)
+
+}
+
+package "Notification System" {
+    [Receive Notification] as (Receive Notification)
+    [View Notifications] as (View Notifications)
+}
+
+package "UI Interactions" {
+    [Toggle Chat Window] as (Toggle Chat Window)
+    [Create Multiple Chats] as (Create Multiple Chats)
+    [Upload File] as (Upload File)
+    [Select Emoji] as (Select Emoji)
+}
+
+package "Administrative" {
+    [Moderate Global Chat] as (Moderate Global Chat)
+    [System] as (System)
+}
+
+@enduml

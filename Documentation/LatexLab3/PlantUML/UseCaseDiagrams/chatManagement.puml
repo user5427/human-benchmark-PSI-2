@@ -1,0 +1,30 @@
+@startuml ChatManagementVertical
+left to right direction
+skinparam ranksep 100
+
+actor User
+
+rectangle "Chat Management" {
+  (Create Group Chat) as createGroup
+  (Join Group Chat) as joinGroup
+  (Manage Group Members) as manage
+  (Start Private Chat) as private
+  (Switch Chat Scopes) as switch
+  (Change Chat Type) as change
+  (Delete Chat) as delete
+
+  User --> createGroup
+  User --> joinGroup
+  User --> manage
+  User --> private
+  User --> switch
+  User --> change
+  User --> delete
+
+  createGroup .> manage : precedes
+  change .> createGroup : invokes
+  change .> private : invokes
+  private .> delete : precedes
+  createGroup .> delete : precedes
+}
+@enduml

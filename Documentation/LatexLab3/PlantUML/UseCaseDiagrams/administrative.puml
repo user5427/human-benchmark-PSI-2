@@ -1,0 +1,11 @@
+@startuml AdministrativePackage
+left to right direction
+actor System
+
+rectangle "Administrative" {
+  (Moderate Global Chat) as moderate
+
+  System --> moderate : "detects violation"
+
+}
+@enduml

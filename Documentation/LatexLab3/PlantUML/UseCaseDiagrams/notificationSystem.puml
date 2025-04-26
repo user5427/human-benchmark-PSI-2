@@ -1,0 +1,15 @@
+@startuml NotificationSystem
+left to right direction
+actor User
+actor System
+
+rectangle "Notification System" {
+  (Receive Notification) as receive
+  (View Notifications) as view
+
+  System --> receive
+  User --> view
+
+  receive .> view : precedes
+}
+@enduml

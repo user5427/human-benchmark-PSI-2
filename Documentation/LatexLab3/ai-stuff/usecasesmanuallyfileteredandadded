@@ -1,0 +1,124 @@
+\begin{itemize}
+    \item \textbf{Core Chat Functionality}
+    \begin{itemize}
+        \item \textbf{Send Message}
+        \begin{itemize}
+            \item User composes and sends a message to a chat (global, room, group, or private) using \textbf{chat window}.
+            \item Includes text, emojis using \textbf{emoji window}, and file attachments using \textbf{file upload window}.
+        \end{itemize}
+        \item \textbf{Switch Chat Scope}
+        \begin{itemize}
+            \item User toggles between global chat and room chat views based on if they are in a game room.
+        \end{itemize}
+    \end{itemize}
+
+    \item \textbf{Message Management}
+    \begin{itemize}
+        \item \textbf{Edit Message}
+        \begin{itemize}
+            \item User modifies a previously sent message using \textbf{chat window}.
+            \item System preserves edit history.
+        \end{itemize}
+        \item \textbf{Delete Message}
+        \begin{itemize}
+            \item User removes a sent message (with confirmation) using \textbf{chat window}.
+        \end{itemize}
+        \item \textbf{Pin Message}
+        \begin{itemize}
+            \item User marks important messages in group/private chats using \textbf{chat window}.
+            \item Pinned messages get special visibility.
+            \item User can view pinned messages using \textbf{pinned messages window}.
+        \end{itemize}
+        \item \textbf{Search Messages}
+        \begin{itemize}
+            \item User searches message history across different chats using \textbf{search messages window}.
+        \end{itemize}
+        \item \textbf{View Message History}
+        \begin{itemize}
+            \item User views past messages in a chat using the same \textbf{search messages window} but without inputting any search parameters.
+            \item Messages displayed with sender, timestamp, and content.
+        \end{itemize}
+    \end{itemize}
+
+    \item \textbf{Chat Management}
+    \begin{itemize}
+        \item \textbf{Create Group Chat}
+        \begin{itemize}
+            \item User initiates a new group conversation using \textbf{chat creating window}.
+            \item Specifies group name and adds participants.
+        \end{itemize}
+        \item \textbf{Join Group Chat}
+        \begin{itemize}
+            \item User requests to join an existing group using \textbf{chat creating window}.
+            \item Group owner approves/rejects request.
+        \end{itemize}
+        \item \textbf{Manage Group Members}
+        \begin{itemize}
+            \item Group owner adds/removes participants using \textbf{group chat editing window}.
+        \end{itemize}
+        \item \textbf{Start Private Chat}
+        \begin{itemize}
+            \item User initiates 1:1 conversation with another user using \textbf{chat creating window}.
+        \end{itemize}
+        \item \textbf{Delete Chat}
+        \begin{itemize}
+            \item User removes a private or group chat (with confirmation) using either \textbf{private chat editing window} or \textbf{group chat editing window}.
+        \end{itemize}
+    \end{itemize}
+
+    \item \textbf{Notification System}
+    \begin{itemize}
+        \item \textbf{Receive Notification}
+        \begin{itemize}
+            \item System alerts user about new messages/events using \textbf{notification window}.
+            \item System alers user about invitations to join group chats in the notification window using \textbf{notification window}.
+            \item System alers user about removal from group chats using \textbf{notification window}.
+            \item System alers user about deletion of group chats or private chats using \textbf{notification window}.
+            \item Includes visual and auditory indicators.
+        \end{itemize}
+        \item \textbf{View Notifications}
+        \begin{itemize}
+            \item User checks notifications using \textbf{notification window}.
+            \item Can jump to relevant message/context using \textbf{notification window}.
+        \end{itemize}
+    \end{itemize}
+
+    \item \textbf{UI Interactions}
+    \begin{itemize}
+        \item \textbf{Toggle Chat Window}
+        \begin{itemize}
+            \item User opens/closes chat windows using \textbf{chat button}.
+        \end{itemize}
+        \item \textbf{Change Chat Type}
+        \begin{itemize}
+            \item User switches between global, room, group, and private chat types using \textbf{chat button}.
+            \item System limits number of concurrent chats.
+        \end{itemize}
+        \item \textbf{Open Multiple Chats}
+        \begin{itemize}
+            \item User can have multiple chat windows open.
+            \item System limits number of concurrent chats.
+            \item User can have only one \textbf{global scope} chat window open.
+            \item User can have multiple \textbf{private scope} chat windows open.
+        \end{itemize}
+        \item \textbf{Upload File}
+        \begin{itemize}
+            \item User attaches and sends files using \textbf{file upload window}.
+            \item System validates file type and size.
+        \end{itemize}
+        \item \textbf{Select Emoji}
+        \begin{itemize}
+            \item User adds emojis to messages.
+            \item Can browse/search emoji library using \textbf{emoji window}.
+        \end{itemize}
+    \end{itemize}
+
+    \item \textbf{Administrative}
+    \begin{itemize}
+        \item \textbf{Moderate Global Chat}
+        \begin{itemize}
+            \item System enforces character limits for \textbf{chat window}.
+            \item Implements spam control measures for the \textbf{global chat}.
+        \end{itemize}
+    \end{itemize}
+\end{itemize}

@@ -1,0 +1,13 @@
+@startuml CoreChatFunctionality
+left to right direction
+actor User
+
+rectangle "Core Chat Functionality" {
+  (Send Message) as send
+  (Switch between Chats) as switch
+
+  User --> send
+  User --> switch
+
+}
+@enduml

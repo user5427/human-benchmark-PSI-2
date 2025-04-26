@@ -1,0 +1,26 @@
+@startuml MessageManagement
+left to right direction
+actor User
+
+rectangle "Message Management" {
+  (Edit Message) as edit
+  (Delete Message) as delete
+  (Pin Message) as pin
+  (View Pinned Messages) as viewPinned
+  (Unpin Message) as unpin
+  (Search Messages) as search
+  (View Message History) as history
+
+  User --> edit
+  User --> delete
+  User --> pin
+  User --> viewPinned
+  User --> unpin
+  User --> search
+  User --> history
+
+  pin .> viewPinned : precedes
+  unpin .> viewPinned : precedes
+  history .> search : invokes
+}
+@enduml
