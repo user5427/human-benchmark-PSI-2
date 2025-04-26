@@ -367,48 +367,6 @@ The classes "Private Chat", "Pinned Message" and "Search Results" and "Message L
     \label{fig:domain-model}
 \end{figure}
 
-After drawing a few UI mockups, our team also realised that we will need to have emoji panel and file upload panel. These will be added to the domain model as well.
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/domain3.png}
-    \caption{Domain Model Diagram v3}
-    \label{fig:domain-model}
-\end{figure}
-
-Furthermore, we notices that we are also missing the "Group chat" class. This class will be added to the domain model as well.
-We will also add the "Global Scope" and "Private Scope" classes to the domain model. These classes will be used to define the scope of the chat. 
-The "Global Scope" class will be used to define the global and room chat scopes. The "Private Scope" class will be used to define the group and private chat scopes.
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/domain4.png}
-    \caption{Domain Model Diagram v4}
-    \label{fig:domain-model}
-\end{figure}
-
-We also realised that we are missing the "NotificationsPanel" and "PinnedMessagesPanel" classes. These classes will be used to define the notification and pinned messages panels.
-We will also add the userlist class to the domain model. This class will be used to define the list of users in the group chat and private chat. Furthermore. the searchUsersResults class will be added to the domain model. This class will be used to define the search results for the users.
-We will rename the "SearchResults" class to "SearchMessagesResults" class. This class will be used to define the search results for the messages.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/domain5.png}
-    \caption{Domain Model Diagram v5}
-    \label{fig:domain-model}
-\end{figure}
-
-After the diagrma is drawn, we can see that its becoming quite clustered.
-We will remove the message list, search messages results, user list and search users results classes from the domain model.
-These classes are quite simple and do not add much value to the domain model.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/domain6.png}
-    \caption{Domain Model Diagram v6}
-    \label{fig:domain-model}
-\end{figure}
-To simplify the diagram, the GroupChat and PrivateChat classes will also handle the responsibilities of the editing panels.
-Hopefully, this is the final version of the domain model. We will be using this domain model to implement the chat system.
-
 \section{UI Mockups}
 To better understant all of the possible scenarios, we will first create a mockup of the UI. The mockup will be created using Samsung Notes and will be saved as a PDF file.
 
@@ -727,6 +685,45 @@ To exit the edit private chat window, user can click on the 'x' button.
 
 User can switch the room chat to global chat scope by clicking on the globe icon (or door icon).
 
+\section{Updates to the Domain Model}
+
+After drawing a few UI mockups, our team also realised that we will need to have emoji panel and file upload panel. These will be added to the domain model as well.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/domain3.png}
+    \caption{Domain Model Diagram v3}
+    \label{fig:domain-model}
+\end{figure}
+
+Furthermore, we notices that we are also missing the "Group chat" class. This class will be added to the domain model as well.
+We will also add the "Global Scope" and "Private Scope" classes to the domain model. These classes will be used to define the scope of the chat. 
+The "Global Scope" class will be used to define the global and room chat scopes. The "Private Scope" class will be used to define the group and private chat scopes.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/domain4.png}
+    \caption{Domain Model Diagram v4}
+    \label{fig:domain-model}
+\end{figure}
+
+We also realised that we are missing the "NotificationsPanel" and "PinnedMessagesPanel" classes. These classes will be used to define the notification and pinned messages panels.
+We will also add the userlist class to the domain model. This class will be used to define the list of users in the group chat and private chat. Furthermore. the searchUsersResults class will be added to the domain model. This class will be used to define the search results for the users.
+We will rename the "SearchResults" class to "SearchMessagesResults" class. This class will be used to define the search results for the messages.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/domain5.png}
+    \caption{Domain Model Diagram v5}
+    \label{fig:domain-model}
+\end{figure}
+
+We noticed that we are also missing the group editing panel and private chat editing panel classes. We will add these.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/domain6.png}
+    \caption{Domain Model Diagram v6}
+    \label{fig:domain-model}
+\end{figure}
 
 
 

@@ -13,6 +13,8 @@ rectangle RoomChat
 rectangle GlobalChat
 rectangle PrivateChat #line:red
 rectangle PinnedMessage #line:red
+rectangle SearchMessagesResults #line:red
+rectangle MessageList #line:red
 rectangle ChatScope
 rectangle EmojiPanel #line:Orange
 rectangle FileUploadPanel #line:Orange
@@ -21,6 +23,10 @@ rectangle GlobalScope #line:Blue
 rectangle PrivateScope #line:Blue
 rectangle NotificationPanel #line:LimeGreen
 rectangle PinnedMessagesPanel #line:LimeGreen
+rectangle UserList #line:LimeGreen
+rectangle SearchUsersResults #line:LimeGreen
+rectangle GroupChatEditingPanel #line:Violet
+rectangle PrivateChatEditingPanel #line:Violet
 
 
 ' ???
@@ -38,6 +44,8 @@ rectangle PinnedMessagesPanel #line:LimeGreen
 :PrivateScope: <|-- :PrivateChat:
 :ChatPanel: o-- :ChatScope:
 :Message: <|-- :PinnedMessage:
+:MessageList: o-- :Message:
+:MessageList: <|-- :SearchMessagesResults:
 :ChatPanel: o-- :EmojiPanel:
 :ChatPanel: o-- :FileUploadPanel:
 :PrivateScope: <|-- :GroupChat:
@@ -45,6 +53,10 @@ rectangle PinnedMessagesPanel #line:LimeGreen
 :ChatScope: <|-- :PrivateScope:
 :ChatPanel: o-- :PinnedMessagesPanel:
 :PinnedMessagesPanel: o-- :PinnedMessage:
+:UserList: o-- :User:
+:UserList: <|-- :SearchUsersResults:
+:GroupChat: o-- :GroupChatEditingPanel:
+:PrivateChat: o-- :PrivateChatEditingPanel:
 
 
 
