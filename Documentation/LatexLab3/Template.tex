@@ -368,7 +368,7 @@ The classes "Private Chat", "Pinned Message" and "Search Results" and "Message L
 \end{figure}
 
 \section{UI Mockups}
-To better understant all of the possible scenarios, we will first create a mockup of the UI. The mockup will be created using Samsung Notes and will be saved as a PDF file.
+To better understant all of the possible use cases, we will first create a mockup of the UI. The mockup will be created using Samsung Notes and will be saved as a PDF file.
 
 \begin{table}[H]
     \centering
@@ -725,7 +725,123 @@ We noticed that we are also missing the group editing panel and private chat edi
     \label{fig:domain-model}
 \end{figure}
 
+\section{Use cases}
+Using the updated domain model and the UI mockups, we will try our best to create the use cases for the chat system.
+It is likely that we will need to update our domain model once again after creating the use cases.
 
+Below is a rough draft of the use cases (these are not final, in fact, they do not even include the 'rainy-day' scenarios):
+\begin{itemize}
+    \item \textbf{Core Chat Functionality}
+    \begin{itemize}
+        \item \textbf{Send Message}
+        \begin{itemize}
+            \item User composes and sends a message to a chat (global, room, group, or private).
+            \item Includes text, emojis, and file attachments.
+        \end{itemize}
+        \item \textbf{View Message History}
+        \begin{itemize}
+            \item User views past messages in a chat.
+            \item Messages displayed with sender, timestamp, and content.
+        \end{itemize}
+        \item \textbf{Switch Chat Scope}
+        \begin{itemize}
+            \item User toggles between global chat and room chat views.
+        \end{itemize}
+    \end{itemize}
+
+    \item \textbf{Message Management}
+    \begin{itemize}
+        \item \textbf{Edit Message}
+        \begin{itemize}
+            \item User modifies a previously sent message.
+            \item System preserves edit history.
+        \end{itemize}
+        \item \textbf{Delete Message}
+        \begin{itemize}
+            \item User removes a sent message (with confirmation).
+            \item Different permissions may apply based on chat type.
+        \end{itemize}
+        \item \textbf{Pin Message}
+        \begin{itemize}
+            \item User marks important messages in group/private chats.
+            \item Pinned messages get special visibility.
+        \end{itemize}
+        \item \textbf{Search Messages}
+        \begin{itemize}
+            \item User searches message history across different chats.
+            \item Results can be filtered by chat scope.
+        \end{itemize}
+    \end{itemize}
+
+    \item \textbf{Chat Management}
+    \begin{itemize}
+        \item \textbf{Create Group Chat}
+        \begin{itemize}
+            \item User initiates a new group conversation.
+            \item Specifies group name and adds participants.
+        \end{itemize}
+        \item \textbf{Join Group Chat}
+        \begin{itemize}
+            \item User requests to join an existing group.
+            \item Group owner approves/rejects request.
+        \end{itemize}
+        \item \textbf{Manage Group Members}
+        \begin{itemize}
+            \item Group owner adds/removes participants.
+            \item Updates group name and settings.
+        \end{itemize}
+        \item \textbf{Start Private Chat}
+        \begin{itemize}
+            \item User initiates 1:1 conversation with another user.
+        \end{itemize}
+        \item \textbf{Delete Chat}
+        \begin{itemize}
+            \item User removes a private or group chat (with confirmation).
+        \end{itemize}
+    \end{itemize}
+
+    \item \textbf{Notification System}
+    \begin{itemize}
+        \item \textbf{Receive Notification}
+        \begin{itemize}
+            \item System alerts user about new messages/events.
+            \item Includes visual and auditory indicators.
+        \end{itemize}
+        \item \textbf{View Notifications}
+        \begin{itemize}
+            \item User checks notification panel.
+            \item Can jump to relevant message/context.
+        \end{itemize}
+    \end{itemize}
+
+    \item \textbf{UI Interactions}
+    \begin{itemize}
+        \item \textbf{Toggle Chat Window}
+        \begin{itemize}
+            \item User opens/closes chat panels.
+            \item Manages multiple concurrent chat views.
+        \end{itemize}
+        \item \textbf{Upload File}
+        \begin{itemize}
+            \item User attaches and sends files.
+            \item System validates file type and size.
+        \end{itemize}
+        \item \textbf{Select Emoji}
+        \begin{itemize}
+            \item User adds emojis to messages.
+            \item Can browse/search emoji library.
+        \end{itemize}
+    \end{itemize}
+
+    \item \textbf{Administrative}
+    \begin{itemize}
+        \item \textbf{Moderate Global Chat}
+        \begin{itemize}
+            \item System enforces character limits.
+            \item Implements spam control measures.
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
 
 
 \printbibliography[title = {References and sources}]

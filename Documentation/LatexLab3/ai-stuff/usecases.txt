@@ -1,0 +1,119 @@
+Core Chat Functionality
+
+    Send Message
+
+        User composes and sends a message to a chat (global, room, group, or private)
+
+        Includes text, emojis, and file attachments
+
+    View Message History
+
+        User views past messages in a chat
+
+        Messages displayed with sender, timestamp, and content
+
+    Switch Chat Scope
+
+        User toggles between global chat and room chat views
+
+Message Management
+
+    Edit Message
+
+        User modifies a previously sent message
+
+        System preserves edit history
+
+    Delete Message
+
+        User removes a sent message (with confirmation)
+
+        Different permissions may apply based on chat type
+
+    Pin Message
+
+        User marks important messages in group/private chats
+
+        Pinned messages get special visibility
+
+    Search Messages
+
+        User searches message history across different chats
+
+        Results can be filtered by chat scope
+
+Chat Management
+
+    Create Group Chat
+
+        User initiates a new group conversation
+
+        Specifies group name and adds participants
+
+    Join Group Chat
+
+        User requests to join an existing group
+
+        Group owner approves/rejects request
+
+    Manage Group Members
+
+        Group owner adds/removes participants
+
+        Updates group name and settings
+
+    Start Private Chat
+
+        User initiates 1:1 conversation with another user
+
+    Delete Chat
+
+        User removes a private or group chat (with confirmation)
+
+Notification System
+
+    Receive Notification
+
+        System alerts user about new messages/events
+
+        Includes visual and auditory indicators
+
+    View Notifications
+
+        User checks notification panel
+
+        Can jump to relevant message/context
+
+UI Interactions
+
+    Toggle Chat Window
+
+        User opens/closes chat panels
+
+        Manages multiple concurrent chat views
+
+    Upload File
+
+        User attaches and sends files
+
+        System validates file type and size
+
+    Select Emoji
+
+        User adds emojis to messages
+
+        Can browse/search emoji library
+
+Administrative
+
+    Moderate Global Chat
+
+        System enforces character limits
+
+        Implements spam control measures
+
+    Manage User List
+
+        System displays active participants
+
+        Particularly important for room/group chats
