@@ -4,7 +4,7 @@
 %%%%%
 %%%%
 \documentclass[]{VUMIFTemplateClass}
-
+\usepackage{pgfgantt}
 \usepackage{indentfirst}
 \usepackage{amsmath, amsthm, amssymb, amsfonts}
 \usepackage{mathtools}
@@ -33,7 +33,11 @@
 \newcommand{\ee}{{\mathrm e}}  % nice exponent
 \newcommand{\RR}{\mathbb{R}}
 
-
+\newcommand\textganttbar[4]{%
+    \ganttbar{#1}{#3}{#4}
+    \ganttbar[inline,bar label font=\footnotesize]
+    {#2}{#3}{#4}
+}
 \studyprogramme{\{Study programme\}} %Write your study programme (example – Software engineering, Financial and Actuarial Mathematics, etc.)
 \worktype{\{Work type\}} % Bachelor's thesis or Master's thesis
 \worktitle{Work Title in English}
@@ -73,9 +77,6 @@
     \item for the chat use cases write what would happen if user tried to do sth in private scope chat when the game ended. he would be shown error message... etc.
     \item make sure that the chat button and chat window terms are not mixed up. this is especially important in the use case descriptions.
     \item looks at this:
-
-    alternatyvos, min, vidutiniai, max pakeitimai, kiek kainuos,
-    jei siulome kazkoki work around, turime paaiskinti kiek kainuos klientui
 
     poveikio analize.
 
@@ -161,13 +162,15 @@ Create a chat system enabling users to send and receive text-based messages. Thi
     \item The UI must include a togglable chat panel displayed on the right side of the application when the user is logged in.
     \item The chat panel must display a title at the top to indicate its scope:
     \begin{itemize}
-        \item \texttt{Global Chat} — when the user is not in an active game room.
-        \item \texttt{Room <room-name> Chat} — when the user is inside an active game room.
+        \item \texttt{Global} - all users are able to send, view messages.
+        \item \texttt{Room <room-name>} - restricted to users who are currently inside the same active game room.
+        \item \texttt{Group <group-name>} - restricted to specific set of users who have been granted access to that group.
+        \item \texttt{Private <receiver-username>} - direct one-to-one communication between two users.
     \end{itemize}
     \item The panel must include the following UI elements:
     \begin{itemize}
         \item A scrollable area for message display.
-        \item A text input field for message composition, limited to 256 characters.
+        \item A text input field for message creation, limited to 255 characters.
         \item A \texttt{Send} button for message submission.
     \end{itemize}
 
@@ -194,13 +197,13 @@ Create a chat system enabling users to send and receive text-based messages. Thi
         \item A popup notification must appear with the message \texttt{"Failed to send message"}.
         \item The notification must disappear after 3 seconds or when manually closed by the user.
     \end{itemize}
-     \item For each received message, system must determine the correct destination scope based on the sender's current state:
+    \item For each received message, the system must determine the correct destination:
     \begin{itemize}
-        \item If the user is associated with an active game room ID, the scope is that Room.
-        \item If the user is not associated with an active game room ID, the scope is Global Chat.
+        \item If the message is a direct message to another user, the scope is \texttt{Private <receiver-username>}.
+        \item If the message is sent to a specific group, the scope is \texttt{Group <group-name>}.
+        \item If the message is sent to a game room, the scope is \texttt{Room <room-name>}.
+        \item If the message is broadcasted publicly outside of any room or group, the scope is \texttt{Global}.
     \end{itemize}
-    \item System must broadcast message to currently active users in destination scope
-    \item System must store messages in the database and provide rest endpoint to fetch those messages.
 \end{itemize}
 
 % \subsection{Non-Functional Requirements}
@@ -214,59 +217,123 @@ Create a chat system enabling users to send and receive text-based messages. Thi
 
 \section{Impact Analysis}
 
-\section{Implementation alternatives}
-\subsection{External communication application Discord}
- Instead of building chat features directly into the web app, users are encouraged to communicate via a pre-existing, external platform like a dedicated Discord server. 
+\section{Implementation options}
+
+\subsection{Develop from scratch}
+This involves building the entire chat system end-to-end, including extending database, services and using web sockets for real time communication, as well as developing custom  React components for the chat interface and later maintaining it.
 \subsubsection{Pros}
 \begin{description}
-    \item[Minimal Development Effort] Requires almost no coding effort within the core web application itself, aside from potentially adding links or notes related to Discord.
+    \item[Flexibility] Features are not limited to 3rd party capabilities. We can fully develop features, UI/UX, manage data, and integrate new features within existing codebase.
+    \item[No 3rd party costs] Avoids recurring subscription fees, which may rise in the future. Costs shift towards infrastructure and maintenance, which can be be lower than 3rd party service costs.
+    \item[Data ownership] User data is not stored in extenal database, so we do not rely on 3rd party policies or security measurements for stored user data.
+\end{description}
+\subsubsection{Cons}
+\begin{description}
+    \item[High initial investment]  Requires huge time and resource allocation for chat feature development.
+    \item[Increased infrastructure costs] Real time chat functionality will increase  Infrastructure(power, data storage, bandwith) fees.
+    \item[Risk of bugs] Specialized third-party service is often thoroughly tested and reliable, whereas building a solution from scratch increases the risk of introducing bugs.
+\end{description}
+
+\subsection{Use External communication application such as Discord}
+ Instead of building chat features directly into the web app, users are encouraged to communicate via  external platform like a dedicated Discord server. 
+\subsubsection{Pros}
+\begin{description}
+    \item[Minimal Development Effort] Requires no coding effort within the core web application itself, aside from potentially adding links or notes related to Discord.
     \item[Many existing features] Discord has rich text, voice channels, emote or file support, roles, bots, mobile apps, and many more.
-    \item[Offloaded Infrastructure] All costs and complexities related to hosting, scaling, and maintaining the chat service are handled by the external platform.
+    \item[No Infrastructure costs] All costs and complexities related to hosting, scaling, and maintaining the chat service are handled by the external platform.
     \item[User Familiarity] Many users may already be familiar with Discord.
 \end{description}
 \subsubsection{Cons}
 \begin{description}
-    \item[Poor Integration] Requires users to switch apps to chat. Can be disruptive to the user flow.
-    \item[Manual setup for users] Cannot provide chat within specific game rooms directly tied to the app's state. Room-specific chat logic has to be handled by users.
+    \item[Poor Integration] Requires users to switch apps to chat, Can be disruptive to the user flow.
+    \item[Manual setup for users] Room specific chat logic has to be handled by users.
     \item[Loss of Control] No control over the chat UI or platform availability.
 \end{description}
 
 
-\subsection{Integrate Third-Party Chat SDK/Service - Stream}
-Use a specialized commercial service that provides chat functionality via an API and client-side SDKs. Your application's frontend integrates the SDK to display chat UI elements, and your backend interacts with the service's API to manage users and channels. The third party handles the real-time infrastructure.
+\subsection{Use Third-Party Chat service - Stream}
+Use a specialized commercial service that provides chat functionality  via an API and client-side SDKs, such as Stream. Application's frontend integrates the SDK to display chat UI elements, and backend interacts with the service's API to manage users and channels. The third party handles infrastructure.
 \subsubsection{Pros}
 \begin{description}
-    \item[Faster development] Significantly reduces development time compared to building from scratch, as the core real-time backend is already built.
-    \item[Managed infrastructure] Offloads the complexity of managing WebSockets, scaling connections, ensuring reliability, and handling infrastructure maintenance.
+    \item[Faster development] Significantly reduces development time compared to building from scratch, as the core functionality is already built.
+    \item[Managed infrastructure] Avoid managing WebSockets, scaling connections, ensuring reliability, and handling infrastructure maintenance.
     \item[Additional features included] Often comes with built-in features like presence indicators, typing notifications, message history, read receipts, and moderation tools.
-    \item[Good integration possible] Allows chat UI to be embedded directly within your web application.
+    \item[Decent integration] Allows chat UI to be embedded directly within your web application.
 \end{description}
 \subsubsection{Cons}
 \begin{description}
-    \item[Additional costs for 3rd party sservice] Involves monthly subscription fees based on usage metrics (e.g., Monthly Active Users, concurrent connections) which can become significant if app is popular.
+    \item[Provider costs] Monthly subscription fees based on usage metrics (Monthly Active Users, concurrent connections...) which can become significant if app is popular.
     \item[Difficulty to migrate] Integrating with a specific service makes it potentially difficult and costly to switch providers later.
     \item[Limited customization] Flexibility is bound by the features and customization options offered by the specific vendor; future requirements may be hard to implement.
-    \item[External dependency] Chat functionality's reliability is tied to the uptime and performance of the third-party service.
+    \item[External dependency] Chat functionality tied to the third-party service.
 \end{description}
 
-\subsection{Develop Full In-House Solution (From Scratch)}
-Implement the entire chat system (backend real-time server, frontend UI components, API logic) using websockets.
-\subsubsection{Pros}
-\begin{description}
-    \item[Complete control] Full flexibility over features, UI/UX, data management, performance optimization, and deep integration with existing application logic.
-    \item[No direct 3rd party costs] Avoids recurring subscription fees.
-    \item[Freedom to evolve] Easier to add new features, change technologies, or modify features without external constraints.
-\end{description}
-\subsubsection{Cons}
-\begin{description}
-    \item[Highest development effort] Requires significant development time and in-house expertise in real-time communication, backend scaling, security, and frontend development.
-    \item[Full infrastructure responsibility] Requires managing the deployment, scaling, monitoring, maintenance, and reliability of the chat server infrastructure.
-    \item[Higher initial cost] Requires a dedicated development team to implement the chat functionality from scratch.
-\end{description}
+\subsubsection{Summary}
+Developing from scratch offers the highest flexibility, but requires a high initial investment(assuming team of 3 seniors, all costs included 20.000-30.000€/month) and some ongoing maintenance costs. Using Discord is the cheapest and fastest option but sacrifices integration and control.  Third-party service Stream offers faster development with moderate recurring costs (starting around 400€ per month for up to 10,000 Monthly Active Users, 500 concurrent connections), which, however, could increase significantly as the app becomes more popular, and flexibility is limited by the external service capabilities.
 
-
-\section{Estimates??}
 \section{Project plan}
+
+Our development team consists of 3 developers: 1 frontend developer(F1) and 2 full stack developers(FS1,FS2). 
+
+
+\begin{figure}[H]
+  \begin{center}
+    \begin{ganttchart}[
+      y unit title=0.8cm, 
+      y unit chart=1.2cm,
+      vgrid,
+      hgrid,
+      title height=1, 
+      bar height=0.7,
+      group right shift=0,
+      group top shift=1.2,
+      group height=0.3,
+      link/.style={draw, blue}
+    ]{1}{24}  
+
+      % Labels
+      \gantttitle{Days}{24} \\
+      \gantttitlelist{1,...,24}{1} \\
+
+      % Tasks
+      \textganttbar{Planning 1}{All}{1}{3} \\ %0
+      \textganttbar{Core Backend}{FS1,FS2}{4}{11} \\ %2
+      \textganttbar{Core Frontend}{F1}{4}{9} \\ %1
+      \textganttbar{Core Testing \& fixing}{F1,FS1}{12}{13} \\ %3
+      \textganttbar{Add file support}{FS2,F1}{12}{16} \\%4
+      \textganttbar{Add search functionality}{FS1,F1}{14}{16} \\ %5
+      \textganttbar{Add emojis}{F1}{15}{15} \\ %6
+      \textganttbar{UX improvements}{F1}{16}{19} \\ %7
+      \textganttbar{Final testing \& fixing}{All}{20}{22} \\ %8
+      \ganttbar{Project buffer}{23}{24} \\ %9
+
+      % Relations (links between tasks)
+      \ganttlink{elem0}{elem2} 
+      \ganttlink{elem0}{elem4}
+      \ganttlink{elem2}{elem6}
+      \ganttlink{elem4}{elem6}
+      \ganttlink{elem8}{elem16}
+      \ganttlink{elem10}{elem16}
+      \ganttlink{elem12}{elem16}
+      \ganttlink{elem14}{elem16}
+    \end{ganttchart}
+  \end{center}
+  \caption{Project plan}
+\end{figure}
+
+\begin{description}
+    \item[Planning] Design the backend architecture, including database schema, API endpoints, and overall service workflow, finilize design.
+    \item[Core frontend] Develop the main React components and implement the primary frontend logic for plain text messaging.
+    \item[Core backend] Develop the main backend services for plain text messaging, including APIs, database operations, and server logic.
+    \item[Core testing and fixing] Perform initial testing of core functionalities and fix identified issues.
+    \item[Add file support] Implement functionality for file(image) sharing (frontend \& backend).
+    \item[Add search functionality] Implement search features for users to find content efficiently(frontend \& backend).
+    \item[Add emojis] Add emoji support(frontend \& backend)
+    \item[UX improvements] Review and improve user experience.
+    \item[Final testing \& fixing] Perform final testing and fix any remaining bugs.
+    \item[Project buffer] extra time for unexpected delays, bug fixes, or small code improvements.
+\end{description}
+
 
 \section{Domain Model}
 These requirements are a rich source of domain classes. Let’s put all the highlighted
@@ -449,7 +516,7 @@ We seperated the UI mockups into these main secions:
 \end{figure}
 
 When the user is on the home page, user can click on the global chat button to open the global chat. 
-User cannot close down this button, it is always visible.
+User can't hide this button, it is always visible.
 
 \begin{figure}[H]
     \centering
