@@ -17,6 +17,7 @@
 \usepackage{tocloft}
 \setlength{\cftfignumwidth}{4em} % Adjust the width as needed
 \setlength{\cfttabnumwidth}{4em} % Adjust the width as needed
+\usepackage{longtable}
 
 \usepackage{titlesec}
 \newcommand{\sectionbreak}{\clearpage}
@@ -153,20 +154,20 @@ Create a chat system enabling users to send and receive text-based messages. Thi
 \item Global scope. Accessible to all logged-in users outside of active game rooms.
 \item Room scope. Accessible only to users currently participating within the same active game room.
 \end{itemize}
-\section{Requirements}
+\section{Initial Requirements}
 
 \begin{itemize}
 
     % UI Structure
-    \item The UI must include a togglable chat panel displayed on the right side of the application when the user is logged in.
-    \item The chat panel must display a title at the top to indicate its scope:
+    \item The UI shall include a togglable chat panel displayed on the right side of the application when the user is logged in.
+    \item The chat panel shall display a title at the top to indicate its scope:
     \begin{itemize}
         \item \texttt{Global} - all users are able to send, view messages.
         \item \texttt{Room <room-name>} - restricted to users who are currently inside the same active game room.
         \item \texttt{Group <group-name>} - restricted to specific set of users who have been granted access to that group.
         \item \texttt{Private <receiver-username>} - direct one-to-one communication between two users.
     \end{itemize}
-    \item The panel must include the following UI elements:
+    \item The panel shall include the following UI elements:
     \begin{itemize}
         \item A scrollable area for message display.
         \item A text input field for message creation, limited to 255 characters.
@@ -174,7 +175,7 @@ Create a chat system enabling users to send and receive text-based messages. Thi
     \end{itemize}
 
     % Message Display
-    \item Each displayed message must show the following details:
+    \item System shall display each display message with the following details:
     \begin{itemize}
         \item Sender's username.
         \item Message timestamp (formatted as \texttt{HH:MM} or similar).
@@ -183,20 +184,20 @@ Create a chat system enabling users to send and receive text-based messages. Thi
     \item Messages must be ordered chronologically, with the most recent messages appearing at the bottom.
 
     % Message Handling
-    \item Typing a message and either clicking the \texttt{Send} button or pressing the \texttt{Enter} key must send the message to the server.
+    \item Typing a message and either clicking the \texttt{Send} button or pressing the \texttt{Enter} key shall send the message to the server.
     \item After sending a message:
     \begin{itemize}
         \item The input field must be cleared.
         \item The message must immediately appear in the sender's chat panel.
         \item Other users in the same chat scope (global or room) must receive the message in real time.
     \end{itemize}
-    \item When the user opens the chat panel for the first time, the system must fetch and display a list of past messages relevant to that chat scope.
+    \item When the user opens the chat panel for the first time, the system shall fetch and display a list of past messages relevant to that chat scope.
     \item If an error occurs during sending:
     \begin{itemize}
         \item A popup notification must appear with the message \texttt{"Failed to send message"}.
         \item The notification must disappear after 3 seconds or when manually closed by the user.
     \end{itemize}
-    \item For each received message, the system must determine the correct destination:
+    \item For each received message, the system shall determine the correct destination:
     \begin{itemize}
         \item If the message is a direct message to another user, the scope is \texttt{Private <receiver-username>}.
         \item If the message is sent to a specific group, the scope is \texttt{Group <group-name>}.
@@ -579,7 +580,7 @@ User can also click on the search button again to close the search section or cl
 
 When user is in the game room, user can click on the room chat access point to open the room chat. This chat section is similar to the global chat section, but it is scoped to the game room.
 This chat section always appears on the screen when the user is in the game room. The button can be removed from the screen by clicking on the close button ('x').
-In addition, there is the '+' section to add aditional chat access points like private chat and group chat.
+In addition, there is the '+' window to add aditional chat access points like private chat and group chat.
 
 \begin{figure}[H]
     \centering
@@ -756,7 +757,7 @@ User can edit the group char or private chat sections by clicking on the edit bu
 
 In the edit group chat section, user can edit the group name and add or remove users from the group chat.
 After the changes are made, user can click on the save button to save the changes.
-User can also click on the delete group chat access point to delete the group chat. After that, user will be prompted to confirm the deletion of the group chat.
+User can also click on the delete button to delete the group chat. After that, user will be prompted to confirm the deletion of the group chat.
 To exit the edit group chat section, user can click on the 'x' button.
 
 \begin{figure}[H]
@@ -833,7 +834,7 @@ Below is a rough draft of the use cases (these are not final, in fact, they do n
         \item \textbf{Send Message}
         \begin{itemize}
             \item User composes and sends a message to a chat (global, room, group, or private) using \textbf{chat section}.
-            \item Includes text, emojis using \textbf{emoji section}, and file attachments using \textbf{file upload section}.
+            \item Includes text, emojis using \textbf{emoji list}, and file attachments using \textbf{file upload list}.
         \end{itemize}
         \item \textbf{Switch between Chats}
         \begin{itemize}
@@ -860,11 +861,11 @@ Below is a rough draft of the use cases (these are not final, in fact, they do n
         \end{itemize}
         \item \textbf{View Pinned Messages}
         \begin{itemize}
-            \item User accesses pinned messages in a chat using \textbf{pinned messages section}.
+            \item User accesses pinned messages in a \textbf{pinned messages list}.
         \end{itemize}
         \item \textbf{Unpin Message}
         \begin{itemize}
-            \item User removes the pinned status from a message using \textbf{pinned messages section}.
+            \item User removes the pinned status from a message using \textbf{pinned messages list}.
         \end{itemize}
         \item \textbf{Search Messages}
         \begin{itemize}
@@ -917,16 +918,16 @@ Below is a rough draft of the use cases (these are not final, in fact, they do n
     \begin{itemize}
         \item \textbf{Receive Notification}
         \begin{itemize}
-            \item System alerts user about new messages/events using \textbf{notification section}.
-            \item System alers user about invitations to join group chats in the notification section using \textbf{notification section}.
-            \item System alers user about removal from group chats using \textbf{notification section}.
-            \item System alers user about deletion of group chats or private chats using \textbf{notification section}.
+            \item System alerts user about new messages/events in the \textbf{notification list}.
+            \item System alers user about invitations to join group chats in the \textbf{notification list}.
+            \item System alers user about removal from group chats in the \textbf{notification list}.
+            \item System alers user about deletion of group chats or private chats in the \textbf{notification list}.
             \item Includes visual and auditory indicators.
         \end{itemize}
         \item \textbf{View Notifications}
         \begin{itemize}
-            \item User checks notifications using \textbf{notification section}.
-            \item Can jump to relevant message/context using \textbf{notification section}.
+            \item User checks notifications in the \textbf{notification list}.
+            \item Can jump to relevant message/context in the \textbf{notification list}.
         \end{itemize}
     \end{itemize}
 
@@ -941,13 +942,13 @@ Below is a rough draft of the use cases (these are not final, in fact, they do n
         \end{itemize}
         \item \textbf{Upload File}
         \begin{itemize}
-            \item User attaches and sends files using \textbf{file upload section}.
+            \item User attaches and sends files using \textbf{file upload list}.
             \item System validates file type and size.
         \end{itemize}
         \item \textbf{Select Emoji}
         \begin{itemize}
             \item User adds emojis to messages.
-            \item Can browse/search emoji library using \textbf{emoji section}.
+            \item Can browse/search emoji library using \textbf{emoji list}.
         \end{itemize}
     \end{itemize}
 
@@ -966,17 +967,19 @@ Just looking at the rough use case outline, we can already notice some ambiguiti
 We will need to update the domain model based on the rough use case outline.
 \begin{itemize}
     \item Our domain model has a class called "ChatPanel" but we are naming it "Chat Section" in the use cases. We will use "Chat Section" in the domain model as well.
-    \item We will replase the "File Upload Panel" with "File Upload Section" in the domain model.
-    \item We will replace the "Emoji Panel" with "Emoji Section" in the domain model.
-    \item We will replace the "Notification Panel" with "Notification Section" in the domain model.
-    \item We will replace the "Pinned Messages Panel" with "Pinned Messages Section" in the domain model.
-    \item We will replace the "Private Chat Editing Panel" with "Private Chat Editing Section" in the domain model.
-    \item We will replace the "Group Chat Editing Panel" with "Group Chat Editing Section" in the domain model.
-    \item We will add "Search Messages Section" to the domain model.
-    \item In our UI mockups, there are chat access points, which are not present in the domain model. We will add the "ChatButton" class to the domain model as these have more functionality than just being a UI element.
+    \item We will replace the "File Upload Panel" with "File Upload List" in the domain model.
+    \item We will "File" class to the domain model.
+    \item We will replace the "Emoji Panel" with "Emoji List" in the domain model.
+    \item We will add "Emoji" class to the domain model.
+    \item We will replace the "Notification Panel" with "Notification List" in the domain model.
+    \item We will replace the "Pinned Messages Panel" with "Pinned Messages List" in the domain model.
+    \item We will remove "Message List" and "Search Message Results" classes from the domain model and replace with "Message List" and "Search Message List" generalization.
+    \item We will remove the "User List" and  keep rename "Search Users Results" to "Search Users List".
+    \item We will remove "Private Chat Editing Panel" and "Group Chat Editing Panel" classes from the domain model as well to make it less crowded.
+    \item We will remove aggregation between "Chat Section" and "Message" classes as "Message List" will be used instead.
+    \item In our UI mockups, there are chat access points, which are not present in the domain model. We will add the "Chat Access Point" class to the domain model.
     \item There is no "Chat Creating Section" in the domain model. We will add this class to the domain model as well.
-    \item We will remove "Message List" and "Search Message Results" classes from the domain model as it is getting already too crowded and we feel like there are more important classes to add.
-    \item We will remove the "User List" and "Search Users Results" classes from the domain model as well to make it less crowded.
+    \item We will add aggregation between the "Search Users List" and "Chat Creating Section" classes.
 \end{itemize}
 
 Below is the updated domain model with all the changes made:
@@ -1091,22 +1094,22 @@ Before that, we feel that its very important to mention the difference between c
 
     \textbf{BASIC COURSE:}
 
-    The system displays the chat section (private scope chat). User clicks on the pinned messages button to view the pinned messages. The system opens the pinned messages section and displays the pinned messages in the chat section. User inputs text on the search bar on the pinned messages section and clicks on the search button. The system searches for the pinned messages in the chat section and displays the results in the pinned messages section.
+    The system displays the chat section (private scope chat). User clicks on the pinned messages list to view the pinned messages. The system opens the pinned messages list and displays the pinned messages in the chat section. User inputs text on the search bar on the pinned messages list and clicks on the search button. The system searches for the pinned messages in the chat section and displays the results in the pinned messages list.
 
     \textbf{ALTERNATIVE COURSES:}
 
     \textbf{pinned messages not found:}
-    User opens the pinned messages section but the private scope chat does not have any pinned messages. The system does not display any pinned messages in the chat section and displays an informational message.
+    User opens the pinned messages list but the private scope chat does not have any pinned messages. The system does not display any pinned messages in the chat section and displays an informational message.
 
     \textbf{search criteria does not match any pinned messages:}
-    User inputs text on the search bar on the pinned messages section and clicks on the search button. The system searches for the pinned messages in the chat section and does not find any pinned messages that match the search criteria. The system does not display any pinned messages in the chat section and displays an informational message.
+    User inputs text on the search bar on the pinned messages list and clicks on the search button. The system searches for the pinned messages in the chat section and does not find any pinned messages that match the search criteria. The system does not display any pinned messages in the chat section and displays an informational message.
 
     \item 
     Use Case: \textbf{Unpin Message}
 
     \textbf{BASIC COURSE:}
 
-    The system displays pinned messages section. User clicks on the unpin button to unpin the message. The system sends the unpin request to the server and unpins the message from the chat section.
+    The system displays pinned messages list. User clicks on the unpin button to unpin the message. The system sends the unpin request to the server and unpins the message from the chat section.
 
     \textbf{ALTERNATIVE COURSES:}
 
@@ -1121,7 +1124,7 @@ Before that, we feel that its very important to mention the difference between c
 
     \textbf{BASIC COURSE:}
 
-    The system displays chat panel. User clicks on the search messages icon which opens seperate section for searching messages. User inputs text on the search bar on the search section and clicks on the search button. The system searches for the messages in the chat section and displays the results in the search section. Messages are shown in paginated format. User can scroll down to see more messages. 
+    The system displays chat panel. User clicks on the search messages icon which opens seperate section for searching messages. User inputs text on the search bar on the search section and clicks on the search button. The system searches for the messages in the chat section and displays the results in message list. Messages are shown in paginated format. User can scroll down to see more messages. 
 
     \textbf{ALTERNATIVE COURSES:}
 
@@ -1288,7 +1291,7 @@ Before that, we feel that its very important to mention the difference between c
 
     \textbf{BASIC COURSE:}
 
-    The system displays game room. User receives a notification about new messages/events. The system displays the notification in the notification section and plays a sound. 
+    The system displays game room. User receives a notification about new messages/events. The system displays the notification in the Notification List and plays a sound. 
 
     \textbf{ALTERNATIVE COURSES:}
 
@@ -1300,12 +1303,12 @@ Before that, we feel that its very important to mention the difference between c
 
     \textbf{BASIC COURSE:}
 
-    The system displays game room. User clicks on the notification button which opens notification section. User can view all notifications in the notification section. User can click on the notification to jump to the relevant message/context.
+    The system displays game room. User clicks on the notification button which opens Notification List. User can view all notifications in the Notification List. User can click on the notification to jump to the relevant message/context.
 
     \textbf{ALTERNATIVE COURSES:}
 
     \textbf{no notifications:}
-    User tries to open the notification section but the system does not display any notifications. The system does not display an error message.
+    User tries to open the Notification List but the system does not display any notifications. The system does not display an error message.
 
     \textbf{notification link is inactive}
     User tries to click on the notification link but the system does not display the relevant message/context (message/context may be deleted). The system does not display an error message.
@@ -1337,36 +1340,36 @@ Before that, we feel that its very important to mention the difference between c
 
     \textbf{BASIC COURSE:}
 
-    The system displays chat section. User clicks on the emoji button which opens emoji section. User can select an emoji from the emoji section or use search bar. The system adds the selected emoji to the message input field.
+    The system displays chat section. User clicks on the emoji button which opens emoji list. User can select an emoji from the emoji list or use search bar. The system adds the selected emoji to the message input field.
 
     \textbf{ALTERNATIVE COURSES:}
 
     \textbf{search criteria does not match any emojis:}
-    User inputs text on the search bar on the emoji section and clicks on the search button. The system searches for the emojis in the emoji section and does not find any emojis that match the search criteria. The system does not display any emojis in the emoji section and displays an informational message.
+    User inputs text on the search bar on the emoji list and clicks on the search button. The system searches for the emojis in the emoji list and does not find any emojis that match the search criteria. The system does not display any emojis in the emoji list and displays an informational message.
 
     \textbf{user has not selected any emojis:}
-    User clicks on the emoji button which opens emoji section. User does not select any emojis from the emoji section. The system does not add any emojis to the message input field and does not display an error message.
+    User clicks on the emoji button which opens emoji list. User does not select any emojis from the emoji list. The system does not add any emojis to the message input field and does not display an error message.
 
     \item 
     Use Case: \textbf{Upload File}
 
     \textbf{BASIC COURSE:}
 
-    The system displays chat section. User clicks on the file upload button which opens file upload section. User can select a file from the file upload section. User selects a .png, .jpg, .jpeg, .gif file and upload it. The system saves the selected file to the server and displays it in the chat section.
+    The system displays chat section. User clicks on the file upload button which opens file upload list. User can select a file from the file upload list. User selects a .png, .jpg, .jpeg, .gif file and upload it. The system saves the selected file to the server and displays it in the chat section.
 
     \textbf{ALTERNATIVE COURSES:}
 
     \textbf{file type not allowed:}
-    User clicks on the file upload button which opens file upload section. User selects a .exe, .bat, .sh file and upload it. The system does not save the selected file to the server and displays an error message.
+    User clicks on the file upload button which opens file upload list. User selects a .exe, .bat, .sh file and upload it. The system does not save the selected file to the server and displays an error message.
 
     \textbf{file size too large:}
-    User clicks on the file upload button which opens file upload section. User selects a .png, .jpg, .jpeg, .gif file that is larger than 10MB and upload it. The system does not save the selected file to the server and displays an error message.
+    User clicks on the file upload button which opens file upload list. User selects a .png, .jpg, .jpeg, .gif file that is larger than 10MB and upload it. The system does not save the selected file to the server and displays an error message.
 
     \textbf{file name too long:}
-    User clicks on the file upload button which opens file upload section. User selects a .png, .jpg, .jpeg, .gif file that has a name longer than 255 characters and upload it. The system does not save the selected file to the server and displays an error message.
+    User clicks on the file upload button which opens file upload list. User selects a .png, .jpg, .jpeg, .gif file that has a name longer than 255 characters and upload it. The system does not save the selected file to the server and displays an error message.
     
     \textbf{file name contains special characters:}
-    User clicks on the file upload button which opens file upload section. User selects a .png, .jpg, .jpeg, .gif file that has a name that contains special characters and upload it. The system does not save the selected file to the server and displays an error message.
+    User clicks on the file upload button which opens file upload list. User selects a .png, .jpg, .jpeg, .gif file that has a name that contains special characters and upload it. The system does not save the selected file to the server and displays an error message.
 
 \end{itemize}
 
@@ -1451,6 +1454,167 @@ This diagram shows the notification system use case diagram. It shows the use ca
 
 This diagram shows the UI interactions use case diagram. It shows the use cases that are related to the UI interactions package. The user can create multiple chats, select emoji and upload file.
 
+\section{Requirements}
+\begin{longtable}{|p{3cm}|p{5.5cm}|l|p{4cm}|}
+\caption{Final Requirements Traceability Table} \label{tab:final_reqs} \\
+\hline
+\textbf{Requirement ID} & \textbf{Description} & \textbf{Use Case} & \textbf{Domain Objects} \\
+\hline
+\endfirsthead
+
+\multicolumn{4}{c}%
+{\tablename\ \thetable\ -- \textit{Continued from previous page}} \\
+\hline
+\textbf{Requirement ID} & \textbf{Description} & \textbf{Use Case} & \textbf{Domain Objects} \\
+\hline
+\endhead
+
+\hline \multicolumn{4}{r}{\textit{Continued on next page}} \\
+\endfoot
+
+\hline
+\endlastfoot
+
+\textbf{FR-01} & The system shall allow user to create and send messages. & Send Message & Message, User \\
+\hline
+\textbf{FR-02} & The system shall remove UTF-8 zero-width characters from messages before sending. & Send Message & Message \\
+\hline
+\textbf{FR-03} & The system shall prevent sending empty messages and show an error. & Send Message & Message \\
+\hline
+\textbf{FR-04} & The system shall restrict messages exceeding 255 characters and display an error. & Send Message & Message \\
+\hline
+\textbf{FR-05} & The system shall block unauthorized HTML-modified messages and show an error. & Send Message & Message, User \\
+\hline
+\textbf{FR-06} & The system shall sanitize messages containing cross-site scripting before sending. & Send Message & Message \\
+\hline
+\textbf{FR-07} & The system shall allow switching between different chat windows via chat buttons. & Switch between Chats & ChatWindow, ChatManager \\
+\hline
+\textbf{FR-08} & The system shall not display chat buttons if none are available and show no error. & Switch between Chats & ChatWindow, ChatManager \\
+\hline
+\textbf{FR-09} & The system shall allow user to edit their own messages. & Edit Message & User, Message \\
+\hline
+\textbf{FR-10} & The system shall display an error if user edits message which does not exist anymore. & Edit Message & User, Message \\
+\hline
+\textbf{FR-11} & The system shall allow user to delete their own messages. & Delete Message & User, Message \\
+\hline
+\textbf{FR-12} & The system shall show an error if the message the user wants to delete does not exist anymore. & Delete Message & User, Message \\
+\hline
+\textbf{FR-13} & The system shall allow pinning messages in private chats. & Pin Message & Message, PrivateChat, PinnedMessage \\
+\hline
+\textbf{FR-14} & The system shall show an error when pinning already pinned messages. & Pin Message & PinnedMessage, Message \\
+\hline
+\textbf{FR-15} & The system shall restrict pinning in global chat scope and inform the user. & Pin Message & GlobalChat, Message, PinnedMessage, User \\
+\hline
+\textbf{FR-16} & The system shall allow user to view pinned messages and support search functionality. & View Pinned Messages & User, PinnedMessage \\
+\hline
+\textbf{FR-17} & The system shall show an info message when no pinned messages are found. & View Pinned Messages & PinnedMessage \\
+\hline
+\textbf{FR-18} & The system shall allow unpinning messages from pinned list. & Unpin Message & Message, PinnedMessage \\
+\hline
+\textbf{FR-19} & The system shall show an error if the message to unpin is not found or already unpinned. & Unpin Message & Message, PinnedMessage \\
+\hline
+\textbf{FR-20} & The system shall allow user to search messages with pagination. & Search Messages & User, Message \\
+\hline
+\textbf{FR-21} & The system shall show info message if no search results are found. & Search Messages & Message \\
+\hline
+\textbf{FR-22} & The system shall return all messages when search criteria is empty. & Search Messages & Message \\
+\hline
+\textbf{FR-23} & The system shall allow viewing all message history with pagination. & View Message History & Message \\
+\hline
+\textbf{FR-24} & The system shall allow creating a group chat with selected users and a unique name. & Create Group Chat & GroupChat, User, ChatManager \\
+\hline
+\textbf{FR-25} & The system shall display an error if no users are selected for the group chat. & Create Group Chat & GroupChat \\
+\hline
+\textbf{FR-26} & The system shall display an error if too many users are selected (100+). & Create Group Chat & GroupChat \\
+\hline
+\textbf{FR-27} & The system shall display an error if no name is given for the group chat. & Create Group Chat & GroupChat \\
+\hline
+\textbf{FR-28} & The system shall display an error if the group chat name already exists. & Create Group Chat & GroupChat \\
+\hline
+\textbf{FR-29} & The system shall allow users to send join requests for group chats by name. & Join Group Chat & GroupChat, User \\
+\hline
+\textbf{FR-30} & The system shall display an error if the group chat name does not exist. & Join Group Chat & GroupChat \\
+\hline
+\textbf{FR-31} & The system shall send notification to user if they were added. & Join Group Chat & User, Notification, GroupChat \\
+\hline
+\textbf{FR-32} & The system shall allow group owner to manage group members (add/remove). & Manage Group Members & GroupChat, User \\
+\hline
+\textbf{FR-33} & The system shall display an error if a non-owner attempts to manage members. & Manage Group Members & GroupChat, User \\
+\hline
+\textbf{FR-34} & The system shall display an info message if no users were selected to add. & Manage Group Members & GroupChat \\
+\hline
+\textbf{FR-35} & The system shall display an error if the group chat has already been deleted. & Manage Group Members & GroupChat \\
+\hline
+\textbf{FR-36} & The system shall prevent adding users if the group chat is already full (100+). & Manage Group Members & GroupChat \\
+\hline
+\textbf{FR-37} & The system shall display an error if too many users are selected to be added. & Manage Group Members & GroupChat \\
+\hline
+\textbf{FR-38} & The system shall allow users to start a private chat with one selected user. & Start Private Chat & PrivateChat, User \\
+\hline
+\textbf{FR-39} & The system shall display an error if no user is selected. & Start Private Chat & PrivateChat \\
+\hline
+\textbf{FR-40} & The system shall display an error if more than one user is selected. & Start Private Chat & PrivateChat \\
+\hline
+\textbf{FR-41} & The system shall allow user to switch between room and global chat scopes. & Switch Chat Scopes & ChatScope \\
+\hline
+\textbf{FR-42} & The system shall prevent switching to room chat if user is not in that room. & Switch Chat Scopes & ChatScope, RoomChat, GlobalChat, GameRoom, ChatManager \\
+\hline
+\textbf{FR-43} & The system shall prevent switching to global/room chat from private scope. & Switch Chat Scopes & ChatScope, GameRoom, RoomChat \\
+\hline
+\textbf{FR-44} & The system shall allow user to change the type of a chat button if allowed. & Change Chat Type & ChatScope, PrivateChat, RoomChat, GlobalChat\\
+\hline
+\textbf{FR-45} & The system shall prevent selecting room chat type if one already exists. & Change Chat Type & ChatScope, ChatManager \\
+\hline
+\textbf{FR-46} & The system shall allow deletion of group or private chats with confirmation. & Delete Chat & PrivateChat, User, ChatManager \\
+\hline
+\textbf{FR-47} & The system shall display an error if a non-owner tries to delete a chat. & Delete Chat & ChatScope, User, ChatManager \\
+\hline
+\textbf{FR-48} & The system shall display an error if the chat is already deleted. & Delete Chat & ChatScope, ChatManager,User \\
+\hline
+\textbf{FR-49} & The system shall send notifications with sound to user when a new message is received. & Receive Notification & Notification, Message, User \\
+\hline
+\textbf{FR-50} & The system shall play a sound even if notification cannot be shown due to a narrow browser window. & Receive Notification, User & Notification \\
+\hline
+\textbf{FR-52} & The system shall allow users to view all notifications in a notification window. & View Notifications & Notification \\
+\hline
+\textbf{FR-53} & The system shall allow users to click on notifications to jump to the related context/message. & View Notifications & Notification \\
+\hline
+\textbf{FR-54} & The system shall not display an error if there are no notifications. & View Notifications & Notification \\
+\hline
+\textbf{FR-55} & The system shall not display an error if a notification target message/context is missing. & View Notifications & Notification \\
+\hline
+\textbf{FR-56} & The system shall allow users to toggle chat window by clicking the chat button. & Toggle Chat Window & ChatWindow \\
+\hline
+\textbf{FR-57} & The system shall prevent duplicate chat windows from opening. & Toggle Chat Window & ChatWindow \\
+\hline
+\textbf{FR-58} & The system shall allow creation of up to 3 chat buttons/windows. & Create Multiple Chats & Chat \\
+\hline
+\textbf{FR-59} & The system shall display an error when user tries to create more than 3 chat buttons. & Create Multiple Chats & Chat \\
+\hline
+\textbf{FR-60} & The system shall prevent creation of a second global chat button. & Create Multiple Chats & ChatScope \\
+\hline
+\textbf{FR-61} & The system shall disable chat creation button on the home page. & Create Multiple Chats & Chat \\
+\hline
+\textbf{FR-62} & The system shall allow emoji selection via emoji picker. & Select Emoji & Emoji \\
+\hline
+\textbf{FR-63} & The system shall allow emoji search via keyword input. & Select Emoji & Emoji \\
+\hline
+\textbf{FR-64} & The system shall insert the selected emoji into the message input field. & Select Emoji & Emoji \\
+\hline
+\textbf{FR-65} & The system shall display an info message when no emojis match the search. & Select Emoji & Emoji \\
+\hline
+\textbf{FR-66} & The system shall allow file uploads of images (.png, .jpg, .jpeg, .gif). & Upload File & File \\
+\hline
+\textbf{FR-67} & The system shall reject disallowed file types and show an error. & Upload File & File \\
+\hline
+\textbf{FR-68} & The system shall reject files larger than 10MB and show an error. & Upload File & File \\
+\hline
+\textbf{FR-69} & The system shall reject files with names over 255 characters. & Upload File & File \\
+\hline
+\textbf{FR-70} & The system shall reject files with special characters in their name. & Upload File & File \\
+\hline
+
+\end{longtable}
 
 
 \subsection{Sequence Diagrams}

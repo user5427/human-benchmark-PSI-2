@@ -14,18 +14,20 @@ rectangle GlobalChat
 rectangle PrivateChat #line:red
 rectangle PinnedMessage #line:red
 rectangle ChatScope
-rectangle EmojiSection #line:Orange
-rectangle FileUploadSection #line:Orange
+rectangle EmojiList #line:Orange
+rectangle FileUploadList #line:Orange
 rectangle GroupChat #line:Blue
 rectangle GlobalScope #line:Blue
 rectangle PrivateScope #line:Blue
-rectangle NotificationSection #line:LimeGreen
-rectangle PinnedMessagesSection #line:LimeGreen
-rectangle GroupChatEditingSection #line:Violet
-rectangle PrivateChatEditingSection #line:Violet
-rectangle SearchMessagesSection #line:DeepPink
-rectangle ChatButton #line:DeepPink
+rectangle NotificationList #line:LimeGreen
+rectangle PinnedMessagesList #line:LimeGreen
+rectangle MessageList #line:DeepPink
+rectangle ChatAccessPoint #line:DeepPink
 rectangle ChatCreatingSection #line:DeepPink
+rectangle Emoji #line:DeepPink
+rectangle File #line:DeepPink
+rectangle SearchUsersList #line:LimeGreen
+rectangle SearchMessageList #line:DeepPink
 
 
 ' ???
@@ -33,30 +35,32 @@ rectangle ChatCreatingSection #line:DeepPink
  
 :GameRoom: o-- :User:
 
-:GameRoom: o-- :ChatButton:
+:GameRoom: o-- :ChatAccessPoint:
 :GameRoom: o-- :ChatCreatingSection:
-:ChatButton: o-- :ChatCreatingSection:
-:ChatButton: o-- :ChatSection:
-:ChatSection: o-- :Message:
-:ChatSection: o-- :NotificationSection:
-:NotificationSection: o-- :Notification:
+:ChatAccessPoint: o-- :ChatCreatingSection:
+:ChatAccessPoint: o-- :ChatSection:
+:ChatSection: o-- :NotificationList:
+:NotificationList: o-- :Notification:
 :Message: o-- :User:
 :GlobalScope: <|-- :RoomChat:
 :GlobalScope: <|-- :GlobalChat:
 :PrivateScope: <|-- :PrivateChat:
 :ChatSection: o-- :ChatScope:
 :Message: <|-- :PinnedMessage:
-:ChatSection: o-- :EmojiSection:
-:ChatSection: o-- :FileUploadSection:
+:ChatSection: o-- :EmojiList:
+:ChatSection: o-- :FileUploadList:
 :PrivateScope: <|-- :GroupChat:
 :ChatScope: <|-- :GlobalScope:
 :ChatScope: <|-- :PrivateScope:
-:ChatSection: o-- :PinnedMessagesSection:
-:PinnedMessagesSection: o-- :PinnedMessage:
-:GroupChat: o-- :GroupChatEditingSection:
-:PrivateChat: o-- :PrivateChatEditingSection:
-:ChatSection: o-- :SearchMessagesSection:
-:SearchMessagesSection: o-- :Message:
+:ChatSection: o-- :PinnedMessagesList:
+:PinnedMessagesList: o-- :PinnedMessage:
+:ChatSection: o-- :MessageList:
+:MessageList: o-- :Message:
+:EmojiList: o-- :Emoji:
+:FileUploadList: o-- :File:
+:SearchUsersList: o-- :User:
+:ChatCreatingSection: o-- :SearchUsersList:
+:MessageList: <|-- :SearchMessageList:
 
 
 
