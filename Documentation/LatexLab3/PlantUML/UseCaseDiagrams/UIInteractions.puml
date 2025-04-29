@@ -3,12 +3,10 @@ left to right direction
 actor User
 
 rectangle "UI Interactions" {
-  (Toggle Chat Window) as toggle
   (Create Multiple Chats) as openChats
   (Select Emoji) as emoji
   (Upload File) as upload
 
-  User --> toggle
   User --> openChats
   User --> emoji
   User --> upload
