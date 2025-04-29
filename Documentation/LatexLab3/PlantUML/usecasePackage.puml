@@ -47,7 +47,6 @@ package "Notification System" {
 }
 
 package "UI Interactions" {
-    [Toggle Chat Window] as (Toggle Chat Window)
     [Create Multiple Chats] as (Create Multiple Chats)
     [Upload File] as (Upload File)
     [Select Emoji] as (Select Emoji)

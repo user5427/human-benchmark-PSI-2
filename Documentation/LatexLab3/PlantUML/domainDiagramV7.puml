@@ -3,7 +3,7 @@
 left to right direction
 
 
-rectangle ChatWindow
+rectangle ChatSection
 rectangle Message
 rectangle Notification
 rectangle GameRoom
@@ -14,18 +14,18 @@ rectangle GlobalChat
 rectangle PrivateChat #line:red
 rectangle PinnedMessage #line:red
 rectangle ChatScope
-rectangle EmojiWindow #line:Orange
-rectangle FileUploadWindow #line:Orange
+rectangle EmojiSection #line:Orange
+rectangle FileUploadSection #line:Orange
 rectangle GroupChat #line:Blue
 rectangle GlobalScope #line:Blue
 rectangle PrivateScope #line:Blue
-rectangle NotificationWindow #line:LimeGreen
-rectangle PinnedMessagesWindow #line:LimeGreen
-rectangle GroupChatEditingWindow #line:Violet
-rectangle PrivateChatEditingWindow #line:Violet
-rectangle SearchMessagesWindow #line:DeepPink
+rectangle NotificationSection #line:LimeGreen
+rectangle PinnedMessagesSection #line:LimeGreen
+rectangle GroupChatEditingSection #line:Violet
+rectangle PrivateChatEditingSection #line:Violet
+rectangle SearchMessagesSection #line:DeepPink
 rectangle ChatButton #line:DeepPink
-rectangle ChatCreatingWindow #line:DeepPink
+rectangle ChatCreatingSection #line:DeepPink
 
 
 ' ???
@@ -34,29 +34,29 @@ rectangle ChatCreatingWindow #line:DeepPink
 :GameRoom: o-- :User:
 
 :GameRoom: o-- :ChatButton:
-:GameRoom: o-- :ChatCreatingWindow:
-:ChatButton: o-- :ChatCreatingWindow:
-:ChatButton: o-- :ChatWindow:
-:ChatWindow: o-- :Message:
-:ChatWindow: o-- :NotificationWindow:
-:NotificationWindow: o-- :Notification:
+:GameRoom: o-- :ChatCreatingSection:
+:ChatButton: o-- :ChatCreatingSection:
+:ChatButton: o-- :ChatSection:
+:ChatSection: o-- :Message:
+:ChatSection: o-- :NotificationSection:
+:NotificationSection: o-- :Notification:
 :Message: o-- :User:
 :GlobalScope: <|-- :RoomChat:
 :GlobalScope: <|-- :GlobalChat:
 :PrivateScope: <|-- :PrivateChat:
-:ChatWindow: o-- :ChatScope:
+:ChatSection: o-- :ChatScope:
 :Message: <|-- :PinnedMessage:
-:ChatWindow: o-- :EmojiWindow:
-:ChatWindow: o-- :FileUploadWindow:
+:ChatSection: o-- :EmojiSection:
+:ChatSection: o-- :FileUploadSection:
 :PrivateScope: <|-- :GroupChat:
 :ChatScope: <|-- :GlobalScope:
 :ChatScope: <|-- :PrivateScope:
-:ChatWindow: o-- :PinnedMessagesWindow:
-:PinnedMessagesWindow: o-- :PinnedMessage:
-:GroupChat: o-- :GroupChatEditingWindow:
-:PrivateChat: o-- :PrivateChatEditingWindow:
-:ChatWindow: o-- :SearchMessagesWindow:
-:SearchMessagesWindow: o-- :Message:
+:ChatSection: o-- :PinnedMessagesSection:
+:PinnedMessagesSection: o-- :PinnedMessage:
+:GroupChat: o-- :GroupChatEditingSection:
+:PrivateChat: o-- :PrivateChatEditingSection:
+:ChatSection: o-- :SearchMessagesSection:
+:SearchMessagesSection: o-- :Message:
 
 
 
