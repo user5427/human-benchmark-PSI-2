@@ -1453,6 +1453,23 @@ This diagram shows the UI interactions use case diagram. It shows the use cases 
 
 
 
+\subsection{Sequence Diagrams}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/SeqDiagrams/CreateGroupChat.png}
+    \caption{Create Group Chat Sequence Diagram}
+    \label{fig:create-group-section-seq-d}
+\end{figure}
+
+User opens \textbf{Create Chat}, fills in the chat title and selects members. UI submits this data to \textbf{ChatController}, which synchronously calls \textbf{GroupChatService}. 
+The service inserts data synchronously into \textbf{DataBase} to create the group chat and retrieve the generated \texttt{chatId}.
+
+Once the group is created, the \textbf{ChatController} immediately updates the UI to show the new chat access point. 
+In parallel, \textbf{NotificationService} sends invites to all selected members asynchronacly.
+
+
+
 \printbibliography[title = {References and sources}]
 
 \end{document}

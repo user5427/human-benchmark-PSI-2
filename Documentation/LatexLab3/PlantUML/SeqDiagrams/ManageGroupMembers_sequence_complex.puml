@@ -1,0 +1,28 @@
+@startuml
+actor Owner
+participant "EditGroupSection" as UI
+participant "ChatController" as CC
+participant "GroupChatService" as GCS
+participant "DataBase" as DB
+participant "NotificationService" as NS
+
+Owner -> UI: openEditGroup(chatId)
+Owner -> UI: addMembers(+list), removeMembers(-list)
+UI -> CC: updateMembers(chatId, +list, -list)
+activate CC
+CC -> GCS: updateMembers(chatId, +list, -list)
+activate GCS
+opt additions
+  GCS -> DB: INSERT GroupMember(+list)
+end opt
+opt removals
+  GCS -> DB: DELETE FROM GroupMember WHERE ...
+end opt
+DB -> GCS: ok
+GCS -> CC: ok
+deactivate GCS
+
+CC --> NS: async broadcastMemberChanges(chatId,+list,-list)
+CC -> UI: refreshList()
+deactivate CC
+@enduml

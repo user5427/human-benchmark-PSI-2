@@ -1,0 +1,26 @@
+@startuml
+actor User
+participant "CreateChatSection" as UI
+participant "ChatController"  as CC
+participant "GroupChatService" as GCS
+participant  "DataBase" as DB
+participant "NotificationService" as NS
+
+User -> UI : openCreateChat()
+UI  -> User : displayForm()
+User -> UI : fillForm(title, members[])
+UI  -> CC  : submitGroupChat(title, members[])
+activate CC
+
+CC  -> GCS : createGroupChat(title, owner)
+activate GCS
+GCS -> DB : INSERT GroupChat
+DB -> GCS : chatId
+GCS -> CC : chatCreated(chatId)
+deactivate GCS
+CC --> NS : sendInvites(chatId, members[])
+
+
+CC  -> UI : showChatAccessPoint(chatId)
+deactivate CC
+@enduml

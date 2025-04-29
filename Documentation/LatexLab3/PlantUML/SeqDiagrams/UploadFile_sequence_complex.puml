@@ -1,0 +1,29 @@
+@startuml
+actor User
+participant "ChatSection" as UI
+participant "UploadController" as UC
+participant "FileStorageService" as FSS
+participant "CDN" as CDN
+
+User -> UI: clickUpload(file)
+UI -> UC: startUpload(fileMeta)
+activate UC
+UC -> FSS: getUploadUrl(fileMeta)
+FSS --> UC: presignedURL
+
+UC -> UI: showProgress(0%)
+UI -> CDN: PUT chunk1
+CDN --> UC: progress(20%) ##async arrow##
+UC -> UI: showProgress(20%)
+
+loop for each remaining chunk
+  UI -> CDN: PUT chunkN
+  CDN --> UC: progress(n%)
+  UC -> UI: showProgress(n%)
+end
+
+CDN --> FSS: notifyComplete
+FSS --> UC: uploadComplete(fileUrl)
+UC -> UI: displayFileMessage(fileUrl)
+deactivate UC
+@enduml
