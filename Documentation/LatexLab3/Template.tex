@@ -155,20 +155,20 @@ Create a chat system enabling users to send and receive text-based messages. Thi
 \item Global scope. Accessible to all logged-in users outside of active game rooms.
 \item Room scope. Accessible only to users currently participating within the same active game room.
 \end{itemize}
-\section{Requirements}
+\section{Initial Requirements}
 
 \begin{itemize}
 
     % UI Structure
-    \item The UI must include a togglable chat panel displayed on the right side of the application when the user is logged in.
-    \item The chat panel must display a title at the top to indicate its scope:
+    \item The UI shall include a togglable chat panel displayed on the right side of the application when the user is logged in.
+    \item The chat panel shall display a title at the top to indicate its scope:
     \begin{itemize}
         \item \texttt{Global} - all users are able to send, view messages.
         \item \texttt{Room <room-name>} - restricted to users who are currently inside the same active game room.
         \item \texttt{Group <group-name>} - restricted to specific set of users who have been granted access to that group.
         \item \texttt{Private <receiver-username>} - direct one-to-one communication between two users.
     \end{itemize}
-    \item The panel must include the following UI elements:
+    \item The panel shall include the following UI elements:
     \begin{itemize}
         \item A scrollable area for message display.
         \item A text input field for message creation, limited to 255 characters.
@@ -176,7 +176,7 @@ Create a chat system enabling users to send and receive text-based messages. Thi
     \end{itemize}
 
     % Message Display
-    \item Each displayed message must show the following details:
+    \item System shall display each display message with the following details:
     \begin{itemize}
         \item Sender's username.
         \item Message timestamp (formatted as \texttt{HH:MM} or similar).
@@ -185,20 +185,20 @@ Create a chat system enabling users to send and receive text-based messages. Thi
     \item Messages must be ordered chronologically, with the most recent messages appearing at the bottom.
 
     % Message Handling
-    \item Typing a message and either clicking the \texttt{Send} button or pressing the \texttt{Enter} key must send the message to the server.
+    \item Typing a message and either clicking the \texttt{Send} button or pressing the \texttt{Enter} key shall send the message to the server.
     \item After sending a message:
     \begin{itemize}
         \item The input field must be cleared.
         \item The message must immediately appear in the sender's chat panel.
         \item Other users in the same chat scope (global or room) must receive the message in real time.
     \end{itemize}
-    \item When the user opens the chat panel for the first time, the system must fetch and display a list of past messages relevant to that chat scope.
+    \item When the user opens the chat panel for the first time, the system shall fetch and display a list of past messages relevant to that chat scope.
     \item If an error occurs during sending:
     \begin{itemize}
         \item A popup notification must appear with the message \texttt{"Failed to send message"}.
         \item The notification must disappear after 3 seconds or when manually closed by the user.
     \end{itemize}
-    \item For each received message, the system must determine the correct destination:
+    \item For each received message, the system shall determine the correct destination:
     \begin{itemize}
         \item If the message is a direct message to another user, the scope is \texttt{Private <receiver-username>}.
         \item If the message is sent to a specific group, the scope is \texttt{Group <group-name>}.
