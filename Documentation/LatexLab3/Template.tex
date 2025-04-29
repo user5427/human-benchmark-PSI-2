@@ -579,7 +579,7 @@ User can also click on the search button again to close the search section or cl
 
 When user is in the game room, user can click on the room chat access point to open the room chat. This chat section is similar to the global chat section, but it is scoped to the game room.
 This chat section always appears on the screen when the user is in the game room. The button can be removed from the screen by clicking on the close button ('x').
-In addition, there is the '+' section to add aditional chat access points like private chat and group chat.
+In addition, there is the '+' window to add aditional chat access points like private chat and group chat.
 
 \begin{figure}[H]
     \centering
@@ -756,7 +756,7 @@ User can edit the group char or private chat sections by clicking on the edit bu
 
 In the edit group chat section, user can edit the group name and add or remove users from the group chat.
 After the changes are made, user can click on the save button to save the changes.
-User can also click on the delete group chat access point to delete the group chat. After that, user will be prompted to confirm the deletion of the group chat.
+User can also click on the delete button to delete the group chat. After that, user will be prompted to confirm the deletion of the group chat.
 To exit the edit group chat section, user can click on the 'x' button.
 
 \begin{figure}[H]
@@ -833,7 +833,7 @@ Below is a rough draft of the use cases (these are not final, in fact, they do n
         \item \textbf{Send Message}
         \begin{itemize}
             \item User composes and sends a message to a chat (global, room, group, or private) using \textbf{chat section}.
-            \item Includes text, emojis using \textbf{emoji section}, and file attachments using \textbf{file upload section}.
+            \item Includes text, emojis using \textbf{emoji list}, and file attachments using \textbf{file upload list}.
         \end{itemize}
         \item \textbf{Switch between Chats}
         \begin{itemize}
@@ -860,11 +860,11 @@ Below is a rough draft of the use cases (these are not final, in fact, they do n
         \end{itemize}
         \item \textbf{View Pinned Messages}
         \begin{itemize}
-            \item User accesses pinned messages in a chat using \textbf{pinned messages section}.
+            \item User accesses pinned messages in a \textbf{pinned messages list}.
         \end{itemize}
         \item \textbf{Unpin Message}
         \begin{itemize}
-            \item User removes the pinned status from a message using \textbf{pinned messages section}.
+            \item User removes the pinned status from a message using \textbf{pinned messages list}.
         \end{itemize}
         \item \textbf{Search Messages}
         \begin{itemize}
@@ -917,16 +917,16 @@ Below is a rough draft of the use cases (these are not final, in fact, they do n
     \begin{itemize}
         \item \textbf{Receive Notification}
         \begin{itemize}
-            \item System alerts user about new messages/events using \textbf{notification section}.
-            \item System alers user about invitations to join group chats in the notification section using \textbf{notification section}.
-            \item System alers user about removal from group chats using \textbf{notification section}.
-            \item System alers user about deletion of group chats or private chats using \textbf{notification section}.
+            \item System alerts user about new messages/events in the \textbf{notification list}.
+            \item System alers user about invitations to join group chats in the \textbf{notification list}.
+            \item System alers user about removal from group chats in the \textbf{notification list}.
+            \item System alers user about deletion of group chats or private chats in the \textbf{notification list}.
             \item Includes visual and auditory indicators.
         \end{itemize}
         \item \textbf{View Notifications}
         \begin{itemize}
-            \item User checks notifications using \textbf{notification section}.
-            \item Can jump to relevant message/context using \textbf{notification section}.
+            \item User checks notifications in the \textbf{notification list}.
+            \item Can jump to relevant message/context in the \textbf{notification list}.
         \end{itemize}
     \end{itemize}
 
@@ -941,13 +941,13 @@ Below is a rough draft of the use cases (these are not final, in fact, they do n
         \end{itemize}
         \item \textbf{Upload File}
         \begin{itemize}
-            \item User attaches and sends files using \textbf{file upload section}.
+            \item User attaches and sends files using \textbf{file upload list}.
             \item System validates file type and size.
         \end{itemize}
         \item \textbf{Select Emoji}
         \begin{itemize}
             \item User adds emojis to messages.
-            \item Can browse/search emoji library using \textbf{emoji section}.
+            \item Can browse/search emoji library using \textbf{emoji list}.
         \end{itemize}
     \end{itemize}
 
@@ -966,17 +966,19 @@ Just looking at the rough use case outline, we can already notice some ambiguiti
 We will need to update the domain model based on the rough use case outline.
 \begin{itemize}
     \item Our domain model has a class called "ChatPanel" but we are naming it "Chat Section" in the use cases. We will use "Chat Section" in the domain model as well.
-    \item We will replase the "File Upload Panel" with "File Upload Section" in the domain model.
-    \item We will replace the "Emoji Panel" with "Emoji Section" in the domain model.
-    \item We will replace the "Notification Panel" with "Notification Section" in the domain model.
-    \item We will replace the "Pinned Messages Panel" with "Pinned Messages Section" in the domain model.
-    \item We will replace the "Private Chat Editing Panel" with "Private Chat Editing Section" in the domain model.
-    \item We will replace the "Group Chat Editing Panel" with "Group Chat Editing Section" in the domain model.
-    \item We will add "Search Messages Section" to the domain model.
-    \item In our UI mockups, there are chat access points, which are not present in the domain model. We will add the "ChatButton" class to the domain model as these have more functionality than just being a UI element.
+    \item We will replace the "File Upload Panel" with "File Upload List" in the domain model.
+    \item We will "File" class to the domain model.
+    \item We will replace the "Emoji Panel" with "Emoji List" in the domain model.
+    \item We will add "Emoji" class to the domain model.
+    \item We will replace the "Notification Panel" with "Notification List" in the domain model.
+    \item We will replace the "Pinned Messages Panel" with "Pinned Messages List" in the domain model.
+    \item We will remove "Message List" and "Search Message Results" classes from the domain model and replace with "Message List" and "Search Message List" generalization.
+    \item We will remove the "User List" and  keep rename "Search Users Results" to "Search Users List".
+    \item We will remove "Private Chat Editing Panel" and "Group Chat Editing Panel" classes from the domain model as well to make it less crowded.
+    \item We will remove aggregation between "Chat Section" and "Message" classes as "Message List" will be used instead.
+    \item In our UI mockups, there are chat access points, which are not present in the domain model. We will add the "Chat Access Point" class to the domain model.
     \item There is no "Chat Creating Section" in the domain model. We will add this class to the domain model as well.
-    \item We will remove "Message List" and "Search Message Results" classes from the domain model as it is getting already too crowded and we feel like there are more important classes to add.
-    \item We will remove the "User List" and "Search Users Results" classes from the domain model as well to make it less crowded.
+    \item We will add aggregation between the "Search Users List" and "Chat Creating Section" classes.
 \end{itemize}
 
 Below is the updated domain model with all the changes made:
@@ -1091,22 +1093,22 @@ Before that, we feel that its very important to mention the difference between c
 
     \textbf{BASIC COURSE:}
 
-    The system displays the chat section (private scope chat). User clicks on the pinned messages button to view the pinned messages. The system opens the pinned messages section and displays the pinned messages in the chat section. User inputs text on the search bar on the pinned messages section and clicks on the search button. The system searches for the pinned messages in the chat section and displays the results in the pinned messages section.
+    The system displays the chat section (private scope chat). User clicks on the pinned messages list to view the pinned messages. The system opens the pinned messages list and displays the pinned messages in the chat section. User inputs text on the search bar on the pinned messages list and clicks on the search button. The system searches for the pinned messages in the chat section and displays the results in the pinned messages list.
 
     \textbf{ALTERNATIVE COURSES:}
 
     \textbf{pinned messages not found:}
-    User opens the pinned messages section but the private scope chat does not have any pinned messages. The system does not display any pinned messages in the chat section and displays an informational message.
+    User opens the pinned messages list but the private scope chat does not have any pinned messages. The system does not display any pinned messages in the chat section and displays an informational message.
 
     \textbf{search criteria does not match any pinned messages:}
-    User inputs text on the search bar on the pinned messages section and clicks on the search button. The system searches for the pinned messages in the chat section and does not find any pinned messages that match the search criteria. The system does not display any pinned messages in the chat section and displays an informational message.
+    User inputs text on the search bar on the pinned messages list and clicks on the search button. The system searches for the pinned messages in the chat section and does not find any pinned messages that match the search criteria. The system does not display any pinned messages in the chat section and displays an informational message.
 
     \item 
     Use Case: \textbf{Unpin Message}
 
     \textbf{BASIC COURSE:}
 
-    The system displays pinned messages section. User clicks on the unpin button to unpin the message. The system sends the unpin request to the server and unpins the message from the chat section.
+    The system displays pinned messages list. User clicks on the unpin button to unpin the message. The system sends the unpin request to the server and unpins the message from the chat section.
 
     \textbf{ALTERNATIVE COURSES:}
 
@@ -1121,7 +1123,7 @@ Before that, we feel that its very important to mention the difference between c
 
     \textbf{BASIC COURSE:}
 
-    The system displays chat panel. User clicks on the search messages icon which opens seperate section for searching messages. User inputs text on the search bar on the search section and clicks on the search button. The system searches for the messages in the chat section and displays the results in the search section. Messages are shown in paginated format. User can scroll down to see more messages. 
+    The system displays chat panel. User clicks on the search messages icon which opens seperate section for searching messages. User inputs text on the search bar on the search section and clicks on the search button. The system searches for the messages in the chat section and displays the results in message list. Messages are shown in paginated format. User can scroll down to see more messages. 
 
     \textbf{ALTERNATIVE COURSES:}
 
@@ -1288,7 +1290,7 @@ Before that, we feel that its very important to mention the difference between c
 
     \textbf{BASIC COURSE:}
 
-    The system displays game room. User receives a notification about new messages/events. The system displays the notification in the notification section and plays a sound. 
+    The system displays game room. User receives a notification about new messages/events. The system displays the notification in the Notification List and plays a sound. 
 
     \textbf{ALTERNATIVE COURSES:}
 
@@ -1300,12 +1302,12 @@ Before that, we feel that its very important to mention the difference between c
 
     \textbf{BASIC COURSE:}
 
-    The system displays game room. User clicks on the notification button which opens notification section. User can view all notifications in the notification section. User can click on the notification to jump to the relevant message/context.
+    The system displays game room. User clicks on the notification button which opens Notification List. User can view all notifications in the Notification List. User can click on the notification to jump to the relevant message/context.
 
     \textbf{ALTERNATIVE COURSES:}
 
     \textbf{no notifications:}
-    User tries to open the notification section but the system does not display any notifications. The system does not display an error message.
+    User tries to open the Notification List but the system does not display any notifications. The system does not display an error message.
 
     \textbf{notification link is inactive}
     User tries to click on the notification link but the system does not display the relevant message/context (message/context may be deleted). The system does not display an error message.
@@ -1337,36 +1339,36 @@ Before that, we feel that its very important to mention the difference between c
 
     \textbf{BASIC COURSE:}
 
-    The system displays chat section. User clicks on the emoji button which opens emoji section. User can select an emoji from the emoji section or use search bar. The system adds the selected emoji to the message input field.
+    The system displays chat section. User clicks on the emoji button which opens emoji list. User can select an emoji from the emoji list or use search bar. The system adds the selected emoji to the message input field.
 
     \textbf{ALTERNATIVE COURSES:}
 
     \textbf{search criteria does not match any emojis:}
-    User inputs text on the search bar on the emoji section and clicks on the search button. The system searches for the emojis in the emoji section and does not find any emojis that match the search criteria. The system does not display any emojis in the emoji section and displays an informational message.
+    User inputs text on the search bar on the emoji list and clicks on the search button. The system searches for the emojis in the emoji list and does not find any emojis that match the search criteria. The system does not display any emojis in the emoji list and displays an informational message.
 
     \textbf{user has not selected any emojis:}
-    User clicks on the emoji button which opens emoji section. User does not select any emojis from the emoji section. The system does not add any emojis to the message input field and does not display an error message.
+    User clicks on the emoji button which opens emoji list. User does not select any emojis from the emoji list. The system does not add any emojis to the message input field and does not display an error message.
 
     \item 
     Use Case: \textbf{Upload File}
 
     \textbf{BASIC COURSE:}
 
-    The system displays chat section. User clicks on the file upload button which opens file upload section. User can select a file from the file upload section. User selects a .png, .jpg, .jpeg, .gif file and upload it. The system saves the selected file to the server and displays it in the chat section.
+    The system displays chat section. User clicks on the file upload button which opens file upload list. User can select a file from the file upload list. User selects a .png, .jpg, .jpeg, .gif file and upload it. The system saves the selected file to the server and displays it in the chat section.
 
     \textbf{ALTERNATIVE COURSES:}
 
     \textbf{file type not allowed:}
-    User clicks on the file upload button which opens file upload section. User selects a .exe, .bat, .sh file and upload it. The system does not save the selected file to the server and displays an error message.
+    User clicks on the file upload button which opens file upload list. User selects a .exe, .bat, .sh file and upload it. The system does not save the selected file to the server and displays an error message.
 
     \textbf{file size too large:}
-    User clicks on the file upload button which opens file upload section. User selects a .png, .jpg, .jpeg, .gif file that is larger than 10MB and upload it. The system does not save the selected file to the server and displays an error message.
+    User clicks on the file upload button which opens file upload list. User selects a .png, .jpg, .jpeg, .gif file that is larger than 10MB and upload it. The system does not save the selected file to the server and displays an error message.
 
     \textbf{file name too long:}
-    User clicks on the file upload button which opens file upload section. User selects a .png, .jpg, .jpeg, .gif file that has a name longer than 255 characters and upload it. The system does not save the selected file to the server and displays an error message.
+    User clicks on the file upload button which opens file upload list. User selects a .png, .jpg, .jpeg, .gif file that has a name longer than 255 characters and upload it. The system does not save the selected file to the server and displays an error message.
     
     \textbf{file name contains special characters:}
-    User clicks on the file upload button which opens file upload section. User selects a .png, .jpg, .jpeg, .gif file that has a name that contains special characters and upload it. The system does not save the selected file to the server and displays an error message.
+    User clicks on the file upload button which opens file upload list. User selects a .png, .jpg, .jpeg, .gif file that has a name that contains special characters and upload it. The system does not save the selected file to the server and displays an error message.
 
 \end{itemize}
 
