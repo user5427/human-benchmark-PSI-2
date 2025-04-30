@@ -1454,6 +1454,64 @@ This diagram shows the notification system use case diagram. It shows the use ca
 
 This diagram shows the UI interactions use case diagram. It shows the use cases that are related to the UI interactions package. The user can create multiple chats, select emoji and upload file.
 
+\section{Robustness diagrams}
+This section will show the Robustness diagrams and comment them to provide further detail into the use cases and add structure. The diagrams will be grouped in a similar manner as the use cases in Detailed Use Case Description.
+
+\subsection{Core Chat Functionality}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{images/RobustnessDiagrams/R Core ChatF.drawio.png}
+    \caption{Core Chat Functionality(Robustness)}
+    \label{fig:core-chat-functionality-robustness-diagram}
+\end{figure}
+
+This diagram does not show the alternative use case of there not being any open chat windows as the creation of them is described in a later diagram.
+
+\subsection{Message Management}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/RobustnessDiagrams/R Message ManagementF.drawio.png}
+    \caption{Message Management(Robustness)}
+    \label{fig:message-management-robustness-diagram}
+\end{figure}
+
+Due to the triviality of Unpining it is not shown. As it's diagram is synonimous to the one of deletion (a check whether it has already been unpined and then the unpinning with similar user interaction with the UI). Also this diagram does not show the use case of viewing the history: since all of the messages are sorted chronologically, no additional processing is required.
+
+\subsection{Chat Management}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/RobustnessDiagrams/R_Chat_managmentF.drawio.png}
+    \caption{Chat Management(Robustness)}
+    \label{fig:chat-management-robustness-diagram}
+\end{figure}
+
+Due to the fact that the user can only be in one Game room at a time, the property, that only one room chat can exist has not been shown.
+
+\subsection{UI Interactions}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/RobustnessDiagrams/R_UI_Interactions.drawio.png}
+    \caption{UI Interactions(Robustness)}
+    \label{fig:UI-interaction-robustness-diagram}
+\end{figure}
+
+The limit of three chats has not been shown as it only interacts with the UI. Also, file validity has been shortened to a single control object for more clarity. The specifics of whether a file is valid to be uploaded is: it is a PNG, JP(e)G or GIF file, its name doesn't excede the global limit (255 characters), the file size doesn't excede the global limit and the file name is not allowed to have characters that are not ASCII or are not printable.
+
+\subsection{Administration}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/RobustnessDiagrams/R_Administration.drawio.png}
+    \caption{Administration(Robustness)}
+    \label{fig:administration-robustness-diagram}
+\end{figure}
+
+The idea behind the special character prohibition is to prevent SQL injections or similar attacks.
+
 \section{Requirements}
 \begin{longtable}{|p{3cm}|p{5.5cm}|l|p{4cm}|}
 \caption{Final Requirements Traceability Table} \label{tab:final_reqs} \\
