@@ -1483,7 +1483,7 @@ This section will show the Robustness diagrams and comment them to provide furth
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{images/RobustnessDiagrams/R Core ChatF.drawio.png}
-    \caption{Core Chat Functionality(Robustness)}
+    \caption{Core Chat Functionality Robustness Diagram}
     \label{fig:core-chat-functionality-robustness-diagram}
 \end{figure}
 
@@ -1494,7 +1494,7 @@ This diagram does not show the alternative use case of there not being any open 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth]{images/RobustnessDiagrams/R Message ManagementF.drawio.png}
-    \caption{Message Management(Robustness)}
+    \caption{Message Management Robustness Diagram}
     \label{fig:message-management-robustness-diagram}
 \end{figure}
 
@@ -1505,7 +1505,7 @@ Due to the triviality of Unpining it is not shown. As it's diagram is synonimous
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth]{images/RobustnessDiagrams/R_Chat_managmentF.drawio.png}
-    \caption{Chat Management(Robustness)}
+    \caption{Chat Management Robustness Diagram}
     \label{fig:chat-management-robustness-diagram}
 \end{figure}
 
@@ -1516,7 +1516,7 @@ Due to the fact that the user can only be in one Game room at a time, the proper
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth]{images/RobustnessDiagrams/R_UI_Interactions.drawio.png}
-    \caption{UI Interactions(Robustness)}
+    \caption{UI Interactions Robustness Diagram}
     \label{fig:UI-interaction-robustness-diagram}
 \end{figure}
 
@@ -1527,14 +1527,14 @@ The limit of three chats has not been shown as it only interacts with the UI. Al
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{images/RobustnessDiagrams/R_Administration.drawio.png}
-    \caption{Administration(Robustness)}
+    \caption{Administration Robustness Diagram}
     \label{fig:administration-robustness-diagram}
 \end{figure}
 
 The idea behind the special character prohibition is to prevent SQL injections or similar attacks.
 
 
-\subsection{Sequence Diagrams}
+\section{Sequence Diagrams}
 
 The following notification sequence is reused across several other sequence diagrams so it's important.
 
@@ -1562,6 +1562,21 @@ The service inserts data synchronously into \textbf{DataBase} to create the grou
 
 Once the group is created, the \textbf{ChatController} immediately updates the UI to show the new chat access point. 
 In parallel, \textbf{NotificationService} sends invites to all selected members asynchronously.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/SeqDiagrams/CreatePrivateChat.png}
+    \caption{Create Private Chat Sequence Diagram}
+    \label{fig:create-group-section-seq-d}
+\end{figure}
+
+In \textbf{Create Chat} section, user selects \textbf{Private Chat} and chooses a single friend to start a chat with. 
+The UI sends this request to the \textbf{ChatController}, which synchronously calls \textbf{ChatService}.  
+The service creates a new private chat in the \textbf{Database} and adds both the owner and selected user as members.
+
+Unlike group chat creation, no title or multiple members are involved. 
+After creation, the \textbf{ChatController} updates the UI to show chat access, and the \textbf{NotificationService} notifies the invited user asynchronously.
 
 
 \begin{figure}[H]
