@@ -1536,12 +1536,14 @@ The idea behind the special character prohibition is to prevent SQL injections o
 
 \section{Sequence Diagrams}
 
+\subsection{Receiving Notification}
+
 The following notification sequence is reused across several other sequence diagrams so it's important.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{images/SeqDiagrams/ReceiveNotification.png}
-    \caption{Receive Notification Sequence Diagram}
+    \caption{Receiving Notification Sequence Diagram}
     \label{fig:receive-notification-seq-d}
 \end{figure}
 
@@ -1549,6 +1551,8 @@ The following notification sequence is reused across several other sequence diag
 The \textbf{WebApp} forwards the event to \textbf{Notification Panel}, which updates the list and displays the notification.  
 At the same time, the browser plays a sound to alert the user.
 
+
+\subsection{Creating Group Chat}
 
 \begin{figure}[H]
     \centering
@@ -1564,6 +1568,8 @@ Once the group is created, the \textbf{ChatController} immediately updates the U
 In parallel, \textbf{NotificationService} sends invites to all selected members asynchronously.
 
 
+\subsection{Creating Private Chat}
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{images/SeqDiagrams/CreatePrivateChat.png}
@@ -1578,6 +1584,8 @@ The service creates a new private chat in the \textbf{Database} and adds both th
 Unlike group chat creation, no title or multiple members are involved. 
 After creation, the \textbf{ChatController} updates the UI to show chat access, and the \textbf{NotificationService} notifies the invited user asynchronously.
 
+
+\subsection{Joining existing Group Chat}
 
 \begin{figure}[H]
     \centering
@@ -1600,6 +1608,8 @@ Simultaneously, the \textbf{NotificationService} notifies the user asynchronousl
 If the owner rejects the request, the \textbf{NotificationService} notifies user that the request was denied.
 
 
+\subsection{Managing Group Members}
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{images/SeqDiagrams/ManageGroupMembers.png}
@@ -1609,7 +1619,7 @@ If the owner rejects the request, the \textbf{NotificationService} notifies user
 
 The owner opens the group edit section and selects members to add or remove. 
 The UI sends the updated lists to the \textbf{ChatController}, which calls \textbf{GroupChatService}. 
-The service updates the group membership in the \textbf{Database}, inserting and/or deleting entries as needed.
+The service updates the group members in the \textbf{Database}, inserting and/or deleting entries as needed.
 After the changes are saved, the controller calls the \textbf{NotificationService} to inform affected users asynchronously, 
 and refreshes the UI to reflect the updated member list.
 
