@@ -217,6 +217,27 @@ Create a chat system enabling users to send and receive text-based messages. Thi
 
 \section{Impact Analysis}
 
+\subsection{System}
+The introduction of a messaging feature to the existing system represents a significant change in terms of functionality. However, since it is being developed as an entirely new module, the impact on the core functionality of the current system is expected to be minimal or negligible. This modular approach helps in isolating the new feature from existing components, thereby reducing the risk of unintended side effects.
+
+\subsection{Maintainability}
+While the core system may remain unaffected, the overall maintainability of the project could be impacted. The addition of messaging introduces new components, interfaces, and possibly data structures, increasing the codebase’s complexity and size. This can lead to a steeper learning curve for future developers and more effort required for debugging and testing. Proper documentation and adherence to architectural standards will be essential to mitigate these challenges.
+
+\subsection{Cost and Stakeholders}
+The implementation cost is non-trivial, as it involves backend development (e.g., message storage, delivery systems), frontend integration (user interface and notifications), and possibly infrastructure changes (e.g., database or server scaling). This will directly impact stakeholders, particularly in terms of budget allocation, resource planning, and delivery timelines.
+
+\subsection{User Experience}
+In the early stages of the feature rollout, users may experience confusion or require time to adapt to the new user interface elements introduced by the messaging system. This can lead to temporary dips in user satisfaction or increased support requests. Providing clear onboarding, tooltips, and possibly a brief tutorial or announcement can ease the transition.
+
+\subsection{Performance Considerations}
+Depending on the implementation, real-time messaging or high volumes of communication can introduce performance challenges, especially under load. It will be important to test for scalability and responsiveness during peak usage.
+
+\subsection{Security and Compliance}
+Messaging introduces potential security concerns, such as message encryption, data privacy, and user abuse prevention. Ensuring that the messaging system adheres to relevant compliance and data protection standards (e.g., GDPR) is critical.
+
+\subsection{Opportunities}
+On the positive side, this change opens the door to increased user engagement, improved collaboration, and potential monetization strategies (e.g., premium messaging features). It also positions the product competitively in markets where integrated communication is a strong differentiator.
+
 \section{Implementation options}
 
 \subsection{Develop from scratch}
@@ -1454,75 +1475,63 @@ This diagram shows the notification system use case diagram. It shows the use ca
 
 This diagram shows the UI interactions use case diagram. It shows the use cases that are related to the UI interactions package. The user can create multiple chats, select emoji and upload file.
 
+\section{Robustness diagrams}
+This section will show the Robustness diagrams and comment them to provide further detail into the use cases and add structure. The diagrams will be grouped in a similar manner as the use cases in Detailed Use Case Description.
 
-
-\subsection{Sequence Diagrams}
-
-The following notification sequence is reused across several other sequence diagrams so it's important.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.7\textwidth]{images/SeqDiagrams/ReceiveNotification.png}
-    \caption{Receive Notification Sequence Diagram}
-    \label{fig:receive-notification-seq-d}
-\end{figure}
-
-\textbf{NotificationService} triggers a notification through \textbf{NotificationGateway}, which delivers the event to \textbf{WebApp} over an open WebSocket connection.  
-The \textbf{WebApp} forwards the event to \textbf{Notification Panel}, which updates the list and displays the notification.  
-At the same time, the browser plays a sound to alert the user.
-
-
+\subsection{Core Chat Functionality}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/SeqDiagrams/CreateGroupChat.png}
-    \caption{Create Group Chat Sequence Diagram}
-    \label{fig:create-group-section-seq-d}
+    \includegraphics[width=1\textwidth]{images/RobustnessDiagrams/R Core ChatF.drawio.png}
+    \caption{Core Chat Functionality(Robustness)}
+    \label{fig:core-chat-functionality-robustness-diagram}
 \end{figure}
 
-User opens \textbf{Create Chat}, fills in the chat title and selects members. UI submits this data to \textbf{ChatController}, which synchronously calls \textbf{GroupChatService}. 
-The service inserts data synchronously into \textbf{DataBase} to create the group chat and retrieve the generated \texttt{chatId}.
+This diagram does not show the alternative use case of there not being any open chat windows as the creation of them is described in a later diagram.
 
-Once the group is created, the \textbf{ChatController} immediately updates the UI to show the new chat access point. 
-In parallel, \textbf{NotificationService} sends invites to all selected members asynchronously.
-
+\subsection{Message Management}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/SeqDiagrams/JoinGroupChat.png}
-    \caption{Join existing Group Chat Sequence Diagram}
-    \label{fig:join-group-chat-seq-d}
+    \includegraphics[width=0.6\textwidth]{images/RobustnessDiagrams/R Message ManagementF.drawio.png}
+    \caption{Message Management(Robustness)}
+    \label{fig:message-management-robustness-diagram}
 \end{figure}
 
-User clicks on group button and searches for existing group chats. 
-The UI sends the name to the \textbf{ChatController}, which synchronously calls \textbf{GroupChatService} to retrieve potential matches from the \textbf{Database}. 
-The list of group chats with given name is displayed to the user.
+Due to the triviality of Unpining it is not shown. As it's diagram is synonimous to the one of deletion (a check whether it has already been unpined and then the unpinning with similar user interaction with the UI). Also this diagram does not show the use case of viewing the history: since all of the messages are sorted chronologically, no additional processing is required.
 
-The user then selects a specific chat and clicks the join button. This triggers a request to the \textbf{ChatController}, which looks up the group owner's ID from the \textbf{Database}. 
-Once the owner is identified, the controller asynchronously sends a join request to the owner using the \textbf{NotificationService}.
-
-The \textbf{OwnerClient} receives a join request notification and can either approve or reject it. 
-If approved, the controller adds the user to the group through \textbf{GroupChatService}, change is saved in \textbf{Database}. 
-Simultaneously, the \textbf{NotificationService} notifies the user asynchronously that they were added, and the UI is updated to show access to the group chat.
-
-If the owner rejects the request, the \textbf{NotificationService} notifies user that the request was denied.
-
-
+\subsection{Chat Management}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/SeqDiagrams/ManageGroupMembers.png}
-    \caption{Manage Group Members Sequence Diagram}
-    \label{fig:manage-group-seq-d}
+    \includegraphics[width=0.6\textwidth]{images/RobustnessDiagrams/R_Chat_managmentF.drawio.png}
+    \caption{Chat Management(Robustness)}
+    \label{fig:chat-management-robustness-diagram}
 \end{figure}
 
-The owner opens the group edit section and selects members to add or remove. 
-The UI sends the updated lists to the \textbf{ChatController}, which calls \textbf{GroupChatService}. 
-The service updates the group membership in the \textbf{Database}, inserting and/or deleting entries as needed.
-After the changes are saved, the controller calls the \textbf{NotificationService} to inform affected users asynchronously, 
-and refreshes the UI to reflect the updated member list.
+Due to the fact that the user can only be in one Game room at a time, the property, that only one room chat can exist has not been shown.
 
+\subsection{UI Interactions}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/RobustnessDiagrams/R_UI_Interactions.drawio.png}
+    \caption{UI Interactions(Robustness)}
+    \label{fig:UI-interaction-robustness-diagram}
+\end{figure}
+
+The limit of three chats has not been shown as it only interacts with the UI. Also, file validity has been shortened to a single control object for more clarity. The specifics of whether a file is valid to be uploaded is: it is a PNG, JP(e)G or GIF file, its name doesn't excede the global limit (255 characters), the file size doesn't excede the global limit and the file name is not allowed to have characters that are not ASCII or are not printable.
+
+\subsection{Administration}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/RobustnessDiagrams/R_Administration.drawio.png}
+    \caption{Administration(Robustness)}
+    \label{fig:administration-robustness-diagram}
+\end{figure}
+
+The idea behind the special character prohibition is to prevent SQL injections or similar attacks.
 
 \section{Requirements}
 \begin{longtable}{|p{3cm}|p{5.5cm}|l|p{4cm}|}
