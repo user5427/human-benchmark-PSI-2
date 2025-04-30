@@ -1,0 +1,19 @@
+@startuml EditMessage
+actor User
+participant "Chat Section" as UI
+participant ChatController
+participant MessageService
+participant "DataBase" as DB
+
+User -> UI : Click "Edit"
+User -> UI : Modify text & press Save
+UI -> ChatController : PUT /messages/{id}
+ChatController -> MessageService : validateAndUpdate(id,newText, userId)
+MessageService -> DB : SELECT message BY id
+DB --> MessageService : message
+MessageService -> MessageService : verify ownership & constraints
+MessageService -> DB : UPDATE message SET text = newText
+DB --> MessageService : OK
+MessageService --> ChatController : updatedMessageDTO
+ChatController -> UI : 200 OK + updatedMessageDTO
+@enduml

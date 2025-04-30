@@ -1644,6 +1644,30 @@ If accepted, the message is saved to the \textbf{Database} and is shown on Globa
 
 
 
+\subsection{Sequence Diagrams Not Shown}
+
+The following use–cases are fully covered by CRUD–style service calls
+and add no new architectural insight beyond what is already captured
+in robustness diagrams and REST‐API documentation. Therefore, they didn't get their separate
+sequence diagrams.
+
+\begin{itemize}
+  \item \textbf{Pin / Unpin Message} – single UPDATE on
+        Message.isPinned.
+  \item \textbf{Switch Between Chats} – purely client-side state swap,
+        no server interaction.
+  \item \textbf{Change Chat Type} – re-uses the Create Chat
+        or Join Chat operations already diagrammed.
+  \item \textbf{Search / View History} – simple 
+        GET /messages.
+  \item \textbf{Switch Chat Scope} – client toggle followed by
+        the same GET /messages.
+\end{itemize}
+
+These interactions follow a straightforward request–response pattern
+without complex logic or asynchronous side-effects, so an additional
+diagram would be useless.
+
 
 \section{Requirements}
 \begin{longtable}{|p{3cm}|p{5.5cm}|l|p{4cm}|}
