@@ -1,0 +1,21 @@
+@startuml
+actor User
+participant "CreateChatSection" as UI
+participant "ChatController"      as CC
+participant "ChatService"         as CS
+database   "Database"             as DB
+participant "NotificationService" as NS
+
+User -> UI : openCreateChat()
+User -> UI : choosePrivateChat()
+User -> UI : selectUser(friendId)
+
+UI  -> CC : createPrivateChat(friendId)
+CC  -> CS : createPrivateChat(ownerId, friendId)
+CS  -> DB : INSERT PrivateChat
+CS  -> DB : INSERT ChatMember(ownerId, friendId)
+CS  -> CC : chatCreated(chatId)
+
+CC  --> NS : notifyAdded(friendId, chatId)   'asynchronous
+CC  -> UI  : showChatAccess(chatId)
+@enduml

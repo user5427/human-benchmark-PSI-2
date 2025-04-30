@@ -1,0 +1,49 @@
+@startuml
+actor User
+participant "CreateChatSection" as UI
+participant "ChatController" as CC
+participant "GroupChatService" as GCS
+participant "OwnerClient" as Owner
+participant "NotificationService" as NS
+participant "Database" as DB
+
+User -> UI: openJoinGroup()
+User -> UI: enterGroupName(name)
+UI -> CC: searchGroups(name)
+
+activate CC
+CC -> GCS: resolveChatsByName(name)
+GCS -> DB: SELECT chatId, ownerId FROM GroupChat WHERE name LIKE ?
+DB -> GCS: list of (chatId, name, ownerId)
+GCS -> CC: groupList
+CC -> UI: showSearchResults(groupList)
+deactivate CC
+
+User -> UI: clickJoinButton(chatId)
+
+UI -> CC: requestJoin(chatId, userId)
+activate CC
+CC -> GCS: getGroupOwner(chatId)
+GCS -> DB: SELECT ownerId FROM GroupChat WHERE chatId = ?
+DB -> GCS: ownerId
+GCS -> CC: ownerId
+
+CC --> NS: requestApproval(ownerId, chatId, userId)
+NS --> Owner: notifyJoinRequest(chatId, userId)
+
+alt Owner Approves
+    Owner -> CC: approveJoin(chatId, userId)
+    CC -> GCS: addMember(chatId, userId)
+    GCS -> DB: INSERT INTO GroupMember
+    DB -> GCS: ok
+    GCS -> CC: memberAdded
+    CC --> NS: notifyAdded(userId, chatId)
+    CC -> UI: showChatAccess(chatId)
+
+else Owner Rejects
+    Owner -> CC: rejectJoin(chatId, userId)
+    CC --> NS: notifyDenied(userId, chatId)
+end alt
+
+deactivate CC
+@enduml

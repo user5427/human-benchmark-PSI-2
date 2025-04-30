@@ -1,0 +1,16 @@
+@startuml
+actor User
+participant "WebApp"   as WSC
+participant "NotificationGateway" as NG
+participant "NotificationService" as NS
+participant "NotificationPanel"   as NP
+
+note over WSC, NG
+  WebSocket connection is established
+end note
+
+NS -> NG       : triggerNotification(event)
+NG --> WSC     : deliver(event)
+WSC -> NP      : add(event)
+NP -> User     : showNotification() / updateList()
+@enduml

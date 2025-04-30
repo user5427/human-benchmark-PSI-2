@@ -7,7 +7,8 @@ participant "DataBase" as DB
 participant "NotificationService" as NS
 
 Owner -> UI: openEditGroup(chatId)
-Owner -> UI: addMembers(+list), removeMembers(-list)
+Owner -> UI: addMembers(+list)
+Owner -> UI: removeMembers(-list)
 UI -> CC: updateMembers(chatId, +list, -list)
 activate CC
 CC -> GCS: updateMembers(chatId, +list, -list)
@@ -22,7 +23,7 @@ DB -> GCS: ok
 GCS -> CC: ok
 deactivate GCS
 
-CC --> NS: async broadcastMemberChanges(chatId,+list,-list)
+CC --> NS: notifyUsers(chatId, +list, -list)
 CC -> UI: refreshList()
 deactivate CC
 @enduml

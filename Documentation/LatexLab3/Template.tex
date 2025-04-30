@@ -1454,6 +1454,76 @@ This diagram shows the notification system use case diagram. It shows the use ca
 
 This diagram shows the UI interactions use case diagram. It shows the use cases that are related to the UI interactions package. The user can create multiple chats, select emoji and upload file.
 
+
+
+\subsection{Sequence Diagrams}
+
+The following notification sequence is reused across several other sequence diagrams so it's important.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/SeqDiagrams/ReceiveNotification.png}
+    \caption{Receive Notification Sequence Diagram}
+    \label{fig:receive-notification-seq-d}
+\end{figure}
+
+\textbf{NotificationService} triggers a notification through \textbf{NotificationGateway}, which delivers the event to \textbf{WebApp} over an open WebSocket connection.  
+The \textbf{WebApp} forwards the event to \textbf{Notification Panel}, which updates the list and displays the notification.  
+At the same time, the browser plays a sound to alert the user.
+
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/SeqDiagrams/CreateGroupChat.png}
+    \caption{Create Group Chat Sequence Diagram}
+    \label{fig:create-group-section-seq-d}
+\end{figure}
+
+User opens \textbf{Create Chat}, fills in the chat title and selects members. UI submits this data to \textbf{ChatController}, which synchronously calls \textbf{GroupChatService}. 
+The service inserts data synchronously into \textbf{DataBase} to create the group chat and retrieve the generated \texttt{chatId}.
+
+Once the group is created, the \textbf{ChatController} immediately updates the UI to show the new chat access point. 
+In parallel, \textbf{NotificationService} sends invites to all selected members asynchronously.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/SeqDiagrams/JoinGroupChat.png}
+    \caption{Join existing Group Chat Sequence Diagram}
+    \label{fig:join-group-chat-seq-d}
+\end{figure}
+
+User clicks on group button and searches for existing group chats. 
+The UI sends the name to the \textbf{ChatController}, which synchronously calls \textbf{GroupChatService} to retrieve potential matches from the \textbf{Database}. 
+The list of group chats with given name is displayed to the user.
+
+The user then selects a specific chat and clicks the join button. This triggers a request to the \textbf{ChatController}, which looks up the group owner's ID from the \textbf{Database}. 
+Once the owner is identified, the controller asynchronously sends a join request to the owner using the \textbf{NotificationService}.
+
+The \textbf{OwnerClient} receives a join request notification and can either approve or reject it. 
+If approved, the controller adds the user to the group through \textbf{GroupChatService}, change is saved in \textbf{Database}. 
+Simultaneously, the \textbf{NotificationService} notifies the user asynchronously that they were added, and the UI is updated to show access to the group chat.
+
+If the owner rejects the request, the \textbf{NotificationService} notifies user that the request was denied.
+
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/SeqDiagrams/ManageGroupMembers.png}
+    \caption{Manage Group Members Sequence Diagram}
+    \label{fig:manage-group-seq-d}
+\end{figure}
+
+The owner opens the group edit section and selects members to add or remove. 
+The UI sends the updated lists to the \textbf{ChatController}, which calls \textbf{GroupChatService}. 
+The service updates the group membership in the \textbf{Database}, inserting and/or deleting entries as needed.
+After the changes are saved, the controller calls the \textbf{NotificationService} to inform affected users asynchronously, 
+and refreshes the UI to reflect the updated member list.
+
+
+
 \section{Requirements}
 \begin{longtable}{|p{3cm}|p{5.5cm}|l|p{4cm}|}
 \caption{Final Requirements Traceability Table} \label{tab:final_reqs} \\
@@ -1615,23 +1685,6 @@ This diagram shows the UI interactions use case diagram. It shows the use cases 
 \hline
 
 \end{longtable}
-
-
-\subsection{Sequence Diagrams}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/SeqDiagrams/CreateGroupChat.png}
-    \caption{Create Group Chat Sequence Diagram}
-    \label{fig:create-group-section-seq-d}
-\end{figure}
-
-User opens \textbf{Create Chat}, fills in the chat title and selects members. UI submits this data to \textbf{ChatController}, which synchronously calls \textbf{GroupChatService}. 
-The service inserts data synchronously into \textbf{DataBase} to create the group chat and retrieve the generated \texttt{chatId}.
-
-Once the group is created, the \textbf{ChatController} immediately updates the UI to show the new chat access point. 
-In parallel, \textbf{NotificationService} sends invites to all selected members asynchronacly.
-
 
 
 \printbibliography[title = {References and sources}]
