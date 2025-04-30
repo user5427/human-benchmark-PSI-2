@@ -1534,6 +1534,10 @@ The limit of three chats has not been shown as it only interacts with the UI. Al
 The idea behind the special character prohibition is to prevent SQL injections or similar attacks.
 
 
+
+
+
+
 \section{Sequence Diagrams}
 
 \subsection{Receiving Notification}
@@ -1622,6 +1626,21 @@ The UI sends the updated lists to the \textbf{ChatController}, which calls \text
 The service updates the group members in the \textbf{Database}, inserting and/or deleting entries as needed.
 After the changes are saved, the controller calls the \textbf{NotificationService} to inform affected users asynchronously, 
 and refreshes the UI to reflect the updated member list.
+
+
+
+\subsection{Moderating Global Chat}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/SeqDiagrams/ModerateGlobalChat.png}
+    \caption{Global Chat Moderation Sequence Diagram}
+    \label{fig:moderate-global-chat-seq-d}
+\end{figure}
+
+User types and sends a message in the \textbf{GlobalChat} UI. The message is synchronously passed to \textbf{ChatController}, 
+then \textbf{messageService}, which  validates the content through the \textbf{ContentFilter} and then checks for flooding via \textbf{SpamDetector}. 
+If accepted, the message is saved to the \textbf{Database} and is shown on Global Chat.
 
 
 

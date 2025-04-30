@@ -1,0 +1,30 @@
+@startuml ModerateGlobalChat
+actor User
+participant "Global Chat UI" as UI
+participant ChatController
+participant MessageService
+participant ContentFilter as Filter
+participant SpamDetector as Spam
+participant "DataBase" as DB
+
+User -> UI : Sends a message
+UI -> ChatController : POST /messages (scope=GLOBAL)
+ChatController -> MessageService : process(globalMessageDTO)
+MessageService -> Filter : sanitize & messageCheck(text)
+Filter --> MessageService : appropriate / violates rules
+alt violation found
+  MessageService --> ChatController :  REJECTED (reason)
+  ChatController -> UI : show "Message rejected: reason"
+else OK
+  MessageService -> Spam : checkSpamControl(userId)
+  alt spam detected
+    MessageService --> ChatController : TOO MANY REQUESTS
+    ChatController -> UI : show "Slow down"
+  else not spam
+    MessageService -> DB : INSERT message(cleanText,scope=GLOBAL)
+    DB --> MessageService : messageId
+    MessageService --> ChatController : messageDTO
+    ChatController -> UI : message
+  end
+end
+@enduml
