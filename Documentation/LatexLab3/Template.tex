@@ -296,50 +296,11 @@ Developing from scratch offers the highest flexibility, but requires a high init
 
 Our development team consists of 3 developers: 1 frontend developer(F1) and 2 full stack developers(FS1,FS2). 
 
-
 \begin{figure}[H]
-  \begin{center}
-    \begin{ganttchart}[
-      y unit title=0.8cm, 
-      y unit chart=1.2cm,
-      vgrid,
-      hgrid,
-      title height=1, 
-      bar height=0.7,
-      group right shift=0,
-      group top shift=1.2,
-      group height=0.3,
-      link/.style={draw, blue}
-    ]{1}{24}  
-
-      % Labels
-      \gantttitle{Days}{24} \\
-      \gantttitlelist{1,...,24}{1} \\
-
-      % Tasks
-      \textganttbar{Planning}{All}{1}{3} \\ %0
-      \textganttbar{Core Backend}{FS1,FS2}{4}{11} \\ %2
-      \textganttbar{Core Frontend}{F1}{4}{9} \\ %1
-      \textganttbar{Core Testing \& fixing}{F1,FS1}{12}{13} \\ %3
-      \textganttbar{Add file support}{FS2,F1}{12}{16} \\%4
-      \textganttbar{Add search functionality}{FS1,F1}{14}{16} \\ %5
-      \textganttbar{Add emojis}{F1}{15}{15} \\ %6
-      \textganttbar{UX improvements}{F1}{16}{19} \\ %7
-      \textganttbar{Final testing \& fixing}{All}{20}{22} \\ %8
-      \ganttbar{Project buffer}{23}{24} \\ %9
-
-      % Relations (links between tasks)
-      \ganttlink{elem0}{elem2} 
-      \ganttlink{elem0}{elem4}
-      \ganttlink{elem2}{elem6}
-      \ganttlink{elem4}{elem6}
-      \ganttlink{elem8}{elem16}
-      \ganttlink{elem10}{elem16}
-      \ganttlink{elem12}{elem16}
-      \ganttlink{elem14}{elem16}
-    \end{ganttchart}
-  \end{center}
-  \caption{Project plan}
+    \centering
+    \includegraphics[width=0.8\textwidth]{Documentation/LatexLab3/images/GanttV2.png}
+    \caption{Project plan}
+    \label{fig:ui-project-plan}
 \end{figure}
 
 \begin{description}
