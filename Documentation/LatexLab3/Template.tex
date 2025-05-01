@@ -121,7 +121,7 @@ This document presents the request to add real-time chat capabilities to the rea
 \listoffigures 
 
 %list of tables, delete if not needed
-\listoftables
+%\listoftables
 
 %Turinys
 \tableofcontents
@@ -448,28 +448,52 @@ We will draw the UI mockups and then we will update the domain model based on th
 \subsection{UI Mockups}
 To better understant all of the possible use cases, we will first create a mockup of the UI. The mockup will be created using Samsung Notes and will be saved as a PDF file.
 
-\begin{table}[H]
-    \centering
-    \begin{tabular}{|p{0.2\textwidth}|p{0.2\textwidth}|p{0.2\textwidth}|p{0.2\textwidth}|}
-        \hline
-        \textbf{Section Type} & \textbf{Main Scope Entity} & \textbf{Key Responsibilities} & \textbf{Special Features} \\ \hline
-        Global Chat & GlobalChat & Public messages, moderation & System messages, avatars, spam control \\ \hline
-        Room Chat & RoomChat & Game-room scoped chat, team comms & Team tagging, player list \\ \hline
-        Private Chat & PrivateChat & Direct user-to-user communication & Status, read receipts, avatar \\ \hline
-        Group Chat & GroupChat & Group user-to-user communication & Group tagging, read receipts \\ \hline
-        Search Section & SearchResults & Locate messages across/all scopes & Filters, jump-to, highlights \\ \hline
-        Notifications & Notification & Non-message or message alerts & Badge, jump-to-context, mention alerts \\ \hline
-        Pinned View & PinnedMessage & Show important/saved messages & Pin/unpin, who pinned \\ \hline
-        Chat Input & (any scope) & Message composing & Mentions, emojis, file support \\ \hline
-        Emojis & (any scope) & Emoji selection & Emoji search, recent emojis \\ \hline
-        File Upload & (any scope) & File selection & File type support, drag-and-drop \\ \hline
-        Group Editing & GroupChat & Group management & Add/remove users, group name \\ \hline
-        Private Chat Editing & PrivateChat & Delete chat & Edit, delete confirmation \\ \hline 
-        Message editing and deleting & Message & Edit/delete messages & Edit, delete confirmation \\ \hline
-    \end{tabular}
-    \caption{Chat System Features Overview}
-    \label{tab:chat-system-features}
-\end{table}
+\begin{longtable}{|p{0.2\textwidth}|p{0.2\textwidth}|p{0.2\textwidth}|p{0.2\textwidth}|}
+    \caption{Chat System Features Overview} \label{tab:chat-system-features} \\
+
+    \hline
+    \textbf{Section Type} & \textbf{Main Scope Entity} & \textbf{Key Responsibilities} & \textbf{Special Features} \\
+    \hline
+    \endfirsthead
+
+    \hline
+    \textbf{Section Type} & \textbf{Main Scope Entity} & \textbf{Key Responsibilities} & \textbf{Special Features} \\
+    \hline
+    \endhead
+
+    \hline
+    \endfoot
+
+    \hline
+    \endlastfoot
+
+    Global Chat & GlobalChat & Public messages, moderation & System messages, avatars, spam control \\
+    \hline
+    Room Chat & RoomChat & Game-room scoped chat, team comms & Team tagging, player list \\
+    \hline
+    Private Chat & PrivateChat & Direct user-to-user communication & Status, read receipts, avatar \\
+    \hline
+    Group Chat & GroupChat & Group user-to-user communication & Group tagging, read receipts \\
+    \hline
+    Search Section & SearchResults & Locate messages across/all scopes & Filters, jump-to, highlights \\
+    \hline
+    Notifications & Notification & Non-message or message alerts & Badge, jump-to-context, mention alerts \\
+    \hline
+    Pinned View & PinnedMessage & Show important/saved messages & Pin/unpin, who pinned \\
+    \hline
+    Chat Input & (any scope) & Message composing & Mentions, emojis, file support \\
+    \hline
+    Emojis & (any scope) & Emoji selection & Emoji search, recent emojis \\
+    \hline
+    File Upload & (any scope) & File selection & File type support, drag-and-drop \\
+    \hline
+    Group Editing & GroupChat & Group management & Add/remove users, group name \\
+    \hline
+    Private Chat Editing & PrivateChat & Delete chat & Edit, delete confirmation \\
+    \hline
+    Message editing and deleting & Message & Edit/delete messages & Edit, delete confirmation \\
+    \hline
+\end{longtable}
 
 
 We seperated the UI mockups into these main secions:
