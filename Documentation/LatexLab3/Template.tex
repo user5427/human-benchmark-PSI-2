@@ -193,8 +193,8 @@ Create a chat system enabling users to send and receive text-based messages. Thi
     \item When the user opens the chat panel for the first time, the system shall fetch and display a list of past messages relevant to that chat scope.
     \item If an error occurs during sending:
     \begin{itemize}
-        \item A popup notification must appear with the message \texttt{"Failed to send message"}.
-        \item The notification must disappear after 3 seconds or when manually closed by the user.
+        \item A popup notification shall appear with the message \texttt{"Failed to send message"}.
+        \item The notification shall disappear after 3 seconds or when manually closed by the user.
     \end{itemize}
     \item For each received message, the system shall determine the correct destination:
     \begin{itemize}
@@ -214,32 +214,23 @@ Create a chat system enabling users to send and receive text-based messages. Thi
 
 % USE ICONIX for requirements?
 
-\section{Impact Analysis}
-
-\subsection{System}
-The introduction of a messaging feature to the existing system represents a significant change in terms of functionality. However, since it is being developed as an entirely new module, the impact on the core functionality of the current system is expected to be minimal or negligible. This modular approach helps in isolating the new feature from existing components, thereby reducing the risk of unintended side effects.
+\section{Impact analysis}
 
 \subsection{Maintainability}
-While the core system may remain unaffected, the overall maintainability of the project could be impacted. The addition of messaging introduces new components, interfaces, and possibly data structures, increasing the codebase’s complexity and size. This can lead to a steeper learning curve for future developers and more effort required for debugging and testing. Proper documentation and adherence to architectural standards will be essential to mitigate these challenges.
-
-\subsection{Cost and Stakeholders}
-The implementation cost is non-trivial, as it involves backend development (e.g., message storage, delivery systems), frontend integration (user interface and notifications), and possibly infrastructure changes (e.g., database or server scaling). This will directly impact stakeholders, particularly in terms of budget allocation, resource planning, and delivery timelines.
-
-\subsection{User Experience}
-In the early stages of the feature rollout, users may experience confusion or require time to adapt to the new user interface elements introduced by the messaging system. This can lead to temporary dips in user satisfaction or increased support requests. Providing clear onboarding, tooltips, and possibly a brief tutorial or announcement can ease the transition.
-
-\subsection{Performance Considerations}
-Depending on the implementation, real-time messaging or high volumes of communication can introduce performance challenges, especially under load. It will be important to test for scalability and responsiveness during peak usage.
-
-\subsection{Security and Compliance}
+While the core system may remain unaffected, the overall maintainability of the project will be impacted. The addition of messaging introduces new components, services, database tables, increasing the codebase’s complexity and size. This can lead to more effort required for maintaining.
+\subsection{User experience}
+In the early stages of the feature release, users may require time to adapt to the new user interface elements introduced by the messaging system. This can lead to temporary dips in user satisfaction or increased support requests. But in the long term this could allow for in game communities to develop which would increase user satisfaction.
+\subsection{Performance considerations}
+Depending on the implementation, real-time messaging or high volumes of communication can introduce performance challenges, especially under load. It will be important to test for scalability and responsiveness during peak usage and may require some optimizations.
+\subsection{Security and compliance}
 Messaging introduces potential security concerns, such as message encryption, data privacy, and user abuse prevention. Ensuring that the messaging system adheres to relevant compliance and data protection standards (e.g., GDPR) is critical.
+\subsection{Cost and stakeholders}
+This is a costly feature, as it involves backend development (e.g., message storage, delivery systems), frontend integration (user interface and notifications), and infrastructure changes (e.g., database or server scaling). This will directly impact stakeholders, particularly in terms of budget allocation, resource planning.
 
-\subsection{Opportunities}
-On the positive side, this change opens the door to increased user engagement, improved collaboration, and potential monetization strategies (e.g., premium messaging features). It also positions the product competitively in markets where integrated communication is a strong differentiator.
 
 \section{Implementation options}
 
-\subsection{Develop from scratch}
+\subsection{Develop from scratch(chosen approach)}
 This involves building the entire chat system end-to-end, including extending database, services and using web sockets for real time communication, as well as developing custom  React components for the chat interface and later maintaining it.
 \subsubsection{Pros}
 \begin{description}
@@ -258,16 +249,16 @@ This involves building the entire chat system end-to-end, including extending da
  Instead of building chat features directly into the web app, users are encouraged to communicate via  external platform like a dedicated Discord server. 
 \subsubsection{Pros}
 \begin{description}
-    \item[Minimal Development Effort] Requires no coding effort within the core web application itself, aside from potentially adding links or notes related to Discord.
+    \item[Minimal development effort] Requires no coding effort within the core web application itself, aside from potentially adding links or notes related to Discord.
     \item[Many existing features] Discord has rich text, voice channels, emote or file support, roles, bots, mobile apps, and many more.
-    \item[No Infrastructure costs] All costs and complexities related to hosting, scaling, and maintaining the chat service are handled by the external platform.
-    \item[User Familiarity] Many users may already be familiar with Discord.
+    \item[No infrastructure costs] All costs and complexities related to hosting, scaling, and maintaining the chat service are handled by the external platform.
+    \item[User familiarity] Many users may already be familiar with Discord.
 \end{description}
 \subsubsection{Cons}
 \begin{description}
-    \item[Poor Integration] Requires users to switch apps to chat, Can be disruptive to the user flow.
+    \item[Poor integration] Requires users to switch apps to chat, Can be disruptive to the user flow.
     \item[Manual setup for users] Room specific chat logic has to be handled by users.
-    \item[Loss of Control] No control over the chat UI or platform availability.
+    \item[Loss of control] No control over the chat UI or platform availability.
 \end{description}
 
 
@@ -289,7 +280,7 @@ Use a specialized commercial service that provides chat functionality  via an AP
 \end{description}
 
 \subsubsection{Summary}
-Developing from scratch offers the highest flexibility, but requires a high initial investment(assuming team of 3 seniors, all costs included 20.000-30.000€/month) and some ongoing maintenance costs. Using Discord is the cheapest and fastest option but sacrifices integration and control.  Third-party service Stream offers faster development with moderate recurring costs (starting around 400€ per month for up to 10,000 Monthly Active Users, 500 concurrent connections), which, however, could increase significantly as the app becomes more popular, and flexibility is limited by the external service capabilities.
+Developing from scratch offers the highest flexibility, but requires a high initial investment(assuming team of 3 seniors, all costs included could be around 20.000€/month) and some ongoing maintenance costs. Using Discord is the cheapest and fastest option but sacrifices integration and control.  Third-party service Stream offers faster development with moderate recurring costs (starting around 400€ per month for up to 10,000 Monthly Active Users, 500 concurrent connections), which, however, could increase significantly as the app becomes more popular, and flexibility is limited by the external service capabilities.
 
 \section{Project plan}
 
@@ -316,7 +307,7 @@ Our development team consists of 3 developers: 1 frontend developer(F1) and 2 fu
 \end{description}
 
 
-\section{Domain Model}
+\section{Domain model}
 These requirements are a rich source of domain classes. Let’s put all the highlighted
 nouns and noun phrases into a list (in the process, we’ll turn all the plurals into singulars,
 and put them all into one table):
@@ -338,7 +329,7 @@ and put them all into one table):
     \end{tabular}
 \end{table}
 
-\subsection{Step 1: Identify Duplicates and Similar Terms}
+\subsection{Step 1: Identify duplicates and similar terms}
 Let’s identify and examine candidate duplicates or terms that may not belong in the domain model:
 
 \begin{itemize}
@@ -400,7 +391,7 @@ Let’s remove the following:
     \item \textbf{UI Element} → overly generic placeholder.
 \end{itemize}
 
-\subsection{Step 3: Keep and Rename Where Needed}
+\subsection{Step 3: Keep and rename where needed}
 
 Some items are useful but need better naming:
 
@@ -410,7 +401,7 @@ Some items are useful but need better naming:
 \end{itemize}
 
 
-\subsection{Cleaned \& Disambiguated Domain Class List}
+\subsection{Cleaned \& disambiguated domain class list}
 
 Here’s the refined list of candidate domain classes after tuning:
 
@@ -430,7 +421,7 @@ Here’s the refined list of candidate domain classes after tuning:
     \label{fig:domain-model}
 \end{figure}
 
-\subsection{Improving the Domain Model}
+\subsection{Improving the domain model}
 We will likely want to have private messages too. Our team also decided to have pinned messages and search functionality.
 
 The classes "Private Chat", "Pinned Message" and "Search Results" and "Message List" will be added to the domain model.
@@ -442,14 +433,14 @@ The classes "Private Chat", "Pinned Message" and "Search Results" and "Message L
     \label{fig:domain-model}
 \end{figure}
 
-\section{UI Mockups And Updates to Domain Model}
+\section{UI mockups and updates to domain model}
 We will draw the UI mockups and then we will update the domain model based on the UI mockups.
 
-\subsection{UI Mockups}
+\subsection{UI mockups}
 To better understant all of the possible use cases, we will first create a mockup of the UI. The mockup will be created using Samsung Notes and will be saved as a PDF file.
 
 \begin{longtable}{|p{0.2\textwidth}|p{0.2\textwidth}|p{0.2\textwidth}|p{0.2\textwidth}|}
-    \caption{Chat System Features Overview} \label{tab:chat-system-features} \\
+    \caption{Chat system features overview} \label{tab:chat-system-features} \\
 
     \hline
     \textbf{Section Type} & \textbf{Main Scope Entity} & \textbf{Key Responsibilities} & \textbf{Special Features} \\
@@ -787,7 +778,7 @@ To exit the edit private chat section, user can click on the 'x' button.
 
 User can switch the room chat to global chat scope by clicking on the globe icon (or door icon).
 
-\subsection{Updates to the Domain Model}
+\subsection{Updates to the domain model}
 
 After drawing a few UI mockups, our team also realised that we will need to have emoji panel and file upload panel. These will be added to the domain model as well.
 \begin{figure}[H]
@@ -831,97 +822,97 @@ We noticed that we are also missing the group editing panel and private chat edi
 Using the updated domain model and the UI mockups, we will try our best to create the use cases for the chat system.
 It is likely that we will need to update our domain model once again after creating the use cases.
 
-\subsection{Rough Draft of Use Cases}
+\subsection{Rough draft of use cases}
 Below is a rough draft of the use cases (these are not final, in fact, they do not even include the 'rainy-day' scenarios):
 \begin{itemize}
-    \item \textbf{Core Chat Functionality}
+    \item \textbf{Core chat functionality}
     \begin{itemize}
-        \item \textbf{Send Message}
+        \item \textbf{Send message}
         \begin{itemize}
             \item User composes and sends a message to a chat (global, room, group, or private) using \textbf{chat section}.
             \item Includes text, emojis using \textbf{emoji list}, and file attachments using \textbf{file upload list}.
         \end{itemize}
-        \item \textbf{Switch between Chats}
+        \item \textbf{Switch between chats}
         \begin{itemize}
             \item User switches between different chat sections using \textbf{chat access point}.
             \item System limits number of concurrent chats.
         \end{itemize}
     \end{itemize}
 
-    \item \textbf{Message Management}
+    \item \textbf{Message management}
     \begin{itemize}
-        \item \textbf{Edit Message}
+        \item \textbf{Edit message}
         \begin{itemize}
             \item User modifies a previously sent message using \textbf{chat section}.
             \item System preserves edit history.
         \end{itemize}
-        \item \textbf{Delete Message}
+        \item \textbf{Delete message}
         \begin{itemize}
             \item User removes a sent message (with confirmation) using \textbf{chat section}.
         \end{itemize}
-        \item \textbf{Pin Message}
+        \item \textbf{Pin message}
         \begin{itemize}
             \item User marks important messages in group/private chats using \textbf{chat section}.
             \item Pinned messages get special visibility.
         \end{itemize}
-        \item \textbf{View Pinned Messages}
+        \item \textbf{View pinned messages}
         \begin{itemize}
             \item User accesses pinned messages in a \textbf{pinned messages list}.
         \end{itemize}
-        \item \textbf{Unpin Message}
+        \item \textbf{Unpin message}
         \begin{itemize}
             \item User removes the pinned status from a message using \textbf{pinned messages list}.
         \end{itemize}
-        \item \textbf{Search Messages}
+        \item \textbf{Search messages}
         \begin{itemize}
             \item User searches message history across different chats using search messages section. They receive the results in a \textbf{search messages list}.
         \end{itemize}
-        \item \textbf{View Message History}
+        \item \textbf{View message history}
         \begin{itemize}
             \item User views past messages in a chat using the same search messages section but without inputting any search parameters. They receive the results in a \textbf{search message list}.
             \item Messages displayed with sender, timestamp, and content.
         \end{itemize}
     \end{itemize}
 
-    \item \textbf{Chat Management}
+    \item \textbf{Chat management}
     \begin{itemize}
-        \item \textbf{Switch Chat Scopes}
+        \item \textbf{Switch chat scopes}
         \begin{itemize}
             \item User switches between global and room chat scopes using \textbf{chat access point} or when they are in the \textbf{game room}.
         \end{itemize}
-        \item \textbf{Create Group Chat}
+        \item \textbf{Create group chat}
         \begin{itemize}
             \item User initiates a new group conversation using \textbf{chat creating section}.
             \item Specifies group name and adds participants.
             \item System limits number of concurrent chats.
         \end{itemize}
-        \item \textbf{Join Group Chat}
+        \item \textbf{Join group chat}
         \begin{itemize}
             \item User requests to join an existing group using \textbf{chat creating section}.
             \item Group owner approves/rejects request.
         \end{itemize}
-        \item \textbf{Manage Group Members}
+        \item \textbf{Manage group members}
         \begin{itemize}
             \item Group owner adds/removes participants using group chat editing section.
         \end{itemize}
-        \item \textbf{Start Private Chat}
+        \item \textbf{Start private chat}
         \begin{itemize}
             \item User initiates 1:1 conversation with another user using \textbf{chat creating section}.
         \end{itemize}
-        \item \textbf{Delete Chat}
+        \item \textbf{Delete chat}
         \begin{itemize}
             \item User removes a private or group chat (with confirmation) using either private chat editing section or group chat editing section.
         \end{itemize}
-        \item \textbf{Change Chat Type}
+        \item \textbf{Change chat type}
         \begin{itemize}
             \item User switches between global, room, group, and private chat types using \textbf{chat access point}.
             \item System limits number of concurrent chats.
         \end{itemize}
     \end{itemize}
 
-    \item \textbf{Notification System}
+    \item \textbf{Notification system}
     \begin{itemize}
-        \item \textbf{Receive Notification}
+        \item \textbf{Receive notification}
         \begin{itemize}
             \item System alerts user about new messages/events in the \textbf{notification list}.
             \item System alers user about invitations to join group chats in the \textbf{notification list}.
@@ -929,28 +920,28 @@ Below is a rough draft of the use cases (these are not final, in fact, they do n
             \item System alers user about deletion of group chats or private chats in the \textbf{notification list}.
             \item Includes visual and auditory indicators.
         \end{itemize}
-        \item \textbf{View Notifications}
+        \item \textbf{View notifications}
         \begin{itemize}
             \item User checks notifications in the \textbf{notification list}.
             \item Can jump to relevant message/context in the \textbf{notification list}.
         \end{itemize}
     \end{itemize}
 
-    \item \textbf{UI Interactions}
+    \item \textbf{UI interactions}
     \begin{itemize}
-        \item \textbf{Create Multiple Chats}
+        \item \textbf{Create multiple chats}
         \begin{itemize}
             \item User can have multiple chat sections open.
             \item System limits number of concurrent chats.
             \item User can have only one \textbf{global scope} chat section open.
             \item User can have multiple \textbf{private scope} chat sections open.
         \end{itemize}
-        \item \textbf{Upload File}
+        \item \textbf{Upload file}
         \begin{itemize}
             \item User attaches and sends files using \textbf{file upload list}.
             \item System validates file type and size.
         \end{itemize}
-        \item \textbf{Select Emoji}
+        \item \textbf{Select emoji}
         \begin{itemize}
             \item User adds emojis to messages.
             \item Can browse/search emoji library using \textbf{emoji list}.
@@ -959,7 +950,7 @@ Below is a rough draft of the use cases (these are not final, in fact, they do n
 
     \item \textbf{Administrative}
     \begin{itemize}
-        \item \textbf{Moderate Global Chat}
+        \item \textbf{Moderate global chat}
         \begin{itemize}
             \item System enforces character limits for \textbf{chat section}.
             \item Implements spam control measures for the \textbf{global chat}.
@@ -967,7 +958,7 @@ Below is a rough draft of the use cases (these are not final, in fact, they do n
     \end{itemize}
 \end{itemize}
 
-\subsection{Refining Domain Model}
+\subsection{Refining domain model}
 Just looking at the rough use case outline, we can already notice some ambiguities and missing details in the domain model.
 We will need to update the domain model based on the rough use case outline.
 \begin{itemize}
@@ -991,29 +982,29 @@ Below is the updated domain model with all the changes made:
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{images/domain7.png}
-    \caption{Domain Model Diagram v7}
+    \caption{Domain model diagram v7}
     \label{fig:domain-model}
 \end{figure}
 
-\subsection{Use Case Package Diagram}
+\subsection{Use case package diagram}
 From the rough use case outline, we can create a package diagram. This will help us to understand the use cases better and create a detailed use case description.
 You can see that the package diagram below shows 6 packages. In the "Core Chat Functionality" package we also included the "User" class and in the "Administrative" package we included the "System" class.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{images/packageDiagram.png}
-    \caption{Use Case Package Diagram}
+    \caption{Use case package diagram}
     \label{fig:use-case-package-diagram}
 \end{figure}
 
-\subsection{Detailed Use Case Description}
+\subsection{Detailed use case description}
 Finally, after all the work we did, we can create a detailed use case description.
 Before that, we feel that its very important to mention the difference between chat access point and chat section: a chat access point is a closed down chat section, that hase some functionality of its own, but it is not a chat section. A chat section is a chat access point that is open and has functionality of its own.
-\subsubsection{Package: Core Chat Functionality}
+\subsubsection{Package: Core chat functionality}
 
 \begin{itemize}
     \item 
-    Use Case: \textbf{Send Message}
+    Use case: \textbf{Send Message}
 
     \textbf{BASIC COURSE:}
 
@@ -1037,7 +1028,7 @@ Before that, we feel that its very important to mention the difference between c
     User inputs a cross-site scripting attack in the message. The system sanitizes the message and sends it to the server. The system displays the message in the chat section.
 
     \item 
-    Use Case: \textbf{Switch between Chats}
+    Use case: \textbf{Switch between chats}
 
     \textbf{BASIC COURSE:}
 
@@ -1050,10 +1041,10 @@ Before that, we feel that its very important to mention the difference between c
 
 \end{itemize}
 
-\subsubsection{Package: Message Management}
+\subsubsection{Package: Message management}
 \begin{itemize}
     \item 
-    Use Case: \textbf{Edit Message}
+    Use case: \textbf{Edit message}
 
     \textbf{BASIC COURSE:}
 
@@ -1065,7 +1056,7 @@ Before that, we feel that its very important to mention the difference between c
     User tries to edit a message that does not exist. The system does not send the message to the server and displays an error message.
 
     \item
-    Use Case: \textbf{Delete Message}   
+    Use case: \textbf{Delete message}   
 
     \textbf{BASIC COURSE:}
 
@@ -1077,7 +1068,7 @@ Before that, we feel that its very important to mention the difference between c
     User tries to delete a message that does not exist. The system does not send the message to the server and displays an error message.
 
     \item
-    Use Case: \textbf{Pin Message}
+    Use case: \textbf{Pin message}
 
     \textbf{BASIC COURSE:}
 
@@ -1095,7 +1086,7 @@ Before that, we feel that its very important to mention the difference between c
     User tries to pin a message in the global scope chat. The system does not send the message to the server and displays an error message. User is informed that pinning messages is only available in the private scope chat.
 
     \item 
-    Use Case: \textbf{View Pinned Messages}
+    Use case: \textbf{View pinned messages}
 
     \textbf{BASIC COURSE:}
 
@@ -1110,7 +1101,7 @@ Before that, we feel that its very important to mention the difference between c
     User inputs text on the search bar on the pinned messages list and clicks on the search button. The system searches for the pinned messages in the chat section and does not find any pinned messages that match the search criteria. The system does not display any pinned messages in the chat section and displays an informational message.
 
     \item 
-    Use Case: \textbf{Unpin Message}
+    Use case: \textbf{Unpin message}
 
     \textbf{BASIC COURSE:}
 
@@ -1125,7 +1116,7 @@ Before that, we feel that its very important to mention the difference between c
     User tries to unpin a message that is already unpinned. The system does not send the message to the server and displays an error message.
 
     \item 
-    Use Case: \textbf{Search Messages}
+    Use case: \textbf{Search messages}
 
     \textbf{BASIC COURSE:}
 
@@ -1141,7 +1132,7 @@ Before that, we feel that its very important to mention the difference between c
     User does not input any text on the search bar on the search section and clicks on the search button. The system searches for the messages in the chat section and displays all the messages in the chat section. The system performs view history use case.
 
     \item 
-    Use Case: \textbf{View Message History}
+    Use case: \textbf{View message history}
 
     \textbf{BASIC COURSE:}
 
@@ -1155,11 +1146,11 @@ Before that, we feel that its very important to mention the difference between c
 
 \end{itemize}
 
-\subsubsection{Package: Chat Management}
+\subsubsection{Package: Chat management}
 \begin{itemize}
 
     \item 
-    Use Case: \textbf{Create Group Chat}
+    Use case: \textbf{Create group chat}
 
     \textbf{BASIC COURSE:}
 
@@ -1187,7 +1178,7 @@ Before that, we feel that its very important to mention the difference between c
     User clicks on the create chat access point which opens chat creating section. User chooses group chat. User then chooses the create option and inputs a name for the group chat that already exists. The system does not create the group chat access point and displays an error message.
 
     \item 
-    Use Case: \textbf{Join Group Chat}
+    Use case: \textbf{Join group chat}
 
     \textbf{BASIC COURSE:}
 
@@ -1204,7 +1195,7 @@ Before that, we feel that its very important to mention the difference between c
     User clicks on the create chat access point which opens chat creating section. User chooses group chat. User then chooses the join option and inputs the name of the group chat that user is already in. The system does not send the request to the group owner and immediately adds the group chat access point.
 
     \item 
-    Use Case: \textbf{Manage Group Members}
+    Use case: \textbf{Manage group members}
 
     \textbf{BASIC COURSE:}
 
@@ -1228,7 +1219,7 @@ Before that, we feel that its very important to mention the difference between c
     User clicks on the group chat access point which opens group chat section. Then user clicks on the edit group button which opens group edditing section. User tries to add too many users (100+) to the group chat. The system does not allow the user to add users to the group chat and displays an error message.
 
     \item 
-    Use Case: \textbf{Start Private Chat}
+    Use case: \textbf{Start private chat}
 
     \textbf{BASIC COURSE:}
 
@@ -1243,7 +1234,7 @@ Before that, we feel that its very important to mention the difference between c
     User clicks on the create chat access point which opens chat creating section. User chooses private chat. User then chooses the create option and selects more that one user to add to the private chat. The system does not create the private chat access point and displays an error message.
 
     \item 
-    Use Case: \textbf{Switch Chat Scopes}
+    Use case: \textbf{Switch chat scopes}
 
     \textbf{BASIC COURSE:}
 
@@ -1258,7 +1249,7 @@ Before that, we feel that its very important to mention the difference between c
     User opens up group chat or private chat and searches for the switch from room chat to global chat or vise versa option. The system does not allow the user to switch to global chat (room chat) from private scope (group/private chat) and does not display the option to switch to global chat (room chat).
     
     \item 
-    Use Case: \textbf{Change Chat Type}
+    Use case: \textbf{Change chat type}
 
     \textbf{BASIC COURSE:}
 
@@ -1273,7 +1264,7 @@ Before that, we feel that its very important to mention the difference between c
     User clicks on the global chat access point icon but it does not open any menus. System does not allow to change global chat type in home page.
 
     \item 
-    Use Case: \textbf{Delete Chat}
+    Use case: \textbf{Delete chat}
 
     \textbf{BASIC COURSE:}
 
@@ -1289,10 +1280,10 @@ Before that, we feel that its very important to mention the difference between c
 
 \end{itemize}
 
-\subsubsection{Package: Notification System}
+\subsubsection{Package: Notification system}
 \begin{itemize}
     \item 
-    Use Case: \textbf{Receive Notification}
+    Use case: \textbf{Receive notification}
 
     \textbf{BASIC COURSE:}
 
@@ -1304,7 +1295,7 @@ Before that, we feel that its very important to mention the difference between c
     The user receives a notification about new messages/events. The system plays a sound that the user has received a notification but the browser section is too narrow to display the notification. The system does not display an error message.
 
     \item 
-    Use Case: \textbf{View Notifications}
+    Use case: \textbf{View notifications}
 
     \textbf{BASIC COURSE:}
 
@@ -1320,10 +1311,10 @@ Before that, we feel that its very important to mention the difference between c
 
 \end{itemize}
 
-\subsubsection{Package: UI Interactions}
+\subsubsection{Package: UI interactions}
 \begin{itemize}
     \item 
-    Use Case: \textbf{Create Multiple Chats}
+    Use case: \textbf{Create multiple chats}
 
     \textbf{BASIC COURSE:}
 
@@ -1341,7 +1332,7 @@ Before that, we feel that its very important to mention the difference between c
     User tries to create a new chat access point using the create chat section process but the button is not available. The system does not allow the user to create a new chat access point and does not display an error message.
 
     \item 
-    Use Case: \textbf{Select Emoji}
+    Use case: \textbf{Select emoji}
 
     \textbf{BASIC COURSE:}
 
@@ -1356,7 +1347,7 @@ Before that, we feel that its very important to mention the difference between c
     User clicks on the emoji button which opens emoji list. User does not select any emojis from the emoji list. The system does not add any emojis to the message input field and does not display an error message.
 
     \item 
-    Use Case: \textbf{Upload File}
+    Use case: \textbf{Upload file}
 
     \textbf{BASIC COURSE:}
 
@@ -1381,7 +1372,7 @@ Before that, we feel that its very important to mention the difference between c
 \subsubsection{Package: Administrative}
 \begin{itemize}
     \item 
-    Use Case: \textbf{Moderate Global Chat}
+    Use case: \textbf{Moderate global chat}
 
     \textbf{BASIC COURSE:}
 
@@ -1402,12 +1393,12 @@ Before that, we feel that its very important to mention the difference between c
     User sends a message that contains special characters. The system does not display the message in the chat section and displays an error message.
 \end{itemize}
 
-\subsection{Use Case Diagrams}
+\subsection{Use case diagrams}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{images/UseCaseDiagrams/adm.png}
-    \caption{Administrative Use Case Diagram}
+    \caption{Administrative use case diagram}
     \label{fig:adm-use-case-diagram}
 \end{figure}
 
@@ -1416,7 +1407,7 @@ This diagram shows the administrative use case diagram. It shows the use cases t
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{images/UseCaseDiagrams/chatMan.png}
-    \caption{Chat Management Use Case Diagram}
+    \caption{Chat management use case diagram}
     \label{fig:chat-man-use-case-diagram}
 \end{figure}
 
@@ -1425,7 +1416,7 @@ This diagram shows the chat management use case diagram. It shows the use cases 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.4\textwidth]{images/UseCaseDiagrams/corChat.png}
-    \caption{Core Chat Functionality Use Case Diagram}
+    \caption{Core chat functionality use case diagram}
     \label{fig:cor-chat-use-case-diagram}
 \end{figure}
 
@@ -1434,7 +1425,7 @@ This diagram shows the core chat functionality use case diagram. It shows the us
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.4\textwidth]{images/UseCaseDiagrams/mesMan.png}
-    \caption{Message Management Use Case Diagram}
+    \caption{Message management use case diagram}
     \label{fig:mes-man-use-case-diagram}
 \end{figure}
 
@@ -1444,7 +1435,7 @@ The user can also view message history and search messages.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{images/UseCaseDiagrams/notSys.png}
-    \caption{Notification System Use Case Diagram}
+    \caption{Notification system use case diagram}
     \label{fig:not-sys-use-case-diagram}
 \end{figure}
 
@@ -1453,65 +1444,65 @@ This diagram shows the notification system use case diagram. It shows the use ca
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.4\textwidth]{images/UseCaseDiagrams/UIInt.png}
-    \caption{UI Interactions Use Case Diagram}
+    \caption{UI interactions use case diagram}
     \label{fig:ui-int-use-case-diagram}
 \end{figure}
 
 This diagram shows the UI interactions use case diagram. It shows the use cases that are related to the UI interactions package. The user can create multiple chats, select emoji and upload file.
 
-\subsection{Updates to the Domain Model}
+\subsection{Updates to the domain model}
 
 We noticed that we dont have error and informational message classes in our domain model. We will add them to the domain model as well. The error message class will be used to display error messages to the user and the informational message class will be used to display informational messages to the user.
 We are also missing group owner class. We will add it to the domain model as well. The group owner class will be used to display the group owner to the user.
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{images/domain8.png}
-    \caption{Domain Model Diagram v8}
+    \caption{Domain model diagram v8}
     \label{fig:domain-model-v8}
 \end{figure}
 
 \section{Robustness diagrams}
 This section will show the Robustness diagrams and comment them to provide further detail into the use cases and add structure. The diagrams will be grouped in a similar manner as the use cases in Detailed Use Case Description.
 
-\subsection{Core Chat Functionality}
+\subsection{Core chat functionality}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{images/RobustnessDiagrams/R Core ChatF.drawio.png}
-    \caption{Core Chat Functionality Robustness Diagram}
+    \caption{Core chat functionality robustness diagram}
     \label{fig:core-chat-functionality-robustness-diagram}
 \end{figure}
 
 This diagram does not show the alternative use case of there not being any open chat windows as the creation of them is described in a later diagram.
 
-\subsection{Message Management}
+\subsection{Message management}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth]{images/RobustnessDiagrams/R Message ManagementF.drawio.png}
-    \caption{Message Management Robustness Diagram}
+    \caption{Message management robustness diagram}
     \label{fig:message-management-robustness-diagram}
 \end{figure}
 
 Due to the triviality of Unpining it is not shown. As it's diagram is synonimous to the one of deletion (a check whether it has already been unpined and then the unpinning with similar user interaction with the UI). Also this diagram does not show the use case of viewing the history: since all of the messages are sorted chronologically, no additional processing is required.
 
-\subsection{Chat Management}
+\subsection{Chat management}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth]{images/RobustnessDiagrams/R_Chat_managmentF.drawio.png}
-    \caption{Chat Management Robustness Diagram}
+    \caption{Chat management robustness diagram}
     \label{fig:chat-management-robustness-diagram}
 \end{figure}
 
 Due to the fact that the user can only be in one Game room at a time, the property, that only one room chat can exist has not been shown.
 
-\subsection{UI Interactions}
+\subsection{UI interactions}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth]{images/RobustnessDiagrams/R_UI_Interactions.drawio.png}
-    \caption{UI Interactions Robustness Diagram}
+    \caption{UI interactions robustness diagram}
     \label{fig:UI-interaction-robustness-diagram}
 \end{figure}
 
@@ -1522,7 +1513,7 @@ The limit of three chats has not been shown as it only interacts with the UI. Al
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{images/RobustnessDiagrams/R_Administration.drawio.png}
-    \caption{Administration Robustness Diagram}
+    \caption{Administration robustness diagram}
     \label{fig:administration-robustness-diagram}
 \end{figure}
 
@@ -1533,16 +1524,16 @@ The idea behind the special character prohibition is to prevent SQL injections o
 
 
 
-\section{Sequence Diagrams}
+\section{Sequence diagrams}
 
-\subsection{Receiving Notification}
+\subsection{Receiving notification}
 
 The following notification sequence is reused across several other sequence diagrams so it's important.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{images/SeqDiagrams/ReceiveNotification.png}
-    \caption{Receiving Notification Sequence Diagram}
+    \caption{Receiving notification sequence diagram}
     \label{fig:receive-notification-seq-d}
 \end{figure}
 
@@ -1551,12 +1542,12 @@ The \textbf{WebApp} forwards the event to \textbf{Notification Panel}, which upd
 At the same time, the browser plays a sound to alert the user.
 
 
-\subsection{Creating Group Chat}
+\subsection{Creating group chat}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{images/SeqDiagrams/CreateGroupChat.png}
-    \caption{Create Group Chat Sequence Diagram}
+    \caption{Create group chat sequence diagram}
     \label{fig:create-group-section-seq-d}
 \end{figure}
 
@@ -1567,12 +1558,12 @@ Once the group is created, the \textbf{ChatController} immediately updates the U
 In parallel, \textbf{NotificationService} sends invites to all selected members asynchronously.
 
 
-\subsection{Creating Private Chat}
+\subsection{Creating private chat}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{images/SeqDiagrams/CreatePrivateChat.png}
-    \caption{Create Private Chat Sequence Diagram}
+    \caption{Create private chat sequence diagram}
     \label{fig:create-group-section-seq-d}
 \end{figure}
 
@@ -1584,12 +1575,12 @@ Unlike group chat creation, no title or multiple members are involved.
 After creation, the \textbf{ChatController} updates the UI to show chat access, and the \textbf{NotificationService} notifies the invited user asynchronously.
 
 
-\subsection{Joining existing Group Chat}
+\subsection{Joining existing group chat}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{images/SeqDiagrams/JoinGroupChat.png}
-    \caption{Join existing Group Chat Sequence Diagram}
+    \caption{Join existing group chat sequence diagram}
     \label{fig:join-group-chat-seq-d}
 \end{figure}
 
@@ -1607,12 +1598,12 @@ Simultaneously, the \textbf{NotificationService} notifies the user asynchronousl
 If the owner rejects the request, the \textbf{NotificationService} notifies user that the request was denied.
 
 
-\subsection{Managing Group Members}
+\subsection{Managing group members}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{images/SeqDiagrams/ManageGroupMembers.png}
-    \caption{Manage Group Members Sequence Diagram}
+    \caption{Manage group members sequence diagram}
     \label{fig:manage-group-seq-d}
 \end{figure}
 
@@ -1624,12 +1615,12 @@ and refreshes the UI to reflect the updated member list.
 
 
 
-\subsection{Moderating Global Chat}
+\subsection{Moderating global chat}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{images/SeqDiagrams/ModerateGlobalChat.png}
-    \caption{Global Chat Moderation Sequence Diagram}
+    \caption{Global chat moderation sequence diagram}
     \label{fig:moderate-global-chat-seq-d}
 \end{figure}
 
@@ -1639,7 +1630,7 @@ If accepted, the message is saved to the \textbf{Database} and is shown on Globa
 
 
 
-\subsection{Sequence Diagrams Not Shown}
+\subsection{Sequence diagrams not shown}
 
 The following use–cases are fully covered by CRUD–style service calls
 and add no new architectural insight beyond what is already captured
@@ -1649,13 +1640,13 @@ sequence diagrams.
 \begin{itemize}
   \item \textbf{Pin / Unpin Message} – single UPDATE on
         Message.isPinned.
-  \item \textbf{Switch Between Chats} – purely client-side state swap,
+  \item \textbf{Switch between chats} – purely client-side state swap,
         no server interaction.
-  \item \textbf{Change Chat Type} – re-uses the Create Chat
+  \item \textbf{Change chat type} – re-uses the Create Chat
         or Join Chat operations already diagrammed.
-  \item \textbf{Search / View History} – simple 
+  \item \textbf{Search / View history} – simple 
         GET /messages.
-  \item \textbf{Switch Chat Scope} – client toggle followed by
+  \item \textbf{Switch chat scope} – client toggle followed by
         the same GET /messages.
 \end{itemize}
 
@@ -1666,16 +1657,16 @@ diagram would be useless.
 
 \section{Requirements}
 \begin{longtable}{|p{3cm}|p{5.5cm}|l|p{4cm}|}
-\caption{Final Requirements Traceability Table} \label{tab:final_reqs} \\
+\caption{Final requirements traceability cable} \label{tab:final_reqs} \\
 \hline
-\textbf{Requirement ID} & \textbf{Description} & \textbf{Use Case} & \textbf{Domain Objects} \\
+\textbf{Requirement ID} & \textbf{Description} & \textbf{Use case} & \textbf{Domain objects} \\
 \hline
 \endfirsthead
 
 \multicolumn{4}{c}%
 {\tablename\ \thetable\ -- \textit{Continued from previous page}} \\
 \hline
-\textbf{Requirement ID} & \textbf{Description} & \textbf{Use Case} & \textbf{Domain Objects} \\
+\textbf{Requirement ID} & \textbf{Description} & \textbf{Use case} & \textbf{Domain objects} \\
 \hline
 \endhead
 
@@ -1685,7 +1676,7 @@ diagram would be useless.
 \hline
 \endlastfoot
 
-\textbf{FR-01} & The system shall allow user to create and send messages. & Send Message & Message, User \\
+\textbf{FR-01} & The system shall allow user to create and send messages. & Send Message & Message, User, ChatSection \\
 \hline
 \textbf{FR-02} & The system shall remove UTF-8 zero-width characters from messages before sending. & Send Message & Message \\
 \hline
@@ -1697,133 +1688,134 @@ diagram would be useless.
 \hline
 \textbf{FR-06} & The system shall sanitize messages containing cross-site scripting before sending. & Send Message & Message \\
 \hline
-\textbf{FR-07} & The system shall allow switching between different chat windows via chat buttons. & Switch between Chats & ChatWindow, ChatManager \\
+\textbf{FR-07} & The system shall allow switching between different chat windows via chat buttons. & Switch between Chats & ChatSection, ChatAccessPoint \\
 \hline
-\textbf{FR-08} & The system shall not display chat buttons if none are available and show no error. & Switch between Chats & ChatWindow, ChatManager \\
+\textbf{FR-08} & The system shall not display chat buttons if none are available and show no error. & Switch between Chats & ChatSection, ChatAccessPoint \\
 \hline
 \textbf{FR-09} & The system shall allow user to edit their own messages. & Edit Message & User, Message \\
 \hline
-\textbf{FR-10} & The system shall display an error if user edits message which does not exist anymore. & Edit Message & User, Message \\
+\textbf{FR-10} & The system shall display an error if user edits message which does not exist anymore. & Edit Message & User, Message, ErrorMessage \\
 \hline
 \textbf{FR-11} & The system shall allow user to delete their own messages. & Delete Message & User, Message \\
 \hline
-\textbf{FR-12} & The system shall show an error if the message the user wants to delete does not exist anymore. & Delete Message & User, Message \\
+\textbf{FR-12} & The system shall show an error if the message the user wants to delete does not exist anymore. & Delete Message & User, Message, ErrorMessage \\
 \hline
-\textbf{FR-13} & The system shall allow pinning messages in private chats. & Pin Message & Message, PrivateChat, PinnedMessage \\
+\textbf{FR-13} & The system shall allow pinning messages in private chats. & Pin Message & Message, PrivateChat, PinnedMessage, PinnedMessagesList \\
 \hline
-\textbf{FR-14} & The system shall show an error when pinning already pinned messages. & Pin Message & PinnedMessage, Message \\
+\textbf{FR-14} & The system shall show an error when pinning already pinned messages. & Pin Message & PinnedMessage, PinnedMessagesList, Message, ErrorMessage \\
 \hline
-\textbf{FR-15} & The system shall restrict pinning in global chat scope and inform the user. & Pin Message & GlobalChat, Message, PinnedMessage, User \\
+\textbf{FR-15} & The system shall restrict pinning in global chat scope and inform the user. & Pin Message & GlobalChat, Message, PinnedMessage, PinnedMessagesList, User \\
 \hline
 \textbf{FR-16} & The system shall allow user to view pinned messages and support search functionality. & View Pinned Messages & User, PinnedMessage \\
 \hline
-\textbf{FR-17} & The system shall show an info message when no pinned messages are found. & View Pinned Messages & PinnedMessage \\
+\textbf{FR-17} & The system shall show an info message when no pinned messages are found. & View Pinned Messages & PinnedMessage, PinnedMessagesList \\
 \hline
-\textbf{FR-18} & The system shall allow unpinning messages from pinned list. & Unpin Message & Message, PinnedMessage \\
+\textbf{FR-18} & The system shall allow unpinning messages from pinned list. & Unpin Message & Message, PinnedMessage, PinnedMessagesList \\
 \hline
-\textbf{FR-19} & The system shall show an error if the message to unpin is not found or already unpinned. & Unpin Message & Message, PinnedMessage \\
+\textbf{FR-19} & The system shall show an error if the message to unpin is not found or already unpinned. & Unpin Message & Message, PinnedMessage, PinnedMessagesList, ErrorMessage \\
 \hline
-\textbf{FR-20} & The system shall allow user to search messages with pagination. & Search Messages & User, Message \\
+\textbf{FR-20} & The system shall allow user to search messages with pagination. & Search Messages & User, Message, SearchMessagesList, \\
 \hline
-\textbf{FR-21} & The system shall show info message if no search results are found. & Search Messages & Message \\
+\textbf{FR-21} & The system shall show info message if no search results are found. & Search Messages & Message, MessageList, InformationalMessage, SearchMessagesList \\
 \hline
-\textbf{FR-22} & The system shall return all messages when search criteria is empty. & Search Messages & Message \\
+\textbf{FR-22} & The system shall return all messages when search criteria is empty. & Search Messages & Message, MessageList, SearchMessagesList \\
 \hline
-\textbf{FR-23} & The system shall allow viewing all message history with pagination. & View Message History & Message \\
+\textbf{FR-23} & The system shall allow viewing all message history with pagination. & View Message History & Message, MessageList \\
 \hline
-\textbf{FR-24} & The system shall allow creating a group chat with selected users and a unique name. & Create Group Chat & GroupChat, User, ChatManager \\
+\textbf{FR-24} & The system shall allow creating a group chat with selected users and a unique name. & Create Group Chat & GroupChat, User, ChatAccessPoint \\
 \hline
-\textbf{FR-25} & The system shall display an error if no users are selected for the group chat. & Create Group Chat & GroupChat \\
+\textbf{FR-25} & The system shall display an error if no users are selected for the group chat. & Create Group Chat & GroupChat, User, ErrorMessage, GroupChatOwner, ChatAccessPoint \\
 \hline
-\textbf{FR-26} & The system shall display an error if too many users are selected (100+). & Create Group Chat & GroupChat \\
+\textbf{FR-26} & The system shall display an error if too many users are selected (100+). & Create Group Chat & GroupChat, ErrorMessage, User \\
 \hline
-\textbf{FR-27} & The system shall display an error if no name is given for the group chat. & Create Group Chat & GroupChat \\
+\textbf{FR-27} & The system shall display an error if no name is given for the group chat. & Create Group Chat & GroupChat, ErrorMessage \\
 \hline
-\textbf{FR-28} & The system shall display an error if the group chat name already exists. & Create Group Chat & GroupChat \\
+\textbf{FR-28} & The system shall display an error if the group chat name already exists. & Create Group Chat & GroupChat, ErrorMessage \\
 \hline
 \textbf{FR-29} & The system shall allow users to send join requests for group chats by name. & Join Group Chat & GroupChat, User \\
 \hline
-\textbf{FR-30} & The system shall display an error if the group chat name does not exist. & Join Group Chat & GroupChat \\
+\textbf{FR-30} & The system shall display an error if the group chat name does not exist. & Join Group Chat & GroupChat, ErrorMessage \\
 \hline
-\textbf{FR-31} & The system shall send notification to user if they were added. & Join Group Chat & User, Notification, GroupChat \\
+\textbf{FR-31} & The system shall send notification to user if they were added. & Join Group Chat & User, Notification, GroupChat, GroupOwner \\
 \hline
-\textbf{FR-32} & The system shall allow group owner to manage group members (add/remove). & Manage Group Members & GroupChat, User \\
+\textbf{FR-32} & The system shall allow group owner to manage group members (add/remove). & Manage Group Members & GroupChat, User, GroupOwner  \\
 \hline
-\textbf{FR-33} & The system shall display an error if a non-owner attempts to manage members. & Manage Group Members & GroupChat, User \\
+\textbf{FR-33} & The system shall display an error if a non-owner attempts to manage members. & Manage Group Members & GroupChat, User, ErrorMessage, GroupOwner  \\
 \hline
-\textbf{FR-34} & The system shall display an info message if no users were selected to add. & Manage Group Members & GroupChat \\
+\textbf{FR-34} & The system shall display an info message if no users were selected to add. & Manage Group Members & GroupChat, InformationalMessage, User, GroupOwner  \\
 \hline
-\textbf{FR-35} & The system shall display an error if the group chat has already been deleted. & Manage Group Members & GroupChat \\
+\textbf{FR-35} & The system shall display an error if the group chat has already been deleted. & Manage Group Members & GroupChat, ErrorMessage, User, GroupOwner  \\
 \hline
-\textbf{FR-36} & The system shall prevent adding users if the group chat is already full (100+). & Manage Group Members & GroupChat \\
+\textbf{FR-36} & The system shall prevent adding users if the group chat is already full (100+). & Manage Group Members & GroupChat, User, GroupOwner \\
 \hline
-\textbf{FR-37} & The system shall display an error if too many users are selected to be added. & Manage Group Members & GroupChat \\
+\textbf{FR-37} & The system shall display an error if too many users are selected to be added. & Manage Group Members & GroupChat, ErrorMessage, User, GroupOwner \\
 \hline
 \textbf{FR-38} & The system shall allow users to start a private chat with one selected user. & Start Private Chat & PrivateChat, User \\
 \hline
-\textbf{FR-39} & The system shall display an error if no user is selected. & Start Private Chat & PrivateChat \\
+\textbf{FR-39} & The system shall display an error if no user is selected. & Start Private Chat & PrivateChat, ErrorMessage, User \\
 \hline
-\textbf{FR-40} & The system shall display an error if more than one user is selected. & Start Private Chat & PrivateChat \\
+\textbf{FR-40} & The system shall display an error if more than one user is selected. & Start Private Chat & PrivateChat, ErrorMessage \\
 \hline
-\textbf{FR-41} & The system shall allow user to switch between room and global chat scopes. & Switch Chat Scopes & ChatScope \\
+\textbf{FR-41} & The system shall allow user to switch between room and global chat scopes. & Switch Chat Scopes & ChatScope,  PrivateScope, GlobalScope, User, GameRoom \\
 \hline
-\textbf{FR-42} & The system shall prevent switching to room chat if user is not in that room. & Switch Chat Scopes & ChatScope, RoomChat, GlobalChat, GameRoom, ChatManager \\
+\textbf{FR-42} & The system shall prevent switching to room chat if user is not in that room. & Switch Chat Scopes & ChatScope,  PrivateScope, GlobalScope, RoomChat, GlobalChat, GameRoom, GroupChat, ChatAccessPoint, GameRoom \\
 \hline
-\textbf{FR-43} & The system shall prevent switching to global/room chat from private scope. & Switch Chat Scopes & ChatScope, GameRoom, RoomChat \\
+\textbf{FR-43} & The system shall prevent switching to global/room chat from private scope. & Switch Chat Scopes & ChatScope,  PrivateScope, GlobalScope, GameRoom, RoomChat, GroupChat, GameRoom \\
 \hline
-\textbf{FR-44} & The system shall allow user to change the type of a chat button if allowed. & Change Chat Type & ChatScope, PrivateChat, RoomChat, GlobalChat\\
+\textbf{FR-44} & The system shall allow user to change the type of a chat button if allowed. & Change Chat Type & ChatScope, PrivateScope, GlobalScope, PrivateChat, RoomChat, GlobalChat, GroupChat\\
 \hline
-\textbf{FR-45} & The system shall prevent selecting room chat type if one already exists. & Change Chat Type & ChatScope, ChatManager \\
+\textbf{FR-45} & The system shall prevent selecting room chat type if one already exists. & Change Chat Type & ChatScope, ChatAccessPoint \\
 \hline
-\textbf{FR-46} & The system shall allow deletion of group or private chats with confirmation. & Delete Chat & PrivateChat, User, ChatManager \\
+\textbf{FR-46} & The system shall allow deletion of group or private chats with confirmation. & Delete Chat & PrivateChat, User, ChatAccessPoint \\
 \hline
-\textbf{FR-47} & The system shall display an error if a non-owner tries to delete a chat. & Delete Chat & ChatScope, User, ChatManager \\
+\textbf{FR-47} & The system shall display an error if a non-owner tries to delete a chat. & Delete Chat & ChatScope, User, ChatAccessPoint, ErrorMessage \\
 \hline
-\textbf{FR-48} & The system shall display an error if the chat is already deleted. & Delete Chat & ChatScope, ChatManager,User \\
+\textbf{FR-48} & The system shall display an error if the chat is already deleted. & Delete Chat & ChatScope, ChatAccessPoint,User, ErrorMessage \\
 \hline
-\textbf{FR-49} & The system shall send notifications with sound to user when a new message is received. & Receive Notification & Notification, Message, User \\
+\textbf{FR-49} & The system shall send notifications with sound to user when a new message is received. & Receive Notification & Notification, NotificationList, Message, User \\
 \hline
-\textbf{FR-50} & The system shall play a sound even if notification cannot be shown due to a narrow browser window. & Receive Notification, User & Notification \\
+\textbf{FR-50} & The system shall play a sound even if notification cannot be shown due to a narrow browser window. & Receive Notification, User & Notification, NotificationList \\
 \hline
-\textbf{FR-52} & The system shall allow users to view all notifications in a notification window. & View Notifications & Notification \\
+\textbf{FR-52} & The system shall allow users to view all notifications. & View Notifications & Notification, NotificationList, User \\
 \hline
-\textbf{FR-53} & The system shall allow users to click on notifications to jump to the related context/message. & View Notifications & Notification \\
+\textbf{FR-53} & The system shall allow users to click on notifications to jump to the related context/message. & View Notifications & Notification, NotificationList, User \\
 \hline
-\textbf{FR-54} & The system shall not display an error if there are no notifications. & View Notifications & Notification \\
+\textbf{FR-54} & The system shall not display an error if there are no notifications. & View Notifications & Notification, NotificationList, ErrorMessage \\
 \hline
-\textbf{FR-55} & The system shall not display an error if a notification target message/context is missing. & View Notifications & Notification \\
+\textbf{FR-55} & The system shall not display an error if a notification target message/context is missing. & View Notifications & Notification, NotificationList, ErrorMessage \\
 \hline
-\textbf{FR-56} & The system shall allow users to toggle chat window by clicking the chat button. & Toggle Chat Window & ChatWindow \\
+\textbf{FR-56} & The system shall allow creation of up to 3 chat access points. & Create Multiple Chats & Chat, User, ChatAccessPoint, ChatCreatingSection \\
 \hline
-\textbf{FR-57} & The system shall prevent duplicate chat windows from opening. & Toggle Chat Window & ChatWindow \\
+\textbf{FR-57} & The system shall display an error when user tries to create more than 3 chat access points. & Create Multiple Chats & Chat, ErrorMessage, ChatAcessPoint, ChatCreatingSection \\
 \hline
-\textbf{FR-58} & The system shall allow creation of up to 3 chat buttons/windows. & Create Multiple Chats & Chat \\
+\textbf{FR-58} & The system shall prevent creation of a second global chat button. & Create Multiple Chats & ChatScope, User, ChatAcessPoint \\
 \hline
-\textbf{FR-59} & The system shall display an error when user tries to create more than 3 chat buttons. & Create Multiple Chats & Chat \\
+\textbf{FR-59} & The system shall disable chat creation button on the home page. & Create Multiple Chats & Chat, ChatAcessPoint \\
 \hline
-\textbf{FR-60} & The system shall prevent creation of a second global chat button. & Create Multiple Chats & ChatScope \\
+\textbf{FR-60} & The system shall allow emoji selection via emoji picker. & Select Emoji & Emoji, EmojiList, User \\
 \hline
-\textbf{FR-61} & The system shall disable chat creation button on the home page. & Create Multiple Chats & Chat \\
+\textbf{FR-61} & The system shall allow emoji search via keyword input. & Select Emoji & Emoji, EmojiList, User, SearchMessagesList \\
 \hline
-\textbf{FR-62} & The system shall allow emoji selection via emoji picker. & Select Emoji & Emoji \\
+\textbf{FR-62} & The system shall insert the selected emoji into the message input field. & Select Emoji & Emoji, EmojiList, User \\
 \hline
-\textbf{FR-63} & The system shall allow emoji search via keyword input. & Select Emoji & Emoji \\
+\textbf{FR-63} & The system shall display an info message when no emojis match the search. & Select Emoji & Emoji, EmojiList, InformationalMessage, SearchMessagesList \\
 \hline
-\textbf{FR-64} & The system shall insert the selected emoji into the message input field. & Select Emoji & Emoji \\
+\textbf{FR-64} & The system shall allow file uploads of images (.png, .jpg, .jpeg, .gif). & Upload File & File, FileUploadList, User \\
 \hline
-\textbf{FR-65} & The system shall display an info message when no emojis match the search. & Select Emoji & Emoji \\
+\textbf{FR-65} & The system shall reject disallowed file types and show an error. & Upload File & File, FileUploadList \\
 \hline
-\textbf{FR-66} & The system shall allow file uploads of images (.png, .jpg, .jpeg, .gif). & Upload File & File \\
+\textbf{FR-66} & The system shall reject files larger than 10MB and show an error. & Upload File & File, FileUploadList \\
 \hline
-\textbf{FR-67} & The system shall reject disallowed file types and show an error. & Upload File & File \\
+\textbf{FR-67} & The system shall reject files with names over 255 characters. & Upload File & File, FileUploadList \\
 \hline
-\textbf{FR-68} & The system shall reject files larger than 10MB and show an error. & Upload File & File \\
+\textbf{FR-68} & The system shall reject files with special characters in their name. & Upload File & File, FileUploadList \\
 \hline
-\textbf{FR-69} & The system shall reject files with names over 255 characters. & Upload File & File \\
+\textbf{FR-69} & The system shall detect messages that exceed the maximum allowed length and shall not send it. &  Moderate global chat & Message \\
 \hline
-\textbf{FR-70} & The system shall reject files with special characters in their name. & Upload File & File \\
+\textbf{FR-70} & The system shall detect messages containing special characters and shall not send it. & Moderate global chat & Message \\
 \hline
-
+\textbf{FR-71} & The system shall display an error message when message is considered malicious(not sent). - Moderate global chat. & Moderate global chat & Message, ErrorMessage, User \\
+\hline
 \end{longtable}
 
 
