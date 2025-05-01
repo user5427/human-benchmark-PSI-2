@@ -28,7 +28,7 @@ rectangle Emoji #line:DeepPink
 rectangle File #line:DeepPink
 rectangle SearchUsersList #line:LimeGreen
 rectangle SearchMessageList #line:DeepPink
-rectangle Owner #line:DeepSkyBlue
+rectangle GroupOwner #line:DeepSkyBlue
 rectangle ErrorMessage #line:DeepSkyBlue
 rectangle InformationalMessage #line:DeepSkyBlue
 
@@ -64,10 +64,10 @@ rectangle InformationalMessage #line:DeepSkyBlue
 :SearchUsersList: o-- :User:
 :ChatCreatingSection: o-- :SearchUsersList:
 :MessageList: <|-- :SearchMessageList:
-:User: <|-- :Owner:
+:User: <|-- :GroupOwner:
 :ChatSection: o-- :ErrorMessage:
 :ChatSection: o-- :InformationalMessage:
-:GroupChat: o-- :Owner:
+:GroupChat: o-- :GroupOwner:
 
 
 
