@@ -874,11 +874,11 @@ Below is a rough draft of the use cases (these are not final, in fact, they do n
         \end{itemize}
         \item \textbf{Search Messages}
         \begin{itemize}
-            \item User searches message history across different chats using \textbf{search messages section}.
+            \item User searches message history across different chats using search messages section. They receive the results in a \textbf{search messages list}.
         \end{itemize}
         \item \textbf{View Message History}
         \begin{itemize}
-            \item User views past messages in a chat using the same \textbf{search messages section} but without inputting any search parameters.
+            \item User views past messages in a chat using the same search messages section but without inputting any search parameters. They receive the results in a \textbf{search message list}.
             \item Messages displayed with sender, timestamp, and content.
         \end{itemize}
     \end{itemize}
@@ -902,7 +902,7 @@ Below is a rough draft of the use cases (these are not final, in fact, they do n
         \end{itemize}
         \item \textbf{Manage Group Members}
         \begin{itemize}
-            \item Group owner adds/removes participants using \textbf{group chat editing section}.
+            \item Group owner adds/removes participants using group chat editing section.
         \end{itemize}
         \item \textbf{Start Private Chat}
         \begin{itemize}
@@ -910,7 +910,7 @@ Below is a rough draft of the use cases (these are not final, in fact, they do n
         \end{itemize}
         \item \textbf{Delete Chat}
         \begin{itemize}
-            \item User removes a private or group chat (with confirmation) using either \textbf{private chat editing section} or \textbf{group chat editing section}.
+            \item User removes a private or group chat (with confirmation) using either private chat editing section or group chat editing section.
         \end{itemize}
         \item \textbf{Change Chat Type}
         \begin{itemize}
@@ -1129,7 +1129,7 @@ Before that, we feel that its very important to mention the difference between c
 
     \textbf{BASIC COURSE:}
 
-    The system displays chat panel. User clicks on the search messages icon which opens seperate section for searching messages. User inputs text on the search bar on the search section and clicks on the search button. The system searches for the messages in the chat section and displays the results in message list. Messages are shown in paginated format. User can scroll down to see more messages. 
+    The system displays chat panel. User clicks on the search messages icon which opens seperate section for searching messages. User inputs text on the search bar on the search section and clicks on the search button. The system searches for the messages in the chat section and displays the results in search message list. Messages are shown in paginated format. User can scroll down to see more messages. 
 
     \textbf{ALTERNATIVE COURSES:}
 
@@ -1145,12 +1145,12 @@ Before that, we feel that its very important to mention the difference between c
 
     \textbf{BASIC COURSE:}
 
-    The system displays chat panel. User clicks on the search messages icon which opens seperate section for searching messages. User does not input any text on the search bar on the search section and clicks on the search button. The system searches for the messages in the chat section and displays all the messages in the chat section. Messages are shown in paginated format. User can scroll down to see more messages. 
+    The system displays chat panel. User clicks on the search messages icon which opens seperate section for searching messages. User does not input any text on the search bar on the search section and clicks on the search button. The system searches for the messages in the chat section and displays all the messages in search messages list. Messages are shown in paginated format. User can scroll down to see more messages. 
 
     \textbf{ALTERNATIVE COURSES:}
 
     \textbf{user has inputted search criteria:}
-    User inputs text on the search bar on the search section and clicks on the search button. The system searches for the messages in the chat section and displays all the messages in the chat section. The system performs a search use case.
+    User inputs text on the search bar on the search section and clicks on the search button. The system searches for the messages in the chat section and displays all the messages in search messages list. The system performs a search use case.
 
 
 \end{itemize}
@@ -1458,6 +1458,17 @@ This diagram shows the notification system use case diagram. It shows the use ca
 \end{figure}
 
 This diagram shows the UI interactions use case diagram. It shows the use cases that are related to the UI interactions package. The user can create multiple chats, select emoji and upload file.
+
+\subsection{Updates to the Domain Model}
+
+We noticed that we dont have error and informational message classes in our domain model. We will add them to the domain model as well. The error message class will be used to display error messages to the user and the informational message class will be used to display informational messages to the user.
+We are also missing group owner class. We will add it to the domain model as well. The group owner class will be used to display the group owner to the user.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{images/domain8.png}
+    \caption{Domain Model Diagram v8}
+    \label{fig:domain-model-v8}
+\end{figure}
 
 \section{Robustness diagrams}
 This section will show the Robustness diagrams and comment them to provide further detail into the use cases and add structure. The diagrams will be grouped in a similar manner as the use cases in Detailed Use Case Description.
