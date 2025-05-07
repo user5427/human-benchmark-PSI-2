@@ -1,0 +1,160 @@
+\documentclass[aspectratio=169,xcolor=dvipsnames]{beamer}
+\usetheme{SimpleDarkBlue}
+
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{booktabs}
+
+\title{Applying ICONIX Process to Chat System Development}
+\subtitle{Lab 3: Human-Benchmark Enhancement}
+
+\author{Adrian Klimaševski, Arnas Šniokaitis, Darius Spruogis, Tadas Riksas}
+\institute{Vilnius University, Faculty of Mathematics and Informatics}
+\date{}
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+\begin{frame}{Agenda}
+    \tableofcontents
+\end{frame}
+
+%------------------------------
+\section{Introduction}
+%------------------------------
+
+\begin{frame}{Project Goal}
+    \begin{itemize}
+        \item Enhance Human-Benchmark web app with real-time chat capabilities
+        \item Two chat scopes:
+        \begin{itemize}
+            \item \textbf{Global}: All logged-in users
+            \item \textbf{Room}: Participants in active game rooms
+        \end{itemize}
+        \item Implemented using ICONIX process
+    \end{itemize}
+\end{frame}
+
+%------------------------------
+\section{Implementation Options}
+%------------------------------
+
+\begin{frame}{Implementation Strategies}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \textbf{From Scratch}
+        \begin{itemize}
+            \item[+] Full control
+            \item[+] No 3rd-party costs
+            \item[-] High development effort
+        \end{itemize}
+        
+        \column{0.5\textwidth}
+        \textbf{Third-Party (Stream)}
+        \begin{itemize}
+            \item[+] Faster deployment
+            \item[+] Managed infrastructure
+            \item[-] Recurring costs
+        \end{itemize}
+    \end{columns}
+    
+    \vspace{5mm}
+    \centering
+    \textbf{Selected: Custom implementation} for flexibility
+\end{frame}
+
+%------------------------------
+\section{System Design}
+%------------------------------
+
+\begin{frame}{Domain Model Evolution}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/domain6.png}
+    
+    \footnotesize
+    Iterative refinement through UI mockups and use case analysis
+\end{frame}
+
+\begin{frame}{Key UI Components}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \includegraphics[width=\textwidth]{images/UI/cropped/H1.png}
+        
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item Togglable chat panels
+            \item Scope indicators
+            \item Message display area
+            \item Input controls
+        \end{itemize}
+    \end{columns}
+\end{frame}
+
+%------------------------------
+\section{Use Cases}
+%------------------------------
+
+\begin{frame}{Core Functionality}
+    \begin{block}{Send Message}
+        \begin{itemize}
+            \item Basic flow: Compose → Send → Display
+            \item Error cases: Empty/oversized messages, XSS attempts
+        \end{itemize}
+    \end{block}
+    
+    \begin{block}{Chat Management}
+        \begin{itemize}
+            \item Create/join group chats
+            \item Private messaging
+            \item Scope switching
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}{Notification System}
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/SeqDiagrams/ReceiveNotification.png}
+    
+    \begin{itemize}
+        \item Real-time delivery via WebSocket
+        \item Visual and auditory alerts
+        \item Context-aware routing
+    \end{itemize}
+\end{frame}
+
+%------------------------------
+\section{Project Plan}
+%------------------------------
+
+\begin{frame}{Development Timeline}
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/GanttV2.png}
+    
+    \begin{itemize}
+        \item 3 developers (1 FE, 2 full-stack)
+        \item 10-week implementation
+        \item Core features first, then enhancements
+    \end{itemize}
+\end{frame}
+
+%------------------------------
+\section{Conclusion}
+%------------------------------
+
+\begin{frame}{Key Takeaways}
+    \begin{itemize}
+        \item ICONIX process provided structured approach
+        \item Iterative domain model refinement was crucial
+        \item Balance between flexibility and implementation cost
+        \item Comprehensive requirements coverage achieved
+    \end{itemize}
+    
+    \vspace{5mm}
+    \centering
+    \textbf{Q\&A}
+\end{frame}
+
+\end{document}
