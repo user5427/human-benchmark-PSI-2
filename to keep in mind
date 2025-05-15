@@ -1,3 +1,10 @@
+  Who are stakeholders?
+   What are their needs?
+   What viewports we will use and what we will show, what stakeholder needs we will satisfy?
+
+
+
+
 How to Use Viewpoints Effectively ✅
 
 When creating a view (even without a formal viewpoint), always ask:
@@ -72,6 +79,7 @@ The Supporting Cast
 
 
 
+
 Pro Tips for Implementation
 
     Start with Context - Get alignment before diving deep
@@ -81,3 +89,219 @@ Pro Tips for Implementation
     Don't over-document - Focus on what matters for your system
 
     Validate across views - Check for consistency regularly
+
+
+
+
+Security isn’t alone here. Performance, scalability, resilience? These cross-cutting concerns impact all views, not just one.
+
+💡 Key Takeaway: Instead of forcing quality properties into isolated viewpoints, bake them into each relevant view—because great architecture isn’t just about features; it’s about how the whole system holds up under real-world demands.
+
+
+
+
+💡 Why Perspectives Matter
+
+They’re your cheat sheet for:
+✅ Avoiding blind spots – Catch flaws early (e.g., a "perfect" design that’s unusably slow).
+✅ Guiding new architects – Learn best practices fast.
+✅ Standardizing reviews – Checklists ensure nothing slips through.
+📐 How to Use a Perspective (Structured for Success!)
+
+Every perspective follows the same proven template:
+
+    🎯 Applicability
+    Which views does this perspective impact most?
+    (e.g., Evolution → Functional View; Performance → Deployment View)
+
+    ⚠️ Concerns
+    What quality properties are at stake?
+    (e.g., Security = confidentiality, integrity, availability)
+
+    🛠️ Activities
+    Step-by-step: How to apply the perspective.
+
+        Assess current design.
+
+        Identify gaps.
+
+        Implement fixes (using tactics).
+
+    ⚔️ Architectural Tactics
+    Proven strategies to hit quality goals.
+
+        Security: Encryption, rate limiting, zero-trust.
+
+        Performance: Caching, async processing, CDNs.
+
+    🚨 Problems & Pitfalls
+    Classic mistakes (and how to dodge them).
+
+        Example: "Over-encrypting = terrible latency."
+
+    ✔️ Checklists
+    Quick validations:
+
+        "Is auth data hashed?"
+
+        "Are retries handled for transient failures?"
+
+    📚 Further Reading
+    Deep dives for when you need more.
+
+
+
+
+    	Security 🔐	Performance ⚡	Evolution 🔄
+Functional	Auth flows, role-based access	Optimized APIs, caching	Modular design for future features
+Information	Encryption, data ownership	Database indexing, query tuning	Schema versioning
+Concurrency	Rate limiting, thread safety	Lock granularity, async processing	Stateless services
+Deployment	Firewalls, zero-trust	Load balancing, auto-scaling	Immutable infrastructure
+
+(Example: Applying Security to the Information View = Encrypted data + strict access controls.)
+🛠️ Key Steps to Apply Perspectives
+
+    Prioritize
+
+        Not all combos are equally important! Focus on high-risk intersections first (e.g., Security + Deployment for a public cloud app).
+
+        Use a traffic-light system (🔴 High priority, 🟡 Medium, 🟢 Low) in your grid.
+
+    Analyze & Adapt
+
+        For each relevant cell:
+
+            Assess: Does the current design meet quality goals?
+
+            Tactics: Apply proven fixes (e.g., Caching for Performance + Functional View).
+
+            Validate: Test assumptions (e.g., load-test scaled APIs).
+
+    Document Decisions
+
+        Capture trade-offs: "Chose eventual consistency (over strong consistency) to boost Availability in the Information View."
+
+
+
+
+📋 PERSPECTIVE CATALOG (THE BIG 10)
+Perspective	What It Fixes	Killer Question
+🔓 Accessibility	"Can everyone use this?" (WCAG compliance, screen readers)	"Does our UI work with voice commands?"
+🛡️ Availability	"Will it crash on Black Friday?" (failover, backups, redundancy)	*"If AWS us-east-1 burns down, what happens?"*
+💰 Development	"Can we actually build this?" (team skills, budget, tech debt)	"Do we have Python devs for this ML model—or are we screwed?"
+🔄 Evolution	"Will this haunt us in 5 years?" (modular design, API versioning)	"How hard is it to swap Postgres for DynamoDB later?"
+🌍 Internationalization	"Does this offend Tokyo?" (time zones, Unicode, legal quirks)	"Does ‘not now’ translate to ‘ahora no’ or ‘jamás’ in Spanish?"
+📍 Location	"Why is our Sydney user getting 2000ms latency?" (CDNs, data sovereignty)	"Is user data stuck in a GDPR-violating Russian server?"
+⚡ Performance	"Why does checkout take 12 seconds?" (caching, query optimization, async jobs)	"Will this Java monolith handle 10K RPS or melt into a puddle?"
+📜 Regulation	"Will this get us fined $5M?" (GDPR, HIPAA, PCI-DSS)	"Are we really anonymizing data—or just pretending?"
+🔐 Security	"Can a script kiddie steal our DB?" (encryption, RBAC, pentests)	"Is ‘admin123’ still a password in prod?"
+😊 Usability	"Do users hate this?" (UX testing, onboarding flows)	"Why does our ‘simple’ form need 47 clicks?"
+
+
+check page 60 - 61
+
+🔥 WAKE-UP CALL
+
+You can’t boil the ocean. Focus on the 3-5 perspectives that’ll make/break your system—or risk death by "what about-ism".
+
+
+
+
+🔥 Why Perspectives? The Wake-Up Call
+
+    Views tell you what the system is.
+
+    Perspectives ensure it’s fast, secure, and unbreakable.
+
+    Without them: Congrats, you’ve built a functionally correct house of cards.
+
+Example:
+
+    Your Functional View shows a flawless checkout flow.
+
+    Your Performance Perspective reveals it crashes at 100 users. Oops.
+
+
+💡 Perspectives vs. Viewpoints: Clarity in 10 Seconds
+Concept	Role	Output
+Viewpoint	"How to document"	Clean diagrams (e.g., deployment maps)
+Perspective	"How to harden"	Upgraded design (e.g., auto-scaling + encryption)
+
+Key Move: Apply perspectives iteratively—test, tweak, repeat.
+
+
+
+
+🎯 How to Use Perspectives Like a Pro
+
+    Pick Your Battles
+
+        Not all perspectives matter equally. Prioritize:
+
+            E-commerce? Security + Performance + Availability.
+
+            Internal tool? Evolution + Development.
+
+    Stress-Test Your Views
+
+        Security Perspective → Audit Functional View for auth gaps.
+
+        Performance Perspective → Simulate load on Deployment View.
+
+    Document the Wins
+
+        Keep only critical artifacts (threat models, load tests).
+
+        Toss the rest (no one needs 37 drafts of a meeting note).
+
+
+
+
+CHAPTER 5
+
+
+
+TL;DR: What Makes a Great Architect? 🚀
+
+✔ Balances needs (Users, devs, ops, business—everyone.)
+✔ Makes smart trade-offs (No perfect solutions, just smart compromises.)
+✔ Documents clearly (No vague hand-waving!)
+✔ Adapts (Because no two projects are the same.)
+
+
+
+Your job? Bridge the gap!
+✔ Work with analysts to understand & prioritize requirements.
+✔ Flag the hard stuff—explain trade-offs (e.g., "This feature will double dev time—is it worth it?").
+✔ Help find alternatives when requirements clash with reality.
+
+💡 Pro Tip: The best architects don’t just accept requirements—they shape them.
+
+Architecture vs. Design: What’s Your Problem? 🧩
+
+Not every decision needs your attention—only the architecturally significant ones.
+
+What makes something "architecturally significant"?
+🔹 Impacts the whole system’s structure. (Think: microservices vs. monolith.)
+🔹 Affects key qualities like:
+
+    Performance 🚀
+
+    Scalability 📈
+
+    Security 🔒
+
+    Reliability 🛡️
+
+    Evolvability (Can it adapt later?) 🔄
+
+
+
+
+page 69 involment diagram
+
+
+https://www.viewpoints-and-perspectives.info/home/viewpoints/
+
+
+Architecture views, architecture styles and patterns
