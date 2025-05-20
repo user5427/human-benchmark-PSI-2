@@ -1,0 +1,142 @@
+
+
+% ------------------------------------------------------------------------------
+\section{Introduction}
+% ------------------------------------------------------------------------------
+This document provides the Context View for the Human Benchmark system. The purpose of this view is to define the system's boundaries, identify its major external entities (including users and other systems), and describe the primary interactions between the Human Benchmark system and these entities. 
+
+The Context View is crucial for understanding the system's scope and its position within its operational environment. It serves as a high-level map, showing how the Human Benchmark system interfaces with the outside world, without delving into its internal architectural details. This view is intended for a broad audience, including stakeholders, project managers, and development teams, to establish a common understanding of the system's external connections and dependencies.
+
+% ------------------------------------------------------------------------------
+\section{System Overview: Human Benchmark}
+% ------------------------------------------------------------------------------
+The Human Benchmark system is a web application designed to measure, track, and improve users' cognitive and motor skills. It offers various interactive tests and games, such as reaction time tests and reflex challenges. The platform supports both single-player and multiplayer experiences, allowing users to monitor their performance, compete with others, and customize game configurations.
+
+Key functionalities include user registration and authentication, profile management, diverse game modes, real-time multiplayer interactions, score recording, and leaderboards. The system aims to provide an engaging environment for cognitive enhancement.
+
+% ------------------------------------------------------------------------------
+\section{Actors}
+% ------------------------------------------------------------------------------
+Actors are external entities, typically users or roles, that interact directly with the Human Benchmark system. The primary actor identified for this system is:
+
+\begin{itemize}
+    \item \textbf{User}: Individuals who utilize the Human Benchmark system for various purposes, including:
+    \begin{itemize}
+        \item Registering for an account and logging in.
+        \item Participating in single-player cognitive tests (e.g., Reaction Time Test, Reflex Test).
+        \item Creating or joining multiplayer game rooms for live competition.
+        \item Customizing game parameters (difficulty, speed, duration, visibility).
+        \item Viewing personal performance history, scores, and progress.
+        \item Interacting with global and game-specific leaderboards.
+        \item Using the real-time chat system for communication (global, room-specific, private).
+        \item Managing their user profile.
+    \end{itemize}
+\end{itemize}
+While not explicitly detailed as a separate external actor group in the provided documentation, system maintenance and operational oversight would typically be handled by \textbf{System Administrators}. However, from a runtime user-facing perspective, the 'User' is the dominant actor. Some users ('Creators') also have specific controls for game management they've created.
+
+% ------------------------------------------------------------------------------
+\section{External Systems}
+% ------------------------------------------------------------------------------
+External systems are other software or hardware systems that interact with the Human Benchmark system. These are not part of the Human Benchmark system itself but provide essential services or form part of its operational environment.
+
+\begin{itemize}
+    \item \textbf{User's Web Browser / Client Device}: Users access the Human Benchmark system's frontend via web browsers on various devices (desktops, tablets, mobile phones). This is the primary interface for user interaction.
+    \item \textbf{Email Service (Implied)}: Although not explicitly detailed as a separate service, the functionality of user account creation with email and password, secure password hashing, and login functionality implies interaction with an email service for:
+    \begin{itemize}
+        \item Sending account verification emails.
+        \item Facilitating password recovery processes.
+        \item Potentially sending notifications to users.
+    \end{itemize}
+    \item \textbf{CI/CD Systems (GitLab/GitHub Actions)}: These systems (e.g., GitLab, GitHub Actions) are used for continuous integration and continuous deployment pipelines. They interact with the system's codebase and deployment infrastructure (Docker, Kubernetes). While crucial for the development lifecycle, they are primarily part of the development and deployment context rather than the runtime operational context with end-users.
+    \item \textbf{Database Hosting Service (Aiven for PostgreSQL)}: PostgreSQL is used for data persistence. While the database itself is a core component of the system's architecture, the fact that it's hosted on Aiven means Aiven provides the managed infrastructure and operational environment for the database. From a deployment and operations perspective, Aiven acts as an external service provider for the database.
+\end{itemize}
+
+% ------------------------------------------------------------------------------
+\section{System Interactions}
+% ------------------------------------------------------------------------------
+This section describes the primary interactions between the Human Benchmark system and the identified actors and external systems.
+
+\subsection{User Interactions with Human Benchmark System}
+Users interact with the Human Benchmark system via its web interface (React frontend) primarily through:
+\begin{itemize}
+    \item \textbf{HTTP/HTTPS Requests}: For standard web page loading, submitting forms (registration, login, game configurations), and invoking RESTful API endpoints for data retrieval and modification (e.g., fetching scores, user profiles, game settings).
+    \item \textbf{WebSocket Communication}: For real-time features, especially in multiplayer games (live competition, score updates, game state synchronization) and the chat system.
+\end{itemize}
+Key interaction flows include:
+\begin{itemize}
+    \item User Registration and Authentication.
+    \item Game Selection and Configuration.
+    \item Single-player Game Execution and Score Submission.
+    \item Multiplayer Room Creation, Joining, and Gameplay.
+    \item Real-time Chat Messaging.
+    \item Profile Management and Performance Tracking.
+\end{itemize}
+
+\subsection{Human Benchmark System Interactions with Email Service}
+The Human Benchmark system (specifically its backend) interacts with an Email Service to:
+\begin{itemize}
+    \item Send emails containing verification links upon user registration.
+    \item Send emails with password reset instructions when requested by users.
+    % \item Optionally, send other notifications related to system activity or user engagement.
+\end{itemize}
+This interaction is typically outbound from the Human Benchmark system to the Email Service, which then delivers the email to the user.
+
+\subsection{Human Benchmark System Interactions with CI/CD Systems}
+The development team interacts with CI/CD systems, which in turn interact with the Human Benchmark system's codebase and deployment targets:
+\begin{itemize}
+    \item \textbf{Code Repository -> CI/CD System}: Developers push code changes to repositories (e.g., on GitLab/GitHub).
+    \item \textbf{CI/CD System -> Build And Test Environment}: The CI/CD system automatically builds the frontend and backend applications, runs tests.
+    \item \textbf{CI/CD System -> Deployment Environment}: Upon successful build and test, the CI/CD system deploys Docker containers to the hosting environment (potentially managed by Kubernetes).
+\end{itemize}
+
+\subsection{Human Benchmark System Interactions with Database Hosting Service (Aiven)}
+The Human Benchmark backend (ASP.NET Core API with Entity Framework Core) interacts with the PostgreSQL database hosted on Aiven:
+\begin{itemize}
+    \item \textbf{Data Persistence}: Storing and retrieving all persistent data, including user accounts, game configurations, scores, game sessions, and chat messages.
+    \item \textbf{Database Operations}: Performing CRUD (Create, Read, Update, Delete) operations as orchestrated by the application logic.
+\end{itemize}
+This interaction involves network communication between the application servers and the Aiven-managed database service.
+
+% ------------------------------------------------------------------------------
+\section{Context Diagram Description}
+% ------------------------------------------------------------------------------
+A visual context diagram for the Human Benchmark system would typically depict the following:
+
+\begin{enumerate}
+    \item \textbf{Central Entity}: A single box or circle in the center labeled "Human Benchmark System," representing the entire application as a black box.
+    \item \textbf{Actors}:
+    \begin{itemize}
+        \item A stick figure symbol labeled "User" (or "Player") positioned outside the central system boundary, with arrows indicating interaction flows (e.g., game inputs, data requests towards the system, and game feedback, scores, UI updates from the system).
+    \end{itemize}
+    \item \textbf{External Systems}:
+    \begin{itemize}
+        \item A box labeled "User's Web Browser / Client Device" with bidirectional arrows to the "Human Benchmark System" representing HTTP/S and WebSocket traffic.
+        \item A box labeled "Email Service" with an arrow originating from "Human Benchmark System" pointing towards it, indicating "Sends Emails." An arrow might also point from users to this service for receiving said emails.
+        \item Boxes labeled "CI/CD Systems (GitLab/GitHub Actions)" and "Database Hosting Service (Aiven)" might be shown in a more detailed operational context diagram, but for a primary user-centric context, they might be abstracted or grouped under "Operational Infrastructure." For this description, their interactions are noted as important environmental factors.
+    \end{itemize}
+    \item \textbf{Interactions}: Arrows connecting the external entities to the central Human Benchmark system, labeled with the nature of the data or control flow. For example:
+    \begin{itemize}
+        \item User $\leftrightarrow$ Human Benchmark System: "Game Interactions", "Account Management", "Profile Viewing", "Chat Messages".
+        \item Human Benchmark System $\rightarrow$ Email Service: "Notification Emails", "Verification Emails".
+    \end{itemize}
+\end{enumerate}
+This diagram would visually summarize the system's boundary, its environment, and the main channels of interaction with external entities.
+
+% ------------------------------------------------------------------------------
+\section{Concerns Addressed by this View}
+% ------------------------------------------------------------------------------
+The Context View for the Human Benchmark system helps address several stakeholder concerns:
+
+\begin{itemize}
+    \item \textbf{Scope Definition}: Clearly delineates what is part of the Human Benchmark system and what is external, preventing scope creep and ensuring a shared understanding of the system's boundaries.
+    \item \textbf{Identification of External Interfaces}: Highlights all points where the system interacts with the outside world, which is critical for interface design, security considerations, and integration planning.
+    \item \textbf{Stakeholder Communication}: Provides a high-level overview that is easily understandable by diverse stakeholders, including those with non-technical backgrounds.
+    \item \textbf{Dependency Management}: Identifies external systems upon which the Human Benchmark system relies (e.g., Email Service, Aiven), which is important for assessing operational risks and dependencies.
+    \item \textbf{Impact Analysis}: Helps in understanding the potential impact of changes to external systems on the Human Benchmark system, and vice-versa.
+    \item \textbf{User Focus}: Emphasizes the primary users of the system and how they interact with it, ensuring that the system's purpose is aligned with user needs.
+\end{itemize}
+
+% ------------------------------------------------------------------------------
+\section{Conclusion}
+% ------------------------------------------------------------------------------
+The Context View establishes a foundational understanding of the Human Benchmark system by defining its operational environment, its primary users, and its key external interactions. It shows the system as a whole, interacting with actors and other systems to deliver its core functionalities of cognitive and motor skill assessment and enhancement. This high-level perspective is essential for guiding further architectural decisions and ensuring that the system effectively meets stakeholder expectations and integrates smoothly within its intended ecosystem.

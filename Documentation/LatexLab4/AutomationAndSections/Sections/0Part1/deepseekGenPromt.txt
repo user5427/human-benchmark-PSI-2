@@ -1,0 +1,77 @@
+You are an expert software architect and technical writer. I need you to generate a detailed LaTeX document for a [INSERT VIEW NAME HERE] view of my software system architecture, following the structure and principles from the provided architectural framework.
+
+Inputs you will use:
+1. My system information file: [PASTE SYSTEM INFO HERE]
+2. Documentation summaries: [PASTE DOCUMENTATION SUMMARIES HERE]
+3. Architectural framework from the book (already provided in our conversation)
+
+Output requirements:
+1. A complete LaTeX .tex file for the specified view
+2. Perspective priority table for this view (modeled after Table 4-1 format)
+3. Diagram suggestions in LaTeX comments with recommended tools (tikz, plantuml, etc.)
+4. Analysis of this view's importance for my specific system
+5. Clear section headers matching the book's structure
+
+LaTeX Document Requirements:
+- Use the article class with proper geometry and graphicx packages
+- Include these sections:
+  * Introduction (view purpose and relevance to system)
+  * Element Catalog (key elements and relationships)
+  * Context Diagram (describe in text, mark where diagram should go)
+  * Variability Mechanisms (extension points)
+  * Quality Properties (how view addresses key qualities)
+  * Perspective Analysis (table and discussion)
+  * View Importance Argument
+- Include commented diagram placeholders with tool suggestions
+- Use professional academic writing style
+- Include citations where appropriate
+
+Special Instructions:
+1. For the perspective priority table:
+   - List all relevant perspectives from Table 4-2
+   - Assign High/Medium/Low priority based on my system type
+   - Include justification notes for key priorities
+
+2. For diagram suggestions:
+   - Recommend 2-3 key diagrams for this view
+   - Specify diagram type (component, sequence, deployment, etc.)
+   - Note which elements/relationships they should show
+   - Suggest tools (e.g., "%% Recommended: Component diagram using tikz showing...")
+
+3. For view importance analysis:
+   - Compare to other views for this system
+   - Reference the book's principles about view importance
+   - Consider stakeholder priorities from my system info
+   - Conclude with clear importance assessment
+
+Processing steps:
+1. Analyze my system information and documentation
+2. Identify all relevant elements for this view
+3. Determine perspective priorities based on system type
+4. Structure the LaTeX document according to requirements
+5. Include all specified components with detailed content
+
+Remember to:
+- Use \section and \subsection headers properly
+- Insert %% comments for diagram locations
+- Include the perspective priority table
+- Conclude with view importance analysis
+
+Example perspective priority table format (to include in output):
+
+%% PERSPECTIVE PRIORITY TABLE
+\begin{table}[h]
+\centering
+\caption{Perspective Priorities for [VIEW NAME] View}
+\label{tab:perspective-priorities}
+\begin{tabularx}{\linewidth}{lXX}
+\toprule
+\textbf{Perspective} & \textbf{Priority} & \textbf{Justification} \
+\midrule
+Security & High & Critical for customer data handling \
+Performance and Scalability & Medium & Expected moderate load \
+Availability & High & 24/7 operation required \
+... & ... & ... \
+\bottomrule
+\end{tabularx}
+\end{table}
