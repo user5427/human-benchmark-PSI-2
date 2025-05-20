@@ -300,8 +300,35 @@ What makes something "architecturally significant"?
 
 page 69 involment diagram
 
+🔥 Core Responsibilities: What You MUST Do
+1. Define & Own the Vision 🎯
+
+✔ Document scope, context, and constraints—get stakeholder buy-in.
+✔ Identify and engage stakeholders—ensure all voices are heard.
+✔ Make system-level decisions—align tech with business needs.
+2. Be the Ultimate Decision Arbiter ⚖️
+
+✔ Resolve conflicts when stakeholder needs clash.
+✔ Balance tradeoffs (e.g., performance vs. flexibility, security vs. usability).
+✔ Translate technical jargon into business value (and vice versa).
+3. Architect, Document & Lead 📜🚀
+
+✔ Define & document the architecture (AD = your masterpiece).
+✔ Set standards, strategies & guidelines for the build.
+✔ Ensure quality attributes (scalability, security, etc.) are met.
+✔ Own the AD—manage all changes like a boss.
+4. Provide Technical Leadership 👑
+
+✔ Mentor teams to adhere to architectural principles.
+✔ Review designs—keep the system on track.
+✔ Stay hands-on in critical phases (integration, testing).
+
 
 https://www.viewpoints-and-perspectives.info/home/viewpoints/
 
 
-Architecture views, architecture styles and patterns
+Architecture views, architecture styles and patterns, programos pakeitimas, jeigu per sunku, supaprastinti
+
+
+
+
