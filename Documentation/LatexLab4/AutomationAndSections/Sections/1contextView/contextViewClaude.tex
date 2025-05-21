@@ -275,7 +275,7 @@ The hosting infrastructure is critical for the user experience.
     \item \textbf{Interface Type:} Data provider and consumer
     \item \textbf{Purpose:} Persists and retrieves user data, game configurations, scores, and session information
     \item \textbf{Technology:} Entity Framework Core over PostgreSQL
-    
+
 \end{itemize}
 
 \subsubsection{WebSocket Interface}
@@ -286,7 +286,7 @@ The hosting infrastructure is critical for the user experience.
     \item \textbf{Interface Type:} Service provider and consumer, Event provider and consumer
     \item \textbf{Purpose:} Provides real-time communication for multiplayer functionality, game state synchronization, and live updates
     \item \textbf{Technology:} WebSocket protocol over HTTPS
-    
+
 \end{itemize}
 
 \subsubsection{Deployment Interfaces}
@@ -306,13 +306,13 @@ The hosting infrastructure is critical for the user experience.
 % LGTM
 
 \begin{itemize}
-        \item \textbf{Characteristics:}
+    \item \textbf{Characteristics:}
           \begin{itemize}
               \item Highly interactive with real-time feedback
-            % ! \item Responsive design for various screen sizes
+                    % ! \item Responsive design for various screen sizes
               \item Varying latency requirements (extremely low for reaction
-              time tests)
-            % !  \item Automated timing and score calculation
+                    time tests)
+                    % !  \item Automated timing and score calculation
           \end{itemize}
     \item \textbf{Volumes:}
           \begin{itemize}
@@ -381,15 +381,15 @@ The hosting infrastructure is critical for the user experience.
     \item \textbf{Characteristics:}
           \begin{itemize}
               \item Scheduled deployments (idealy durring off-peak hours)
-            %   \item Automated deployment processes
+                    %   \item Automated deployment processes
                     %   !\item Rolling updates to minimize downtime
-            %   \item Containerized environment for consistency
+                    %   \item Containerized environment for consistency
                     %   !\item Automated scaling based on demand
-            %   \item Automated building, testing, and deployment pipeline processes
-            %   \item Manual versioning and database update triggering pipeline processes
-            %   \item Only authorized personnel can trigger deployments
+                    %   \item Automated building, testing, and deployment pipeline processes
+                    %   \item Manual versioning and database update triggering pipeline processes
+                    %   \item Only authorized personnel can trigger deployments
               \item Transactional - all of the stages must be completed successfully before the deployment
-                    is considered successful 
+                    is considered successful
               \item Database login credentials and https certificates must be passed securely
           \end{itemize}
     \item \textbf{Volumes:}
@@ -417,6 +417,8 @@ While the Human Benchmark system has a relatively self-contained architecture, t
 
 \subsection{Impact of the System on Its Environment}
 
+% LGTM
+
 \subsubsection{Load on Client Devices}
 
 The Human Benchmark system, particularly during reaction and reflex tests, requires dedicated focus from the client device's processing capabilities. This may impact:
@@ -427,17 +429,24 @@ The Human Benchmark system, particularly during reaction and reflex tests, requi
     \item Network bandwidth consumption during multiplayer sessions
 \end{itemize}
 
+% LGTM
+
 \subsubsection{Data Storage Requirements}
 
-As the system accumulates user performance data, game configurations, and historical records, it will generate increasing storage requirements over time. Database growth must be monitored and managed.
+With the growth of the user base and the number of custom games, the system will generate a significant amount of data. Database growth must be monitored and managed.
+
+% LGTM
 
 \subsubsection{Infrastructure Scaling Requirements}
 
-The system's real-time nature and potential for viral popularity could lead to sudden surges in demand, requiring dynamic infrastructure scaling capabilities.
+The system is expected to experiance variable loads, especially during peak usage times. System usage must be monitored and scaled accordingly.
 
 \subsection{Overall Completeness, Consistency, and Coherence}
 
-The Human Benchmark system provides an end-to-end solution for cognitive and motor skill assessment, with comprehensive coverage of:
+% ? LGTM
+% ! No clue !
+
+The Human Benchmark system provides a way to improve cognitive and motor skill, with comprehensive coverage of:
 
 \begin{itemize}
     \item User management and authentication
@@ -452,6 +461,9 @@ The context model ensures that all business processes required for a complete co
 \section{Perspective Priorities for the Context View}
 
 The following table outlines the priority of different architectural perspectives for the Context View of Human Benchmark, helping to ensure quality attributes are appropriately addressed:
+% 🔴 🟡 🟢
+
+% LGTM
 
 \begin{table}[h!]
     \centering
@@ -471,7 +483,7 @@ The following table outlines the priority of different architectural perspective
 
         Internationalization               & Medium            & The system's context should account for global accessibility, though detailed internationalization concerns belong in other views.                                                                      \\
 
-        Location                           & Medium            & Geographic distribution of users affects latency considerations for reaction time tests, which must be acknowledged in the context model.                                                               \\
+        Location                           & Medium            & Geographic distribution of users affects latency considerations for reaction time tests, which must be addressed in the context model.                                                                  \\
 
         Performance and Scalability        & High              & Critical for a reaction-time measurement system; context boundaries must account for performance bottlenecks at interfaces and indicate scaling approaches.                                             \\
 
@@ -490,90 +502,141 @@ The following table outlines the priority of different architectural perspective
 
 Applying the Availability and Resilience perspective to the Context View of Human Benchmark reveals several critical considerations:
 
+% ? LGTM
+% ! No clue ! check if it matches with stuff said previously...
+
 \begin{itemize}
-    \item \textbf{Interface Resilience:} The context boundary clearly distinguishes which interfaces require high availability (e.g., user authentication, game sessions) versus those that can tolerate occasional downtime (e.g., leaderboard updates).
+    \item \textbf{Interface Resilience:} The context boundary clearly
+          distinguishes which interfaces require high availability (game sessions,
+          scores).
+          % ! versus those that can tolerate occasional downtime (e.g., leaderboard updates).
 
-    \item \textbf{Dependency Management:} The context model explicitly identifies external dependencies that could affect system availability, such as the database system and hosting infrastructure, with notations about their expected availability characteristics.
+    \item \textbf{Dependency Management:} The context model explicitly
+          identifies external dependencies that could affect system availability, such
+          as the database system and hosting infrastructure
+          % ! , with notations about their expected availability characteristics.
 
-    \item \textbf{Graceful Degradation:} The interface definitions account for scenarios where parts of the system might be unavailable, indicating which features could continue functioning with limited capabilities and which require full connectivity.
+          % ! \item \textbf{Graceful Degradation:} The interface definitions account for scenarios where parts of the system might be unavailable, indicating which features could continue functioning with limited capabilities and which require full connectivity.
 
     \item \textbf{Client-Side Resilience:} The user interface boundary acknowledges potential client-side connectivity issues, with notes about how the system can maintain gameplay integrity despite temporary connection losses.
 \end{itemize}
 
-These considerations shape the context boundaries to ensure stakeholders understand availability requirements and dependencies, which is particularly important for a system focused on performance measurement and competitive gaming.
+These considerations highlight the important context boundaries to ensure
+stakeholders understand availability requirements and dependencies, which is
+very important for a system focused on performance measurement and
+competitive playing.
 
 \subsection{Performance and Scalability Perspective}
 
-The Performance and Scalability perspective significantly influences the Context View for Human Benchmark:
+% LGTM
+
+The Performance and Scalability perspective also influences the Context View for
+Human Benchmark:
 
 \begin{itemize}
-    \item \textbf{Interface Performance Requirements:} The context model explicitly identifies interfaces with stringent performance requirements, particularly the user interfaces for reaction time tests where millisecond precision is essential.
+    \item \textbf{Interface Performance Requirements:} The context model
+    explicitly identifies interfaces with high performance requirements,
+    particularly the user interfaces for reaction time tests where millisecond
+    precision is highly important.
 
-    \item \textbf{Scaling Boundaries:} The view clearly delineates which components need to scale independently (e.g., multiplayer game rooms) versus components that can scale together, informing the high-level system structure.
+    % ! \item \textbf{Scaling Boundaries:} The view clearly shows which components need to scale independently (database or application server especialy during viral surges) versus components that can scale together, informing the high-level system structure.
 
-    \item \textbf{Load Distribution:} The context boundaries account for potential geographic distribution of users and the corresponding need for distributed infrastructure, particularly for minimizing latency in multiplayer scenarios.
+    % ! \item \textbf{Load Distribution:} The context boundaries account for potential geographic distribution of users and the corresponding need for distributed infrastructure, particularly for minimizing latency in multiplayer scenarios.
 
-    \item \textbf{Resource Consumption Patterns:} The system-environment boundary identifies expected resource consumption patterns (CPU, memory, network) for different usage scenarios, providing important context for infrastructure planning.
+    \item \textbf{Resource Consumption Patterns:} The system-environment
+    boundary identifies expected resource consumption patterns during peak
+    hours, providing important context for infrastructure planning.
 \end{itemize}
 
-These considerations are paramount for a cognitive testing platform where performance directly impacts the core value proposition—accurate measurement of human reaction times and cognitive performance.
+These considerations are important for a cognitive testing platform where
+performance directly impacts the core functionality of our web application.
 
 \subsection{Security Perspective}
 
 The Security perspective shapes the Context View in several important ways:
 
+% LGTM
+
 \begin{itemize}
-    \item \textbf{Trust Boundaries:} The context model explicitly identifies trust boundaries between the system and external entities, clarifying where authentication and authorization controls are required.
+    \item \textbf{Trust Boundaries:} The context model explicitly identifies
+    trust boundaries between the system and external entities, clarifying where
+    authentication and authorization controls are required.
 
-    \item \textbf{Data Protection Scope:} The model clearly delineates which external interfaces handle sensitive user data, requiring encryption or other security measures.
+    \item \textbf{Data Protection Scope:} The model shows which external
+    interfaces handle sensitive user data, requiring encryption or other
+    security measures.
 
-    \item \textbf{Authentication Interfaces:} The view specifically highlights the authentication mechanisms and flows at the system boundary, a critical concern for protecting user accounts and score integrity.
+    % ! \item \textbf{Authentication Interfaces:} The view specifically highlights the authentication mechanisms and flows at the system boundary, a critical concern for protecting user accounts and score integrity.
 
-    \item \textbf{Tampering Prevention:} The context boundaries acknowledge potential attack vectors for score manipulation or performance enhancement cheating, informing the need for security controls at specific interfaces.
+    % ! \item \textbf{Tampering Prevention:} The context boundaries acknowledge potential attack vectors for score manipulation or performance enhancement cheating, informing the need for security controls at specific interfaces.
 \end{itemize}
 
-For a competitive cognitive testing platform, security is essential to maintain score integrity and user trust in the fairness of the system, making this perspective highly influential in defining system boundaries.
+For a our platform it is especially important that our users play in a fair
+environment and that their accounts are safe. It is important for us that our
+system stays safe.
 
 \section{Importance and Justification of the Context View for Human Benchmark}
 
 The Context View is of critical importance for the Human Benchmark system for several compelling reasons:
 
+% LGTM
+
 \subsection{Clear System Boundaries}
+
+Human Benchmark's purpose is to provide accurate measurement and comparison of
+cognitive and motor skills. The Context View establishes clear boundaries around
+what constitutes the system, which is essential for. It mainly defines the scope of
+what the system does and what it does not do, claryfies which external factors might influence
+its performance and establishes the boundary between the system's control and external variables.
 
 Human Benchmark's purpose is to provide accurate measurement and comparison of cognitive and motor skills. The Context View establishes clear boundaries around what constitutes the system, which is essential for:
 
-\begin{itemize}
-    \item Defining the scope of measurement responsibility (what the system can and cannot accurately measure)
-    \item Clarifying which external factors might influence measurement accuracy (browser differences, network latency)
-    \item Establishing the boundary between the system's control and external variables
-\end{itemize}
+% \begin{itemize}
+%     \item Defining the scope of measurement responsibility (what the system can and cannot accurately measure)
+%     \item Clarifying which external factors might influence measurement accuracy (browser differences, network latency)
+%     \item Establishing the boundary between the system's control and external variables
+% \end{itemize}
 
-This clarity is particularly important for a cognitive testing platform where scientific accuracy depends on understanding system limitations.
+% ! This clarity is particularly important for a cognitive testing platform where scientific accuracy depends on understanding system limitations.
+
+% LGTM
 
 \subsection{Interface Requirements Critical to Core Functionality}
 
-The system's core value proposition—accurate measurement of reaction times and cognitive performance—directly depends on interface characteristics:
+The system's functionality basically relies on the interface characteristics. 
+Mainly the precise timing of the interfaces (websockets) for accurate reaction
+time measurement and the integrity of score recording interfaces. 
 
-\begin{itemize}
-    \item Precise timing interfaces are required at the millisecond level for accurate reaction time measurement
-    \item Real-time multiplayer interfaces must ensure fairness in competitive scenarios
-    \item Score recording interfaces must maintain integrity and prevent manipulation
-\end{itemize}
+% \begin{itemize}
+%     \item Precise timing interfaces are required at the millisecond level for
+%     accurate reaction time measurement
+%     \item Real-time multiplayer interfaces must ensure fairness in competitive
+%     scenarios
+%     \item Score recording interfaces must maintain integrity and prevent
+%     manipulation
+% \end{itemize}
 
-By focusing stakeholder attention on these boundary concerns early, the Context View ensures the architectural foundations support the system's fundamental purpose.
+By focusing stakeholder attention on these boundary concerns early, the Context
+View ensures the architectural foundations support the system's fundamental
+purpose.
+
+% LGTM gud enough
 
 \subsection{External Dependency Management}
 
-The success of Human Benchmark depends on managing several critical external dependencies:
+The success of Human Benchmark depends on managing several critical external dependencies.
+We need to ensure that our web app runs smoothly on different
+browsers, network conditions, and that our databases performance is 
+adequate for leaderboard functionality. We may also need to ensure
+that our infrastructure can scale to handle load during popularity spikes.
 
-\begin{itemize}
-    \item Browser capabilities for timing precision
-    \item Network conditions for multiplayer fairness
-    \item Database performance for leaderboard functionality
-    \item Infrastructure scaling for load management during popularity spikes
-\end{itemize}
 
 The Context View makes these dependencies explicit, allowing stakeholders to assess risks and plan mitigations early in the development process.
+
+
+
+
+
 
 \subsection{Stakeholder Alignment}
 
