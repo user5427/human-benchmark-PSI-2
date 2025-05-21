@@ -19,15 +19,29 @@
 
 \section{Introduction to the Context View}
 
-The Context View for the Human Benchmark system defines the system's environment, establishing its boundaries and identifying all external entities with which the system interacts. This view treats the system as a "black box" while describing its relationships with surrounding elements in the broader context.
-
-This architectural view follows the Context Viewpoint definition from software architecture literature, which aims to document system scope, responsibilities, and external interactions. It provides a high-level understanding of the system's purpose and interfaces without delving into internal architectural details.
-
-The Context View serves as an essential foundation for the complete architectural description, providing critical information about the system's scope and external dependencies. It is particularly valuable for establishing system boundaries and managing stakeholder expectations about what is included and excluded from the system scope.
+The Context View for the Human Benchmark system defines
+the system's environment, establishing its boundaries
+and identifying all external entities with which the system
+interacts. This view treats the system as a "black box"
+while describing its relationships with surrounding elements
+in the broader context.
+% LGTM
+This architectural view follows the Context Viewpoint definition from software
+architecture literature, which aims to document system scope, responsibilities,
+and external interactions. It provides a high-level understanding of the
+system's purpose and interfaces without delving into internal architectural
+details.
+% LGTM
+The Context View serves as an essential foundation for the complete
+architectural description, providing critical information about the system's
+scope and external dependencies. It is particularly valuable for establishing
+system boundaries and managing stakeholder expectations about what is included
+and excluded from the system scope.
 
 \subsection{Primary Stakeholders}
 
 The primary stakeholders for this Context View are:
+% LGTM
 
 \begin{itemize}
     \item \textbf{Acquirers}: Those funding and making decisions about the system's development, who need to understand system scope and external dependencies.
@@ -49,6 +63,8 @@ The Human Benchmark system is a comprehensive web application designed to measur
 
 The Human Benchmark system provides the following key capabilities:
 
+% LGTM
+
 \begin{itemize}
     \item User registration and authentication with secure password management
     \item Personal user profiles with performance tracking and history
@@ -65,13 +81,19 @@ The Human Benchmark system provides the following key capabilities:
 
 The following capabilities are explicitly excluded from the current scope of the Human Benchmark system:
 
+% LGTM
+
 \begin{itemize}
-    \item Integration with external AI training systems
-    \item Direct monetization or payment processing functionality
-    \item Third-party authentication providers (e.g., OAuth, social media login)
+    % ! \item Integration with external AI training systems
+    \item revenue generation or payment processing functionality (the system is
+    currently in a bootstrapping phase, where initial operations are funded by
+    saved capital or investment rather than immediate profits) % ! or payment
+    processing functionality
+    \item Third-party authentication providers (currently using email/password
+    authentication)
     \item Mobile application versions (current focus is web-based)
-    \item Offline functionality (system requires network connectivity)
-    \item Integration with external health or cognitive assessment platforms
+    % ! \item Offline functionality (system requires network connectivity)
+    % ! \item Integration with external health or cognitive assessment platforms
 \end{itemize}
 
 \subsection{External Entities and Services}
@@ -80,44 +102,73 @@ The following capabilities are explicitly excluded from the current scope of the
 % SUGGESTED_TYPE: Custom block diagram (informal boxes-and-lines notation)
 % KEY_ELEMENTS_TO_DEPICT: Human Benchmark System (center), Users (Players, Administrators), Client Devices, Web Browsers, Database System, CI/CD Pipeline, Hosting Infrastructure
 \begin{figure}[h!]
-\centering
-% \includegraphics[width=0.9\textwidth]{images/placeholder_diagram_for_context_view_system_context.png}
-\caption{Illustrative Diagram: Human Benchmark System Context Model (Conceptual Placeholder)}
-\label{fig:context_system_overview}
-\textit{Comment: This diagram should illustrate the Human Benchmark system as a black box in the center with all external entities arranged around it, showing interaction directions.}
+    \centering
+    % \includegraphics[width=0.9\textwidth]{images/placeholder_diagram_for_context_view_system_context.png}
+    \caption{Illustrative Diagram: Human Benchmark System Context Model (Conceptual Placeholder)}
+    \label{fig:context_system_overview}
+    \textit{Comment: This diagram should illustrate the Human Benchmark system as a black box in the center with all external entities arranged around it, showing interaction directions.}
 \end{figure}
 
 \subsubsection{Users and Roles}
 
 \begin{itemize}
-    \item \textbf{Players} - Primary users who access the system to play games, track performance, and compete with others. They interact with the system through web browsers on various devices.
-    
-    \item \textbf{Administrators} - System operators who manage user accounts, monitor system usage, and maintain operational status. They interact with the system through dedicated administrative interfaces.
-    
-    \item \textbf{Game Creators} - A subset of users who create custom game configurations for themselves or other users. They need interfaces to define game parameters and access controls.
+    \item \textbf{Players} - Primary users who access the system to play games,
+    track performance, and compete with others. They interact with the system
+    through web browsers.
+
+    % ! \item \textbf{Administrators} - System operators who manage user
+    % ! accounts, monitor system usage, and maintain operational status. They
+    % ! interact with the system through dedicated administrative interfaces.
+
+    \item \textbf{Game Creators} - A subset of users who create custom game
+    configurations for themselves or other users. They need interfaces to define
+    game parameters and game access settings.
 \end{itemize}
 
 \subsubsection{External Systems}
 
+% LGTM
+
 \begin{itemize}
-    \item \textbf{Client Devices} - Various hardware devices (desktops, laptops, tablets) that users use to access the system. These vary in screen size, processing power, and input capabilities, affecting the user experience.
-    
-    \item \textbf{Web Browsers} - Different browsers through which users access the system. Browser compatibility and capabilities influence the system's presentation layer.
-    
-    \item \textbf{Database System (PostgreSQL)} - External database system for persistent storage of user data, game configurations, scores, and session information.
-    
-    \item \textbf{CI/CD Pipeline} - External build and deployment systems (GitLab/GitHub Actions) that automate the testing and deployment of new system versions.
-    
-    \item \textbf{Containerization Platform (Docker)} - External platform for packaging and distributing the system components.
-    
-    \item \textbf{Container Orchestration (Kubernetes)} - External system managing deployment, scaling, and operations of application containers.
-    
-    \item \textbf{Hosting Infrastructure} - Virtual machines, networking, and storage systems where the application is deployed and runs.
+    \item \textbf{Client Devices} - Various hardware devices (desktops, laptops,
+    tablets) that users use to access the system. These vary in screen size,
+    processing power, and input capabilities, affecting the user experience.
+
+    \item \textbf{Web Browsers} - Different browsers through which users access
+    the system. Browser compatibility and capabilities influence the system's
+    presentation layer.
+
+    \item \textbf{Database System (PostgreSQL)} - External database system for
+    persistent storage of user data, game configurations, scores, and session
+    information.
+
+    \item \textbf{CI/CD Pipeline} - External build and deployment systems
+    (GitLab Actions) that automate the building, testing, versioning, database
+    updating and deployment of new system versions. The pipeline is executed by
+    runner on MIF OpenNebula virtual machine.
+
+    \item \textbf{Containerization Platform (Docker)} - External platform for
+    packaging and distributing the system components. (In our case, it is done
+    on the MIF OpenNebula virtual machine)
+
+    % ! \item \textbf{Container Orchestration (Kubernetes)} - External system
+    % ! anaging deployment, scaling, and operations of application containers.
+
+    \item \textbf{Hosting Infrastructure (MIF OpenNebula)} - Virtual machine
+    where CI/CD runner executes, the docker containers are deployed and the system
+    is hosted. 
+
 \end{itemize}
 
 \subsection{Nature and Characteristics of External Entities}
 
 \subsubsection{Client Devices and Browsers}
+
+% The quality properties of external entities, such as system stability and
+% availability, performance and throughput capabilities, physical location, or
+% data quality, may significantly affect the architecture of the system.
+
+% LGTM
 
 \begin{itemize}
     \item \textbf{Availability:} Variable - devices can disconnect at any time
@@ -126,85 +177,138 @@ The following capabilities are explicitly excluded from the current scope of the
     \item \textbf{Location:} Geographically distributed - potentially worldwide
 \end{itemize}
 
-These characteristics influence the system's design to ensure responsive UI across diverse devices and graceful handling of connectivity issues. The system must optimize content delivery for varying network conditions and device capabilities.
+These properties influence the system's design to ensure responsive UI across
+different devices and good handling of connectivity issues. The system must be
+well optimized for content delivery accros various network conditions and
+devices.
 
 \subsubsection{Database System}
 
+% LGTM
+
 \begin{itemize}
     \item \textbf{Availability:} High - critical for system operation
-    \item \textbf{Performance:} Stable - should handle expected transaction volumes
+    \item \textbf{stability:} High - should be resilient to failures
+    \item \textbf{Throughput capabilities:} Medium - moderate read/write operations
     \item \textbf{Data Quality:} High - enforced through database constraints
-    \item \textbf{Location:} Co-located with application servers
+    \item \textbf{Location:} Different from the application server - hosted on a cloud provider
 \end{itemize}
 
-The database system provides essential data persistence services. Its reliability directly impacts the system's overall availability, and its performance can become a bottleneck during high concurrent usage periods.
+The database system provides essential data services. Its
+reliability directly impacts the system's overall availability, and its
+performance can become a bottleneck during high concurrent usage periods.
 
 \subsubsection{CI/CD Pipeline and Infrastructure Components}
 
+% LGTM
+
 \begin{itemize}
-    \item \textbf{Availability:} High for production infrastructure, medium for CI/CD (not critical for runtime)
-    \item \textbf{Performance:} Medium - affects deployment speed but not runtime performance
-    \item \textbf{Location:} Typically cloud-based, geographically separate from production systems
+    \item \textbf{Availability:} Medium - should be available for deployment and testing
+    \item \textbf{Performance:} Medium - application and CI/CD pipeline runs on one virtual machine. These must not interfere with each other.
+    \item \textbf{Location:} Same as the application server - hosted on a MIF OpenNebula virtual machine
 \end{itemize}
 
 These systems enable rapid and reliable deployment of application updates but are not directly involved in runtime operations except during deployment events.
+
+\subsubsection{Hosting Infrastructure}
+% LGTM
+
+\begin{itemize}
+    \item \textbf{Availability:} High - critical for game sessions and user interactions
+    \item \textbf{Performance:} Medium - should support expected load
+    \item \textbf{Scalability:} Low - should support +20 concurrent users
+    \item \textbf{Security:} High - must protect sensitive user data and system (database) login credentials must be stored securely
+    \item \textbf{Location:} hosted on a MIF OpenNebula virtual machine
+\end{itemize}
+
+The hosting infrastructure is critical for the user experience.
 
 \subsection{External Interfaces}
 
 \subsubsection{User Interface}
 
+% Identity and Responsibilities of External Interfaces
+% For each external entity, the nature of all interfaces between it and this sys-
+% tem should be identified. Such an interface may serve one of the following
+% purposes.
+% Data provider or consumer: The external system supplies data directly to
+% this system or receives data directly from it.
+% Service provider or consumer: The external system is requested to per-
+% form some action by this system or requests some action of this system
+% (e.g., a service call), and the service may return data and/or status infor-
+% mation in response to the request.
+% Event provider or consumer: The external system publishes events that
+% this system wishes to be notified of, or this system publishes events that
+% the external system wishes to be notified of.
+
+% * CHECK PAGE 251 for more details on the interface types
+
+% LGTM
+
 \begin{itemize}
     \item \textbf{Interface Type:} Service provider (interactive web UI)
-    \item \textbf{Purpose:} Allows users to interact with the system to register, authenticate, configure games, play games, view scores, and manage profiles
+    \item \textbf{Purpose:} Allows users to interact with the system to
+    register, authenticate, configure games, play games, view scores, and manage
+    profiles
     \item \textbf{Technology:} HTTPS, WebSockets for real-time communication
     \item \textbf{Characteristics:}
-    \begin{itemize}
-        \item Highly interactive with real-time feedback
-        \item Responsive design for various screen sizes
-        \item Varying latency requirements (extremely low for reaction time tests)
-        \item Automated timing and score calculation
-    \end{itemize}
+          \begin{itemize}
+              \item Highly interactive with real-time feedback
+              \item Responsive design for various screen sizes
+              \item Varying latency requirements (extremely low for reaction
+              time tests)
+            % !  \item Automated timing and score calculation
+          \end{itemize}
 \end{itemize}
 
+% !!! do not trust this blindly, check the original document
 % TODO: DIAGRAM - Sequence diagram showing interaction between user and system for a typical game session
 % SUGGESTED_TYPE: UML Sequence Diagram
 % KEY_ELEMENTS_TO_DEPICT: User, Web Client, Human Benchmark Backend, Database, including authentication, game selection, game play, and score recording
 \begin{figure}[h!]
-\centering
-% \includegraphics[width=0.9\textwidth]{images/placeholder_diagram_for_context_view_user_interaction.png}
-\caption{Illustrative Diagram: User Interaction Sequence for Game Session (Conceptual Placeholder)}
-\label{fig:context_user_interaction}
-\textit{Comment: This diagram should illustrate the sequence of interactions between a user and the Human Benchmark system throughout a typical gaming session.}
+    \centering
+    % \includegraphics[width=0.9\textwidth]{images/placeholder_diagram_for_context_view_user_interaction.png}
+    \caption{Illustrative Diagram: User Interaction Sequence for Game Session (Conceptual Placeholder)}
+    \label{fig:context_user_interaction}
+    \textit{Comment: This diagram should illustrate the sequence of interactions
+    between a user and the Human Benchmark system throughout a typical gaming
+    session.}
 \end{figure}
 
 \subsubsection{Database Interface}
+
+% LGTM
 
 \begin{itemize}
     \item \textbf{Interface Type:} Data provider and consumer
     \item \textbf{Purpose:} Persists and retrieves user data, game configurations, scores, and session information
     \item \textbf{Technology:} Entity Framework Core over PostgreSQL
     \item \textbf{Characteristics:}
-    \begin{itemize}
-        \item Moderate to high volume of read operations (score queries)
-        \item Moderate volume of write operations (new scores, user registrations)
-        \item High reliability requirements (data integrity critical)
-        \item Transactional requirements for score recording and user management
-    \end{itemize}
+          \begin{itemize}
+              \item Moderate volume of read operations (score queries)
+              \item Moderate volume of write operations (new scores, user registrations)
+              \item High reliability requirements (data integrity critical)
+              \item Transactional requirements for score recording and user management
+              \item User password hashing and salting for security
+          \end{itemize}
 \end{itemize}
 
 \subsubsection{WebSocket Interface}
+
+% LGTM
 
 \begin{itemize}
     \item \textbf{Interface Type:} Service provider and consumer, Event provider and consumer
     \item \textbf{Purpose:} Provides real-time communication for multiplayer functionality, game state synchronization, and live updates
     \item \textbf{Technology:} WebSocket protocol over HTTPS
     \item \textbf{Characteristics:}
-    \begin{itemize}
-        \item Low-latency, bidirectional communication
-        \item Event-driven interaction model
-        \item Varying connection stability (dependent on user network conditions)
-        \item Scaling challenges with high concurrent user counts
-    \end{itemize}
+          \begin{itemize}
+              \item Bidirectional communication
+              \item Event-driven interaction model
+              \item Varying connection stability (dependent on user network conditions)
+              \item Scaling challenges with high concurrent user counts
+              \item Important for real-time game state updates
+          \end{itemize}
 \end{itemize}
 
 \subsubsection{Deployment Interfaces}
@@ -214,12 +318,12 @@ These systems enable rapid and reliable deployment of application updates but ar
     \item \textbf{Purpose:} Handles application deployment and updates
     \item \textbf{Technology:} Docker containers, Kubernetes API
     \item \textbf{Characteristics:}
-    \begin{itemize}
-        \item Scheduled automated deployments
-        \item Rolling updates to minimize downtime
-        \item Containerized environment for consistency
-        \item Automated scaling based on demand
-    \end{itemize}
+          \begin{itemize}
+              \item Scheduled automated deployments
+              \item Rolling updates to minimize downtime
+              \item Containerized environment for consistency
+              \item Automated scaling based on demand
+          \end{itemize}
 \end{itemize}
 
 \subsection{Nature and Characteristics of External Interfaces}
@@ -227,12 +331,12 @@ These systems enable rapid and reliable deployment of application updates but ar
 \subsubsection{User Interface Characteristics}
 
 \begin{itemize}
-    \item \textbf{Volumes:} 
-    \begin{itemize}
-        \item Peak concurrent users: Several hundred to several thousand
-        \item Data size: Generally small payloads for game interactions
-        \item Growth: Expected linear growth with user base expansion
-    \end{itemize}
+    \item \textbf{Volumes:}
+          \begin{itemize}
+              \item Peak concurrent users: Several hundred to several thousand
+              \item Data size: Generally small payloads for game interactions
+              \item Growth: Expected linear growth with user base expansion
+          \end{itemize}
     \item \textbf{Interaction Triggers:} Event-driven (user actions)
     \item \textbf{Automation Level:} Semi-automated (user initiates, system processes)
     \item \textbf{Criticality:} High for reaction time tests (millisecond precision required)
@@ -242,11 +346,11 @@ These systems enable rapid and reliable deployment of application updates but ar
 
 \begin{itemize}
     \item \textbf{Volumes:}
-    \begin{itemize}
-        \item User data: Thousands to millions of records
-        \item Game sessions: Potentially millions of records
-        \item Score data: Highest volume, growing continuously
-    \end{itemize}
+          \begin{itemize}
+              \item User data: Thousands to millions of records
+              \item Game sessions: Potentially millions of records
+              \item Score data: Highest volume, growing continuously
+          \end{itemize}
     \item \textbf{Interaction Triggers:} Mix of event-driven (user actions) and scheduled (aggregation, cleanup)
     \item \textbf{Automation Level:} Fully automated
     \item \textbf{Transactionality:} ACID compliance required for critical operations
@@ -256,11 +360,11 @@ These systems enable rapid and reliable deployment of application updates but ar
 
 \begin{itemize}
     \item \textbf{Volumes:}
-    \begin{itemize}
-        \item Connection count: Equal to active multiplayer users
-        \item Message frequency: High during active games (multiple per second)
-        \item Message size: Small (typically < 1KB per message)
-    \end{itemize}
+          \begin{itemize}
+              \item Connection count: Equal to active multiplayer users
+              \item Message frequency: High during active games (multiple per second)
+              \item Message size: Small (typically < 1KB per message)
+          \end{itemize}
     \item \textbf{Interaction Triggers:} Real-time events (user actions, game state changes)
     \item \textbf{Automation Level:} Fully automated
     \item \textbf{Criticality:} High for competitive gameplay (low latency required)
@@ -272,9 +376,9 @@ While the Human Benchmark system has a relatively self-contained architecture, t
 
 \begin{itemize}
     \item \textbf{Browser Feature Dependencies:} The system relies on modern browser capabilities for precise timing measurements. Older browsers may not support the required APIs, potentially affecting reaction time test accuracy.
-    
+
     \item \textbf{Network Quality Dependencies:} Multiplayer functionality and real-time features depend on stable network connections. Network latency directly impacts the fairness of competitive gameplay, especially for reaction time tests.
-    
+
     \item \textbf{Database Replication Dependencies:} For high availability configurations, database replication introduces potential consistency challenges that must be managed, particularly for leaderboard systems.
 \end{itemize}
 
@@ -317,34 +421,34 @@ The context model ensures that all business processes required for a complete co
 The following table outlines the priority of different architectural perspectives for the Context View of Human Benchmark, helping to ensure quality attributes are appropriately addressed:
 
 \begin{table}[h!]
-\centering
-\caption{Perspective Priorities for the Context View of Human Benchmark}
-\label{tab:perspective_priorities_context}
-\begin{tabular}{p{0.3\textwidth}p{0.15\textwidth}p{0.45\textwidth}}
-% \toprule
-\textbf{Architectural Perspective} & \textbf{Priority} & \textbf{Rationale for Human Benchmark within this View} \\
-% \midrule
-Accessibility & Medium & The Context View must identify user interfaces where accessibility is a concern, particularly as the system aims to be widely usable, but detailed accessibility features are addressed in other views. \\
+    \centering
+    \caption{Perspective Priorities for the Context View of Human Benchmark}
+    \label{tab:perspective_priorities_context}
+    \begin{tabular}{p{0.3\textwidth}p{0.15\textwidth}p{0.45\textwidth}}
+        % \toprule
+        \textbf{Architectural Perspective} & \textbf{Priority} & \textbf{Rationale for Human Benchmark within this View}                                                                                                                                                 \\
+        % \midrule
+        Accessibility                      & Medium            & The Context View must identify user interfaces where accessibility is a concern, particularly as the system aims to be widely usable, but detailed accessibility features are addressed in other views. \\
 
-Availability and Resilience & High & Critical to identify external dependencies that could affect system availability, especially for multiplayer functionality and competition features which require consistent uptime. \\
+        Availability and Resilience        & High              & Critical to identify external dependencies that could affect system availability, especially for multiplayer functionality and competition features which require consistent uptime.                    \\
 
-Development Resource & Low & While resource constraints exist, they have minimal impact on the Context View's representation of external interfaces. \\
+        Development Resource               & Low               & While resource constraints exist, they have minimal impact on the Context View's representation of external interfaces.                                                                                 \\
 
-Evolution & Medium & The context boundaries should anticipate future expansion of game types and potential integrations with external systems. \\
+        Evolution                          & Medium            & The context boundaries should anticipate future expansion of game types and potential integrations with external systems.                                                                               \\
 
-Internationalization & Medium & The system's context should account for global accessibility, though detailed internationalization concerns belong in other views. \\
+        Internationalization               & Medium            & The system's context should account for global accessibility, though detailed internationalization concerns belong in other views.                                                                      \\
 
-Location & Medium & Geographic distribution of users affects latency considerations for reaction time tests, which must be acknowledged in the context model. \\
+        Location                           & Medium            & Geographic distribution of users affects latency considerations for reaction time tests, which must be acknowledged in the context model.                                                               \\
 
-Performance and Scalability & High & Critical for a reaction-time measurement system; context boundaries must account for performance bottlenecks at interfaces and indicate scaling approaches. \\
+        Performance and Scalability        & High              & Critical for a reaction-time measurement system; context boundaries must account for performance bottlenecks at interfaces and indicate scaling approaches.                                             \\
 
-Regulation & Low & Limited regulatory concerns for a gaming/cognitive assessment platform in the current scope. \\
+        Regulation                         & Low               & Limited regulatory concerns for a gaming/cognitive assessment platform in the current scope.                                                                                                            \\
 
-Security & High & The context boundaries must clearly define trust boundaries and authentication/authorization requirements for protecting user data and game integrity. \\
+        Security                           & High              & The context boundaries must clearly define trust boundaries and authentication/authorization requirements for protecting user data and game integrity.                                                  \\
 
-Usability & Medium & While important for the system overall, detailed usability concerns are primarily addressed in other views beyond high-level interface identification in the context model. \\
-% \bottomrule
-\end{tabular}
+        Usability                          & Medium            & While important for the system overall, detailed usability concerns are primarily addressed in other views beyond high-level interface identification in the context model.                             \\
+        % \bottomrule
+    \end{tabular}
 \end{table}
 
 \section{Impact of Key Perspectives on the Context View}
@@ -355,11 +459,11 @@ Applying the Availability and Resilience perspective to the Context View of Huma
 
 \begin{itemize}
     \item \textbf{Interface Resilience:} The context boundary clearly distinguishes which interfaces require high availability (e.g., user authentication, game sessions) versus those that can tolerate occasional downtime (e.g., leaderboard updates).
-    
+
     \item \textbf{Dependency Management:} The context model explicitly identifies external dependencies that could affect system availability, such as the database system and hosting infrastructure, with notations about their expected availability characteristics.
-    
+
     \item \textbf{Graceful Degradation:} The interface definitions account for scenarios where parts of the system might be unavailable, indicating which features could continue functioning with limited capabilities and which require full connectivity.
-    
+
     \item \textbf{Client-Side Resilience:} The user interface boundary acknowledges potential client-side connectivity issues, with notes about how the system can maintain gameplay integrity despite temporary connection losses.
 \end{itemize}
 
@@ -371,11 +475,11 @@ The Performance and Scalability perspective significantly influences the Context
 
 \begin{itemize}
     \item \textbf{Interface Performance Requirements:} The context model explicitly identifies interfaces with stringent performance requirements, particularly the user interfaces for reaction time tests where millisecond precision is essential.
-    
+
     \item \textbf{Scaling Boundaries:} The view clearly delineates which components need to scale independently (e.g., multiplayer game rooms) versus components that can scale together, informing the high-level system structure.
-    
+
     \item \textbf{Load Distribution:} The context boundaries account for potential geographic distribution of users and the corresponding need for distributed infrastructure, particularly for minimizing latency in multiplayer scenarios.
-    
+
     \item \textbf{Resource Consumption Patterns:} The system-environment boundary identifies expected resource consumption patterns (CPU, memory, network) for different usage scenarios, providing important context for infrastructure planning.
 \end{itemize}
 
@@ -387,11 +491,11 @@ The Security perspective shapes the Context View in several important ways:
 
 \begin{itemize}
     \item \textbf{Trust Boundaries:} The context model explicitly identifies trust boundaries between the system and external entities, clarifying where authentication and authorization controls are required.
-    
+
     \item \textbf{Data Protection Scope:} The model clearly delineates which external interfaces handle sensitive user data, requiring encryption or other security measures.
-    
+
     \item \textbf{Authentication Interfaces:} The view specifically highlights the authentication mechanisms and flows at the system boundary, a critical concern for protecting user accounts and score integrity.
-    
+
     \item \textbf{Tampering Prevention:} The context boundaries acknowledge potential attack vectors for score manipulation or performance enhancement cheating, informing the need for security controls at specific interfaces.
 \end{itemize}
 
@@ -468,11 +572,11 @@ The Context View of the Human Benchmark system must maintain consistency with ot
 
 \begin{itemize}
     \item \textbf{Functional View Consistency:} The functional elements identified in the Functional View must align with the external interfaces defined in the Context View. For example, the real-time multiplayer functionality identified in the Functional View must correspond to the WebSocket interface defined in the Context View.
-    
+
     \item \textbf{Information View Consistency:} The data flows crossing system boundaries in the Context View must be reflected in the Information View's data models and flows. For instance, the user profile information mentioned in the Context View should be consistently modeled in the Information View.
-    
+
     \item \textbf{Deployment View Consistency:} The external systems identified in the Context View (such as the PostgreSQL database and Docker containerization) must be consistently represented in the Deployment View's physical architecture.
-    
+
     \item \textbf{Development View Consistency:} The interface technologies mentioned in the Context View (such as WebSockets for real-time communication) should be consistently reflected in the module organization and dependencies described in the Development View.
 \end{itemize}
 

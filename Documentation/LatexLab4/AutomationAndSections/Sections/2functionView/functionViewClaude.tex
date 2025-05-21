@@ -43,11 +43,11 @@ The Human Benchmark system is designed to provide interactive cognitive tests wh
 % KEY_ELEMENTS_TO_DEPICT: User Management, Game System, Game Configuration, Multiplayer System, Score and Leaderboard System, and Real-time Communication System with their primary interfaces
 % STAKEHOLDER_FOCUS: All stakeholders to understand the overall system structure
 \begin{figure}[h!]
-\centering
-% \includegraphics[width=0.9\textwidth]{images/functional_view_overview.png}
-\caption{Illustrative Diagram: High-level Functional Structure of Human Benchmark System (Conceptual Placeholder)}
-\label{fig:functional_overview}
-\textit{Comment: This diagram should illustrate the key functional elements and their primary interactions.}
+    \centering
+    % \includegraphics[width=0.9\textwidth]{images/functional_view_overview.png}
+    \caption{Illustrative Diagram: High-level Functional Structure of Human Benchmark System (Conceptual Placeholder)}
+    \label{fig:functional_overview}
+    \textit{Comment: This diagram should illustrate the key functional elements and their primary interactions.}
 \end{figure}
 
 \subsection{Functional Elements and Responsibilities}
@@ -212,11 +212,11 @@ Used for account verification, password resets, and notifications.
 % KEY_ELEMENTS_TO_DEPICT: Human Benchmark System boundary, Web Browsers, Email System, possible APIs for social media integration
 % STAKEHOLDER_FOCUS: Developers and system administrators to understand external dependencies
 \begin{figure}[h!]
-\centering
-% \includegraphics[width=0.8\textwidth]{images/external_interfaces.png}
-\caption{Illustrative Diagram: Human Benchmark System External Interfaces (Conceptual Placeholder)}
-\label{fig:external_interfaces}
-\textit{Comment: This diagram should illustrate the system boundary and all external entities with which the system interacts.}
+    \centering
+    % \includegraphics[width=0.8\textwidth]{images/external_interfaces.png}
+    \caption{Illustrative Diagram: Human Benchmark System External Interfaces (Conceptual Placeholder)}
+    \label{fig:external_interfaces}
+    \textit{Comment: This diagram should illustrate the system boundary and all external entities with which the system interacts.}
 \end{figure}
 
 \subsection{Key Interactions and Scenarios}
@@ -240,11 +240,11 @@ This scenario describes how the functional elements interact during a single-pla
 % KEY_ELEMENTS_TO_DEPICT: User, User Management, Game Configuration, Game System, Score and Leaderboard System
 % STAKEHOLDER_FOCUS: Developers to understand the flow of operations
 \begin{figure}[h!]
-\centering
-% \includegraphics[width=0.9\textwidth]{images/single_player_sequence.png}
-\caption{Illustrative Diagram: Sequence of Interactions for Single-Player Game Session (Conceptual Placeholder)}
-\label{fig:single_player_sequence}
-\textit{Comment: This diagram should illustrate the sequence of interactions between functional elements during a single-player game session.}
+    \centering
+    % \includegraphics[width=0.9\textwidth]{images/single_player_sequence.png}
+    \caption{Illustrative Diagram: Sequence of Interactions for Single-Player Game Session (Conceptual Placeholder)}
+    \label{fig:single_player_sequence}
+    \textit{Comment: This diagram should illustrate the sequence of interactions between functional elements during a single-player game session.}
 \end{figure}
 
 \subsubsection{Multiplayer Game Creation and Execution}
@@ -268,11 +268,11 @@ This scenario describes how functional elements interact during a multiplayer se
 % KEY_ELEMENTS_TO_DEPICT: Host User, Participant Users, User Management, Multiplayer System, Game Configuration, Game System, Real-time Communication System, Score and Leaderboard System
 % STAKEHOLDER_FOCUS: Developers to understand the coordination of multiplayer functionality
 \begin{figure}[h!]
-\centering
-% \includegraphics[width=0.9\textwidth]{images/multiplayer_sequence.png}
-\caption{Illustrative Diagram: Sequence of Interactions for Multiplayer Game Session (Conceptual Placeholder)}
-\label{fig:multiplayer_sequence}
-\textit{Comment: This diagram should illustrate the sequence of interactions between functional elements during a multiplayer game session.}
+    \centering
+    % \includegraphics[width=0.9\textwidth]{images/multiplayer_sequence.png}
+    \caption{Illustrative Diagram: Sequence of Interactions for Multiplayer Game Session (Conceptual Placeholder)}
+    \label{fig:multiplayer_sequence}
+    \textit{Comment: This diagram should illustrate the sequence of interactions between functional elements during a multiplayer game session.}
 \end{figure}
 
 \section{Perspective Priorities for the Functional View}
@@ -280,34 +280,34 @@ This scenario describes how functional elements interact during a multiplayer se
 Architectural perspectives help ensure the system exhibits desired quality properties. The table below identifies the priority of different architectural perspectives for the Functional View of the Human Benchmark system, which will guide architectural decision-making.
 
 \begin{table}[h!]
-\centering
-\caption{Perspective Priorities for the Functional View of Human Benchmark}
-\label{tab:perspective_priorities_functional}
-\begin{tabular}{p{0.3\textwidth}p{0.15\textwidth}p{0.45\textwidth}}
-% \toprule
-\textbf{Architectural Perspective} & \textbf{Priority} & \textbf{Rationale for Human Benchmark within this View} \\
-% \midrule
-Performance and Scalability & High & The system's core function involves precise measurement of reaction times (in milliseconds). Performance is critical to ensure accurate timing measurements and seamless real-time multiplayer experiences, with support for up to 1,000 concurrent users. \\
+    \centering
+    \caption{Perspective Priorities for the Functional View of Human Benchmark}
+    \label{tab:perspective_priorities_functional}
+    \begin{tabular}{p{0.3\textwidth}p{0.15\textwidth}p{0.45\textwidth}}
+        % \toprule
+        \textbf{Architectural Perspective} & \textbf{Priority} & \textbf{Rationale for Human Benchmark within this View}                                                                                                                                                                                                      \\
+        % \midrule
+        Performance and Scalability        & High              & The system's core function involves precise measurement of reaction times (in milliseconds). Performance is critical to ensure accurate timing measurements and seamless real-time multiplayer experiences, with support for up to 1,000 concurrent users.   \\
 
-Security & High & User account data and performance history must be protected. The Functional View must ensure proper authentication, authorization, and data validation across functional elements to prevent unauthorized access to private games or manipulation of scores. \\
+        Security                           & High              & User account data and performance history must be protected. The Functional View must ensure proper authentication, authorization, and data validation across functional elements to prevent unauthorized access to private games or manipulation of scores. \\
 
-Usability & High & The system's success depends on user engagement. The Functional View must ensure intuitive interactions with game elements, clear feedback on performance, and an engaging experience that encourages continued use. \\
+        Usability                          & High              & The system's success depends on user engagement. The Functional View must ensure intuitive interactions with game elements, clear feedback on performance, and an engaging experience that encourages continued use.                                         \\
 
-Availability and Resilience & Medium & While not life-critical, the system should be consistently available, especially for multiplayer functionality. Element interactions should be designed to gracefully handle failure scenarios such as network disconnections during gameplay. \\
+        Availability and Resilience        & Medium            & While not life-critical, the system should be consistently available, especially for multiplayer functionality. Element interactions should be designed to gracefully handle failure scenarios such as network disconnections during gameplay.               \\
 
-Evolution & Medium & Games and cognitive tests will likely need to be added or modified over time. The Functional View should support extensibility for adding new game types without major architectural changes. \\
+        Evolution                          & Medium            & Games and cognitive tests will likely need to be added or modified over time. The Functional View should support extensibility for adding new game types without major architectural changes.                                                                \\
 
-Development Resource & Medium & The functional elements should be designed with implementation efficiency in mind, aligning with the modern tech stack (React, ASP.NET Core) while minimizing unnecessary complexity for the development team. \\
+        Development Resource               & Medium            & The functional elements should be designed with implementation efficiency in mind, aligning with the modern tech stack (React, ASP.NET Core) while minimizing unnecessary complexity for the development team.                                               \\
 
-Internationalization & Low & While the system may eventually be used globally, the functional capabilities of cognitive tests are largely language-independent. Only user interface elements would require adaptation. \\
+        Internationalization               & Low               & While the system may eventually be used globally, the functional capabilities of cognitive tests are largely language-independent. Only user interface elements would require adaptation.                                                                    \\
 
-Accessibility & Low & Basic input accessibility concerns exist (e.g., color blindness considerations for visual stimuli), but the nature of reaction time tests inherently requires certain motor and visual capabilities. \\
+        Accessibility                      & Low               & Basic input accessibility concerns exist (e.g., color blindness considerations for visual stimuli), but the nature of reaction time tests inherently requires certain motor and visual capabilities.                                                         \\
 
-Location & Low & The system is web-based without significant geographical dependencies. Minor concerns might include latency considerations for multiplayer scenarios across large distances. \\
+        Location                           & Low               & The system is web-based without significant geographical dependencies. Minor concerns might include latency considerations for multiplayer scenarios across large distances.                                                                                 \\
 
-Regulation & Low & Beyond standard data protection concerns (handled by the Security perspective), the system doesn't operate in a highly regulated domain like finance or healthcare. \\
-% \bottomrule
-\end{tabular}
+        Regulation                         & Low               & Beyond standard data protection concerns (handled by the Security perspective), the system doesn't operate in a highly regulated domain like finance or healthcare.                                                                                          \\
+        % \bottomrule
+    \end{tabular}
 \end{table}
 
 \section{Impact of Key Perspectives on the Functional View}
