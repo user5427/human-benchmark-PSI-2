@@ -14,6 +14,8 @@
 \usepackage{color,algorithm,algorithmic}
 \usepackage[nottoc]{tocbibind}
 \usepackage{tocloft}
+\setlength{\cftfignumwidth}{4em} % Adjust the width as needed
+\setlength{\cfttabnumwidth}{4em} % Adjust the width as needed
 
 \usepackage{titlesec}
 \newcommand{\sectionbreak}{\clearpage}
@@ -33,18 +35,16 @@
 \newcommand{\RR}{\mathbb{R}}
 
 
-\studyprogramme{\{Study programme\}} %Write your study programme (example – Software engineering, Financial and Actuarial Mathematics, etc.)
-\worktype{\{Work type\}} % Bachelor's thesis or Master's thesis
-\worktitle{Work Title in English}
-\secondworktitle{Work Title in Lithuanian}
-\workauthor{Name Surname}
+\studyprogramme{Software Engineering} %Write your study programme (example – Software engineering, Financial and Actuarial Mathematics, etc.)
+\worktype{Lab 4} % Bachelor's thesis or Master's thesis
+\worktitle{Architecture of Human Benchmark application} %Write the title of your work in English
+\workauthor{a̶͗͆i̷̍͝ ̸͑͛ń̸̂e̷̿̎z̴̿̎ȉ̴nau Team; Adrian Klimaševski, Arnas Šniokaitis, Darius Spruogis, Tadas Riksas}
+
 
 %There may be more than one author, in which case each author is written from a new line which is added in Titlepage.tex or LongerTitlePage.tex
 %\secondauthor{Name Surname} %If present, otherwise delete
 
-\supervisor{pedagogical/scientific title Name Surname}
-\reviewer{pedagogical/scientific title Name Surname} %If present, otherwise delete
-\scientificadvisor{pedagogical/scientific title Name Surname} %If present, otherwise delete
+\supervisor{Artūras Jankus, Lekt.}
 
 \begin{document}
 \selectlanguage{english}
@@ -63,14 +63,14 @@
 
 %% Acknowledgements Section
 \sectionnonumnocontent{Acknowledgements}
-The author is thankful the Information Technology Research Center, Faculty of Mathematics and Informatics, Vilnius University, for providing the High-Performance Computing (HPC) resources for this research.
+The team is thankful to VU Mathemathics and Informatics faculty lecturers for their continous involment in helping students understand software engineering principles.
 
 %%Summary
 \sectionnonum{Summary}
 
-Summary in english.\\
+This document analyses the architecture of the Human Benchmark application. Primarely, we will analize all of the important views of the system. 
 
-\textbf{Keywords:} work related keywords, with a \textit{\textbf{minimum of 3 keywords}}, but can be more.
+\textbf{Keywords:} Software system architecture, Human Benchmark, system views, software engineering.
 
 
 
