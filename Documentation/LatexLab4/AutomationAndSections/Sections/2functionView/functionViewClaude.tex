@@ -89,9 +89,6 @@ The Game System provides the core gameplay functionality, managing game logic an
 \textbf{Interfaces:}
 \begin{itemize}
     \item \textit{GameExecution}: Supports the running of different game types
-    \item \textit{StimuliGeneration}: Creates and controls visual stimuli based on game parameters
-    \item \textit{ResponseProcessing}: Handles and measures user responses to stimuli
-    \item \textit{GameStateManagement}: Controls game state transitions
     \item \textit{PerformanceMetrics}: Calculates and provides performance data to Score System
 \end{itemize}
 
@@ -110,10 +107,8 @@ The Game Configuration element enables the creation and management of custom gam
 
 \textbf{Interfaces:}
 \begin{itemize}
-    \item \textit{ConfigurationCreation}: Supports creating and modifying game parameters
     \item \textit{ConfigurationStorage}: Manages persistence of game configurations
     \item \textit{AccessControl}: Handles visibility and access settings for game configurations
-    \item \textit{ParameterApplication}: Applies selected configurations to Game System instances
 \end{itemize}
 
 \subsubsection{Multiplayer System}
@@ -132,9 +127,7 @@ The Multiplayer System enables real-time competition between multiple users.
 \textbf{Interfaces:}
 \begin{itemize}
     \item \textit{RoomManagement}: Supports creation, joining, and configuration of multiplayer rooms
-    \item \textit{PlayerTracking}: Monitors players in active rooms
-    \item \textit{GameSynchronization}: Ensures synchronized gameplay across participants
-    \item \textit{ResultsCoordination}: Collects and shares round results with participants
+    \item \textit{ResultsCoordination}: Shares round results with participants
     \item \textit{CommunicationIntegration}: Interfaces with Real-time Communication System
 \end{itemize}
 
@@ -153,7 +146,6 @@ The Score and Leaderboard System records, analyzes, and presents user performanc
 
 \textbf{Interfaces:}
 \begin{itemize}
-    \item \textit{ScoreRecording}: Accepts performance data from Game System
     \item \textit{HistoricalTracking}: Manages persistent storage of user performance history
     \item \textit{LeaderboardManagement}: Creates and updates various leaderboard types
     \item \textit{AnalyticsGeneration}: Produces performance statistics and trends
@@ -175,10 +167,7 @@ The Real-time Communication System enables instant updates and interactions betw
 
 \textbf{Interfaces:}
 \begin{itemize}
-    \item \textit{ConnectionManagement}: Handles WebSocket establishment and maintenance
     \item \textit{MessageDistribution}: Routes messages to appropriate recipients
-    \item \textit{StateNotification}: Broadcasts state changes to connected clients
-    \item \textit{SynchronizationSupport}: Provides timing mechanisms for coordinated gameplay
 \end{itemize}
 
 \subsection{External Interfaces}
