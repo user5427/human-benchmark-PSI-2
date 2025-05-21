@@ -86,14 +86,14 @@ The following capabilities are explicitly excluded from the current scope of the
 \begin{itemize}
     % ! \item Integration with external AI training systems
     \item revenue generation or payment processing functionality (the system is
-    currently in a bootstrapping phase, where initial operations are funded by
-    saved capital or investment rather than immediate profits) % ! or payment
-    processing functionality
+          currently in a bootstrapping phase, where initial operations are funded by
+          saved capital or investment rather than immediate profits) % ! or payment
+          processing functionality
     \item Third-party authentication providers (currently using email/password
-    authentication)
+          authentication)
     \item Mobile application versions (current focus is web-based)
-    % ! \item Offline functionality (system requires network connectivity)
-    % ! \item Integration with external health or cognitive assessment platforms
+          % ! \item Offline functionality (system requires network connectivity)
+          % ! \item Integration with external health or cognitive assessment platforms
 \end{itemize}
 
 \subsection{External Entities and Services}
@@ -113,16 +113,16 @@ The following capabilities are explicitly excluded from the current scope of the
 
 \begin{itemize}
     \item \textbf{Players} - Primary users who access the system to play games,
-    track performance, and compete with others. They interact with the system
-    through web browsers.
+          track performance, and compete with others. They interact with the system
+          through web browsers.
 
-    % ! \item \textbf{Administrators} - System operators who manage user
-    % ! accounts, monitor system usage, and maintain operational status. They
-    % ! interact with the system through dedicated administrative interfaces.
+          % ! \item \textbf{Administrators} - System operators who manage user
+          % ! accounts, monitor system usage, and maintain operational status. They
+          % ! interact with the system through dedicated administrative interfaces.
 
     \item \textbf{Game Creators} - A subset of users who create custom game
-    configurations for themselves or other users. They need interfaces to define
-    game parameters and game access settings.
+          configurations for themselves or other users. They need interfaces to define
+          game parameters and game access settings.
 \end{itemize}
 
 \subsubsection{External Systems}
@@ -131,32 +131,32 @@ The following capabilities are explicitly excluded from the current scope of the
 
 \begin{itemize}
     \item \textbf{Client Devices} - Various hardware devices (desktops, laptops,
-    tablets) that users use to access the system. These vary in screen size,
-    processing power, and input capabilities, affecting the user experience.
+          tablets) that users use to access the system. These vary in screen size,
+          processing power, and input capabilities, affecting the user experience.
 
     \item \textbf{Web Browsers} - Different browsers through which users access
-    the system. Browser compatibility and capabilities influence the system's
-    presentation layer.
+          the system. Browser compatibility and capabilities influence the system's
+          presentation layer.
 
     \item \textbf{Database System (PostgreSQL)} - External database system for
-    persistent storage of user data, game configurations, scores, and session
-    information.
+          persistent storage of user data, game configurations, scores, and session
+          information.
 
     \item \textbf{CI/CD Pipeline} - External build and deployment systems
-    (GitLab Actions) that automate the building, testing, versioning, database
-    updating and deployment of new system versions. The pipeline is executed by
-    runner on MIF OpenNebula virtual machine.
+          (GitLab Actions) that automate the building, testing, versioning, database
+          updating and deployment of new system versions. The pipeline is executed by
+          runner on MIF OpenNebula virtual machine.
 
     \item \textbf{Containerization Platform (Docker)} - External platform for
-    packaging and distributing the system components. (In our case, it is done
-    on the MIF OpenNebula virtual machine)
+          packaging and distributing the system components. (In our case, it is done
+          on the MIF OpenNebula virtual machine)
 
-    % ! \item \textbf{Container Orchestration (Kubernetes)} - External system
-    % ! anaging deployment, scaling, and operations of application containers.
+          % ! \item \textbf{Container Orchestration (Kubernetes)} - External system
+          % ! anaging deployment, scaling, and operations of application containers.
 
     \item \textbf{Hosting Infrastructure (MIF OpenNebula)} - Virtual machine
-    where CI/CD runner executes, the docker containers are deployed and the system
-    is hosted. 
+          where CI/CD runner executes, the docker containers are deployed and the system
+          is hosted.
 
 \end{itemize}
 
@@ -248,17 +248,9 @@ The hosting infrastructure is critical for the user experience.
 \begin{itemize}
     \item \textbf{Interface Type:} Service provider (interactive web UI)
     \item \textbf{Purpose:} Allows users to interact with the system to
-    register, authenticate, configure games, play games, view scores, and manage
-    profiles
+          register, authenticate, configure games, play games, view scores, and manage
+          profiles
     \item \textbf{Technology:} HTTPS, WebSockets for real-time communication
-    \item \textbf{Characteristics:}
-          \begin{itemize}
-              \item Highly interactive with real-time feedback
-              \item Responsive design for various screen sizes
-              \item Varying latency requirements (extremely low for reaction
-              time tests)
-            % !  \item Automated timing and score calculation
-          \end{itemize}
 \end{itemize}
 
 % !!! do not trust this blindly, check the original document
@@ -271,8 +263,8 @@ The hosting infrastructure is critical for the user experience.
     \caption{Illustrative Diagram: User Interaction Sequence for Game Session (Conceptual Placeholder)}
     \label{fig:context_user_interaction}
     \textit{Comment: This diagram should illustrate the sequence of interactions
-    between a user and the Human Benchmark system throughout a typical gaming
-    session.}
+        between a user and the Human Benchmark system throughout a typical gaming
+        session.}
 \end{figure}
 
 \subsubsection{Database Interface}
@@ -283,14 +275,7 @@ The hosting infrastructure is critical for the user experience.
     \item \textbf{Interface Type:} Data provider and consumer
     \item \textbf{Purpose:} Persists and retrieves user data, game configurations, scores, and session information
     \item \textbf{Technology:} Entity Framework Core over PostgreSQL
-    \item \textbf{Characteristics:}
-          \begin{itemize}
-              \item Moderate volume of read operations (score queries)
-              \item Moderate volume of write operations (new scores, user registrations)
-              \item High reliability requirements (data integrity critical)
-              \item Transactional requirements for score recording and user management
-              \item User password hashing and salting for security
-          \end{itemize}
+    
 \end{itemize}
 
 \subsubsection{WebSocket Interface}
@@ -301,41 +286,39 @@ The hosting infrastructure is critical for the user experience.
     \item \textbf{Interface Type:} Service provider and consumer, Event provider and consumer
     \item \textbf{Purpose:} Provides real-time communication for multiplayer functionality, game state synchronization, and live updates
     \item \textbf{Technology:} WebSocket protocol over HTTPS
-    \item \textbf{Characteristics:}
-          \begin{itemize}
-              \item Bidirectional communication
-              \item Event-driven interaction model
-              \item Varying connection stability (dependent on user network conditions)
-              \item Scaling challenges with high concurrent user counts
-              \item Important for real-time game state updates
-          \end{itemize}
+    
 \end{itemize}
 
 \subsubsection{Deployment Interfaces}
 
+% LGTM
+
 \begin{itemize}
     \item \textbf{Interface Type:} Service consumer
     \item \textbf{Purpose:} Handles application deployment and updates
-    \item \textbf{Technology:} Docker containers, Kubernetes API
-    \item \textbf{Characteristics:}
-          \begin{itemize}
-              \item Scheduled automated deployments
-              \item Rolling updates to minimize downtime
-              \item Containerized environment for consistency
-              \item Automated scaling based on demand
-          \end{itemize}
+    \item \textbf{Technology:} Docker containers, GitLab CI/CD, MIF OpenNebula
 \end{itemize}
 
 \subsection{Nature and Characteristics of External Interfaces}
 
 \subsubsection{User Interface Characteristics}
 
+% LGTM
+
 \begin{itemize}
+        \item \textbf{Characteristics:}
+          \begin{itemize}
+              \item Highly interactive with real-time feedback
+            % ! \item Responsive design for various screen sizes
+              \item Varying latency requirements (extremely low for reaction
+              time tests)
+            % !  \item Automated timing and score calculation
+          \end{itemize}
     \item \textbf{Volumes:}
           \begin{itemize}
-              \item Peak concurrent users: Several hundred to several thousand
+              \item Peak concurrent users: 20
               \item Data size: Generally small payloads for game interactions
-              \item Growth: Expected linear growth with user base expansion
+              \item Growth: Will not grow significantly in the near future
           \end{itemize}
     \item \textbf{Interaction Triggers:} Event-driven (user actions)
     \item \textbf{Automation Level:} Semi-automated (user initiates, system processes)
@@ -344,31 +327,81 @@ The hosting infrastructure is critical for the user experience.
 
 \subsubsection{Database Interface Characteristics}
 
+% LGTM
+
 \begin{itemize}
+    \item \textbf{Characteristics:}
+          \begin{itemize}
+              \item Moderate volume of read operations (score queries)
+              \item Moderate volume of write operations (new scores, user registrations)
+              \item High reliability requirements (data integrity critical)
+              \item Transactional requirements for score recording and user management
+              \item User password hashing and salting for security
+          \end{itemize}
     \item \textbf{Volumes:}
           \begin{itemize}
-              \item User data: Thousands to millions of records
-              \item Game sessions: Potentially millions of records
-              \item Score data: Highest volume, growing continuously
+              \item User data: A few hundred records per month
+              \item Game sessions: Potentially thousands of records per month
+              \item Score data: Potentially a few thousand records per month
           \end{itemize}
-    \item \textbf{Interaction Triggers:} Mix of event-driven (user actions) and scheduled (aggregation, cleanup)
+    \item \textbf{Interaction Triggers:} Event-driven (user actions, system events)
     \item \textbf{Automation Level:} Fully automated
-    \item \textbf{Transactionality:} ACID compliance required for critical operations
+    \item \textbf{Transactionality:} High (critical for user data integrity)
 \end{itemize}
 
 \subsubsection{WebSocket Interface Characteristics}
 
+% LGTM
+
 \begin{itemize}
+    \item \textbf{Characteristics:}
+          \begin{itemize}
+              \item Bidirectional communication
+              \item Event-driven interaction model
+              \item Varying connection stability (dependent on user network conditions)
+              \item Scaling challenges with high concurrent user counts
+              \item Important for real-time game state updates
+          \end{itemize}
     \item \textbf{Volumes:}
           \begin{itemize}
-              \item Connection count: Equal to active multiplayer users
+              \item Connection count: Equal to active game session user count
               \item Message frequency: High during active games (multiple per second)
-              \item Message size: Small (typically < 1KB per message)
+              \item Message size: Small (only information about target changes)
           \end{itemize}
-    \item \textbf{Interaction Triggers:} Real-time events (user actions, game state changes)
-    \item \textbf{Automation Level:} Fully automated
+    \item \textbf{Interaction Triggers:} Real-time events (user clicks on targets)
+    \item \textbf{Automation Level:} Semi-automated (user initiates, system processes)
     \item \textbf{Criticality:} High for competitive gameplay (low latency required)
 \end{itemize}
+
+\subsubsection{Deployment Interface Characteristics}
+
+% LGTM
+
+\begin{itemize}
+    \item \textbf{Characteristics:}
+          \begin{itemize}
+              \item Scheduled deployments (idealy durring off-peak hours)
+            %   \item Automated deployment processes
+                    %   !\item Rolling updates to minimize downtime
+            %   \item Containerized environment for consistency
+                    %   !\item Automated scaling based on demand
+            %   \item Automated building, testing, and deployment pipeline processes
+            %   \item Manual versioning and database update triggering pipeline processes
+            %   \item Only authorized personnel can trigger deployments
+              \item Transactional - all of the stages must be completed successfully before the deployment
+                    is considered successful 
+              \item Database login credentials and https certificates must be passed securely
+          \end{itemize}
+    \item \textbf{Volumes:}
+          \begin{itemize}
+              \item Deployment frequency: Weekly or bi-weekly
+          \end{itemize}
+    \item \textbf{Interaction Triggers:} Scheduled (manual trigger)
+    \item \textbf{Automation Level:} Semi-automated (manual trigger, automated processes)
+    \item \textbf{Criticality:} High for system stability and performance
+\end{itemize}
+
+% LGTM
 
 \subsection{Other External Interdependencies}
 
@@ -379,7 +412,7 @@ While the Human Benchmark system has a relatively self-contained architecture, t
 
     \item \textbf{Network Quality Dependencies:} Multiplayer functionality and real-time features depend on stable network connections. Network latency directly impacts the fairness of competitive gameplay, especially for reaction time tests.
 
-    \item \textbf{Database Replication Dependencies:} For high availability configurations, database replication introduces potential consistency challenges that must be managed, particularly for leaderboard systems.
+    \item \textbf{Database Replication Dependencies:} Information in database must be stored in a consistent state for leaderboard and score tracking. Backups must be performed regularly to prevent data loss.
 \end{itemize}
 
 \subsection{Impact of the System on Its Environment}
