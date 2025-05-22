@@ -21,22 +21,19 @@
 
 \section{Introduction to the Information View}
 
-This Information View describes the way that the Human Benchmark system stores, manipulates, manages, and distributes information. The Information View is a cornerstone architectural view for data-intensive systems like Human Benchmark, where the tracking, persistence, and analysis of user performance data is central to the system's purpose.
+This Information View describes the way that the Human Benchmark system stores, manipulates, manages, and distributes information.
 
-The Information View addresses how the Human Benchmark system structures its data model to support cognitive testing, score tracking, user profiles, game configurations, and multiplayer functionality. It focuses on the static structure of information, the flow of data through the system, information ownership, and strategies for ensuring information quality and consistency.
-
-According to software architecture principles, the Information View is essential for systems with more than trivial information management needs. Given Human Benchmark's focus on performance measurement, historical tracking, and competitive analysis, this view provides critical insights into how the system's information architecture enables its core functionalities.
 
 \subsection{Primary Stakeholders}
 
 This view primarily addresses the concerns of the following stakeholders:
 
 \begin{itemize}
-    \item \textbf{Users}: Concerned with information accuracy, timeliness, and accessibility of their performance data and game history.
-    \item \textbf{Acquirers}: Interested in how information assets are preserved and safeguarded, especially regarding user data and performance metrics.
-    \item \textbf{Developers}: Need to understand the information structure to implement features and ensure data integrity.
-    \item \textbf{Testers}: Require knowledge of data structures and flows to create realistic test scenarios and verify system behavior.
-    \item \textbf{Maintainers}: Must understand information models to effectively maintain and evolve the system over time.
+    \item \textbf{Users}: Concerned with information accuracy, and accessibility of their performance data and game history.
+    \item \textbf{Acquirers}: Interested in how information assets are preserved, especially regarding user data and performance metrics.
+    \item \textbf{Developers}: Need to understand the information structure to implement features.
+    \item \textbf{Testers}: Require knowledge of data structures and flows to verify system behavior.
+    \item \textbf{Maintainers}: Must understand information models to maintain and expand the system.
 \end{itemize}
 
 \section{Core Architectural Elements of the Information View}
@@ -50,8 +47,8 @@ The Human Benchmark system's information structure centers around several key da
 \begin{itemize}
     \item \textbf{User}: Represents system users, storing authentication details, profile information, and relationships to games and scores.
     \item \textbf{Game}: Defines game configurations with parameters like difficulty level, target speed, maximum number of targets, game duration, and visibility (public/private).
-    \item \textbf{Target}: Contains position, size, and speed properties of clickable targets in games, essential for the reflex testing functionality.
-    \item \textbf{Score}: Records user performance metrics for specific game sessions, enabling historical tracking and comparisons.
+    \item \textbf{Target}: Contains position, size, and speed properties of clickable targets in games.
+    \item \textbf{Score}: Records user performance metrics for specific game sessions, enabling historical tracking.
     \item \textbf{GameSession}: Tracks individual gameplay instances, including start time, end time, and associated performance metrics.
     \item \textbf{GameUser}: Manages access control for private games, determining which users can access specific game configurations.
 \end{itemize}
@@ -71,13 +68,14 @@ The Human Benchmark system's information structure centers around several key da
 \subsubsection{Data Classification}
 
 The information in the Human Benchmark system can be classified into several categories based on its purpose and usage:
-
+%% DO WE NEED THIS?
 \begin{itemize}
     \item \textbf{Transactional Data}: Dynamic information generated during gameplay, including individual reaction times, clicks, and other real-time metrics.
     \item \textbf{Analytical Data}: Aggregated performance metrics, historical trends, and comparative statistics used for reporting and analysis.
     \item \textbf{Reference Data}: Less volatile information such as game types, difficulty levels, and system configuration settings.
     \item \textbf{User Profile Data}: Personal information, preferences, and authentication details for system users.
 \end{itemize}
+
 
 \subsection{Information Ownership and Management}
 
