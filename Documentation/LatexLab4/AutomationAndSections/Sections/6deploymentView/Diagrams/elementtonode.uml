@@ -1,0 +1,48 @@
+@startuml Element-to-Container Mapping
+
+skinparam linetype ortho
+skinparam componentStyle uml2
+
+node "<<container>>\nFrontend Container (VM)" as frontendContainer #LightGreen {
+    component "<<component>>\nUser Interface Components" as UI #LightYellow {
+        artifact "React UI" as reactUI
+    }
+}
+
+node "<<container>>\nBackend Container (VM)" as backendContainer #LightGreen {
+    component "<<component>>\nGame Logic Services" as gameLogic #LightBlue {
+        artifact "Game Modules" as gameModules
+    }
+    
+    component "<<component>>\nUser Management Services" as userMgmt #LightBlue {
+        artifact "Authentication" as auth
+        artifact "Profile Management" as profile
+    }
+    
+    component "<<component>>\nMultiplayer System Services" as multiplayerSys #LightBlue {
+        artifact "WebSocket Server" as websocket
+        artifact "Real-time Game State" as gameState
+    }
+    
+    component "<<component>>\nData Access Services" as dataAccess #LightBlue {
+        artifact "Data Repository" as repository
+        artifact "ORM Layer" as orm
+    }
+}
+
+node "<<container>>\nDatabase Container (DB)" as dbContainer #LightSeaGreen {
+    database "<<database>>\nPostgreSQL Database" as db {
+        artifact "User Data" as userData
+        artifact "Game Results" as gameResults
+        artifact "Scores" as stats
+    }
+}
+
+UI ..> gameLogic : HTTP
+UI ..> multiplayerSys : WebSocket
+gameLogic ..> dataAccess : uses
+userMgmt ..> dataAccess : uses
+multiplayerSys ..> dataAccess : uses
+dataAccess ..> db : SQL
+
+@enduml

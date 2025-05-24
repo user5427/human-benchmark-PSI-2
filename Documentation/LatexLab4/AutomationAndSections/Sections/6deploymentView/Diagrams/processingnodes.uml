@@ -1,0 +1,46 @@
+@startuml
+
+skinparam linetype ortho
+
+
+node "<<processingNode>>\n Virtual Machine\n{os=Debian12\ncpu=0.4\nmemory=2GB\nstorage=20GB}" as VM #LightGreen {
+    node "<<execution environment>> \n Docker" #LightGreen {
+        node "<<container>> \n psi-2 backend" #LightGreen {
+            node ": Net" #LightGreen {
+                artifact "AimReactionAPI.dll"
+            }
+        }
+
+        node "<<container>> \n psi-2 frontend" #LightGreen {
+            node ": React + Vite" #LightGreen {
+                artifact "/app/dist"
+            }
+        }
+    }
+}
+
+node "<<processingNode>>\nDatabase Server\n{os=Linux\ncpu=1\nmemory=1GB\nstorage=5GB}" as DB #LightSeaGreen {
+    node "<<execution environment>> \n ???" as DBEX #LightSeaGreen {
+        node "<<container>> \n PostgreSQL" as DBCON #LightSeaGreen {
+            node ": PostgreSQL" #LightSeaGreen {
+                artifact "/Migrations"
+            }
+        }
+    }
+}
+
+node "Production Line Interface" as Prod {
+
+}
+
+Prod --- VM
+VM --- DB
+note right of DBEX
+We are not sure what container environment Aivien uses
+end note
+
+note bottom of DBCON
+Aivien certainly uses containers for PostgreSQL
+end note
+
+@enduml
