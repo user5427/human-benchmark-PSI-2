@@ -13,6 +13,8 @@ import { AuthProvider } from "./contexts/AuthContext";
 import Games from "./pages/Games/Games";
 import Multiplayer from "./pages/Multiplayer/Multiplayer";
 import { WebSocketProvider } from "./contexts/WebsocketContext";
+import Chat from "./components/Chat/Chat";
+import { GameRoomProvider } from "./contexts/GameRoomContext";
 
 const Layout: React.FC<React.PropsWithChildren<object>> = ({ children }) => {
   const location = useLocation();
@@ -25,6 +27,7 @@ const Layout: React.FC<React.PropsWithChildren<object>> = ({ children }) => {
     <>
       {showNavbar && <Navbar />}
       {children}
+      <Chat/>
     </>
   );
 };
@@ -33,6 +36,7 @@ function App() {
   return (
     <AuthProvider>
       <WebSocketProvider>
+        <GameRoomProvider>
       <BrowserRouter>
         <Layout>
           <Routes>
@@ -62,8 +66,9 @@ function App() {
             <Route path="/login" element={<Login />} />
           </Routes>
         </Layout>
-        </BrowserRouter>
-        </WebSocketProvider>
+          </BrowserRouter>
+          </GameRoomProvider>
+       </WebSocketProvider>
     </AuthProvider>
   );
 }
