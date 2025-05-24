@@ -86,21 +86,23 @@ const Chat = () => {
     if (openChat && messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
-  }, [globalMessages, roomMessages, openChat]);
+  }, [openChat, globalMessages, roomMessages]);
 
   useEffect(() => {
     if (!lastJsonMessage) return;
 
     const message = lastJsonMessage as { eventType: string };
-
+    console.log(`received ${JSON.stringify(message)}`);
     switch (message.eventType) {
       case "GameRoomMessageResponse": {
         setRoomMessages((msgs) => [...msgs, lastJsonMessage as Message]);
         break;
       }
       case "GlobalMessageResponse": {
-        console.log(message);
-        setGlobalMessages((msgs) => [...msgs, lastJsonMessage as Message]);
+        console.log("sd");
+        const x = lastJsonMessage as Message;
+        console.log(x);
+        setGlobalMessages((msgs) => [...msgs, x]);
         break;
       }
       default:
@@ -155,7 +157,7 @@ const Chat = () => {
             onClick={() => setOpenChat("Global")}
             aria-label="Open global chat"
           >
-            🌐 Global
+            Global
           </button>
           {isInRoom && (
             <button
@@ -163,7 +165,7 @@ const Chat = () => {
               onClick={() => setOpenChat("Room")}
               aria-label="Open room chat"
             >
-              🏠 Room
+              Room
             </button>
           )}
         </div>
@@ -192,9 +194,12 @@ const Chat = () => {
                   <div className={styles.messageHeader}>
                     <span className={styles.sender}>{sender}</span>
                     <span className={styles.date}>
-                      {new Date(createdAt).toLocaleTimeString([], {
+                      {new Date(createdAt).toLocaleString("default", {
+                        day: "2-digit",
+                        month: "2-digit",
                         hour: "2-digit",
                         minute: "2-digit",
+                        hour12: false, 
                       })}
                     </span>
                   </div>

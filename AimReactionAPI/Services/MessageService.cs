@@ -46,7 +46,6 @@ public class MessageService
         await _dbContext.SaveChangesAsync();
 
         GlobalMessageResponse response = new(message.Content, user.Name, message.CreatedAt);
-
         _multiplayerService.Broadcast(JsonSerializer.Serialize(response));
     }
 
