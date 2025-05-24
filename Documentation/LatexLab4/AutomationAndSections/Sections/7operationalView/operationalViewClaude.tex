@@ -20,28 +20,45 @@
 
 \section{Introduction to the Operational View}
 
-The Operational View describes how the Human Benchmark system will be operated, administered, and supported when running in its production environment. This view is critical for ensuring that the system functions reliably in day-to-day operation, addressing aspects such as installation, maintenance, monitoring, and support.
+The Operational View describes how the Human Benchmark system will be operated,
+administered, and supported when running in its production environment. This
+view is critical for ensuring that the system functions reliably in day-to-day
+operation, addressing aspects such as maintenance, monitoring, and
+support.
 
-The Operational Viewpoint, as defined in software architecture literature, focuses on concerns related to the ongoing operation of the system after deployment. It serves to bridge the gap between system development and production usage, ensuring that the system can be effectively managed throughout its lifecycle.
+The Operational Viewpoint focuses on concerns related to the ongoing operation
+of the system after deployment. It bridges the gap between system
+development and production usage, ensuring that the system can be effectively
+managed throughout its lifecycle.
 
 The primary stakeholders for the Operational View include:
+\begin{table}[H]
+    \centering
+    \caption{Primary Stakeholders for the Operational View}
+    \label{tab:operational_view_stakeholders}
+    \begin{tabular}{|p{0.3\textwidth}|p{0.6\textwidth}|}
+        \hline
+        \textbf{Stakeholder}  & \textbf{Role in the Operational View}                        \\ \hline
+        System Administrators & Responsible for installation, configuration, and maintenance \\ \hline
+        Production Engineers  & Handle deployment and operational monitoring                 \\ \hline
+        Support Staff         & Provide assistance to users                                  \\ \hline
+        Developers            & Need to understand operational considerations                \\ \hline
+        Testers               & Verify operational aspects                                   \\ \hline
+        Assessors             & Evaluate operational capabilities and risks                  \\ \hline
+    \end{tabular}
+\end{table}
 
-\begin{itemize}
-    \item System administrators responsible for installation, configuration, and maintenance
-    \item Production engineers handling deployment and operational monitoring
-    \item Support staff providing assistance to users
-    \item Developers who need to understand operational considerations
-    \item Testers verifying operational aspects
-    \item Assessors evaluating operational capabilities and risks
-\end{itemize}
-
-This view is particularly important for the Human Benchmark system, as it requires reliable operation to support both single-player and multiplayer experiences across a distributed architecture, with considerations for cloud deployment and real-time interaction.
+This view is particularly important for the Human Benchmark system, as it
+requires reliable operation to support both single-player and multiplayer
+experiences with real-time interaction.
 
 \section{Core Architectural Elements of the Operational View}
 
 \subsection{Installation and Upgrade Process}
 
-The Human Benchmark system employs a containerized deployment approach to facilitate installation and upgrades across its distributed architecture. This strategy provides consistency across environments and simplifies the deployment process.
+The Human Benchmark system employs a containerized deployment approach to
+installation and upgrade. This strategy
+provides consistency across environments and simplifies the deployment process.
 
 \subsubsection{Installation Components}
 
@@ -59,104 +76,137 @@ The system installation is organized into the following component groups:
 
 The installation process is managed through a CI/CD pipeline that follows these steps:
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{AutomationAndSections/Sections/7operationalView/Images/Deployment Diagram.drawio.png}
+    \caption{Deployment Diagram: Human Benchmark Installation and Upgrade Process Flow}
+    \label{fig:deployment_diagram}
+\end{figure}
+
+Below is a more detailed version of versioning sequence diagram:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{AutomationAndSections/Sections/7operationalView/Images/Versioning.drawio.png}
+    \caption{Versioning Sequence Diagram: Detailed Flow of Version Management in Human Benchmark System}
+    \label{fig:versioning_sequence_diagram}
+\end{figure}
+
+From this diagram, we can see that we have 5 stages:
+
+The five stages of the process are as follows:
+
 \begin{enumerate}
-    \item Automated building and testing of components
-    \item Container image creation and versioning
-    \item Deployment to the target environment (development, testing, or production)
-    \item Database migration execution
-    \item Configuration application
-    \item Service health verification
+    \item \textbf{Build Application}: The application is built from the source
+    code. During this stage, developers have the option to include a specific
+    message in their commit to trigger the versioning process, ensuring that the
+    build is appropriately tagged and tracked.
+
+    \item \textbf{Test (Integration and Unit)}: Comprehensive testing is
+    conducted, including both integration and unit tests, to validate the
+    functionality and reliability of the application. This ensures that the
+    application meets quality standards before proceeding to the next stages.
+
+    \item \textbf{Dockerize}: The application is packaged into Docker
+    containers. This step ensures consistency across environments and simplifies
+    deployment by encapsulating all dependencies and configurations within the
+    container.
+
+    \item \textbf{Update Database}: Database updates are manually triggered
+    using a special commit message. This ensures that schema changes or
+    migrations are applied in a controlled manner, minimizing the risk of errors
+    during deployment.
+
+    \item \textbf{Deploy Application to MIF OpenNebula}: The final stage
+    involves deploying the application to the MIF OpenNebula environment. This
+    step ensures that the application is made available in the production
+    environment, ready for end-user access.
 \end{enumerate}
 
 \subsubsection{Upgrade Process}
 
-For system upgrades, the process follows a blue-green deployment strategy:
-
-\begin{enumerate}
-    \item New version components are deployed alongside the existing version
-    \item Database migrations are applied using versioned, incremental scripts
-    \item Traffic is gradually shifted to the new version
-    \item System health is monitored during the transition
-    \item Upon successful verification, old version resources are decommissioned
-\end{enumerate}
+The upgrade process is exactly the same as the installation process.
+The only difference is that the developer must ensure that the database migration
+is applied correctly otherwise the CI/CD pipeline will fail.
 
 \subsubsection{Rollback Strategy}
 
-In case of deployment failures, the system supports automatic rollback:
-
-\begin{itemize}
-    \item Container orchestration platform (Kubernetes) detects deployment issues
-    \item Traffic is automatically reverted to the previous stable version
-    \item Database migrations include compensating transactions for rollback
-    \item Alerts are generated for operations staff to investigate the failure
-\end{itemize}
+In case CI/CD pipeline fails during the upgrade process, simpply nothing will be
+deployed to the production environment. A red symbol will appear near the commit
+to indicate that the CI/CD failed. If CI/CD succeeds but later on issues are
+detected, the rollback must be performed manually by the system administrator.
 
 % TODO: DIAGRAM - Installation and Upgrade Process Flow
-% SUGGESTED_TYPE: UML Activity Diagram
-% KEY_ELEMENTS_TO_DEPICT: CI/CD Pipeline, Container Registry, Database Migration, Health Checks, Blue-Green Deployment, Rollback Path
-\begin{figure}[h!]
-\centering
-% \includegraphics[width=0.9\textwidth]{images/placeholder_diagram_for_operational_view_installation_process.png}
-\caption{Illustrative Diagram: Human Benchmark Installation and Upgrade Process Flow (Conceptual Placeholder)}
-\label{fig:operational_installation_process}
-\textit{Comment: This diagram should illustrate the complete flow of installation and upgrade processes, including CI/CD pipeline integration, container deployment, database migrations, and rollback mechanisms.}
-\end{figure}
+% % SUGGESTED_TYPE: UML Activity Diagram
+% % KEY_ELEMENTS_TO_DEPICT: CI/CD Pipeline, Container Registry, Database Migration, Health Checks, Blue-Green Deployment, Rollback Path
+% \begin{figure}[h!]
+%     \centering
+%     % \includegraphics[width=0.9\textwidth]{images/placeholder_diagram_for_operational_view_installation_process.png}
+%     \caption{Illustrative Diagram: Human Benchmark Installation and Upgrade Process Flow (Conceptual Placeholder)}
+%     \label{fig:operational_installation_process}
+%     \textit{Comment: This diagram should illustrate the complete flow of installation and upgrade processes, including CI/CD pipeline integration, container deployment, database migrations, and rollback mechanisms.}
+% \end{figure}
 
 \subsection{Migration Strategy}
+We do not have any migration strategy, because we are not migrating from any
+previous version of the Human Benchmark system. Moreover we only have one
+database instance. As a result, the simple DB update stage in CI/CD pipeline is
+sufficient for now.
 
-\subsubsection{Functional Migration}
+% \subsubsection{Functional Migration}
 
-For users transitioning from earlier versions or similar platforms, the Human Benchmark system implements a staged migration approach:
+% For users transitioning from earlier versions or similar platforms, the Human Benchmark system implements a staged migration approach:
 
-\begin{itemize}
-    \item \textbf{User Account Migration}: User accounts and authentication credentials are migrated first
-    \item \textbf{Historical Performance Data}: Performance history and achievements are transferred
-    \item \textbf{Custom Game Configurations}: User-created game configurations are preserved
-    \item \textbf{Group Memberships and Relationships}: Social connections and multiplayer groups
-\end{itemize}
+% \begin{itemize}
+%     \item \textbf{User Account Migration}: User accounts and authentication credentials are migrated first
+%     \item \textbf{Historical Performance Data}: Performance history and achievements are transferred
+%     \item \textbf{Custom Game Configurations}: User-created game configurations are preserved
+%     \item \textbf{Group Memberships and Relationships}: Social connections and multiplayer groups
+% \end{itemize}
 
-\subsubsection{Data Migration}
+% \subsubsection{Data Migration}
 
-The data migration process addresses the complexity of moving data between different database structures and versions:
+% The data migration process addresses the complexity of moving data between different database structures and versions:
 
-\begin{itemize}
-    \item \textbf{ETL Pipeline}: Custom extraction, transformation, and loading processes for PostgreSQL
-    \item \textbf{Data Quality Assurance}: Validation rules to ensure data integrity during migration
-    \item \textbf{Delta Synchronization}: Mechanism to capture and apply changes made during migration
-    \item \textbf{Performance Optimization}: Bulk loading techniques and parallel processing for large datasets
-\end{itemize}
+% \begin{itemize}
+%     \item \textbf{ETL Pipeline}: Custom extraction, transformation, and loading processes for PostgreSQL
+%     \item \textbf{Data Quality Assurance}: Validation rules to ensure data integrity during migration
+%     \item \textbf{Delta Synchronization}: Mechanism to capture and apply changes made during migration
+%     \item \textbf{Performance Optimization}: Bulk loading techniques and parallel processing for large datasets
+% \end{itemize}
 
-For live system migration, the process includes:
-\begin{enumerate}
-    \item Initial bulk data transfer during off-peak hours
-    \item Capturing ongoing changes in a transaction log during migration
-    \item Applying captured changes to synchronize final state
-    \item Verification of data integrity through consistency checks
-\end{enumerate}
+% For live system migration, the process includes:
+% \begin{enumerate}
+%     \item Initial bulk data transfer during off-peak hours
+%     \item Capturing ongoing changes in a transaction log during migration
+%     \item Applying captured changes to synchronize final state
+%     \item Verification of data integrity through consistency checks
+% \end{enumerate}
 
-% TODO: DIAGRAM - Data Migration Architecture
-% SUGGESTED_TYPE: Data Flow Diagram
-% KEY_ELEMENTS_TO_DEPICT: Source Database, ETL Pipeline, Data Quality Checks, Transformation Rules, Target Database, Change Capture Mechanism
-\begin{figure}[h!]
-\centering
-% \includegraphics[width=0.9\textwidth]{images/placeholder_diagram_for_operational_view_data_migration.png}
-\caption{Illustrative Diagram: Human Benchmark Data Migration Architecture (Conceptual Placeholder)}
-\label{fig:operational_data_migration}
-\textit{Comment: This diagram should illustrate the data migration architecture, showing the flow from source systems through extraction, transformation, quality checks, and loading into the target Human Benchmark database.}
-\end{figure}
+% % TODO: DIAGRAM - Data Migration Architecture
+% % SUGGESTED_TYPE: Data Flow Diagram
+% % KEY_ELEMENTS_TO_DEPICT: Source Database, ETL Pipeline, Data Quality Checks, Transformation Rules, Target Database, Change Capture Mechanism
+% \begin{figure}[h!]
+%     \centering
+%     % \includegraphics[width=0.9\textwidth]{images/placeholder_diagram_for_operational_view_data_migration.png}
+%     \caption{Illustrative Diagram: Human Benchmark Data Migration Architecture (Conceptual Placeholder)}
+%     \label{fig:operational_data_migration}
+%     \textit{Comment: This diagram should illustrate the data migration architecture, showing the flow from source systems through extraction, transformation, quality checks, and loading into the target Human Benchmark database.}
+% \end{figure}
 
 \subsection{Operational Monitoring and Control}
 
+Currently we have no monitoring in place, but we plan to use Graphana and
+Elasticsearch combined with Prometheus for monitoring and alerting.
+
 \subsubsection{Monitoring Approach}
 
-The Human Benchmark system employs a comprehensive monitoring strategy:
+We have defined a monitoring approach that includes:
 
 \begin{itemize}
-    \item \textbf{Infrastructure Monitoring}: Kubernetes cluster health, container metrics, and node status
+    \item \textbf{Infrastructure Monitoring}: Docker commands to check container status
     \item \textbf{Application Performance Monitoring}: Response times, error rates, and throughput metrics
-    \item \textbf{Database Monitoring}: Query performance, connection pools, and storage utilization
-    \item \textbf{User Experience Monitoring}: Client-side performance and error tracking
-    \item \textbf{WebSocket Connection Monitoring}: Connection health for real-time multiplayer features
+    \item \textbf{Database Monitoring}: Query performance, connection pools, and storage utilization using Aiven Console
 \end{itemize}
 
 \subsubsection{Control Capabilities}
@@ -164,34 +214,33 @@ The Human Benchmark system employs a comprehensive monitoring strategy:
 System administrators have access to the following control capabilities:
 
 \begin{itemize}
-    \item \textbf{Service Management}: Start, stop, and restart individual services
-    \item \textbf{Scaling Controls}: Adjust resource allocation for components under load
-    \item \textbf{Configuration Updates}: Apply configuration changes without redeployment
-    \item \textbf{User Session Management}: View and terminate active sessions if needed
-    \item \textbf{Game Room Management}: Administrative control over multiplayer game rooms
+    \item \textbf{Service Management}: Start, stop, and restart individual services using MIF OpenNebula
+    \item \textbf{Scaling Controls}: Adjust resource allocation for components under load using MIF OpenNebula
+    \item \textbf{Configuration Updates}: Apply configuration changes without redeployment using SSH to the server 
 \end{itemize}
+
+% LGTM ABOVE
 
 \subsubsection{Operational Dashboard}
 
-A centralized dashboard provides visibility into:
+A centralized Graphana or Elasticsearch dashboard provides real-time visibility into system health and performance. Key metrics displayed include:
 
 \begin{itemize}
     \item System health status across all components
     \item Active user count and distribution
-    \item Performance metrics for critical user paths
     \item Resource utilization and scaling status
-    \item Recent alerts and their resolution status
+    \item Recent alerts(errors)
 \end{itemize}
 
 % TODO: DIAGRAM - Operational Monitoring Architecture
 % SUGGESTED_TYPE: Component Diagram
 % KEY_ELEMENTS_TO_DEPICT: Monitoring Agents, Metrics Collection, Alerting System, Dashboards, Control Interface, Log Aggregation
 \begin{figure}[h!]
-\centering
-% \includegraphics[width=0.9\textwidth]{images/placeholder_diagram_for_operational_view_monitoring_architecture.png}
-\caption{Illustrative Diagram: Human Benchmark Operational Monitoring Architecture (Conceptual Placeholder)}
-\label{fig:operational_monitoring}
-\textit{Comment: This diagram should illustrate the monitoring architecture, showing how metrics are collected from system components, aggregated, analyzed, visualized, and how alerts are generated.}
+    \centering
+    % \includegraphics[width=0.9\textwidth]{images/placeholder_diagram_for_operational_view_monitoring_architecture.png}
+    \caption{Illustrative Diagram: Human Benchmark Operational Monitoring Architecture (Conceptual Placeholder)}
+    \label{fig:operational_monitoring}
+    \textit{Comment: This diagram should illustrate the monitoring architecture, showing how metrics are collected from system components, aggregated, analyzed, visualized, and how alerts are generated.}
 \end{figure}
 
 \subsection{Alerting System}
@@ -202,29 +251,20 @@ The Human Benchmark alerting system classifies alerts into the following categor
 
 \begin{itemize}
     \item \textbf{Technical Alerts}: Infrastructure, application, or database issues
-    \item \textbf{Business Alerts}: Issues affecting user experience or business functions
-    \item \textbf{Security Alerts}: Potential security threats or unusual activity
     \item \textbf{Performance Alerts}: Degradation in system performance metrics
     \item \textbf{Capacity Alerts}: Resource utilization approaching defined thresholds
 \end{itemize}
 
 \subsubsection{Alert Routing and Prioritization}
-
-Alerts are routed based on their severity and category:
-
-\begin{itemize}
-    \item \textbf{Critical}: Immediate notification via multiple channels (SMS, email, phone)
-    \item \textbf{High}: Notification to on-call staff via SMS and email
-    \item \textbf{Medium}: Email notification to responsible team
-    \item \textbf{Low}: Added to dashboard and included in daily summary
-\end{itemize}
+Currently we do not have the capibility to route and prioritize alerts using
+email or sms, so we will simply display them in the Graphana or Elasticsearch
+dashboard.
 
 \subsubsection{Alert Management}
 
 To prevent alert fatigue, the system implements:
 
 \begin{itemize}
-    \item Alert correlation to identify related issues
     \item Automatic suppression of duplicate alerts
     \item Configurable thresholds based on time of day and user load
     \item Alert history for tracking recurring issues
@@ -237,36 +277,52 @@ To prevent alert fatigue, the system implements:
 The Human Benchmark system organizes configuration into the following groups:
 
 \begin{itemize}
-    \item \textbf{Application Configuration}: Core application settings across services
-    \item \textbf{Database Configuration}: PostgreSQL settings and connection parameters
-    \item \textbf{WebSocket Configuration}: Real-time communication settings
-    \item \textbf{UI Configuration}: Frontend appearance and behavior settings
-    \item \textbf{Game Configuration}: Parameters for various game types
-    \item \textbf{Integration Configuration}: Settings for third-party services
+    \item \textbf{Application Configuration}: Core application settings across services (port numbers)
+    \item \textbf{Database Configuration}: PostgreSQL settings and connection parameters (names, passwords)
 \end{itemize}
 
 \subsubsection{Configuration Value Sets}
+We have no plans for this as our user base is +20 users and we do not expect 
+any significant load on the system.
+% Different configuration profiles are maintained for various operational scenarios:
 
-Different configuration profiles are maintained for various operational scenarios:
+% \begin{itemize}
+%     \item \textbf{Standard Operation}: Balanced settings for normal user load
+%     \item \textbf{High Load}: Optimized for peak usage periods
+%     \item \textbf{Maintenance Mode}: Settings for system maintenance windows
+%     \item \textbf{Reduced Capacity}: Configuration for degraded infrastructure scenarios
+% \end{itemize}
+
+\subsubsection{Current Configuration Details}
+
+Currently we have the following configuration details:
 
 \begin{itemize}
-    \item \textbf{Standard Operation}: Balanced settings for normal user load
-    \item \textbf{High Load}: Optimized for peak usage periods
-    \item \textbf{Maintenance Mode}: Settings for system maintenance windows
-    \item \textbf{Reduced Capacity}: Configuration for degraded infrastructure scenarios
+    \item \textbf{Backend Configuration}:
+          \begin{itemize}
+              \item Database connection string for PostgreSQL
+              \item HTTPS certificate for secure communication
+          \end{itemize}
+    \item \textbf{Frontend Configuration}:
+          \begin{itemize}
+              \item URL to the backend API
+          \end{itemize}
 \end{itemize}
 
 \subsubsection{Configuration Change Strategy}
+In case any configuration changes happen, we will first test the application 
+with these changes locally, then we will push these changes to the production 
+branch of the repository. After that, we will run the CI/CD pipeline to deploy the configuration changes.
+We think that this is sufficient for our simple application.
+% Configuration changes follow this process:
 
-Configuration changes follow this process:
-
-\begin{enumerate}
-    \item Changes are first applied to development environment
-    \item Testing validates configuration in staging environment
-    \item Changes are applied to production through the CI/CD pipeline
-    \item Automated validation tests verify system behavior
-    \item Rollback capability is maintained if issues are detected
-\end{enumerate}
+% \begin{enumerate}
+%     \item Changes are first applied to development environment
+%     \item Testing validates configuration in staging environment
+%     \item Changes are applied to production through the CI/CD pipeline
+%     \item Automated validation tests verify system behavior
+%     \item Rollback capability is maintained if issues are detected
+% \end{enumerate}
 
 \subsection{Performance Monitoring}
 
@@ -282,6 +338,8 @@ The following metrics are collected to assess system performance:
     \item \textbf{WebSocket Performance}: Connection reliability and message delivery time
     \item \textbf{Client-Side Metrics}: Page load time and UI responsiveness
 \end{itemize}
+
+% LGTM ABOVE 409 page in the software system architecture book
 
 \subsubsection{Performance Data Collection}
 
@@ -311,11 +369,11 @@ Collected metrics are used for:
 % SUGGESTED_TYPE: Data Flow Diagram
 % KEY_ELEMENTS_TO_DEPICT: Metrics Sources, Collection Agents, Time Series Database, Analysis Engine, Dashboards, Alerting Integration
 \begin{figure}[h!]
-\centering
-% \includegraphics[width=0.9\textwidth]{images/placeholder_diagram_for_operational_view_performance_monitoring.png}
-\caption{Illustrative Diagram: Human Benchmark Performance Monitoring Data Flow (Conceptual Placeholder)}
-\label{fig:operational_performance_monitoring}
-\textit{Comment: This diagram should illustrate how performance metrics flow from source components through collection, storage, analysis, and visualization systems.}
+    \centering
+    % \includegraphics[width=0.9\textwidth]{images/placeholder_diagram_for_operational_view_performance_monitoring.png}
+    \caption{Illustrative Diagram: Human Benchmark Performance Monitoring Data Flow (Conceptual Placeholder)}
+    \label{fig:operational_performance_monitoring}
+    \textit{Comment: This diagram should illustrate how performance metrics flow from source components through collection, storage, analysis, and visualization systems.}
 \end{figure}
 
 \subsection{Support Model}
@@ -370,11 +428,11 @@ The following tools support the incident management process:
 % SUGGESTED_TYPE: UML Activity Diagram
 % KEY_ELEMENTS_TO_DEPICT: Support Channels, Ticketing System, Triage Process, Escalation Paths, Resolution, Knowledge Base Update
 \begin{figure}[h!]
-\centering
-% \includegraphics[width=0.9\textwidth]{images/placeholder_diagram_for_operational_view_support_process.png}
-\caption{Illustrative Diagram: Human Benchmark Support Process Flow (Conceptual Placeholder)}
-\label{fig:operational_support_process}
-\textit{Comment: This diagram should illustrate the complete support process from initial user contact through resolution, showing decision points, escalation paths, and knowledge management integration.}
+    \centering
+    % \includegraphics[width=0.9\textwidth]{images/placeholder_diagram_for_operational_view_support_process.png}
+    \caption{Illustrative Diagram: Human Benchmark Support Process Flow (Conceptual Placeholder)}
+    \label{fig:operational_support_process}
+    \textit{Comment: This diagram should illustrate the complete support process from initial user contact through resolution, showing decision points, escalation paths, and knowledge management integration.}
 \end{figure}
 
 \subsection{Backup and Restore}
@@ -385,21 +443,21 @@ The Human Benchmark system implements a comprehensive backup strategy:
 
 \begin{itemize}
     \item \textbf{Database Backups}:
-    \begin{itemize}
-        \item Full database backups daily
-        \item Transaction log backups every 15 minutes
-        \item Differential backups every 6 hours
-    \end{itemize}
+          \begin{itemize}
+              \item Full database backups daily
+              \item Transaction log backups every 15 minutes
+              \item Differential backups every 6 hours
+          \end{itemize}
     \item \textbf{Configuration Backups}:
-    \begin{itemize}
-        \item System configuration backed up after each change
-        \item Version-controlled configuration repository
-    \end{itemize}
+          \begin{itemize}
+              \item System configuration backed up after each change
+              \item Version-controlled configuration repository
+          \end{itemize}
     \item \textbf{User-Generated Content}:
-    \begin{itemize}
-        \item Custom game configurations backed up daily
-        \item Incremental backup of user assets
-    \end{itemize}
+          \begin{itemize}
+              \item Custom game configurations backed up daily
+              \item Incremental backup of user assets
+          \end{itemize}
 \end{itemize}
 
 \subsubsection{Backup Storage}
@@ -474,46 +532,46 @@ For resilience and flexibility, the system supports multi-cloud operation:
 % SUGGESTED_TYPE: Deployment Diagram
 % KEY_ELEMENTS_TO_DEPICT: Cloud Regions, Kubernetes Clusters, Managed Services, CDN, Load Balancers, Data Replication
 \begin{figure}[h!]
-\centering
-% \includegraphics[width=0.9\textwidth]{images/placeholder_diagram_for_operational_view_cloud_deployment.png}
-\caption{Illustrative Diagram: Human Benchmark Cloud Deployment Architecture (Conceptual Placeholder)}
-\label{fig:operational_cloud_deployment}
-\textit{Comment: This diagram should illustrate the deployment of the system components across cloud infrastructure, showing relationships between managed services, Kubernetes clusters, and globally distributed resources.}
+    \centering
+    % \includegraphics[width=0.9\textwidth]{images/placeholder_diagram_for_operational_view_cloud_deployment.png}
+    \caption{Illustrative Diagram: Human Benchmark Cloud Deployment Architecture (Conceptual Placeholder)}
+    \label{fig:operational_cloud_deployment}
+    \textit{Comment: This diagram should illustrate the deployment of the system components across cloud infrastructure, showing relationships between managed services, Kubernetes clusters, and globally distributed resources.}
 \end{figure}
 
 \section{Perspective Priorities for the Operational View}
 
 The following table outlines the key architectural perspectives and their relative priorities for the Operational View of the Human Benchmark system:
 
-\begin{table}[h!]
-\centering
-\caption{Perspective Priorities for the Operational View of Human Benchmark}
-\label{tab:perspective_priorities_operational}
-\begin{tabular}{p{0.3\textwidth}p{0.15\textwidth}p{0.45\textwidth}}
-% \toprule
-\textbf{Architectural Perspective} & \textbf{Priority} & \textbf{Rationale for Human Benchmark within this View} \\
-% \midrule
-Accessibility & Low & While accessibility is important for the user interface, it has minimal impact on operational aspects beyond ensuring admin tools are accessible. \\
+\begin{table}[H]
+    \centering
+    \caption{Perspective Priorities for the Operational View of Human Benchmark}
+    \label{tab:perspective_priorities_operational}
+    \begin{tabular}{p{0.3\textwidth}p{0.15\textwidth}p{0.45\textwidth}}
+        % \toprule
+        \textbf{Architectural Perspective} & \textbf{Priority} & \textbf{Rationale for Human Benchmark within this View}                                                                                                                                                           \\
+        % \midrule
+        Accessibility                      & \greencircle Low               & While accessibility is important for the user interface, it has minimal impact on operational aspects beyond ensuring admin tools are accessible.                                                                 \\
 
-Availability and Resilience & High & Critical for Human Benchmark as a web-based platform with both single-player and multiplayer functionality, requiring continuous availability and minimal downtime, particularly for real-time multiplayer games. \\
+        Availability and Resilience        & \redcircle High              & Critical for Human Benchmark as a web-based platform with both single-player and multiplayer functionality, requiring continuous availability and minimal downtime, particularly for real-time multiplayer games. \\
 
-Development Resource & Medium & Operational procedures must balance sophistication with available resources for maintenance and support, especially considering the CI/CD pipeline and containerized deployment approach. \\
+        Development Resource               & \yellowcircle Medium            & Operational procedures must balance sophistication with available resources for maintenance and support, especially considering the CI/CD pipeline and containerized deployment approach.                         \\
 
-Evolution & High & The system must support frequent updates with new games and features, requiring robust installation and upgrade processes without disrupting user experience or compromising data integrity. \\
+        Evolution                          & \redcircle High              & The system must support frequent updates with new games and features, requiring robust installation and upgrade processes without disrupting user experience or compromising data integrity.                      \\
 
-Internationalization & Low & Has minimal impact on operational aspects beyond ensuring error messages and admin interfaces support multiple languages if deployed internationally. \\
+        Internationalization               & \greencircle Low               & Has minimal impact on operational aspects beyond ensuring error messages and admin interfaces support multiple languages if deployed internationally.                                                             \\
 
-Location & Medium & Relevant for cloud deployment across multiple regions to support global user base with low latency, particularly important for real-time multiplayer functionality. \\
+        Location                           & \yellowcircle Medium            & Relevant for cloud deployment across multiple regions to support global user base with low latency, particularly important for real-time multiplayer functionality.                                               \\
 
-Performance and Scalability & High & Critical for Human Benchmark as reaction-time and reflex tests require precise timing and responsiveness, with monitoring and configuration management playing key roles in maintaining performance. \\
+        Performance and Scalability        & \redcircle High              & Critical for Human Benchmark as reaction-time and reflex tests require precise timing and responsiveness, with monitoring and configuration management playing key roles in maintaining performance.              \\
 
-Regulation & Medium & Data protection regulations (e.g., GDPR) impact backup, restore, and data migration strategies, particularly regarding user data handling and storage. \\
+        Regulation                         & \yellowcircle Medium            & Data protection regulations (e.g., GDPR) impact backup, restore, and data migration strategies, particularly regarding user data handling and storage.                                                            \\
 
-Security & High & Essential for protecting user accounts, game integrity, and preventing manipulation of scores and leaderboards, with monitoring and alerting for security incidents being vital. \\
+        Security                           & \redcircle High              & Essential for protecting user accounts, game integrity, and preventing manipulation of scores and leaderboards, with monitoring and alerting for security incidents being vital.                                  \\
 
-Usability & Medium & Administrative interfaces and operational tools must be usable for system administrators and support staff, though not as critical as user-facing components. \\
-% \bottomrule
-\end{tabular}
+        Usability                          & \yellowcircle Medium            & Administrative interfaces and operational tools must be usable for system administrators and support staff, though not as critical as user-facing components.                                                     \\
+        % \bottomrule
+    \end{tabular}
 \end{table}
 
 \section{Impact of Key Perspectives on the Operational View}
@@ -524,11 +582,11 @@ Applying the Availability and Resilience perspective to the Operational View of 
 
 \begin{itemize}
     \item \textbf{Enhanced Monitoring}: The monitoring system has been expanded to include detailed health checks for all components, with particular emphasis on WebSocket connections that support real-time multiplayer functionality. This ensures that any potential issues affecting system availability are detected quickly.
-    
+
     \item \textbf{Robust Backup Strategy}: The backup and restore capabilities have been designed with higher frequency and multiple storage locations to minimize data loss in failure scenarios. The need for point-in-time recovery capabilities emerged from applying this perspective to ensure that user progress and game history can be reliably restored.
-    
+
     \item \textbf{Cloud Deployment Architecture}: The third-party environment operation model has been influenced to incorporate redundancy across cloud regions and providers. This includes active-active deployment strategies rather than simpler active-passive approaches, allowing for immediate failover without service interruption.
-    
+
     \item \textbf{Installation and Upgrade Process}: The blue-green deployment strategy was specifically chosen to minimize downtime during upgrades, with automated rollback capabilities to quickly recover from failed deployments without user impact.
 \end{itemize}
 
@@ -538,11 +596,11 @@ The Performance and Scalability perspective has significantly shaped the Operati
 
 \begin{itemize}
     \item \textbf{Comprehensive Performance Monitoring}: The monitoring system has been designed to track fine-grained metrics specifically related to reaction time measurement accuracy, which is essential for the core functionality of Human Benchmark. This includes client-side metrics to ensure timing precision across diverse user devices.
-    
+
     \item \textbf{Configuration Management}: Multiple configuration value sets have been defined to support different load scenarios, allowing the system to adapt its behavior during peak usage periods without manual intervention. This is particularly important for handling viral traffic spikes that online games often experience.
-    
+
     \item \textbf{Auto-scaling Design}: The cloud deployment model incorporates horizontal scaling capabilities with predefined thresholds based on key performance indicators, ensuring that resources are automatically provisioned to maintain responsiveness under varying load.
-    
+
     \item \textbf{Database Performance Optimization}: The operational procedures include specific monitoring and maintenance routines for database optimization, such as index maintenance and query performance analysis, to ensure that leaderboard and historical data queries remain efficient as the dataset grows.
 \end{itemize}
 
@@ -552,11 +610,11 @@ Applying the Security perspective to the Operational View has resulted in these 
 
 \begin{itemize}
     \item \textbf{Enhanced Alerting System}: The alerting system has been expanded to include security-specific alerts for unusual patterns of activity, potential cheating attempts, and unauthorized access attempts. These alerts are prioritized to ensure immediate response to security threats.
-    
+
     \item \textbf{Backup Protection}: The backup strategy has been modified to include immutable storage and encryption to protect against ransomware and data theft, ensuring that backups cannot be compromised even if the primary system is breached.
-    
+
     \item \textbf{Secure Configuration Management}: The configuration change strategy has been enhanced with approval workflows and audit trails to prevent unauthorized changes that could compromise security. Sensitive configuration values are treated differently with enhanced access controls.
-    
+
     \item \textbf{Operational Monitoring}: The monitoring approach now includes security-focused telemetry, such as authentication patterns, session anomalies, and unusual API call sequences that might indicate attempts to manipulate game results or leaderboards.
 \end{itemize}
 
@@ -570,11 +628,11 @@ Human Benchmark is a web-based platform that measures users' cognitive and motor
 
 \begin{itemize}
     \item \textbf{Precision Requirements}: As a system measuring reaction times in milliseconds, operational reliability and performance consistency are fundamental to its core functionality.
-    
+
     \item \textbf{Dual-Mode Operation}: Supporting both single-player and multiplayer experiences creates complex operational requirements for availability and resilience.
-    
+
     \item \textbf{Competitive Element}: With leaderboards and user rankings, the integrity of the operational environment directly affects the trustworthiness of the system's primary purpose.
-    
+
     \item \textbf{Continuous Service}: As a web application with global accessibility, the expectation is for near-continuous availability with minimal downtime.
 \end{itemize}
 
@@ -584,13 +642,13 @@ The Operational View directly addresses critical concerns of multiple key stakeh
 
 \begin{itemize}
     \item \textbf{System Administrators}: Need clear processes for installation, configuration, monitoring, and maintenance to ensure reliable system operation.
-    
+
     \item \textbf{Production Engineers}: Require well-defined deployment procedures and monitoring capabilities to maintain system health and performance.
-    
+
     \item \textbf{Support Staff}: Need effective tools and processes to address user issues and system problems quickly.
-    
+
     \item \textbf{End Users}: Expect consistent performance, data integrity, and availability, particularly for competitive features and historical performance tracking.
-    
+
     \item \textbf{Business Stakeholders}: Require reliable uptime and scalability to maintain user engagement and satisfaction.
 \end{itemize}
 
@@ -600,13 +658,13 @@ The Operational View is instrumental in achieving several critical quality attri
 
 \begin{itemize}
     \item \textbf{Performance}: Through comprehensive monitoring, configuration management, and tuning capabilities that ensure the system delivers precise timing measurements.
-    
+
     \item \textbf{Availability}: Via robust installation, backup/restore, and monitoring processes that minimize downtime and maintain service continuity.
-    
+
     \item \textbf{Reliability}: Through alerting systems, support processes, and operational procedures that quickly address issues before they impact users.
-    
+
     \item \textbf{Scalability}: By defining how the system adapts to changing load conditions, particularly important for handling viral growth or promotional events.
-    
+
     \item \textbf{Security}: Through operational monitoring, alerting, and response procedures that protect user data and system integrity.
 \end{itemize}
 
@@ -616,11 +674,11 @@ This view's importance aligns with key architectural principles from the literat
 
 \begin{itemize}
     \item \textbf{Stakeholder Focus}: The Operational View directly addresses the needs of operational stakeholders who are often overlooked in purely functional or developmental views.
-    
+
     \item \textbf{Quality Property Support}: It provides concrete mechanisms for achieving critical quality attributes that cannot be addressed through code alone.
-    
+
     \item \textbf{Practical Implementation}: It bridges the gap between theoretical design and practical reality, addressing the "last mile" of delivering value to users.
-    
+
     \item \textbf{System Evolution}: It provides the foundation for smooth system evolution through well-defined upgrade and migration processes.
 \end{itemize}
 
@@ -634,13 +692,13 @@ Key cross-view consistency requirements include:
 
 \begin{itemize}
     \item \textbf{Functional View Alignment}: The operational monitoring and control capabilities must align with the functional elements defined in the Functional View. Each functional component should have corresponding operational support for monitoring, configuration, and management.
-    
+
     \item \textbf{Deployment View Integration}: The installation model and cloud deployment architecture must be consistent with the physical deployment topologies defined in the Deployment View, including server configurations, network connections, and hardware requirements.
-    
+
     \item \textbf{Information View Consistency}: The backup and restore strategies must account for all data entities and relationships defined in the Information View, ensuring complete data protection and consistency during recovery operations.
-    
+
     \item \textbf{Development View Coordination}: The operational tools, monitoring interfaces, and support systems must be built according to the module organization and coding standards defined in the Development View.
-    
+
     \item \textbf{Concurrency View Alignment}: The operational monitoring of real-time multiplayer features must align with the concurrency models defined for simultaneous user interactions and game state management.
 \end{itemize}
 
@@ -648,9 +706,9 @@ Changes to any view may necessitate updates to the Operational View to maintain 
 
 \begin{itemize}
     \item Adding new functional components requires corresponding updates to monitoring, configuration, and support models.
-    
+
     \item Changes in deployment topology require updates to installation procedures and performance monitoring configurations.
-    
+
     \item Modifications to data models require adjustments to backup and migration strategies.
 \end{itemize}
 
