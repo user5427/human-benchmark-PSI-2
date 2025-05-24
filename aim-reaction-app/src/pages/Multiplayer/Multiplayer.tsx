@@ -1,13 +1,13 @@
 import MultiplayerRooms from '../../components/MultiplayerRooms/MultiplayerRooms';
-import useWebSocket from 'react-use-websocket';
 import { useAuth } from '../../contexts/AuthContext';
 import { useEffect, useState } from 'react';
 import { Room, RoomTarget, RoomRoundResults, AvailableRooms } from '../../types/props';
 import { TargetArea } from '../../components/TargetArea/TargetArea';
 import styles from './Multiplayer.module.css'
+import { useWs } from '../../contexts/WebsocketContext';
 const Multiplayer = () => {
-    const apiWs = import.meta.env.VITE_API_WS;
     const { userId } = useAuth();
+    const { sendJsonMessage, lastJsonMessage, readyState } = useWs();
     const playerId = parseInt(userId ?? "");
     const [started, setStarted] = useState(false);
     const [room, setRoom] = useState<Room | null>(null);
@@ -15,7 +15,6 @@ const Multiplayer = () => {
     const [roundResult, setRoundResults] = useState<RoomRoundResults | null>(null);
     const [roundStartTime, setRoundStartTime] = useState<number | null>(null);
     const [rooms, setRooms] = useState<Room[]>([]);
-    const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket(`${apiWs}/${userId}`, {reconnectInterval: 3000});
 
     useEffect(() => {
         if (!lastJsonMessage)

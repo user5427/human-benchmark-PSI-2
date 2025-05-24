@@ -12,6 +12,7 @@ import Login from "./pages/Login/Login";
 import { AuthProvider } from "./contexts/AuthContext";
 import Games from "./pages/Games/Games";
 import Multiplayer from "./pages/Multiplayer/Multiplayer";
+import { WebSocketProvider } from "./contexts/WebsocketContext";
 
 const Layout: React.FC<React.PropsWithChildren<object>> = ({ children }) => {
   const location = useLocation();
@@ -31,6 +32,7 @@ const Layout: React.FC<React.PropsWithChildren<object>> = ({ children }) => {
 function App() {
   return (
     <AuthProvider>
+      <WebSocketProvider>
       <BrowserRouter>
         <Layout>
           <Routes>
@@ -60,7 +62,8 @@ function App() {
             <Route path="/login" element={<Login />} />
           </Routes>
         </Layout>
-      </BrowserRouter>
+        </BrowserRouter>
+        </WebSocketProvider>
     </AuthProvider>
   );
 }
