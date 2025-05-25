@@ -1,0 +1,45 @@
+@startuml Cloud Deployment Architecture
+
+skinparam linetype ortho
+skinparam backgroundColor white
+skinparam nodeSep 50
+skinparam rankSep 80
+
+actor "End Users" as users
+
+rectangle "Lithuania (Vilnius)" as vilnius_region #AliceBlue {
+    cloud "<<hosting>>\nMIF OpenNebula VM" as openNebula #LightGreen {
+        node "<<operating system>>\nLinux - Debian 12" as debian_os #LightGreen {
+
+            node "<<container>>\npsi-2 frontend" as frontend #LightGreen {
+                artifact "/app/dist" as app_dist
+            }
+
+            node "<<container>>\npsi-2 backend" as backend #LightGreen {
+                artifact "AimReactionAPI.dll" as api_dll
+            }
+        }
+    }
+}
+
+rectangle "Germany (Frankfurt)" as frankfurt_region #LemonChiffon {
+    cloud "<<cloud provider>>\nDigitalOcean" as digitalocean #LightSeaGreen {
+        database "<<database service>>\nPostgreSQL" as postgresql #LightSeaGreen {
+            artifact "/Migrations" as migrations
+        }
+
+        component "<<backup service>>\nAutomated Backups" as backup #LightSeaGreen
+    }
+}
+
+' Define connections
+users <--> frontend : HTTPS
+frontend <--> backend : "JSON/WebSocket"
+backend <--> postgresql : "Secure SQL\n(Public Internet)"
+postgresql <--> backup : "Periodic\nBackups"
+
+' Notes
+note bottom of digitalocean : "Cloud Region: fra (Frankfurt, Germany)\nDeployment: Public Internet"
+note bottom of openNebula : "Physical Location: Vilnius, Lithuania"
+
+@enduml

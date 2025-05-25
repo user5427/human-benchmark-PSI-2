@@ -25,11 +25,41 @@ administered, and supported when running in its production environment. This
 view is critical for ensuring that the system functions reliably in day-to-day
 operation, addressing aspects such as maintenance, monitoring, and
 support.
+\begin{table}[H]
+    \centering
+    \caption{Operational Concerns Addressed in the Operational View}
+    \label{tab:operational_concerns}
+    \begin{tabular}{|p{0.4\textwidth}|p{0.5\textwidth}|}
+        \hline
+        \textbf{Concern}                     & \textbf{Description}                                                                 \\ \hline
+        Installation and Upgrade             & Processes for deploying and updating the system in production environments.          \\ \hline
+        Functional Migration                 & Transitioning features or functionality from older versions or systems.              \\ \hline
+        Data Migration                       & Moving data between different database structures or versions.                       \\ \hline
+        Operational Monitoring and Control   & Monitoring system health and providing control capabilities for administrators.      \\ \hline
+        Alerting                             & Mechanisms for notifying stakeholders of issues or anomalies in the system.          \\ \hline
+        Configuration Management             & Managing and applying system configurations across environments.                     \\ \hline
+        Performance Monitoring               & Tracking and analyzing key performance metrics to ensure system reliability.         \\ \hline
+        Support                              & Providing assistance to users and addressing operational issues.                     \\ \hline
+        Backup and Restore                   & Strategies for safeguarding data and recovering from failures.                       \\ \hline
+        Operation in Third-Party Environments & Ensuring compatibility and functionality in external hosting or cloud environments.  \\ \hline
+    \end{tabular}
+\end{table}
 
-The Operational Viewpoint focuses on concerns related to the ongoing operation
-of the system after deployment. It bridges the gap between system
-development and production usage, ensuring that the system can be effectively
-managed throughout its lifecycle.
+The Operational View also incorporates the following models to address specific operational concerns:
+\begin{table}[H]
+    \centering
+    \caption{Operational Models Incorporated in the Operational View}
+    \label{tab:operational_models}
+    \begin{tabular}{|p{0.3\textwidth}|p{0.6\textwidth}|}
+        \hline
+        \textbf{Model}                     & \textbf{Description}                                                                 \\ \hline
+        Installation Models                & Define the processes and tools used for deploying the system, including containerized deployment and CI/CD pipelines. \\ \hline
+        Migration Models                   & Outline strategies for transitioning data and functionality, ensuring smooth upgrades and compatibility.               \\ \hline
+        Configuration Management Models    & Detail how system configurations are managed, versioned, and applied across environments.                              \\ \hline
+        Administration Models              & Describe the roles, responsibilities, and tools available for system administrators to manage and maintain the system. \\ \hline
+        Support Models                     & Highlight the mechanisms for providing user support, tracking issues, and resolving incidents effectively.             \\ \hline
+    \end{tabular}
+\end{table}
 
 The primary stakeholders for the Operational View include:
 \begin{table}[H]
@@ -567,6 +597,15 @@ The Human Benchmark system is designed for deployment on MIF OpenNebula and Aive
     \item \textbf{Database Services}: Aiven PostgreSQL for managed database services.
 \end{itemize}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{AutomationAndSections/Sections/7operationalView/Images/cloudArchi.png}
+    \caption{Cloud Deployment Architecture: Human Benchmark System}
+    \label{fig:cloud_deployment_architecture}
+\end{figure}
+
+Above figure illustrates the cloud deployment architecture of the Human Benchmark system.
+
 \subsubsection{Cloud Provider Integration}
 
 The system integrates with cloud provider services:
@@ -587,16 +626,19 @@ The system integrates with cloud provider services:
 %     \item Traffic routing capability between cloud environments
 % \end{itemize}
 
-% TODO: DIAGRAM - Cloud Deployment Architecture
+% T-ODO: DIAGRAM - Cloud Deployment Architecture
 % SUGGESTED_TYPE: Deployment Diagram
 % KEY_ELEMENTS_TO_DEPICT: Cloud Regions, Kubernetes Clusters, Managed Services, CDN, Load Balancers, Data Replication
-\begin{figure}[h!]
-    \centering
-    % \includegraphics[width=0.9\textwidth]{images/placeholder_diagram_for_operational_view_cloud_deployment.png}
-    \caption{Illustrative Diagram: Human Benchmark Cloud Deployment Architecture (Conceptual Placeholder)}
-    \label{fig:operational_cloud_deployment}
-    \textit{Comment: This diagram should illustrate the deployment of the system components across cloud infrastructure, showing relationships between managed services, Kubernetes clusters, and globally distributed resources.}
-\end{figure}
+% \begin{figure}[h!]
+%     \centering
+%     % \includegraphics[width=0.9\textwidth]{images/placeholder_diagram_for_operational_view_cloud_deployment.png}
+%     \caption{Illustrative Diagram: Human Benchmark Cloud Deployment Architecture (Conceptual Placeholder)}
+%     \label{fig:operational_cloud_deployment}
+%     \textit{Comment: This diagram should illustrate the deployment of the system components across cloud infrastructure, showing relationships between managed services, Kubernetes clusters, and globally distributed resources.}
+% \end{figure}
+
+
+
 
 \section{Perspective Priorities for the Operational View}
 
