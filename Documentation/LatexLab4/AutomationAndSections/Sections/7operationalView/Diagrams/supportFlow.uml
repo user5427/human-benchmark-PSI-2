@@ -1,0 +1,80 @@
+@startuml Support Process Flow
+
+
+skinparam backgroundColor white
+skinparam activityDiagramBorderColor black
+skinparam activityBorderColor black
+skinparam arrowColor black
+skinparam shadowing false
+
+
+' title Human Benchmark Support Process Flow
+
+
+|User|
+start
+:Experience Issue;
+:Contact Support;
+
+|#AntiqueWhite|Support Channels|
+if (Contact Method?) then (Email)
+    :Email Received;
+else (Discord)
+    :Discord Message Received;
+endif
+
+|#LightBlue|Issue Tracking|
+:Create GitLab Issue;
+:Classify Issue\n(Bug/Feature Request/Incident);
+:Prioritize Based on Impact;
+
+|#LightGreen|Triage Process|
+:Review Issue Details;
+if (Is Documentation Available?) then (Yes)
+    :Direct User to GitLab Wiki;
+    |User|
+    :Access Documentation;
+    if (Issue Resolved?) then (Yes)
+        |Resolution|
+        goto lab_Resolve;
+    else (No)
+        |#LightGreen|Triage Process|
+        :Continue Support;
+    endif
+else (No)
+endif
+
+|#LightGreen|Triage Process|
+if (Issue Complexity?) then (Simple)
+    :Provide Basic Text Support;
+else (Complex)
+    if (Needs Visual Aid?) then (Yes)
+        :Use Screenshots;
+    endif
+    
+    if (Needs Interactive Help?) then (Yes)
+        :Conduct Discord Screen Share;
+    endif
+endif
+
+|#Orange|Task Management|
+:Assign via GitLab To-Do;
+:Track with Milestone;
+:Work on Resolution;
+
+|#Pink|Resolution|
+label lab_Resolve;
+:Resolve GitLab Issue;
+:Notify User;
+
+|#LightCyan|Knowledge Management|
+:Analyze Issue Patterns\n(using GitLab Analytics);
+if (Recurring Issue?) then (Yes)
+    :Update GitLab Wiki;
+endif
+
+|User|
+:Issue Resolved;
+stop
+
+@enduml
