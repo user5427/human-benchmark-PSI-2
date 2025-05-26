@@ -435,6 +435,9 @@ The following table outlines the priority of different architectural perspective
 % 🔴 🟡 🟢
 % LGTM
 
+
+% the commented lines seem to not be so important for the context view, so I commented them out
+
 \begin{table}[h!]
     \centering
     \caption{Perspective Priorities for the Context View of Human Benchmark}
@@ -447,11 +450,11 @@ The following table outlines the priority of different architectural perspective
 
         Availability and Resilience        & \redcircle High              & Critical to identify external dependencies that could affect system availability, especially for multiplayer functionality and competition features which require consistent uptime.                    \\
 
-        Development Resource               & \greencircle Low               & While resource constraints exist, they have minimal impact on the Context View's representation of external interfaces.                                                                                 \\
+%        Development Resource               & \greencircle Low               & While resource constraints exist, they have minimal impact on the Context View's representation of external interfaces.                                                                                 \\
 
         Evolution                          & \yellowcircle Medium            & The context boundaries should anticipate future expansion of game types and potential integrations with external systems.                                                                               \\
 
-        Internationalization               & \yellowcircle Medium            & The system's context should account for global accessibility, though detailed internationalization concerns belong in other views.                                                                      \\
+ %       Internationalization               & \yellowcircle Medium            & The system's context should account for global accessibility, though detailed internationalization concerns belong in other views.                                                                      \\
 
         Location                           & \yellowcircle Medium            & Geographic distribution of users affects latency considerations for reaction time tests, which must be addressed in the context model.                                                                  \\
 
@@ -461,7 +464,7 @@ The following table outlines the priority of different architectural perspective
 
         Security                           & \redcircle High              & The context boundaries must clearly define trust boundaries and authentication/authorization requirements for protecting user data and game integrity.                                                  \\
 
-        Usability                          & \yellowcircle Medium            & While important for the system overall, detailed usability concerns are primarily addressed in other views beyond high-level interface identification in the context model.                             \\
+%        Usability                          & \yellowcircle Medium            & While important for the system overall, detailed usability concerns are primarily addressed in other views beyond high-level interface identification in the context model.                             \\
         % \bottomrule
     \end{tabular}
 \end{table}
@@ -547,19 +550,16 @@ system stays safe.
 
 \section{Importance and Justification of the Context View for Human Benchmark}
 
-The Context View is of critical importance for the Human Benchmark system for several compelling reasons:
+The Context View is important for the Human Benchmark system for several reasons:
 
 % LGTM
 
 \subsection{Clear System Boundaries}
 
 Human Benchmark's purpose is to provide accurate measurement and comparison of
-cognitive and motor skills. The Context View establishes clear boundaries around
-what constitutes the system, which is essential for. It mainly defines the scope of
+cognitive and motor skills. The Context View mainly defines the scope of
 what the system does and what it does not do, claryfies which external factors might influence
 its performance and establishes the boundary between the system's control and external variables.
-
-Human Benchmark's purpose is to provide accurate measurement and comparison of cognitive and motor skills. The Context View establishes clear boundaries around what constitutes the system, which is essential for:
 
 % \begin{itemize}
 %     \item Defining the scope of measurement responsibility (what the system can and cannot accurately measure)
@@ -573,7 +573,7 @@ Human Benchmark's purpose is to provide accurate measurement and comparison of c
 
 \subsection{Interface Requirements Critical to Core Functionality}
 
-The system's functionality basically relies on the interface characteristics. 
+The system's functionality relies on the interface characteristics. 
 Mainly the precise timing of the interfaces (websockets) for accurate reaction
 time measurement and the integrity of score recording interfaces. 
 
@@ -595,16 +595,13 @@ purpose.
 \subsection{External Dependency Management}
 
 The success of Human Benchmark depends on managing several critical external dependencies.
-We need to ensure that our web app runs smoothly on different
-browsers, network conditions, and that our databases performance is 
-adequate for leaderboard functionality. We may also need to ensure
-that our infrastructure can scale to handle load during popularity spikes.
+It needs to be ensurerd that web app runs smoothly on various
+browsers, different network conditions, and that our databases performance is 
+adequate for leaderboard functionality. It also has to be ensured
+that systems infrastructure can scale to handle the load during popularity spikes.
 
 
 The Context View makes these dependencies explicit, allowing stakeholders to assess risks and plan mitigations early in the development process.
-
-
-
 
 
 
