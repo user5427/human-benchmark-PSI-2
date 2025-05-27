@@ -84,17 +84,6 @@ The following capabilities are explicitly excluded from the current scope of the
 
 \subsection{External Entities and Services}
 
-% TODO: DIAGRAM - High-level context model showing Human Benchmark system and all its external entities
-% SUGGESTED_TYPE: Custom block diagram (informal boxes-and-lines notation)
-% KEY_ELEMENTS_TO_DEPICT: Human Benchmark System (center), Users (Players, Administrators), Client Devices, Web Browsers, Database System, CI/CD Pipeline, Hosting Infrastructure
-\begin{figure}[h!]
-    \centering
-    % \includegraphics[width=0.9\textwidth]{images/placeholder_diagram_for_context_view_system_context.png}
-    \caption{Illustrative Diagram: Human Benchmark System Context Model (Conceptual Placeholder)}
-    \label{fig:context_system_overview}
-    \textit{Comment: This diagram should illustrate the Human Benchmark system as a black box in the center with all external entities arranged around it, showing interaction directions.}
-\end{figure}
-
 \subsubsection{Users and Roles}
 
 \begin{itemize}
@@ -145,6 +134,16 @@ The following capabilities are explicitly excluded from the current scope of the
           is hosted.
 
 \end{itemize}
+
+% TODO: DIAGRAM - High-level context model showing Human Benchmark system and all its external entities
+% SUGGESTED_TYPE: Custom block diagram (informal boxes-and-lines notation)
+% KEY_ELEMENTS_TO_DEPICT: Human Benchmark System (center), Users (Players, Administrators), Client Devices, Web Browsers, Database System, CI/CD Pipeline, Hosting Infrastructure
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.6\textwidth]{AutomationAndSections/Sections/1contextView/Images/systemContext.png}
+    \caption{Human Benchmark System Entity Overview}
+    \label{fig:context_system_overview}
+\end{figure}
 
 \subsection{Nature and Characteristics of External Entities}
 
@@ -251,19 +250,22 @@ The hosting infrastructure is critical for the user experience.
 % * CHECK PAGE 251 for more details on the interface types
 
 
+
+% Seemed pretty useless, so I commented it out
+
 % !!! do not trust this blindly, check the original document
 % TODO: DIAGRAM - Sequence diagram showing interaction between user and system for a typical game session
 % SUGGESTED_TYPE: UML Sequence Diagram
 % KEY_ELEMENTS_TO_DEPICT: User, Web Client, Human Benchmark Backend, Database, including authentication, game selection, game play, and score recording
-\begin{figure}[h!]
-    \centering
+%\begin{figure}[h!]
+%    \centering
     % \includegraphics[width=0.9\textwidth]{images/placeholder_diagram_for_context_view_user_interaction.png}
-    \caption{Illustrative Diagram: User Interaction Sequence for Game Session (Conceptual Placeholder)}
-    \label{fig:context_user_interaction}
-    \textit{Comment: This diagram should illustrate the sequence of interactions
-        between a user and the Human Benchmark system throughout a typical gaming
-        session.}
-\end{figure}
+%    \caption{Illustrative Diagram: User Interaction Sequence for Game Session (Conceptual Placeholder)}
+%    \label{fig:context_user_interaction}
+%    \textit{Comment: This diagram should illustrate the sequence of interactions
+%        between a user and the Human Benchmark system throughout a typical gaming
+%        session.}
+%\end{figure}
 
 
 
@@ -607,7 +609,9 @@ The Context View makes these dependencies explicit, allowing stakeholders to ass
 
 \subsection{Stakeholder Alignment}
 
-The Human Benchmark system serves diverse stakeholders including players, game creators, and administrators. The Context View provides a common, easily understood reference point that helps align stakeholder expectations by:
+The Human Benchmark system serves diverse stakeholders including players, 
+game creators, and administrators. The Context View provides a common, 
+easily understood reference point that helps align stakeholder expectations by:
 
 \begin{itemize}
     \item Clearly communicating system scope and exclusions
@@ -615,26 +619,31 @@ The Human Benchmark system serves diverse stakeholders including players, game c
     \item Identifying key external interfaces that different stakeholders will interact with
 \end{itemize}
 
-This alignment is especially valuable given the system's dual nature as both a measurement tool and a competitive gaming platform, where different stakeholders may have different primary interests.
+This alignment is especially valuable given the system's dual nature as both a measurement tool
+ and a competitive gaming platform, where different stakeholders may have different primary interests.
 
 \subsection{Foundation for Further Architectural Work}
 
-As noted in the software architecture literature, the Context View serves as a foundation for more detailed architectural views. For Human Benchmark, this is particularly important as it:
+As noted in the software architecture literature, 
+the Context View serves as a foundation for more detailed architectural views.
+ For Human Benchmark, this is particularly important as it:
 
 \begin{itemize}
-    \item Informs the Functional View by identifying required external interfaces
-    \item Guides the Deployment View by clarifying infrastructure dependencies
-    \item Shapes the Information View by defining external data flows
+    \item \textbf{Functional View}: Informs it by identifying required external interfaces
+    \item \textbf{Deployment View}: Guides it by clarifying infrastructure dependencies
+    \item \textbf{Information View}: Shapes it by defining external data flows
 \end{itemize}
 
-Without a clear Context View, subsequent architectural decisions would lack the necessary grounding in system boundaries and external constraints.
+Without a clear Context View, subsequent architectural decisions would lack the necessary 
+grounding in system boundaries and external constraints.
 
 \section{Cross-View Consistency Considerations}
 
-The Context View of the Human Benchmark system must maintain consistency with other architectural views to ensure a coherent overall architectural description. Key considerations include:
+The Context View of the Human Benchmark system must maintain consistency with other architectural views 
+to ensure a coherent overall architectural description. Key considerations include:
 
 \begin{itemize}
-    \item \textbf{Functional View Consistency:} The functional elements identified in the Functional View must align with the external interfaces defined in the Context View. For example, the real-time multiplayer functionality identified in the Functional View must correspond to the WebSocket interface defined in the Context View.
+    \item \textbf{Functional View Consistency:} The real-time multiplayer functionality identified in the Functional View must correspond to the WebSocket interface defined in the Context View.
 
     \item \textbf{Information View Consistency:} The data flows crossing system boundaries in the Context View must be reflected in the Information View's data models and flows. For instance, the user profile information mentioned in the Context View should be consistently modeled in the Information View.
 
@@ -643,8 +652,11 @@ The Context View of the Human Benchmark system must maintain consistency with ot
     \item \textbf{Development View Consistency:} The interface technologies mentioned in the Context View (such as WebSockets for real-time communication) should be consistently reflected in the module organization and dependencies described in the Development View.
 \end{itemize}
 
-Maintaining this cross-view consistency is essential for ensuring that the architectural description as a whole provides a coherent representation of the Human Benchmark system. Each view provides a different perspective on the same underlying architecture, and inconsistencies between views would indicate potential architectural flaws or documentation issues.
 
-This document represents one part of a comprehensive Architectural Description for the Human Benchmark system. It should be read in conjunction with other architectural views to gain a complete understanding of the system architecture.
+% no shit sherlock
+%Maintaining this cross-view consistency is essential for ensuring that the architectural description as a whole provides a coherent representation of the Human Benchmark system. 
+%Each view provides a different perspective on the same underlying architecture, and inconsistencies between views would indicate potential architectural flaws or documentation issues.
+
+%This document represents one part of a comprehensive Architectural Description for the Human Benchmark system. It should be read in conjunction with other architectural views to gain a complete understanding of the system architecture.
 
 % \end{document}

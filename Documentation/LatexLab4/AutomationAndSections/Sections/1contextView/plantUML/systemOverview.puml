@@ -1,0 +1,29 @@
+@startuml SystemContext
+
+rectangle "Player, Game Creator" as Player
+rectangle "Administrator" as Admin
+rectangle "Client Device\n(PC, Phone)" as Device
+rectangle "Web Browser" as Browser
+rectangle "Human Benchmark System" as System {
+  rectangle "Frontend (Web App)" as Frontend
+  rectangle "Backend API" as Backend
+  database "Database" as DB
+}
+rectangle "CI/CD Pipeline" as CI
+rectangle "Containerization Platform\n(Docker)" as Docker
+rectangle "Hosting Infrastructure\n(OpenNebula Cluster)" as Infra
+
+Player --> Device : uses
+Device --> Browser : runs
+Browser --> Frontend : loads
+Frontend --> Backend : API requests
+Backend --> DB : reads/writes
+Admin --> Backend : manages
+
+CI --> Frontend : builds
+CI --> Backend : builds
+CI --> Docker : creates containers
+Docker --> Infra : runs on
+Backend --> Infra : hosted on
+
+@enduml
