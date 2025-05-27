@@ -21,20 +21,7 @@
 
 \section{Introduction to the Information View}
 
-This Information View describes the way that the Human Benchmark system stores, manipulates, manages, and distributes information.
-
-
-\subsection{Primary Stakeholders}
-
-This view primarily addresses the concerns of the following stakeholders:
-
-\begin{itemize}
-    \item \textbf{Users}: Concerned with information accuracy, and accessibility of their performance data and game history.
-    \item \textbf{Acquirers}: Interested in how information assets are preserved, especially regarding user data and performance metrics.
-    \item \textbf{Developers}: Need to understand the information structure to implement features.
-    \item \textbf{Testers}: Require knowledge of data structures and flows to verify system behavior.
-    \item \textbf{Maintainers}: Must understand information models to maintain and expand the system.
-\end{itemize}
+This Information View describes the way that the Human Benchmark system stores, manipulates and manages data.
 
 \section{Core Architectural Elements of the Information View}
 
@@ -44,13 +31,18 @@ The Human Benchmark system's information structure centers around several key da
 
 \subsubsection{Key Data Entities}
 
+Note this diagram only shows the new data entities that will be created to implement the new feature and those that are closley related, but whose purpose is not clear(The User entity is not shown, etc.). The diagram uses Crowfoot notation for ER diagrams.
+Only a diagram for the static model is shown, as such the information flow model and information lifecycle model will be described by text as they are extremly trivial. Other models such as volumetric, metadata, information quality and information ownership will not be covered as they are not relevant to chats or it is obvious as for what kind of model is used due to the nature of the change being implemented(The owner of a message is its sender, etc.).
+
 \begin{itemize}
-    \item \textbf{User}: Represents system users, storing authentication details, profile information, and relationships to games and scores.
-    \item \textbf{Game}: Defines game configurations with parameters like difficulty level, target speed, maximum number of targets, game duration, and visibility (public/private).
-    \item \textbf{Target}: Contains position, size, and speed properties of clickable targets in games.
-    \item \textbf{Score}: Records user performance metrics for specific game sessions, enabling historical tracking.
-    \item \textbf{GameSession}: Tracks individual gameplay instances, including start time, end time, and associated performance metrics.
-    \item \textbf{GameUser}: Manages access control for private games, determining which users can access specific game configurations.
+    \item \textbf{Emojis}: Stores all emojis and messages that have these emojis.
+    \item \textbf{Files}: Stores all of the files and a link to the message to which the file is attached.
+    \item \textbf{GameRoomMessages}: This entity shows the messages that were sent to game rooms.
+    \item \textbf{PrivateMessages}: This entity contains all messages that were sent in private chats.
+    \item \textbf{Groups}: This entity stores all of the chat-groups that were created by users.
+    \item \textbf{GroupMessages}: All of the messages sent to chat-groups.
+    \item \textbf{GlobalMessages}: All of the messages that were sent in the global scope.
+    \item \textbf{GameSessions}: All of the currently running game sessions(Used by game-room messages to store in which game-room the message was sent).
 \end{itemize}
 
 % TODO: DIAGRAM - Entity-Relationship diagram showing the key data entities and their relationships
@@ -59,174 +51,26 @@ The Human Benchmark system's information structure centers around several key da
 % STAKEHOLDER_FOCUS: Developers and maintainers who need to understand the data model
 \begin{figure}[h!]
 \centering
-% \includegraphics[width=0.9\textwidth]{images/placeholder_diagram_for_information_view_erd.png}
+ \includegraphics[width=0.9\textwidth]{4Lab2.drawio.png}
 \caption{Entity-Relationship Diagram: Human Benchmark Core Data Model (Conceptual Placeholder)}
 \label{fig:information_view_erd_overview}
 \textit{Comment: This diagram should illustrate the main data entities and their relationships within the Human Benchmark system.}
 \end{figure}
 
-\subsubsection{Data Classification}
-
-The information in the Human Benchmark system can be classified into several categories based on its purpose and usage:
-%% DO WE NEED THIS?
-\begin{itemize}
-    \item \textbf{Transactional Data}: Dynamic information generated during gameplay, including individual reaction times, clicks, and other real-time metrics.
-    \item \textbf{Analytical Data}: Aggregated performance metrics, historical trends, and comparative statistics used for reporting and analysis.
-    \item \textbf{Reference Data}: Less volatile information such as game types, difficulty levels, and system configuration settings.
-    \item \textbf{User Profile Data}: Personal information, preferences, and authentication details for system users.
-\end{itemize}
-
-
-\subsection{Information Ownership and Management}
-
-\subsubsection{Information Ownership Model}
-
-A clear information ownership model is critical for the Human Benchmark system, particularly for multiplayer functionality where real-time data consistency is essential.
-
-\begin{table}[H]
-\centering
-\caption{Information Ownership in Human Benchmark System}
-\label{tab:information_ownership}
-\begin{tabular}{p{0.25\textwidth}p{0.35\textwidth}p{0.3\textwidth}}
-% \toprule
-\textbf{Information Entity} & \textbf{Owner/Master} & \textbf{Access Pattern} \\
-% % \toprule
-User Authentication Data & User Management Component & Creator/Updater \\
-User Profile Data & User Profile Service & Creator/Updater/Reader \\
-Game Configurations & Game Configuration Service & Creator/Updater/Reader \\
-Gameplay Metrics & Gameplay Engine & Creator \\
-Score Records & Scoring Service & Creator/Reader \\
-Leaderboard Data & Leaderboard Service & Derived from Score Records \\
-Session Data & Session Management Service & Creator/Updater/Deleter \\
-% % \toprule
-\end{tabular}
-\end{table}
-
-\subsubsection{Data Validation and Integrity}
-
-To maintain information integrity, the Human Benchmark system implements several validation mechanisms:
-
-\begin{itemize}
-    \item \textbf{Server-Side Validation}: Critical for gameplay data to prevent manipulation of scores and ensure fair competition.
-    \item \textbf{Client-Side Validation}: Used for improved user experience but not trusted for security-critical operations.
-    \item \textbf{Redundant Validation}: Applied to multiplayer sessions to verify timing and interaction accuracy.
-    \item \textbf{Timestamp Verification}: Helps prevent replay attacks and ensures the proper sequence of events, particularly important for reaction time measurements.
-\end{itemize}
+\subsection{Information Storage Model}
+The data will be stored in a relational database. This is because they are widely used and have a way to unsure their quality such as the various normal forms and SQL.
 
 \subsection{Information Flow}
 
-Information flows within the Human Benchmark system follow several patterns that support both real-time interaction and historical analysis.
-
-\subsubsection{Primary Information Flows}
-
-\begin{itemize}
-    \item \textbf{User Registration Flow}: Capture of user information during registration, validation, and storage in the user database.
-    \item \textbf{Game Configuration Flow}: Creation and distribution of game parameters from configuration services to gameplay engines.
-    \item \textbf{Gameplay Data Flow}: Real-time capture of user interactions, processing for scoring, and storage of performance metrics.
-    \item \textbf{Scoring and Leaderboard Flow}: Aggregation of raw performance data into meaningful scores and ranking information.
-    \item \textbf{Multiplayer Synchronization Flow}: Real-time distribution of player actions and game state to all participants in a multiplayer session.
-\end{itemize}
-
-% TODO: DIAGRAM - Information Flow Diagram showing key data flows through the system
-% SUGGESTED_TYPE: Data Flow Diagram (DFD)
-% KEY_ELEMENTS_TO_DEPICT: User interface, Game engine, Scoring service, Database, WebSocket server, with flow arrows showing how data moves between components
-% STAKEHOLDER_FOCUS: Developers and architects who need to understand data movement through the system
-\begin{figure}[h!]
-\centering
-% \includegraphics[width=0.9\textwidth]{images/placeholder_diagram_for_information_view_dataflow.png}
-\caption{Data Flow Diagram: Human Benchmark Information Flow (Conceptual Placeholder)}
-\label{fig:information_view_dataflow}
-\textit{Comment: This diagram should illustrate how information flows between different components of the Human Benchmark system, particularly focusing on gameplay data capture, processing, and storage.}
-\end{figure}
 
 \subsubsection{Real-time Communication Flows}
 
-The multiplayer capabilities of Human Benchmark require sophisticated real-time information flows:
+Since there are no system messages that use the chatting system, the data flow is as follows: the user sends a message which is sent to the real-time communication system which according to what kind of message it is it is forwarded to be sent to all users connected to the apropriate chat room and it is forwarded to the database for storage.
 
-\begin{itemize}
-    \item \textbf{Room Management}: Player joining/leaving information distributed to all room members.
-    \item \textbf{Game Synchronization}: Target appearance and hit registration synchronized across all players.
-    \item \textbf{Score Updates}: Real-time score updates during gameplay to maintain competitive awareness.
-    \item \textbf{Round Results}: Consolidated round results broadcasted to all participants.
-\end{itemize}
+\subsection{Information lifecycles}
 
-These real-time flows are implemented using WebSocket connections, which allow bidirectional communication between client and server with minimal latency.
+The messages can have the following states. There are two states that a message may have. Firstly a message may be pinned. This state is reversable, as in once a message has been pinned and its state has changed to pinned it can also be unpinned and the state of the message will revert. The second state that a message can have is the deleted state. Since our system does not delete messages by default the only way messages are deleted is following a users request to delete them.
 
-\subsection{Information Storage Models}
-
-\subsubsection{Primary Database Architecture}
-
-The Human Benchmark system uses PostgreSQL as its primary database management system. This choice provides:
-
-\begin{itemize}
-    \item Robust relational data management for complex entity relationships
-    \item Strong transactional support for data integrity
-    \item Advanced querying capabilities for performance analysis
-    \item Scalability for growing user bases and historical data retention
-\end{itemize}
-
-The database architecture follows a hybrid approach:
-
-\begin{itemize}
-    \item \textbf{Transactional Store}: Optimized for real-time game data operations with appropriate indexing.
-    \item \textbf{Analytical Store}: Structured to support complex queries for leaderboards and historical performance analysis.
-\end{itemize}
-
-\subsubsection{Data Partitioning Strategy}
-
-As the Human Benchmark system grows, data partitioning becomes increasingly important. The system employs:
-
-\begin{itemize}
-    \item \textbf{Vertical Partitioning}: Separating frequently accessed data from historical records.
-    \item \textbf{User-Based Partitioning}: Strategic distribution of user data to optimize access patterns.
-    \item \textbf{Time-Based Partitioning}: Historical gameplay data segmented by time periods to improve query performance.
-\end{itemize}
-
-\subsubsection{In-Memory Data for Real-time Operations}
-
-For multiplayer functionality and real-time reactions, the system utilizes:
-
-\begin{itemize}
-    \item Temporary in-memory storage for active game sessions
-    \item Real-time state synchronization via WebSockets
-    \item Periodic persistence to the database for permanent record-keeping
-\end{itemize}
-
-\subsection{Information Quality and Consistency}
-
-\subsubsection{Information Consistency Mechanisms}
-
-Maintaining consistent information across distributed components is critical, particularly for:
-
-\begin{itemize}
-    \item \textbf{Multiplayer Game State}: Ensuring all participants see the same targets and timing.
-    \item \textbf{Score Recording}: Validating that performance metrics are accurately captured and consistently reported.
-    \item \textbf{User Profile Updates}: Ensuring profile changes are reflected across all system components.
-\end{itemize}
-
-The system employs ACID transactions for critical updates and eventual consistency models where appropriate for performance-sensitive operations.
-
-\subsubsection{Information Timeliness and Latency}
-
-For a reaction time measurement system, information timeliness is particularly critical:
-
-\begin{itemize}
-    \item \textbf{Reaction Time Measurements}: Must be captured with millisecond precision.
-    \item \textbf{Multiplayer Synchronization}: Requires minimal latency to ensure fair competition.
-    \item \textbf{Score Updates}: Should be available immediately after game completion.
-    \item \textbf{Leaderboard Updates}: May employ slight delays (seconds to minutes) to optimize for read performance.
-\end{itemize}
-
-\subsubsection{Information Quality Assessment}
-
-To ensure high information quality, the Human Benchmark system:
-
-\begin{itemize}
-    \item Validates input data at multiple levels (client, API, database)
-    \item Employs anomaly detection to identify suspicious performance metrics
-    \item Maintains audit trails for critical data changes
-    \item Implements automated consistency checks between derived and source data
-\end{itemize}
 
 \section{Perspective Priorities for the Information View}
 
@@ -236,135 +80,27 @@ To ensure high information quality, the Human Benchmark system:
 \label{tab:perspective_priorities_information}
 \begin{tabular}{p{0.3\textwidth}p{0.15\textwidth}p{0.45\textwidth}}
 % \toprule
-\textbf{Architectural Perspective} & \textbf{Priority} & \textbf{Rationale for Human Benchmark within this View} \\
+\textbf{Architectural Perspective} & \textbf{Priority} & \textbf{Explanation} \\
 % % \toprule
-Accessibility & Low & Information structure itself has limited accessibility concerns, though data presentation in the UI would address this in other views. \\
-Availability and Resilience & High & As a performance measurement system, data availability and integrity are critical. Users must be able to access their historical performance data reliably. \\
-Development Resource & Medium & The database and information management implementation requires consideration of development effort, particularly for real-time multiplayer data handling. \\
-Evolution & High & The information model must accommodate future game types, metrics, and features without requiring significant restructuring. \\
-Internationalization & Low & The core data model is largely numeric and timing-based, with minimal text content requiring internationalization at the storage level. \\
-Location & Medium & For multiplayer functionality, the system must handle geographically distributed users with minimal latency for fair competition. \\
-Performance and Scalability & High & Performance measurement is the system's core purpose, requiring efficient data storage and retrieval, especially for leaderboards and historical analysis. \\
-Regulation & Medium & User data storage must comply with privacy regulations like GDPR, requiring consideration in the information model design. \\
-Security & High & Protecting user data and ensuring score integrity against manipulation is essential for a competitive gaming platform. \\
+Accessibility & Low & The information object connected to the real-time messaging functionality is not related to accessibility from an architectural perspective. \\
+
+Availability and Resilience & High &  Since we are implementing chatting in real time it is important that upon a users request old messages are loaded and new ones created effectively. \\
+
+Development Resource & Medium & The database and information management implementation requires consideration of development effort. \\
+
+Evolution & Low & The messages that will be created have little to no need to change over time. \\
+
+Internationalization & Low & The Internationalization of chats is depend on users and users alone. There is no architectural way or need to Internationalize messages. \\
+
+
+
+Security & Low & User messages have little to no need to have security measures in place for users. \\
+
 Usability & Low & While usability is important for the system overall, it has limited direct impact on the underlying information model. \\
 % % \toprule
 \end{tabular}
 \end{table}
 
-\section{Impact of Key Perspectives on the Information View}
 
-Based on the priority assessment above, the following perspectives have the highest impact on the Information View:
-
-\subsection{Performance and Scalability Perspective}
-
-Applying the Performance and Scalability perspective to the Information View significantly shapes the design of the Human Benchmark system's data architecture:
-
-\begin{itemize}
-    \item \textbf{Data Access Patterns}: The system's precise reaction time measurement requires optimized data access paths with minimal overhead. This leads to specialized indexing on timestamp fields and user-game association tables.
-    
-    \item \textbf{Query Optimization}: Leaderboard generation requires complex queries across large datasets. The information model supports materialized views and pre-computed aggregates to accelerate these frequent read operations.
-    
-    \item \textbf{Storage Partitioning}: As user numbers grow, the system implements partitioning strategies to maintain query performance. This includes separating current and historical data, as well as partitioning by game type for efficient access patterns.
-    
-    \item \textbf{In-Memory Processing}: For multiplayer games, the information architecture includes a layer of in-memory data structures optimized for real-time processing, with persistence handled asynchronously to avoid impacting the user experience.
-\end{itemize}
-
-\subsection{Security Perspective}
-
-The Security perspective substantially influences the Information View:
-
-\begin{itemize}
-    \item \textbf{Data Protection}: User profile information requires encryption at rest and appropriate access controls. The information model includes security classifications for different data elements, with authentication details receiving the highest protection.
-    
-    \item \textbf{Score Integrity}: To prevent cheating, the information architecture separates client-reported timing data from server-validated scores. Server-side validation processes verify the plausibility of reported reaction times before committing them to permanent storage.
-    
-    \item \textbf{Access Control}: The information model includes granular permissions for data access, particularly for private games and multiplayer sessions. The GameUser entity manages these permissions explicitly.
-    
-    \item \textbf{Audit Trails}: For detecting potential manipulation attempts, the information structure includes audit mechanisms for tracking changes to critical data, especially score records and game configurations.
-\end{itemize}
-
-\subsection{Evolution Perspective}
-
-The Evolution perspective shapes how the information architecture accommodates change:
-
-\begin{itemize}
-    \item \textbf{Extensible Game Model}: The information structure uses a flexible approach to game configuration, allowing new game types with different parameters to be added without schema changes. Game-specific attributes are stored in a structured format that can evolve over time.
-    
-    \item \textbf{Version-Aware Schemas}: Critical entities include version information to support backward compatibility as the system evolves. This allows phased migrations without disrupting service.
-    
-    \item \textbf{Metadata-Driven Design}: The information model includes metadata structures that describe data elements themselves, facilitating runtime adaptation to changing requirements without requiring code changes.
-    
-    \item \textbf{API Abstraction}: Information access is mediated through service interfaces that shield consumers from underlying data structure changes, providing stability as the system evolves.
-\end{itemize}
-
-\section{Importance and Justification of the Information View for Human Benchmark}
-
-The Information View is of critical importance for the Human Benchmark system for several compelling reasons:
-
-\subsection{Core to System Purpose}
-
-Human Benchmark's fundamental purpose is to measure, record, and analyze cognitive performance metrics. These operations are inherently information-centric:
-
-\begin{itemize}
-    \item The system's primary value is derived from capturing precise timing data
-    \item Historical tracking of performance requires robust information management
-    \item Competitive features rely on accurate storage and comparison of user scores
-\end{itemize}
-
-Without an effective information architecture, the system cannot fulfill its core purpose of providing meaningful performance measurement and analysis.
-
-\subsection{Complex Information Relationships}
-
-The Human Benchmark system maintains complex relationships between different information entities:
-
-\begin{itemize}
-    \item Users have many scores across different game types
-    \item Games have multiple configuration parameters affecting difficulty
-    \item Multiplayer sessions involve synchronized data across multiple users
-    \item Leaderboards aggregate and rank data across multiple dimensions
-\end{itemize}
-
-These relationships must be clearly defined in the Information View to ensure they are correctly implemented and maintained throughout the system's lifecycle.
-
-\subsection{Critical Quality Attributes}
-
-Several critical quality attributes for Human Benchmark are directly supported by the information architecture:
-
-\begin{itemize}
-    \item \textbf{Precision}: Accurate measurement of reaction times to the millisecond level requires appropriate data types and validation.
-    \item \textbf{Integrity}: Competitive features depend on trustworthy score data that resists manipulation.
-    \item \textbf{Performance}: Fast access to historical data and leaderboards requires optimized information structures.
-    \item \textbf{Scalability}: Growing user bases and historical data accumulation require an information architecture that can scale effectively.
-\end{itemize}
-
-\subsection{Stakeholder Value}
-
-The Information View directly addresses key concerns of multiple stakeholders:
-
-\begin{itemize}
-    \item \textbf{Users}: Depend on accurate recording and retrieval of their performance data.
-    \item \textbf{Developers}: Need a clear understanding of data structures to implement features correctly.
-    \item \textbf{Maintainers}: Rely on well-documented information structures to support the system effectively.
-    \item \textbf{Acquirers}: Value the systems's ability to safeguard information assets and support future growth.
-\end{itemize}
-
-As noted in software architecture principles, "Architectures are created solely to meet stakeholder needs." The Information View directly addresses critical stakeholder needs for this performance measurement system.
-
-\section{Cross-View Consistency Considerations}
-
-The Information View does not exist in isolation; it must maintain consistency with other architectural views of the Human Benchmark system:
-
-\begin{itemize}
-    \item \textbf{Functional View}: The functional elements must align with the information structures they create, process, and store. For example, the scoring functionality described in the Functional View must be supported by appropriate data structures in the Information View.
-    
-    \item \textbf{Development View}: Development standards, coding practices, and module organization should reflect the information architecture. For example, data access layers should mirror the ownership patterns defined in the Information View.
-    
-    \item \textbf{Deployment View}: Physical storage considerations in the Deployment View must support the information requirements, particularly for real-time multiplayer features that require low-latency data access.
-    
-    \item \textbf{Operational View}: Backup, recovery, and monitoring approaches must align with the criticality of different information elements as defined in this view.
-\end{itemize}
-
-This Information View forms one essential part of a comprehensive Architectural Description for the Human Benchmark system. When changes are made to this view, corresponding changes may be needed in other views to maintain a coherent overall architecture.
 
 % \end{document}
