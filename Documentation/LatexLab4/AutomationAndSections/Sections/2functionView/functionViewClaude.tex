@@ -18,25 +18,13 @@
 % \tableofcontents
 
 \section{Introduction to the Functional View}
-
-This document presents the Functional View of the Human Benchmark system architecture. The Functional View describes the runtime functional elements of the system, their responsibilities, interfaces, and primary interactions. It demonstrates how the system will perform its required functions to measure and improve users' cognitive skills through interactive tests and games.
-
-As described in software architecture literature, the Functional View is often the cornerstone of an architectural description and typically the first view stakeholders read. This view influences the shape of other system structures, including information, concurrency, and deployment. It is also crucial for addressing quality properties such as evolvability, security, and runtime performance.
-
-The primary stakeholders for this view include:
-\begin{itemize}
-    \item \textbf{Users:} Individuals using the system to measure and improve their cognitive abilities
-    \item \textbf{Developers:} Teams responsible for implementing the system components
-    \item \textbf{Testers:} Personnel validating system functionality and performance
-    \item \textbf{System Administrators:} Staff responsible for maintaining and operating the system
-    \item \textbf{Acquirers:} Decision-makers who fund or approve the system development
-\end{itemize}
+The Functional View describes the functional elements of the system, their responsibilities, interfaces, and primary interactions.
 
 \section{Core Architectural Elements of the Functional View}
 
 \subsection{Overview of Functional Structure}
 
-The Human Benchmark system is designed to provide interactive cognitive tests while supporting both single-player and multiplayer experiences. The system tracks user performance, enables competition, and offers custom game configurations. The functional structure is organized to ensure coherent responsibility allocation, appropriate cohesion, and loose coupling between elements.
+The Human Benchmark system is designed to provide interactive cognitive tests while supporting both single-player and multiplayer experiences. The change that we will implement is that a new live chatting feature is to be added. The diagram below depicts what are the components that we will create change or use to implement this change.
 
 % TODO: DIAGRAM - High-level functional structure showing major system components and their relationships
 % SUGGESTED_TYPE: UML Component Diagram
@@ -44,34 +32,14 @@ The Human Benchmark system is designed to provide interactive cognitive tests wh
 % STAKEHOLDER_FOCUS: All stakeholders to understand the overall system structure
 \begin{figure}[h!]
     \centering
-    % \includegraphics[width=0.9\textwidth]{images/functional_view_overview.png}
-    \caption{Illustrative Diagram: High-level Functional Structure of Human Benchmark System (Conceptual Placeholder)}
-    \label{fig:functional_overview}
-    \textit{Comment: This diagram should illustrate the key functional elements and their primary interactions.}
+     \includegraphics[width=0.9\textwidth]{4Lab1.drawio1.png}
+    \caption{Functional Diagram Depicted Using UML}
+    \label{fig:functional_diagram}
+    \textit{Comment: This diagram shows the main logical components and related components regarding the new change implementation of a real-time chatting system.}
 \end{figure}
 
 \subsection{Functional Elements and Responsibilities}
 
-\subsubsection{User Management}
-The User Management element handles all aspects of user accounts and authentication within the system.
-
-\textbf{Responsibilities:}
-\begin{itemize}
-    \item Manage user registration and authentication processes
-    \item Store and maintain user credentials with secure password hashing
-    \item Handle login functionality and session management
-    \item Maintain user profiles with historical performance data
-    \item Provide interfaces for profile data retrieval and updates
-    \item Support authorization for accessing different system features
-\end{itemize}
-
-\textbf{Interfaces:}
-\begin{itemize}
-    \item \textit{UserRegistration}: Allows new users to create accounts
-    \item \textit{Authentication}: Supports user login and session validation
-    \item \textit{ProfileManagement}: Provides operations for viewing and updating user profiles
-    \item \textit{ProgressTracking}: Interfaces with Score and Leaderboard System to monitor user improvement over time
-\end{itemize}
 
 \subsubsection{Game System}
 The Game System provides the core gameplay functionality, managing game logic and processing for different cognitive tests.
@@ -80,7 +48,7 @@ The Game System provides the core gameplay functionality, managing game logic an
 \begin{itemize}
     \item Implement game logic for various cognitive tests (Reaction Time Test, Reflex Test, etc.)
     \item Control game flow and state transitions
-    \item Generate stimuli for users to respond to (e.g., color changes, targets)
+    \item Generate stimuli for users to respond to (e.g. targets)
     \item Measure and record user response times and accuracy
     \item Provide interfaces for starting, executing, and ending game sessions
     \item Calculate performance metrics for user responses
@@ -88,28 +56,10 @@ The Game System provides the core gameplay functionality, managing game logic an
 
 \textbf{Interfaces:}
 \begin{itemize}
-    \item \textit{GameExecution}: Supports the running of different game types
-    \item \textit{PerformanceMetrics}: Calculates and provides performance data to Score System
+    \item \textit{GameExecution}: Supports the running of different game types, starting the game and allows for the user to interact with the game and its systems.
+
 \end{itemize}
 
-\subsubsection{Game Configuration}
-The Game Configuration element enables the creation and management of custom game settings and parameters.
-
-\textbf{Responsibilities:}
-\begin{itemize}
-    \item Allow users to create custom game configurations
-    \item Manage customizable parameters (difficulty level, target speed, game duration, etc.)
-    \item Store and retrieve game configuration templates
-    \item Apply configurations to game instances
-    \item Handle visibility settings (public/private) for game configurations
-    \item Manage access control for private game configurations
-\end{itemize}
-
-\textbf{Interfaces:}
-\begin{itemize}
-    \item \textit{ConfigurationStorage}: Manages persistence of game configurations
-    \item \textit{AccessControl}: Handles visibility and access settings for game configurations
-\end{itemize}
 
 \subsubsection{Multiplayer System}
 The Multiplayer System enables real-time competition between multiple users.
@@ -126,30 +76,8 @@ The Multiplayer System enables real-time competition between multiple users.
 
 \textbf{Interfaces:}
 \begin{itemize}
-    \item \textit{RoomManagement}: Supports creation, joining, and configuration of multiplayer rooms
-    \item \textit{ResultsCoordination}: Shares round results with participants
-    \item \textit{CommunicationIntegration}: Interfaces with Real-time Communication System
-\end{itemize}
-
-\subsubsection{Score and Leaderboard System}
-The Score and Leaderboard System records, analyzes, and presents user performance data.
-
-\textbf{Responsibilities:}
-\begin{itemize}
-    \item Automatically calculate and record scores from game sessions
-    \item Track historical performance for individual users
-    \item Maintain global and game-specific leaderboards
-    \item Generate performance analytics and metrics
-    \item Identify and highlight personal bests and top performers
-    \item Provide interfaces for accessing score data and rankings
-\end{itemize}
-
-\textbf{Interfaces:}
-\begin{itemize}
-    \item \textit{HistoricalTracking}: Manages persistent storage of user performance history
-    \item \textit{LeaderboardManagement}: Creates and updates various leaderboard types
-    \item \textit{AnalyticsGeneration}: Produces performance statistics and trends
-    \item \textit{DataRetrieval}: Provides interfaces for accessing score data and rankings
+    \item \textit{CommunicationIntegration}: Interfaces with Real-time Communication System as not all messages recieved in the Multiplayer system are room messages.
+    \item \textit{Room Management}: Allows users to join or create a game and use Room-level functionality.
 \end{itemize}
 
 \subsubsection{Real-time Communication System}
@@ -157,11 +85,7 @@ The Real-time Communication System enables instant updates and interactions betw
 
 \textbf{Responsibilities:}
 \begin{itemize}
-    \item Establish and maintain WebSocket connections with clients
     \item Handle real-time message passing between system components
-    \item Support instant updates for player status and game states
-    \item Enable synchronization for multiplayer gameplay
-    \item Manage connection status and reconnection logic
     \item Provide reliable message delivery mechanisms
 \end{itemize}
 
@@ -175,98 +99,30 @@ The Real-time Communication System enables instant updates and interactions betw
 The Human Benchmark system interacts with several external entities:
 
 \subsubsection{Web Browsers}
+The primary means for users to access and interact with the system.
+
+
+\subsubsection{Database}
 The primary means for users to access the system.
 
 \textbf{Interface characteristics:}
 \begin{itemize}
-    \item \textit{Protocol}: HTML, CSS, JavaScript over HTTP/HTTPS
-    \item \textit{Communication style}: Request-response for page loading, WebSocket for real-time updates
-    \item \textit{Data format}: JSON for API responses, HTML for page content
-    \item \textit{Security requirements}: TLS encryption, CORS policy implementation
-\end{itemize}
+    \item \textit{Save to Database}: Allows various data to be saved in a non-volatile environment.
 
-\subsubsection{Email System}
-Used for account verification, password resets, and notifications.
-
-\textbf{Interface characteristics:}
-\begin{itemize}
-    \item \textit{Protocol}: SMTP
-    \item \textit{Communication style}: Asynchronous
-    \item \textit{Authentication}: SMTP authentication credentials
-    \item \textit{Content}: HTML and plain text email formats
 \end{itemize}
 
 % TODO: DIAGRAM - External Interface Diagram showing system boundaries and connections with external systems
 % SUGGESTED_TYPE: UML Component Diagram with system boundary
 % KEY_ELEMENTS_TO_DEPICT: Human Benchmark System boundary, Web Browsers, Email System, possible APIs for social media integration
 % STAKEHOLDER_FOCUS: Developers and system administrators to understand external dependencies
-\begin{figure}[h!]
-    \centering
-    % \includegraphics[width=0.8\textwidth]{images/external_interfaces.png}
-    \caption{Illustrative Diagram: Human Benchmark System External Interfaces (Conceptual Placeholder)}
-    \label{fig:external_interfaces}
-    \textit{Comment: This diagram should illustrate the system boundary and all external entities with which the system interacts.}
-\end{figure}
 
 \subsection{Key Interactions and Scenarios}
 
-\subsubsection{Single-Player Game Flow}
-
-This scenario describes how the functional elements interact during a single-player game session:
-
-\begin{enumerate}
-    \item User Management authenticates the user and provides profile information
-    \item Game Configuration provides game parameters (default or custom)
-    \item Game System initializes a game session with the provided configuration
-    \item Game System generates stimuli and records user responses
-    \item Upon completion, Game System calculates performance metrics
-    \item Score and Leaderboard System records the results and updates rankings
-    \item User Management updates the user's profile with new performance data
-\end{enumerate}
-
-% TODO: DIAGRAM - Sequence diagram showing the interactions for a single-player game session
-% SUGGESTED_TYPE: UML Sequence Diagram
-% KEY_ELEMENTS_TO_DEPICT: User, User Management, Game Configuration, Game System, Score and Leaderboard System
-% STAKEHOLDER_FOCUS: Developers to understand the flow of operations
-\begin{figure}[h!]
-    \centering
-    % \includegraphics[width=0.9\textwidth]{images/single_player_sequence.png}
-    \caption{Illustrative Diagram: Sequence of Interactions for Single-Player Game Session (Conceptual Placeholder)}
-    \label{fig:single_player_sequence}
-    \textit{Comment: This diagram should illustrate the sequence of interactions between functional elements during a single-player game session.}
-\end{figure}
-
-\subsubsection{Multiplayer Game Creation and Execution}
-
-This scenario describes how functional elements interact during a multiplayer session:
-
-\begin{enumerate}
-    \item User Management authenticates participants
-    \item Multiplayer System creates a game room based on host settings
-    \item Game Configuration provides game parameters selected by the host
-    \item Real-time Communication System establishes connections with all participants
-    \item Multiplayer System coordinates the start of the game for all participants
-    \item Game System simultaneously provides stimuli to all participants
-    \item Real-time Communication System transmits participants' responses in real-time
-    \item Score and Leaderboard System calculates and distributes round results
-    \item Upon completion, final results are recorded and participant profiles updated
-\end{enumerate}
-
-% TODO: DIAGRAM - Sequence diagram showing the interactions for a multiplayer game session
-% SUGGESTED_TYPE: UML Sequence Diagram
-% KEY_ELEMENTS_TO_DEPICT: Host User, Participant Users, User Management, Multiplayer System, Game Configuration, Game System, Real-time Communication System, Score and Leaderboard System
-% STAKEHOLDER_FOCUS: Developers to understand the coordination of multiplayer functionality
-\begin{figure}[h!]
-    \centering
-    % \includegraphics[width=0.9\textwidth]{images/multiplayer_sequence.png}
-    \caption{Illustrative Diagram: Sequence of Interactions for Multiplayer Game Session (Conceptual Placeholder)}
-    \label{fig:multiplayer_sequence}
-    \textit{Comment: This diagram should illustrate the sequence of interactions between functional elements during a multiplayer game session.}
-\end{figure}
+The key interaction of our change is that Users will have the ability to join/create various chat-rooms and send various messages among them to all users in that chat-room.
 
 \section{Perspective Priorities for the Functional View}
 
-Architectural perspectives help ensure the system exhibits desired quality properties. The table below identifies the priority of different architectural perspectives for the Functional View of the Human Benchmark system, which will guide architectural decision-making.
+The table below identifies the priority of different architectural perspectives for the Functional View of the Human Benchmark system, which will guide architectural decision-making.
 
 \begin{table}[H]
     \centering
@@ -274,25 +130,25 @@ Architectural perspectives help ensure the system exhibits desired quality prope
     \label{tab:perspective_priorities_functional}
     \begin{tabular}{p{0.3\textwidth}p{0.15\textwidth}p{0.45\textwidth}}
         % \toprule
-        \textbf{Architectural Perspective} & \textbf{Priority} & \textbf{Rationale for Human Benchmark within this View}                                                                                                                                                                                                      \\
+        \textbf{Architectural Perspective} & \textbf{Priority} & \textbf{Explanation}                                                                                                                                                                                                      \\
         % \midrule
-        Performance and Scalability        & High              & The system's core function involves precise measurement of reaction times (in milliseconds). Performance is critical to ensure accurate timing measurements and seamless real-time multiplayer experiences, with support for up to 1,000 concurrent users.   \\
+        Performance and Scalability        & High              &  Performance is highly important as due to the nature of chatting, this feature is likely to be one of the most intensly used feature. As such it is very important that this feature remains functional as the number of users increase.   \\
 
-        Security                           & High              & User account data and performance history must be protected. The Functional View must ensure proper authentication, authorization, and data validation across functional elements to prevent unauthorized access to private games or manipulation of scores. \\
+        Security                           & Low              & Since the messages have no connection to a users personal date stored in their account, the importance of security is not important for this change.\\
 
-        Usability                          & High              & The system's success depends on user engagement. The Functional View must ensure intuitive interactions with game elements, clear feedback on performance, and an engaging experience that encourages continued use.                                         \\
+        Usability                          & High              & The system's success depends on user engagement. The Functional View must ensure that users are able to easily use the chatting feature.                                         \\
 
-        Availability and Resilience        & Medium            & While not life-critical, the system should be consistently available, especially for multiplayer functionality. Element interactions should be designed to gracefully handle failure scenarios such as network disconnections during gameplay.               \\
+        Availability and Resilience        & Medium            & While not life-critical, the system should be consistently available.                \\
 
-        Evolution                          & Medium            & Games and cognitive tests will likely need to be added or modified over time. The Functional View should support extensibility for adding new game types without major architectural changes.                                                                \\
+        Evolution                          & Low            & Since the main goal of the system is to develop users reaction speeds, and since messages are mainly compromised only of text there is little need for change.                                                                \\
 
-        Development Resource               & Medium            & The functional elements should be designed with implementation efficiency in mind, aligning with the modern tech stack (React, ASP.NET Core) while minimizing unnecessary complexity for the development team.                                               \\
+        Development Resource               & Medium            & The functional elements should be designed with implementation efficiency in mind, aligning with the modern tech stack while minimizing unnecessary complexity for the development team.                                               \\
 
         Internationalization               & Low               & While the system may eventually be used globally, the functional capabilities of cognitive tests are largely language-independent. Only user interface elements would require adaptation.                                                                    \\
 
-        Accessibility                      & Low               & Basic input accessibility concerns exist (e.g., color blindness considerations for visual stimuli), but the nature of reaction time tests inherently requires certain motor and visual capabilities.                                                         \\
+        Accessibility                      & Low               & Basic input accessibility concerns exist, but the nature of reaction time tests inherently requires certain motor and visual capabilities.                                                         \\
 
-        Location                           & Low               & The system is web-based without significant geographical dependencies. Minor concerns might include latency considerations for multiplayer scenarios across large distances.                                                                                 \\
+        Location                           & Low               & The system is web-based without significant geographical dependencies. The only minor concerns might be latency considerations for multiplayer scenarios across large distances.                                                                                 \\
 
         Regulation                         & Low               & Beyond standard data protection concerns (handled by the Security perspective), the system doesn't operate in a highly regulated domain like finance or healthcare.                                                                                          \\
         % \bottomrule
@@ -301,49 +157,8 @@ Architectural perspectives help ensure the system exhibits desired quality prope
 
 \section{Impact of Key Perspectives on the Functional View}
 
-Based on the priorities identified, the following perspectives have the most significant impact on the Functional View of Human Benchmark:
+Based on the priorities identified, the following perspective has the most significant impact on the Functional View of the system: The Real-time Communication System must be designed for low-latency message passing, with optimized protocols for multiplayer synchronization that can accommodate up to 1,000 concurrent users without degradation.
 
-\subsection{Performance and Scalability Perspective}
-
-Applying the Performance and Scalability perspective to the Functional View results in:
-
-\begin{itemize}
-    \item \textbf{Specialized Timing Elements:} The Game System must incorporate high-precision timing mechanisms to accurately measure reaction times in milliseconds, isolated from other system functions that could introduce latency.
-
-    \item \textbf{Optimized Element Distribution:} The functional structure separates elements with different performance characteristics. For example, separating the Score and Leaderboard System from the Game System ensures that intensive leaderboard calculations don't interfere with precise timing operations.
-
-    \item \textbf{Real-time Communication Design:} The Real-time Communication System must be designed for low-latency message passing, with optimized protocols for multiplayer synchronization that can accommodate up to 1,000 concurrent users without degradation.
-
-    \item \textbf{Asynchronous Processing:} Where possible, non-time-critical operations (such as score recording and leaderboard updates) should be designed to operate asynchronously to avoid impacting the user experience.
-\end{itemize}
-
-\subsection{Security Perspective}
-
-Applying the Security perspective to the Functional View results in:
-
-\begin{itemize}
-    \item \textbf{Authentication Integration:} The User Management element must provide robust authentication interfaces that other elements can utilize to verify user identity before allowing access to sensitive functions.
-
-    \item \textbf{Authority Boundaries:} Clear boundaries between multiplayer rooms and game sessions must be established, with explicit rules for which functional elements can modify game states and configurations.
-
-    \item \textbf{Score Verification:} The Game System and Score and Leaderboard System must include mechanisms to validate score submissions to prevent cheating, such as server-side verification of reported reaction times.
-
-    \item \textbf{Access Control Framework:} The Game Configuration element must implement explicit owner-based permissions for private games, with interfaces for the Multiplayer System to verify access rights before allowing participants to join.
-\end{itemize}
-
-\subsection{Usability Perspective}
-
-Applying the Usability perspective to the Functional View results in:
-
-\begin{itemize}
-    \item \textbf{Feedback Mechanisms:} Each functional element must provide appropriate feedback interfaces. The Game System particularly needs to communicate game state changes, results, and performance data clearly to users.
-
-    \item \textbf{Consistent Interaction Patterns:} Although the User Interface itself belongs to another view, the functional elements must support consistent interaction patterns across different game types to reduce the learning curve.
-
-    \item \textbf{Progress Visibility:} The Score and Leaderboard System must provide interfaces that allow users to easily view their historical performance and improvement over time.
-
-    \item \textbf{Error Handling:} All functional elements need to implement appropriate error handling and recovery mechanisms to provide meaningful feedback to users rather than system-oriented error messages.
-\end{itemize}
 
 \section{Importance and Justification of the Functional View for Human Benchmark}
 
@@ -351,17 +166,15 @@ The Functional View is critically important for the Human Benchmark system for s
 
 \subsection{Core Purpose Alignment}
 
-Human Benchmark's primary purpose is to measure and improve cognitive abilities through interactive tests. This directly aligns with the Functional View's focus on runtime functional elements and their interactions:
 
 \begin{itemize}
-    \item The precision timing mechanisms required for accurate reaction time measurement must be clearly defined in terms of responsibilities and interactions.
-    \item The variety of game types and their distinct functional requirements necessitate clear delineation of system capabilities.
-    \item The multiplayer aspects require well-defined interaction protocols between functional elements.
+    \item Allow users to chat globally, in game rooms, in group chats and privately.
+    \item Allow to create join and leave group chats and private messages
 \end{itemize}
 
 \subsection{Stakeholder Communication}
 
-The Functional View serves as an essential communication tool for key stakeholders:
+The Functional View serves as an essential communication tool:
 
 \begin{itemize}
     \item For developers, it provides clear guidance on the system's major functional components and their interfaces, forming the foundation for implementation.
@@ -371,16 +184,14 @@ The Functional View serves as an essential communication tool for key stakeholde
 
 \subsection{Quality Attribute Support}
 
-The Functional View directly supports critical quality attributes for Human Benchmark:
+The Functional View shows critical quality attributes for the system:
 
 \begin{itemize}
-    \item \textbf{Performance:} By clearly defining the Game System's timing responsibilities and its interaction with other elements, the view ensures that performance-critical paths are identified and can be optimized.
+    \item \textbf{Performance and Scalability:} By clearly defining the Real-time Communications System's need to serve large amounts of users and remain functional developers can prioratise the performance of the new feature.
 
-    \item \textbf{Scalability:} The separation of concerns across functional elements (e.g., separating real-time communication from game logic) supports the system's ability to scale to accommodate many simultaneous users.
+    \item \textbf{Reliability:} Clear interface definitions between elements enable robust error handling and rigorous testing.
 
-    \item \textbf{Reliability:} Clear interface definitions between elements enable robust error handling and recovery mechanisms.
 
-    \item \textbf{Security:} Well-defined authentication and authorization interfaces help ensure that game access and score recording are properly protected.
 \end{itemize}
 
 \subsection{Architectural Guidance}
@@ -388,30 +199,9 @@ The Functional View directly supports critical quality attributes for Human Benc
 The Functional View provides crucial guidance for architectural decisions:
 
 \begin{itemize}
-    \item It establishes the boundaries and responsibilities of major system components, guiding detailed design and implementation.
-    \item It identifies key interfaces that must be stable to allow independent development of components.
-    \item It highlights critical interaction paths that may require special attention for performance or reliability.
-    \item It provides a foundation for evaluating the impact of proposed changes to the system.
+    \item It shows the boundaries and responsibilities of the main system components, guiding implementation.
+    \item It describes the main interfaces that must be used, making the development requirements more clear.
 \end{itemize}
 
-As described in architectural literature, the Functional View is often the cornerstone of the architectural description, and this is particularly true for Human Benchmark where the functional capabilities directly enable the system's core purpose of measuring cognitive abilities.
-
-\section{Cross-View Consistency Considerations}
-
-The Functional View must maintain consistency with other architectural views to ensure a coherent overall architecture for the Human Benchmark system:
-
-\begin{itemize}
-    \item \textbf{Information View:} The functional elements identified in this view must align with the information structures and flows defined in the Information View. For example, the Score and Leaderboard System's functionality must be consistent with the data models for storing and retrieving performance records.
-
-    \item \textbf{Concurrency View:} The functional decomposition must support the concurrent execution needs of the system, particularly for real-time multiplayer interactions. The separation between the Game System, Multiplayer System, and Real-time Communication System should align with concurrency requirements.
-
-    \item \textbf{Development View:} The functional elements should map logically to the development-time code modules and packages to ensure implementation aligns with architectural intent.
-
-    \item \textbf{Deployment View:} The functional elements must be deployable to the physical/virtual infrastructure specified in the Deployment View, maintaining performance characteristics especially for timing-critical elements.
-
-    \item \textbf{Operational View:} The functional capabilities must support the operational procedures needed to maintain the system, including monitoring, backup, and disaster recovery.
-\end{itemize}
-
-This document is one part of a comprehensive Architectural Description for Human Benchmark. When making architectural decisions or interpreting this view, it is important to consider how these decisions impact or are impacted by other architectural views. Any changes to the Functional View should be evaluated for their potential impact on other views to maintain overall architectural integrity.
 
 % \end{document}
