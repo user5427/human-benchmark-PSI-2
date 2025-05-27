@@ -21,9 +21,12 @@
 
 \section{Introduction to the Development View}
 
-The Development View for the Human Benchmark system describes the architecture that supports the software development process. This view is primarily concerned with code organization, standardization, and development processes that enable efficient construction, testing, and maintenance of the system.
+The Development View for the Human Benchmark system is primarily concerned with code organization, 
+standardization, and development processes that enable efficient construction, testing, and maintenance of the system.
 
-As defined in the architectural literature, the Development View addresses the concerns related to how the software is built, focusing on module organization, common processing, standardization of design and testing, instrumentation, and codeline organization. It provides software developers, testers, and production engineers with the information they need to understand how to structure and build the software effectively.
+As defined in the architectural literature, the Development View addresses the concerns related to how the software is built, 
+focusing on module organization, common processing, standardization of design and testing, instrumentation, and codeline organization. 
+It provides software developers, testers, and production engineers information they need to understand how to structure and build the software effectively.
 
 The primary stakeholders for this view are:
 \begin{itemize}
@@ -32,13 +35,15 @@ The primary stakeholders for this view are:
     \item \textbf{Production engineers} who provision development and test environments and manage system transitions to production
 \end{itemize}
 
-This Development View is particularly important for the Human Benchmark system because it involves multiple technologies (React, ASP.NET Core, PostgreSQL) that must work together cohesively, as well as real-time features that require careful design and implementation.
+This Development View is particularly important for the Human Benchmark system because it involves multiple technologies (React, ASP.NET Core, PostgreSQL)
+ that must work together cohesively, as well as real-time features that require careful design and implementation.
 
 \section{Core Architectural Elements of the Development View}
 
 \subsection{Module Structure}
 
-The Human Benchmark system follows a modular architecture with clear separation between frontend and backend components. The module structure is organized to support the system's core features, including user management, game types, multiplayer functionality, and scoring systems.
+The Human Benchmark system follows a modular architecture with clear separation between frontend and backend components. 
+The module structure is organized to support the system's core features, including user management, game types, multiplayer functionality, and scoring systems.
 
 \subsubsection{Frontend Module Structure}
 
@@ -173,7 +178,7 @@ Human Benchmark implements several common processing mechanisms that are standar
 
 \subsubsection{Logging and Instrumentation}
 
-All components in the Human Benchmark system must implement standardized logging and instrumentation to facilitate monitoring, debugging, and analysis.
+All components in the Human Benchmark system must implement standardized logging and instrumentation to help monitoring, debugging, and analysis.
 
 \begin{itemize}
     \item \textbf{Log Levels}: Five standard logging levels are defined:
@@ -543,29 +548,41 @@ Human Benchmark implements a comprehensive CI/CD pipeline for automated building
 
 \section{Perspective Priorities for the Development View}
 
-The following table outlines the priorities of various architectural perspectives for the Development View of the Human Benchmark system. These priorities guide the architectural decisions within this view to ensure the system meets its quality requirements.
+The following table outlines the priorities of various architectural perspectives for the Development View of the Human Benchmark system. 
+These priorities guide the architectural decisions within this view to ensure the system meets its quality requirements.
 
-\begin{table}[H]
-\centering
-\caption{Perspective Priorities for the Development View of Human Benchmark}
-\label{tab:perspective_priorities_development}
-\begin{tabular}{p{0.3\textwidth}p{0.15\textwidth}p{0.45\textwidth}}
-% \toprule
-\textbf{Architectural Perspective} & \textbf{Priority} & \textbf{Rationale for Human Benchmark within this View} \\
-% \midrule
-Accessibility & Low & The Development View primarily focuses on code organization rather than user-facing features. However, development standards should include accessibility requirements for UI component development. \\
-Availability and Resilience & Medium & The multiplayer nature of Human Benchmark requires resilient code design patterns and error handling strategies to maintain system availability during high load periods. \\
-Development Resource & High & Optimizing development resources is critical for Human Benchmark as it involves multiple technologies (React, .NET, PostgreSQL) and requires efficient team coordination for timely delivery. \\
-Evolution & High & The Human Benchmark system will likely expand with new game types and features over time, requiring a module structure and development practices that support evolution and change. \\
-Internationalization & Medium & While not initially prioritized in the system description, the codeline should support internationalization for potential global reach, requiring standardized approaches to text handling. \\
-Location & Low & Development-time concerns are minimally affected by physical location, though distributed development teams might influence version control and collaboration practices. \\
-Performance and Scalability & Medium & The Development View must establish coding standards and patterns that enable performance-critical code, especially for reaction-time measurements and real-time multiplayer interactions. \\
-Regulation & Low & While regulatory compliance might be relevant for user data, it has limited impact on development-time structures compared to runtime concerns. \\
-Security & Medium & Development practices must include secure coding standards and vulnerability prevention, especially for authentication and user data handling. \\
-Usability & Low & Usability concerns are primarily addressed in other views, though development standards should support the creation of usable interfaces. \\
-% \bottomrule
-\end{tabular}
+\begin{table}[h!]
+    \centering
+    \caption{Perspective Priorities for the Development View of Human Benchmark}
+    \label{tab:perspective_priorities_development}
+    \begin{tabular}{p{0.3\textwidth}p{0.15\textwidth}p{0.45\textwidth}}
+        % \toprule
+        \textbf{Architectural Perspective} & \textbf{Priority} & \textbf{Why needed for Human Benchmark within this View} \\
+
+        % \midrule
+        Accessibility & \greencircle Low & The Development View primarily focuses on code organization rather than user-facing features. However, development standards should include accessibility requirements for UI component development. \\
+
+        Availability and Resilience & \yellowcircle Medium & The multiplayer nature of Human Benchmark requires resilient code design patterns and error handling strategies to maintain system availability during high load periods. \\
+
+        Development Resource & \redcircle High & Optimizing development resources is critical for Human Benchmark as it involves multiple technologies (React, .NET, PostgreSQL) and requires efficient team coordination for timely delivery. \\
+
+        Evolution & \redcircle High & The Human Benchmark system will likely expand with new game types and features over time, requiring a module structure and development practices that support evolution and change. \\
+
+        Internationalization & \yellowcircle Medium & While not initially prioritized in the system description, the codeline should support internationalization for potential global reach, requiring standardized approaches to text handling. \\
+
+        Location & \greencircle Low & Development-time concerns are minimally affected by physical location, though distributed development teams might influence version control and collaboration practices. \\
+
+        Performance and Scalability & \yellowcircle Medium & The Development View must establish coding standards and patterns that enable performance-critical code, especially for reaction-time measurements and real-time multiplayer interactions. \\
+
+        Regulation & \greencircle Low & While regulatory compliance might be relevant for user data, it has limited impact on development-time structures compared to runtime concerns. \\
+
+        Security & \yellowcircle Medium & Development practices must include secure coding standards and vulnerability prevention, especially for authentication and user data handling. \\
+
+        Usability & \greencircle Low & Usability concerns are primarily addressed in other views, though development standards should support the creation of usable interfaces. \\
+        % \bottomrule
+    \end{tabular}
 \end{table}
+
 
 \section{Impact of Key Perspectives on the Development View}
 
@@ -635,12 +652,12 @@ The nature of Human Benchmark as a cognitive testing platform imposes strict qua
 
 \subsection{Team Coordination and Onboarding}
 
-The Human Benchmark system likely involves multiple developers working across different aspects of the system:
+The Human Benchmark system would involve multiple developers working across different aspects of the system:
 
 \begin{itemize}
-    \item Frontend specialists focusing on the React UI and game experience
-    \item Backend developers implementing the ASP.NET Core API and multiplayer functionality
-    \item Full-stack developers working across boundaries
+    \item \textbf{Frontend specialists}: focusing on the React UI and game experience
+    \item \textbf{Backend developers}: implementing the ASP.NET Core API and multiplayer functionality
+    \item \textbf{Full-stack developers}: working across boundaries
 \end{itemize}
 
 The Development View provides a shared understanding that enables effective collaboration and simplifies onboarding of new team members by clearly documenting:
@@ -685,6 +702,8 @@ To maintain this consistency, architects and development team leaders should:
     \item Document cross-view relationships explicitly where appropriate
 \end{itemize}
 
-This Development View is one part of a comprehensive Architectural Description for the Human Benchmark system. When used in conjunction with other architectural views, it provides a complete picture of the system's architecture from different perspectives, addressing the concerns of all stakeholders involved in its development, deployment, and operation.
+
+% Don't think it is really needed.
+%This Development View is one part of a comprehensive Architectural Description for the Human Benchmark system. When used in conjunction with other architectural views, it provides a complete picture of the system's architecture from different perspectives, addressing the concerns of all stakeholders involved in its development, deployment, and operation.
 
 % \end{document}

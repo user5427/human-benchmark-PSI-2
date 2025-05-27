@@ -438,7 +438,6 @@ The following table outlines the priority of different architectural perspective
 % LGTM
 
 
-% the commented lines seem to not be so important for the context view, so I commented them out
 
 \begin{table}[h!]
     \centering
@@ -452,11 +451,11 @@ The following table outlines the priority of different architectural perspective
 
         Availability and Resilience        & \redcircle High              & Critical to identify external dependencies that could affect system availability, especially for multiplayer functionality and competition features which require consistent uptime.                    \\
 
-%        Development Resource               & \greencircle Low               & While resource constraints exist, they have minimal impact on the Context View's representation of external interfaces.                                                                                 \\
+        Development Resource               & \greencircle Low               & While resource constraints exist, they have minimal impact on the Context View's representation of external interfaces.                                                                                 \\
 
         Evolution                          & \yellowcircle Medium            & The context boundaries should anticipate future expansion of game types and potential integrations with external systems.                                                                               \\
 
- %       Internationalization               & \yellowcircle Medium            & The system's context should account for global accessibility, though detailed internationalization concerns belong in other views.                                                                      \\
+       Internationalization               & \yellowcircle Medium            & The system's context should account for global accessibility, though detailed internationalization concerns belong in other views.                                                                      \\
 
         Location                           & \yellowcircle Medium            & Geographic distribution of users affects latency considerations for reaction time tests, which must be addressed in the context model.                                                                  \\
 
@@ -465,8 +464,8 @@ The following table outlines the priority of different architectural perspective
         Regulation                         & \greencircle Low               & Limited regulatory concerns for a gaming/cognitive assessment platform in the current scope.                                                                                                            \\
 
         Security                           & \redcircle High              & The context boundaries must clearly define trust boundaries and authentication/authorization requirements for protecting user data and game integrity.                                                  \\
-
-%        Usability                          & \yellowcircle Medium            & While important for the system overall, detailed usability concerns are primarily addressed in other views beyond high-level interface identification in the context model.                             \\
+ 
+        Usability                          & \yellowcircle Medium            & While important for the system overall, detailed usability concerns are primarily addressed in other views beyond high-level interface identification in the context model.                             \\
         % \bottomrule
     \end{tabular}
 \end{table}
