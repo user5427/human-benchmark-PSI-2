@@ -1,0 +1,68 @@
+@startuml BackendModuleStructure_Descriptive
+
+skinparam componentStyle rectangle
+skinparam backgroundColor white
+skinparam noteBorderColor gray
+skinparam noteBackgroundColor lightyellow
+
+title Backend Module Structure of Human Benchmark
+
+' Define layers as components
+component "API Layer" as API #MistyRose
+component "Application Layer" as APP #PaleGreen
+component "Domain Layer" as DOM #LightBlue
+component "Infrastructure Layer" as INF #Thistle
+component "Shared Layer" as SH #LightGray
+
+' Layout direction
+top to bottom direction
+
+' Dependencies (illustrative arrows)
+API --> APP : calls business logic
+APP --> DOM : operates on domain models
+APP --> SH : uses helpers
+DOM --> SH : uses shared contracts/utilities
+APP --> INF : uses infrastructure services
+INF --> SH : uses shared utilities
+
+' Notes for each layer
+note right of API
+<b>API Layer</b>
+- Controllers: RESTful HTTP endpoints  
+- Hubs: WebSocket/SignalR communication  
+- Filters: Auth, validation, etc.  
+- DTOs: Request/response schemas
+end note
+
+note right of APP
+<b>Application Layer</b>
+- Services: Implements business logic  
+- Commands/Queries: CQRS pattern  
+- EventHandlers: React to domain events  
+- Validators: Input checking
+end note
+
+note right of DOM
+<b>Domain Layer</b>
+- Entities: Core domain models  
+- ValueObjects: Immutable types  
+- DomainEvents: Triggered changes  
+- Interfaces: Abstractions and contracts
+end note
+
+note right of INF
+<b>Infrastructure Layer</b>
+- Persistence: EF Core & DB access  
+- Authentication: User auth services  
+- ExternalServices: 3rd party integration  
+- Logging: Backend log system
+end note
+
+note right of SH
+<b>Shared Layer</b>
+- Constants: System-wide enums  
+- Extensions: Utility functions  
+- Helpers: Common helpers/utilities
+end note
+
+@enduml

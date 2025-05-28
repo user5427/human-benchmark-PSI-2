@@ -1,0 +1,44 @@
+@startuml DevelopmentView_Consistency
+
+skinparam componentStyle rectangle
+skinparam backgroundColor white
+skinparam noteBorderColor gray
+skinparam noteBackgroundColor lightyellow
+
+' Define views
+component "Development View" as DevV #LightGray
+component "Functional View" as FV #LightGreen
+component "Information View" as IV #LightPink
+component "Deployment View" as DV #LightBlue
+component "Operational View" as OV #Gold
+
+' Layout
+left to right direction
+
+' Links and notes
+DevV -- FV : "supports decomposition"
+note on link
+    - Module structure must reflect functional elements.  
+    - Code must align with system function organization.  
+    - Helps locate and update related logic.
+end note
+
+DevV -- IV : "aligns with data models"
+note on link
+    - Repositories must support data flows and structures.  
+    - Persistence logic must enforce integrity constraints.
+end note
+
+DevV -- DV : "produces deployable artifacts"
+note on link
+    - Builds must match target environment (e.g., Docker).  
+    - Containerization must align with Kubernetes deployment.
+end note
+
+DevV -- OV : "enables monitoring"
+note on link
+    - Logging and instrumentation must support observability.  
+    - DevView must expose runtime insights required by Ops.
+end note
+
+@enduml

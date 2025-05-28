@@ -1,0 +1,53 @@
+@startuml FrontendModuleStructure_Descriptive
+
+skinparam componentStyle rectangle
+skinparam backgroundColor white
+skinparam noteBorderColor gray
+skinparam noteBackgroundColor lightyellow
+
+' Define layers as components
+component "Presentation Layer" as PL #Moccasin
+component "Application Layer" as AL #PaleGreen
+component "Data Access Layer" as DAL #LightBlue
+component "Utility Layer" as UL #Thistle
+
+' Layout direction
+top to bottom direction
+
+' Dependencies (arrows are illustrative)
+PL --> AL : uses logic and state
+AL --> DAL : calls APIs, uses sockets
+AL --> UL : uses shared utilities
+PL --> UL : uses helpers
+DAL --> UL : uses logging and helpers
+
+' Notes for each layer
+note right of PL
+<b>Presentation Layer</b>
+- UI Components: Buttons, forms, modals  
+- Pages: Full screen layouts  
+- Game UI: Specialized interaction views
+end note
+
+note right of AL
+<b>Application Layer</b>
+- Game Logic: Controls gameplay flow  
+- User Management: Auth & profile logic  
+- Multiplayer: Real-time sync with WebSockets  
+- Score Management: Leaderboards and tracking
+end note
+
+note right of DAL
+<b>Data Access Layer</b>
+- API Services: REST interactions  
+- WebSocket Services: Real-time data channels  
+- State Management: App-wide data stores
+end note
+
+note right of UL
+<b>Utility Layer</b>
+- Common: Constants and helpers  
+- Logging: Client-side logs and diagnostics
+end note
+
+@enduml

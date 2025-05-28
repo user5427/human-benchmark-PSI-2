@@ -25,7 +25,7 @@ The Development View for the Human Benchmark system is primarily concerned with 
 standardization, and development processes that enable efficient construction, testing, and maintenance of the system.
 
 As defined in the architectural literature, the Development View addresses the concerns related to how the software is built, 
-focusing on module organization, common processing, standardization of design and testing, instrumentation, and codeline organization. 
+focusing on module organization, common processing along with standardization of design and testing. 
 It provides software developers, testers, and production engineers information they need to understand how to structure and build the software effectively.
 
 The primary stakeholders for this view are:
@@ -49,36 +49,36 @@ The module structure is organized to support the system's core features, includi
 
 The frontend of Human Benchmark is built with React and TypeScript, organized into a layered architecture that separates concerns and promotes maintainability.
 
-\begin{itemize}
-    \item \textbf{Presentation Layer}
-    \begin{itemize}
-        \item \texttt{UI Components}: Reusable UI elements (buttons, forms, modals)
-        \item \texttt{Pages}: Component assemblies representing complete screens
-        \item \texttt{Game UI}: Specialized components for game rendering and interaction
-    \end{itemize}
+% \begin{itemize}
+%     \item \textbf{Presentation Layer}
+%     \begin{itemize}
+%         \item \texttt{UI Components}: Reusable UI elements (buttons, forms, modals)
+%         \item \texttt{Pages}: Component assemblies representing complete screens
+%         \item \texttt{Game UI}: Specialized components for game rendering and interaction
+%     \end{itemize}
     
-    \item \textbf{Application Layer}
-    \begin{itemize}
-        \item \texttt{Game Logic}: Game-specific logic and state management
-        \item \texttt{User Management}: Authentication and profile management
-        \item \texttt{Multiplayer}: WebSocket connection management and real-time communication
-        \item \texttt{Score Management}: Score calculation, recording, and leaderboard display
-    \end{itemize}
+%     \item \textbf{Application Layer}
+%     \begin{itemize}
+%         \item \texttt{Game Logic}: Game-specific logic and state management
+%         \item \texttt{User Management}: Authentication and profile management
+%         \item \texttt{Multiplayer}: WebSocket connection management and real-time communication
+%         \item \texttt{Score Management}: Score calculation, recording, and leaderboard display
+%     \end{itemize}
     
-    \item \textbf{Data Access Layer}
-    \begin{itemize}
-        \item \texttt{API Services}: HTTP client for RESTful API interactions
-        \item \texttt{WebSocket Services}: Real-time data communication
-        \item \texttt{State Management}: Application state using React Context or Redux
-    \end{itemize}
+%     \item \textbf{Data Access Layer}
+%     \begin{itemize}
+%         \item \texttt{API Services}: HTTP client for RESTful API interactions
+%         \item \texttt{WebSocket Services}: Real-time data communication
+%         \item \texttt{State Management}: Application state using React Context or Redux
+%     \end{itemize}
     
-    \item \textbf{Utility Layer}
-    \begin{itemize}
-        \item \texttt{Common}: Shared utilities, constants, and helper functions
-        \item \texttt{Internationalization}: Language resources and translation utilities
-        \item \texttt{Logging}: Client-side logging infrastructure
-    \end{itemize}
-\end{itemize}
+%     \item \textbf{Utility Layer}
+%     \begin{itemize}
+%         \item \texttt{Common}: Shared utilities, constants, and helper functions
+%         % \item \texttt{Internationalization}: Language resources and translation utilities
+%         \item \texttt{Logging}: Client-side logging infrastructure
+%     \end{itemize}
+% \end{itemize}
 
 % TODO: DIAGRAM - Frontend Module Structure showing layers and dependencies
 % SUGGESTED_TYPE: UML Component Diagram
@@ -86,56 +86,56 @@ The frontend of Human Benchmark is built with React and TypeScript, organized in
 % STAKEHOLDER_FOCUS: Developers working on the frontend codebase
 \begin{figure}[H]
 \centering
-% \includegraphics[width=0.9\textwidth]{images/placeholder_diagram_for_development_view_frontend_structure.png}
-\caption{Illustrative Diagram: Frontend Module Structure (Conceptual Placeholder)}
+\includegraphics[width=0.7\textwidth]{AutomationAndSections/Sections/5developmentview/Images/FrontendModuleStructure.png}
+\caption{Frontend Module Structure}
 \label{fig:development_frontend_structure}
-\textit{Comment: This diagram should illustrate the frontend module structure with layers and dependencies between components.}
+
 \end{figure}
 
 \subsubsection{Backend Module Structure}
 
 The backend of Human Benchmark is built with ASP.NET Core (.NET 8) and follows a clean architecture pattern with clear separation of concerns.
 
-\begin{itemize}
-    \item \textbf{API Layer}
-    \begin{itemize}
-        \item \texttt{Controllers}: RESTful API endpoints for HTTP communication
-        \item \texttt{Hubs}: SignalR hubs for WebSocket communication
-        \item \texttt{Filters}: Request/response processing (authorization, validation)
-        \item \texttt{DTOs}: Data transfer objects for API request/response
-    \end{itemize}
+% \begin{itemize}
+%     \item \textbf{API Layer}
+%     \begin{itemize}
+%         \item \texttt{Controllers}: RESTful API endpoints for HTTP communication
+%         \item \texttt{Hubs}: SignalR hubs for WebSocket communication
+%         \item \texttt{Filters}: Request/response processing (authorization, validation)
+%         \item \texttt{DTOs}: Data transfer objects for API request/response
+%     \end{itemize}
     
-    \item \textbf{Application Layer}
-    \begin{itemize}
-        \item \texttt{Services}: Business logic implementation
-        \item \texttt{Commands/Queries}: CQRS pattern implementation for operations
-        \item \texttt{EventHandlers}: Domain event processing
-        \item \texttt{Validators}: Input validation logic
-    \end{itemize}
+%     \item \textbf{Application Layer}
+%     \begin{itemize}
+%         \item \texttt{Services}: Business logic implementation
+%         \item \texttt{Commands/Queries}: CQRS pattern implementation for operations
+%         \item \texttt{EventHandlers}: Domain event processing
+%         \item \texttt{Validators}: Input validation logic
+%     \end{itemize}
     
-    \item \textbf{Domain Layer}
-    \begin{itemize}
-        \item \texttt{Entities}: Core domain objects (User, Game, Score, etc.)
-        \item \texttt{ValueObjects}: Immutable objects representing domain concepts
-        \item \texttt{DomainEvents}: Events triggered by domain changes
-        \item \texttt{Interfaces}: Core abstractions and contracts
-    \end{itemize}
+%     \item \textbf{Domain Layer}
+%     \begin{itemize}
+%         \item \texttt{Entities}: Core domain objects (User, Game, Score, etc.)
+%         \item \texttt{ValueObjects}: Immutable objects representing domain concepts
+%         \item \texttt{DomainEvents}: Events triggered by domain changes
+%         \item \texttt{Interfaces}: Core abstractions and contracts
+%     \end{itemize}
     
-    \item \textbf{Infrastructure Layer}
-    \begin{itemize}
-        \item \texttt{Persistence}: Entity Framework Core database access
-        \item \texttt{Authentication}: User authentication and authorization
-        \item \texttt{ExternalServices}: Integration with third-party services
-        \item \texttt{Logging}: Logging implementation
-    \end{itemize}
+%     \item \textbf{Infrastructure Layer}
+%     \begin{itemize}
+%         \item \texttt{Persistence}: Entity Framework Core database access
+%         \item \texttt{Authentication}: User authentication and authorization
+%         \item \texttt{ExternalServices}: Integration with third-party services
+%         \item \texttt{Logging}: Logging implementation
+%     \end{itemize}
     
-    \item \textbf{Shared Layer}
-    \begin{itemize}
-        \item \texttt{Constants}: System-wide constants and enumerations
-        \item \texttt{Extensions}: Extension methods and utilities
-        \item \texttt{Helpers}: Common helper functions
-    \end{itemize}
-\end{itemize}
+%     \item \textbf{Shared Layer}
+%     \begin{itemize}
+%         \item \texttt{Constants}: System-wide constants and enumerations
+%         \item \texttt{Extensions}: Extension methods and utilities
+%         \item \texttt{Helpers}: Common helper functions
+%     \end{itemize}
+% \end{itemize}
 
 % TODO: DIAGRAM - Backend Module Structure showing layers and dependencies
 % SUGGESTED_TYPE: UML Component Diagram
@@ -143,34 +143,36 @@ The backend of Human Benchmark is built with ASP.NET Core (.NET 8) and follows a
 % STAKEHOLDER_FOCUS: Developers working on the backend codebase
 \begin{figure}[H]
 \centering
-% \includegraphics[width=0.9\textwidth]{images/placeholder_diagram_for_development_view_backend_structure.png}
-\caption{Illustrative Diagram: Backend Module Structure (Conceptual Placeholder)}
+\includegraphics[width=0.7\textwidth]{AutomationAndSections/Sections/5developmentview/Images/BackendModuleStructure.png}
+\caption{Backend Module Structure}
 \label{fig:development_backend_structure}
-\textit{Comment: This diagram should illustrate the backend module structure with layers and dependencies between components.}
+
 \end{figure}
 
-\subsubsection{Module Dependencies and Layering Rules}
+% seemed a bit unnecessary
 
-To ensure a maintainable codebase, the Human Benchmark system enforces the following layering rules:
+% \subsubsection{Module Dependencies and Layering Rules}
 
-\textbf{Frontend Layering Rules:}
-\begin{itemize}
-    \item Presentation Layer may depend on Application Layer and Utility Layer
-    \item Application Layer may depend on Data Access Layer and Utility Layer
-    \item Data Access Layer may depend on Utility Layer
-    \item Utility Layer has no dependencies on other layers
-\end{itemize}
+% To ensure a maintainable codebase, the Human Benchmark system enforces the following layering rules:
 
-\textbf{Backend Layering Rules:}
-\begin{itemize}
-    \item API Layer may depend on Application Layer and Shared Layer
-    \item Application Layer may depend on Domain Layer and Shared Layer
-    \item Domain Layer may depend only on Shared Layer
-    \item Infrastructure Layer may depend on Domain Layer, Application Layer, and Shared Layer
-    \item Shared Layer has no dependencies on other layers
-\end{itemize}
+% \textbf{Frontend Layering Rules:}
+% \begin{itemize}
+%     \item Presentation Layer may depend on Application Layer and Utility Layer
+%     \item Application Layer may depend on Data Access Layer and Utility Layer
+%     \item Data Access Layer may depend on Utility Layer
+%     \item Utility Layer has no dependencies on other layers
+% \end{itemize}
 
-These dependencies are enforced through code reviews, architectural analysis tools, and build-time validations to maintain the integrity of the layered architecture.
+% \textbf{Backend Layering Rules:}
+% \begin{itemize}
+%     \item API Layer may depend on Application Layer and Shared Layer
+%     \item Application Layer may depend on Domain Layer and Shared Layer
+%     \item Domain Layer may depend only on Shared Layer
+%     \item Infrastructure Layer may depend on Domain Layer, Application Layer, and Shared Layer
+%     \item Shared Layer has no dependencies on other layers
+% \end{itemize}
+
+% These dependencies are enforced through code reviews, architectural analysis tools, and build-time validations to maintain the integrity of the layered architecture.
 
 \subsection{Common Processing}
 
@@ -262,7 +264,7 @@ To support potential global use, Human Benchmark implements a standardized inter
 \begin{itemize}
     \item \textbf{Frontend Internationalization}:
     \begin{itemize}
-        \item Uses React-i18next for translation management
+        % \item Uses React-i18next for translation management
         \item All user-visible strings are stored in language-specific JSON files
         \item Formatting of dates, numbers, and times respects the user's locale
     \end{itemize}
@@ -348,17 +350,17 @@ Human Benchmark standardizes the use of third-party libraries and frameworks acr
     \end{itemize}
 \end{itemize}
 
-% TODO: DIAGRAM - Third-party dependencies and their relationships
-% SUGGESTED_TYPE: Custom Block Diagram (TikZ)
-% KEY_ELEMENTS_TO_DEPICT: Core frontend and backend libraries, their relationships, and where they fit in the architecture
-% STAKEHOLDER_FOCUS: Developers and technical leads making technology decisions
-\begin{figure}[H]
-\centering
-% \includegraphics[width=0.9\textwidth]{images/placeholder_diagram_for_development_view_third_party_dependencies.png}
-\caption{Illustrative Diagram: Third-Party Dependencies (Conceptual Placeholder)}
-\label{fig:development_third_party}
-\textit{Comment: This diagram should illustrate the key third-party libraries used in the system and their relationships.}
-\end{figure}
+% % TODO: DIAGRAM - Third-party dependencies and their relationships
+% % SUGGESTED_TYPE: Custom Block Diagram (TikZ)
+% % KEY_ELEMENTS_TO_DEPICT: Core frontend and backend libraries, their relationships, and where they fit in the architecture
+% % STAKEHOLDER_FOCUS: Developers and technical leads making technology decisions
+% \begin{figure}[H]
+% \centering
+% % \includegraphics[width=0.9\textwidth]{images/placeholder_diagram_for_development_view_third_party_dependencies.png}
+% \caption{Illustrative Diagram: Third-Party Dependencies (Conceptual Placeholder)}
+% \label{fig:development_third_party}
+% \textit{Comment: This diagram should illustrate the key third-party libraries used in the system and their relationships.}
+% \end{figure}
 
 \subsection{Standardization of Testing}
 
@@ -403,23 +405,24 @@ Human Benchmark implements a comprehensive testing strategy with standardized ap
     \end{itemize}
 \end{itemize}
 
-\subsubsection{Test Data Management}
+% Мeh....
+% \subsubsection{Test Data Management}
 
-\begin{itemize}
-    \item Standardized approach to test data generation using factories
-    \item Shared test data repositories for integration and end-to-end tests
-    \item Data seeding scripts for development and test environments
-    \item Anonymized production data extracts for performance testing
-\end{itemize}
+% \begin{itemize}
+%     \item Standardized approach to test data generation using factories
+%     \item Shared test data repositories for integration and end-to-end tests
+%     \item Data seeding scripts for development and test environments
+%     \item Anonymized production data extracts for performance testing
+% \end{itemize}
 
-\subsubsection{Test Environment Management}
+% \subsubsection{Test Environment Management}
 
-\begin{itemize}
-    \item Local development environments with containerized dependencies
-    \item Dedicated CI test environments for automated testing
-    \item Staging environments matching production configuration
-    \item Test environment provisioning automated through Infrastructure as Code
-\end{itemize}
+% \begin{itemize}
+%     \item Local development environments with containerized dependencies
+%     \item Dedicated CI test environments for automated testing
+%     \item Staging environments matching production configuration
+%     \item Test environment provisioning automated through Infrastructure as Code
+% \end{itemize}
 
 \subsection{Codeline Organization}
 
@@ -478,17 +481,17 @@ The Human Benchmark system source code is organized into separate repositories f
     \item \texttt{/deploy}: Deployment scripts and configurations
 \end{itemize}
 
-% TODO: DIAGRAM - Repository structure and organization
-% SUGGESTED_TYPE: Hierarchical directory structure diagram
-% KEY_ELEMENTS_TO_DEPICT: Frontend and backend repository structures with key directories
-% STAKEHOLDER_FOCUS: Developers navigating and understanding the codebase
-\begin{figure}[H]
-\centering
-% \includegraphics[width=0.9\textwidth]{images/placeholder_diagram_for_development_view_repository_structure.png}
-\caption{Illustrative Diagram: Repository Structure (Conceptual Placeholder)}
-\label{fig:development_repository_structure}
-\textit{Comment: This diagram should illustrate the directory structure of the frontend and backend repositories.}
-\end{figure}
+% % TODO: DIAGRAM - Repository structure and organization
+% % SUGGESTED_TYPE: Hierarchical directory structure diagram
+% % KEY_ELEMENTS_TO_DEPICT: Frontend and backend repository structures with key directories
+% % STAKEHOLDER_FOCUS: Developers navigating and understanding the codebase
+% \begin{figure}[H]
+% \centering
+% % \includegraphics[width=0.9\textwidth]{images/placeholder_diagram_for_development_view_repository_structure.png}
+% \caption{Illustrative Diagram: Repository Structure (Conceptual Placeholder)}
+% \label{fig:development_repository_structure}
+% \textit{Comment: This diagram should illustrate the directory structure of the frontend and backend repositories.}
+% \end{figure}
 
 \subsubsection{Configuration Management}
 
@@ -534,23 +537,21 @@ Human Benchmark implements a comprehensive CI/CD pipeline for automated building
     \end{itemize}
 \end{itemize}
 
-% TODO: DIAGRAM - CI/CD pipeline workflow
-% SUGGESTED_TYPE: UML Activity Diagram or custom flow diagram
-% KEY_ELEMENTS_TO_DEPICT: Key stages in CI/CD pipeline from code commit to production deployment
-% STAKEHOLDER_FOCUS: Developers, DevOps engineers, and release managers
-\begin{figure}[H]
-\centering
-% \includegraphics[width=0.9\textwidth]{images/placeholder_diagram_for_development_view_cicd_pipeline.png}
-\caption{Illustrative Diagram: CI/CD Pipeline (Conceptual Placeholder)}
-\label{fig:development_cicd_pipeline}
-\textit{Comment: This diagram should illustrate the CI/CD pipeline workflow from code commit to production deployment.}
-\end{figure}
+% % TODO: DIAGRAM - CI/CD pipeline workflow
+% % SUGGESTED_TYPE: UML Activity Diagram or custom flow diagram
+% % KEY_ELEMENTS_TO_DEPICT: Key stages in CI/CD pipeline from code commit to production deployment
+% % STAKEHOLDER_FOCUS: Developers, DevOps engineers, and release managers
+% \begin{figure}[H]
+% \centering
+% % \includegraphics[width=0.9\textwidth]{images/placeholder_diagram_for_development_view_cicd_pipeline.png}
+% \caption{Illustrative Diagram: CI/CD Pipeline (Conceptual Placeholder)}
+% \label{fig:development_cicd_pipeline}
+% \textit{Comment: This diagram should illustrate the CI/CD pipeline workflow from code commit to production deployment.}
+% \end{figure}
 
 \section{Perspective Priorities for the Development View}
 
 The following table outlines the priorities of various architectural perspectives for the Development View of the Human Benchmark system. 
-These priorities guide the architectural decisions within this view to ensure the system meets its quality requirements.
-
 \begin{table}[H]
     \centering
     \caption{Perspective Priorities for the Development View of Human Benchmark}
@@ -560,7 +561,7 @@ These priorities guide the architectural decisions within this view to ensure th
         \textbf{Architectural Perspective} & \textbf{Priority} & \textbf{Why needed for Human Benchmark within this View} \\
 
         % \midrule
-        Accessibility & \greencircle Low & The Development View primarily focuses on code organization rather than user-facing features. However, development standards should include accessibility requirements for UI component development. \\
+        Accessibility & \greencircle Low & The Development View primarily focuses on code organization rather than user-facing features. However, UI code should follow accessibility standards.  \\
 
         Availability and Resilience & \yellowcircle Medium & The multiplayer nature of Human Benchmark requires resilient code design patterns and error handling strategies to maintain system availability during high load periods. \\
 
@@ -568,17 +569,17 @@ These priorities guide the architectural decisions within this view to ensure th
 
         Evolution & \redcircle High & The Human Benchmark system will likely expand with new game types and features over time, requiring a module structure and development practices that support evolution and change. \\
 
-        Internationalization & \yellowcircle Medium & While not initially prioritized in the system description, the codeline should support internationalization for potential global reach, requiring standardized approaches to text handling. \\
+        Internationalization & \yellowcircle Medium & Codebase should be structured to support future global reach. \\
 
         Location & \greencircle Low & Development-time concerns are minimally affected by physical location, though distributed development teams might influence version control and collaboration practices. \\
 
         Performance and Scalability & \yellowcircle Medium & The Development View must establish coding standards and patterns that enable performance-critical code, especially for reaction-time measurements and real-time multiplayer interactions. \\
 
-        Regulation & \greencircle Low & While regulatory compliance might be relevant for user data, it has limited impact on development-time structures compared to runtime concerns. \\
+        Regulation & \greencircle Low &  Minimal impact during development; more relevant at runtime. \\
 
         Security & \yellowcircle Medium & Development practices must include secure coding standards and vulnerability prevention, especially for authentication and user data handling. \\
 
-        Usability & \greencircle Low & Usability concerns are primarily addressed in other views, though development standards should support the creation of usable interfaces. \\
+        Usability & \greencircle Low &  Mostly handled in UI, though development standards should support the creation of usable interfaces. \\
         % \bottomrule
     \end{tabular}
 \end{table}
@@ -683,15 +684,23 @@ As described in the system documentation, Human Benchmark is designed to expand 
 
 The Development View must maintain consistency with other architectural views of the Human Benchmark system to ensure a coherent and implementable architecture. Key considerations include:
 
-\begin{itemize}
-    \item \textbf{Consistency with the Functional View}: The module structure defined in the Development View must support the runtime functional elements described in the Functional View. The organization of code modules should reflect the system's functional decomposition, making it intuitive for developers to locate and modify code related to specific system functions.
+% \begin{itemize}
+%     \item \textbf{Consistency with the Functional View}: The module structure defined in the Development View must support the runtime functional elements described in the Functional View. The organization of code modules should reflect the system's functional decomposition, making it intuitive for developers to locate and modify code related to specific system functions.
     
-    \item \textbf{Consistency with the Information View}: Data models and persistence mechanisms must align with the information structures and flows defined in the Information View. The repository patterns and data access approaches must support the required data operations and integrity constraints.
+%     \item \textbf{Consistency with the Information View}: Data models and persistence mechanisms must align with the information structures and flows defined in the Information View. The repository patterns and data access approaches must support the required data operations and integrity constraints.
     
-    \item \textbf{Consistency with the Deployment View}: The build and packaging approach must produce artifacts suitable for the deployment environment described in the Deployment View. The containerization strategy using Docker must align with the Kubernetes orchestration described in the system documentation.
+%     \item \textbf{Consistency with the Deployment View}: The build and packaging approach must produce artifacts suitable for the deployment environment described in the Deployment View. The containerization strategy using Docker must align with the Kubernetes orchestration described in the system documentation.
     
-    \item \textbf{Consistency with the Operational View}: Instrumentation and logging mechanisms defined in the Development View must provide the necessary information for the monitoring and management capabilities described in the Operational View.
-\end{itemize}
+%     \item \textbf{Consistency with the Operational View}: Instrumentation and logging mechanisms defined in the Development View must provide the necessary information for the monitoring and management capabilities described in the Operational View.
+% \end{itemize}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{AutomationAndSections/Sections/5developmentview/Images/DevelopmentView_Consistency.png}
+\caption{Development view Cross-View Consistency diagram}
+\label{fig:development_crossview_consistency}
+
+\end{figure}
 
 To maintain this consistency, architects and development team leaders should:
 
