@@ -35,14 +35,16 @@ builder.Services.AddScoped<GameUserService>();
 builder.Services.AddScoped<TargetService>();
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<MessageService>();
 builder.Services.AddSingleton<MultiplayerService>();
+builder.Services.AddSingleton<RoomChatStateService>();
 builder.Services.AddScoped(typeof(GameSessionHandler<>));
 
 var clientEventHandlers = builder.FindAndInjectClientEventHandlers(Assembly.GetExecutingAssembly());
 var app = builder.Build();
 
 var multiplayerService = app.Services.GetRequiredService<MultiplayerService>();
-var wsServer = new WebSocketServer("ws://0.0.0.0:8080");
+var wsServer = new WebSocketServer("ws://0.0.0.0:8081");
 wsServer.Start(ws =>
 {
     int? userId = null;
