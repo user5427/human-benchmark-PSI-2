@@ -48,7 +48,7 @@ const Chat = () => {
   ]);
 
   const [input, setInput] = useState("");
-  const messagesEndRef = useRef(null);
+  const messagesEndRef = useRef<HTMLDivElement | null>(null);
   const apiUrl = import.meta.env.VITE_API_URL;
   useEffect(() => {
     const fetchGlobalMessages = async () => {
