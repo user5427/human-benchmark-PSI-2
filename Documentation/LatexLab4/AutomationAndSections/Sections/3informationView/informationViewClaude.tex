@@ -82,21 +82,21 @@ The messages can have the following states. There are two states that a message 
 % \toprule
 \textbf{Architectural Perspective} & \textbf{Priority} & \textbf{Explanation} \\
 % % \toprule
-Accessibility & Low & The information object connected to the real-time messaging functionality is not related to accessibility from an architectural perspective. \\
+Accessibility & \greencircle Low & The information object connected to the real-time messaging functionality is not related to accessibility from an architectural perspective. \\
 
-Availability and Resilience & High &  Since we are implementing chatting in real time it is important that upon a users request old messages are loaded and new ones created effectively. \\
+Availability and Resilience & \redcircle High &  Since we are implementing chatting in real time it is important that upon a users request old messages are loaded and new ones created effectively. \\
 
-Development Resource & Medium & The database and information management implementation requires consideration of development effort. \\
+Development Resource & \yellowcircle Medium & The database and information management implementation requires consideration of development effort. \\
 
-Evolution & Low & The messages that will be created have little to no need to change over time. \\
+Evolution & \greencircle Low & The messages that will be created have little to no need to change over time. \\
 
-Internationalization & Low & The Internationalization of chats is depend on users and users alone. There is no architectural way or need to Internationalize messages. \\
+Internationalization & \greencircle Low & The Internationalization of chats is depend on users and users alone. There is no architectural way or need to Internationalize messages. \\
 
 
 
-Security & Low & User messages have little to no need to have security measures in place for users. \\
+Security & \greencircle Low & User messages have little to no need to have security measures in place for users. \\
 
-Usability & Low & While usability is important for the system overall, it has limited direct impact on the underlying information model. \\
+Usability & \greencircle Low & While usability is important for the system overall, it has limited direct impact on the underlying information model. \\
 % % \toprule
 \end{tabular}
 \end{table}

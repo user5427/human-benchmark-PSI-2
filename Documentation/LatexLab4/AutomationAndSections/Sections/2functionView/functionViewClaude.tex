@@ -132,25 +132,25 @@ The table below identifies the priority of different architectural perspectives 
         % \toprule
         \textbf{Architectural Perspective} & \textbf{Priority} & \textbf{Explanation}                                                                                                                                                                                                      \\
         % \midrule
-        Performance and Scalability        & High              &  Performance is highly important as due to the nature of chatting, this feature is likely to be one of the most intensly used feature. As such it is very important that this feature remains functional as the number of users increase.   \\
+        Performance and Scalability        & \redcircle High              &  Performance is highly important as due to the nature of chatting, this feature is likely to be one of the most intensly used feature. As such it is very important that this feature remains functional as the number of users increase.   \\
 
-        Security                           & Low              & Since the messages have no connection to a users personal date stored in their account, the importance of security is not important for this change.\\
+        Security                           & \greencircle Low              & Since the messages have no connection to a users personal date stored in their account, the importance of security is not important for this change.\\
 
-        Usability                          & High              & The system's success depends on user engagement. The Functional View must ensure that users are able to easily use the chatting feature.                                         \\
+        Usability                          & \redcircle High              & The system's success depends on user engagement. The Functional View must ensure that users are able to easily use the chatting feature.                                         \\
 
-        Availability and Resilience        & Medium            & While not life-critical, the system should be consistently available.                \\
+        Availability and Resilience        & \yellowcircle Medium            & While not life-critical, the system should be consistently available.                \\
 
-        Evolution                          & Low            & Since the main goal of the system is to develop users reaction speeds, and since messages are mainly compromised only of text there is little need for change.                                                                \\
+        Evolution                          & \greencircle Low            & Since the main goal of the system is to develop users reaction speeds, and since messages are mainly compromised only of text there is little need for change.                                                                \\
 
-        Development Resource               & Medium            & The functional elements should be designed with implementation efficiency in mind, aligning with the modern tech stack while minimizing unnecessary complexity for the development team.                                               \\
+        Development Resource               & \yellowcircle Medium            & The functional elements should be designed with implementation efficiency in mind, aligning with the modern tech stack while minimizing unnecessary complexity for the development team.                                               \\
 
-        Internationalization               & Low               & While the system may eventually be used globally, the functional capabilities of cognitive tests are largely language-independent. Only user interface elements would require adaptation.                                                                    \\
+        Internationalization               & \greencircle Low               & While the system may eventually be used globally, the functional capabilities of cognitive tests are largely language-independent. Only user interface elements would require adaptation.                                                                    \\
 
-        Accessibility                      & Low               & Basic input accessibility concerns exist, but the nature of reaction time tests inherently requires certain motor and visual capabilities.                                                         \\
+        Accessibility                      & \greencircle Low               & Basic input accessibility concerns exist, but the nature of reaction time tests inherently requires certain motor and visual capabilities.                                                         \\
 
-        Location                           & Low               & The system is web-based without significant geographical dependencies. The only minor concerns might be latency considerations for multiplayer scenarios across large distances.                                                                                 \\
+        Location                           & \greencircle Low               & The system is web-based without significant geographical dependencies. The only minor concerns might be latency considerations for multiplayer scenarios across large distances.                                                                                 \\
 
-        Regulation                         & Low               & Beyond standard data protection concerns (handled by the Security perspective), the system doesn't operate in a highly regulated domain like finance or healthcare.                                                                                          \\
+        Regulation                         & \greencircle Low               & Beyond standard data protection concerns (handled by the Security perspective), the system doesn't operate in a highly regulated domain like finance or healthcare.                                                                                          \\
         % \bottomrule
     \end{tabular}
 \end{table}
