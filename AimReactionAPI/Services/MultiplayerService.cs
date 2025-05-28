@@ -61,7 +61,7 @@ public class MultiplayerService
         }
         ValidateCanJoin(playerId, roomId);
         room.AddToRoom(playerId);
-        BroadcastMessageToRoom(room, JsonSerializer.Serialize(GetRoomResponse(room)));
+        BroadcastToRoom(room, JsonSerializer.Serialize(GetRoomResponse(room)));
         _logger.LogInformation($"player({playerId}) joined room({roomId})");
     }
     public void StartRoom(int playerId, Guid roomId)
@@ -139,6 +139,26 @@ public class MultiplayerService
         _logger.LogInformation($"player({playerId}) disconnected");
     }
 
+    public bool TryGetRoom(Guid roomId, out Room? room)
+    {
+        return _rooms.TryGetValue(roomId, out room);
+    }
+
+    public void Broadcast(string message)
+    {
+        foreach (var (playerId, _) in _players)
+        {
+            SendMessageToPlayer(playerId, message);
+        }
+    }
+    public void BroadcastToRoom(Room room, string message)
+    {
+        foreach (var playerId in room.Players)
+        {
+            SendMessageToPlayer(playerId, message);
+        }
+    }
+
     private void ValidateCanJoin(int playerId, Guid roomId = new())
     {
         foreach (var (id, room) in _rooms)
@@ -172,7 +192,7 @@ public class MultiplayerService
                     .ToList();
         var results = new RoomRoundResultsResponse(remainingPlayers, eliminatedPlayers);
         var serializedResults = JsonSerializer.Serialize(results);
-        BroadcastMessageToRoom(room, serializedResults);
+        BroadcastToRoom(room, serializedResults);
     }
 
     private void SendMessageToPlayer(int playerId, string message)
@@ -219,7 +239,7 @@ public class MultiplayerService
     {
         var targetDto = new TargetResponse(target.X, target.Y);
         var serializedTarget = JsonSerializer.Serialize(targetDto);
-        BroadcastMessageToRoom(room, serializedTarget);
+        BroadcastToRoom(room, serializedTarget);
     }
 
     private void BroadcastJoinableGames()
@@ -232,15 +252,7 @@ public class MultiplayerService
                 SendMessageToPlayer(playerId, JsonSerializer.Serialize(response));
         }
     }
-
-    private void BroadcastMessageToRoom(Room room, string message)
-    {
-        foreach (var playerId in room.Players)
-        {
-            SendMessageToPlayer(playerId, message);
-        }
-    }
-    
+  
     private void StartRound(Room room)
     {
         _logger.LogInformation($"round of room({room.Id}) started");

@@ -13,6 +13,7 @@ public class AppDbContext : DbContext
     public DbSet<Game> Games { get; set; }
     public DbSet<Target> Targets { get; set; }
     public DbSet<GameUser> GameUsers { get; set; }
+    public DbSet<GlobalMessage> GlobalMessages { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -84,6 +85,12 @@ public class AppDbContext : DbContext
             .HasOne(gu => gu.User)
             .WithMany(g => g.GameUsers)
             .HasForeignKey(gu => gu.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<GlobalMessage>()
+            .HasOne(gm => gm.Sender)
+            .WithMany() 
+            .HasForeignKey(gm => gm.SenderId)
             .OnDelete(DeleteBehavior.Cascade);
     }
 }

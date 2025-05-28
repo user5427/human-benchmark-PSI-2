@@ -1,21 +1,21 @@
 import MultiplayerRooms from '../../components/MultiplayerRooms/MultiplayerRooms';
-import useWebSocket from 'react-use-websocket';
 import { useAuth } from '../../contexts/AuthContext';
 import { useEffect, useState } from 'react';
 import { Room, RoomTarget, RoomRoundResults, AvailableRooms } from '../../types/props';
 import { TargetArea } from '../../components/TargetArea/TargetArea';
 import styles from './Multiplayer.module.css'
+import { useWs } from '../../contexts/WebsocketContext';
+import { useGameRoom } from '../../contexts/GameRoomContext';
 const Multiplayer = () => {
-    const apiWs = import.meta.env.VITE_API_WS;
     const { userId } = useAuth();
+    const { sendJsonMessage, lastJsonMessage, readyState } = useWs();
+    const { room, setRoom } = useGameRoom();
     const playerId = parseInt(userId ?? "");
     const [started, setStarted] = useState(false);
-    const [room, setRoom] = useState<Room | null>(null);
     const [target, setTarget] = useState<RoomTarget | null>(null);
     const [roundResult, setRoundResults] = useState<RoomRoundResults | null>(null);
     const [roundStartTime, setRoundStartTime] = useState<number | null>(null);
     const [rooms, setRooms] = useState<Room[]>([]);
-    const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket(`${apiWs}/${userId}`, {reconnectInterval: 3000});
 
     useEffect(() => {
         if (!lastJsonMessage)
@@ -88,6 +88,7 @@ const Multiplayer = () => {
     }
 
     if (roundResult?.EliminatedPlayers.some(player => player.Id === playerId)) {
+        setRoom(null);
         return <div className='lost-message'>
             <div>You have lost!</div>
             <button onClick={returnHome}>Return to Home!</button>
@@ -95,6 +96,7 @@ const Multiplayer = () => {
     }
 
     if (roundResult?.RemainingPlayers.length === 1) {
+        setRoom(null);
         return <div className='win-message'>
             <div>You have won!</div>
             <button onClick={returnHome}>Return to Home!</button>
