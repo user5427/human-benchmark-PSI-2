@@ -19,9 +19,19 @@
 
 \section{Introduction to the Concurrency View}
 
-The Concurrency View for the Human Benchmark system describes how the system manages concurrent execution through its runtime elements. This view captures the process and thread structure of the system, coordination mechanisms, and strategies for ensuring data integrity during concurrent operations. The Concurrency View is particularly important for Human Benchmark as it is a web-based application supporting real-time multiplayer interactions, simultaneous game sessions, and a reactive chat system.
+The Concurrency View for the Human Benchmark system describes how the system 
+manages concurrent execution through its runtime elements. 
+It captures the process and thread structure of the system, coordination mechanisms, 
+and strategies for ensuring data integrity during concurrent operations. 
+The Concurrency View is particularly important for Human Benchmark as it is a web-based 
+application supporting real-time multiplayer interactions, simultaneous game sessions, 
+and a reactive chat system.
 
-According to the architectural principles discussed in the Software System Architecture Book, the Concurrency View helps stakeholders understand how the system handles parallel activities, manages shared resources, coordinates activities between runtime components, and scales under load. It addresses one of the fundamental aspects of system behavior: how components interact with each other at runtime when multiple execution threads exist.
+According to the architectural principles discussed in the Software System Architecture Book, 
+the Concurrency View helps stakeholders understand how the system handles parallel activities, 
+manages shared resources, coordinates activities between runtime components, and scales under load. 
+It addresses one of the fundamental aspects of system behavior: how components interact with each 
+other at runtime when multiple execution threads exist.
 
 The primary stakeholders for this view are:
 \begin{itemize}
@@ -35,7 +45,9 @@ The primary stakeholders for this view are:
 
 \subsection{Process and Thread Structure}
 
-The Human Benchmark system employs a multi-tier architecture with several distinct processes working together to provide the system's functionality. The concurrency structure is designed to support both single-player cognitive tests and multiplayer real-time competition.
+The Human Benchmark system employs a multi-tier architecture with several distinct processes
+ working together to provide the system's functionality. The concurrency structure is designed to 
+ support both single-player and multiplayer.
 
 \subsubsection{Major Process Groups}
 
@@ -47,16 +59,16 @@ The Human Benchmark system employs a multi-tier architecture with several distin
 
 Each process group consists of one or more OS-level processes that work together to fulfill the responsibilities of that group.
 
-% TODO: DIAGRAM - High-level process group organization with interprocess communication paths
-% SUGGESTED_TYPE: UML Component Diagram with stereotypes for process groups
-% KEY_ELEMENTS_TO_DEPICT: Client Process Group, API Server Process Group, Database Process Group, HTTP/REST communication paths, WebSocket communication paths, Database connection paths
-\begin{figure}[h!]
-\centering
-% \includegraphics[width=0.9\textwidth]{images/placeholder_diagram_for_concurrency_view_process_groups.png}
-\caption{Illustrative Diagram: High-Level Process Groups and Communication Paths (Conceptual Placeholder)}
-\label{fig:concurrency_process_groups}
-\textit{Comment: This diagram should illustrate the three major process groups (Client, API Server, Database) and their communication paths.}
-\end{figure}
+% % TODO: DIAGRAM - High-level process group organization with interprocess communication paths
+% % SUGGESTED_TYPE: UML Component Diagram with stereotypes for process groups
+% % KEY_ELEMENTS_TO_DEPICT: Client Process Group, API Server Process Group, Database Process Group, HTTP/REST communication paths, WebSocket communication paths, Database connection paths
+% \begin{figure}[h!]
+% \centering
+% % \includegraphics[width=0.9\textwidth]{images/placeholder_diagram_for_concurrency_view_process_groups.png}
+% \caption{Illustrative Diagram: High-Level Process Groups and Communication Paths (Conceptual Placeholder)}
+% \label{fig:concurrency_process_groups}
+% \textit{Comment: This diagram should illustrate the three major process groups (Client, API Server, Database) and their communication paths.}
+% \end{figure}
 
 \subsubsection{API Server Process Details}
 
@@ -70,56 +82,57 @@ The API Server process group manages several thread pools and execution contexts
     \item \textbf{Database Connection Pool:} Manages database connections for data persistence operations
 \end{itemize}
 
-% TODO: DIAGRAM - Detailed thread structure within the API Server Process Group
-% SUGGESTED_TYPE: UML Component Diagram with stereotypes for threads and thread pools
-% KEY_ELEMENTS_TO_DEPICT: HTTP Request Handler Threads, WebSocket Connection Manager, Game Room Manager Threads, Chat System Threads, Database Connection Pool, IPC mechanisms between threads
-\begin{figure}[h!]
-\centering
-% \includegraphics[width=0.9\textwidth]{images/placeholder_diagram_for_concurrency_view_api_server_threads.png}
-\caption{Illustrative Diagram: Thread Structure within API Server Process Group (Conceptual Placeholder)}
-\label{fig:concurrency_api_server_threads}
-\textit{Comment: This diagram should illustrate the different thread pools and execution contexts within the API Server Process Group and their interactions.}
-\end{figure}
+% % TODO: DIAGRAM - Detailed thread structure within the API Server Process Group
+% % SUGGESTED_TYPE: UML Component Diagram with stereotypes for threads and thread pools
+% % KEY_ELEMENTS_TO_DEPICT: HTTP Request Handler Threads, WebSocket Connection Manager, Game Room Manager Threads, Chat System Threads, Database Connection Pool, IPC mechanisms between threads
+% \begin{figure}[h!]
+% \centering
+% % \includegraphics[width=0.9\textwidth]{images/placeholder_diagram_for_concurrency_view_api_server_threads.png}
+% \caption{Illustrative Diagram: Thread Structure within API Server Process Group (Conceptual Placeholder)}
+% \label{fig:concurrency_api_server_threads}
+% \textit{Comment: This diagram should illustrate the different thread pools and execution contexts within the API Server Process Group and their interactions.}
+% \end{figure}
 
-\subsection{Mapping Functional Elements to Concurrency Units}
+% \subsection{Mapping Functional Elements to Concurrency Units}
 
-This section describes how the functional elements of Human Benchmark map to the system's concurrency units (processes and threads).
+% This section describes how the functional elements of Human Benchmark map to 
+% the system's concurrency units (processes and threads).
 
-\subsubsection{User Management Functional Elements}
+% \subsubsection{User Management Functional Elements}
 
-The user management functionality (registration, authentication, profile management) maps to:
-\begin{itemize}
-    \item HTTP Request Handler threads in the API Server Process Group
-    \item Database Connection Pool threads for user data persistence
-\end{itemize}
+% User management functionality (registration, authentication, profile management) maps to:
+% \begin{itemize}
+%     \item HTTP Request Handler threads in the API Server Process Group
+%     \item Database Connection Pool threads for user data persistence
+% \end{itemize}
 
-These operations are stateless and do not require specialized concurrency considerations beyond standard connection pooling and thread safety practices.
+% These operations are stateless and do not require specialized concurrency considerations beyond standard connection pooling and thread safety practices.
 
-\subsubsection{Game Execution Functional Elements}
+% \subsubsection{Game Execution Functional Elements}
 
-Game execution functionality maps to:
-\begin{itemize}
-    \item \textbf{Single-player games:} HTTP Request Handler threads for game initialization and score submission
-    \item \textbf{Multiplayer games:} Game Room Manager threads and WebSocket Connection Manager threads that maintain the game state and synchronize player actions in real-time
-\end{itemize}
+% Game execution functionality maps to:
+% \begin{itemize}
+%     \item \textbf{Single-player games:} HTTP Request Handler threads for game initialization and score submission
+%     \item \textbf{Multiplayer games:} Game Room Manager threads and WebSocket Connection Manager threads that maintain the game state and synchronize player actions in real-time
+% \end{itemize}
 
-\subsubsection{Real-time Communication Functional Elements}
+% \subsubsection{Real-time Communication Functional Elements}
 
-The real-time communication functionality (multiplayer coordination, chat) maps to:
-\begin{itemize}
-    \item WebSocket Connection Manager threads for maintaining persistent connections
-    \item Game Room Manager threads for game-specific communication
-    \item Chat System threads for processing and routing messages across different scopes
-\end{itemize}
+% The real-time communication functionality (multiplayer coordination, chat) maps to:
+% \begin{itemize}
+%     \item WebSocket Connection Manager threads for maintaining persistent connections
+%     \item Game Room Manager threads for game-specific communication
+%     \item Chat System threads for processing and routing messages across different scopes
+% \end{itemize}
 
-\subsubsection{Score and Leaderboard Functional Elements}
+% \subsubsection{Score and Leaderboard Functional Elements}
 
-Score tracking and leaderboard functionality maps to:
-\begin{itemize}
-    \item HTTP Request Handler threads for score submission and leaderboard queries
-    \item Database Connection Pool threads for score persistence and leaderboard aggregation
-    \item WebSocket Connection Manager threads for real-time leaderboard updates in multiplayer sessions
-\end{itemize}
+% Score tracking and leaderboard functionality maps to:
+% \begin{itemize}
+%     \item HTTP Request Handler threads for score submission and leaderboard queries
+%     \item Database Connection Pool threads for score persistence and leaderboard aggregation
+%     \item WebSocket Connection Manager threads for real-time leaderboard updates in multiplayer sessions
+% \end{itemize}
 
 \subsection{Interprocess Communication (IPC) Mechanisms}
 
@@ -165,16 +178,16 @@ Used for:
     \item Handling WebSocket connection events
 \end{itemize}
 
-% TODO: DIAGRAM - IPC Mechanisms between different components of the system
-% SUGGESTED_TYPE: UML Component Diagram or custom communication diagram
-% KEY_ELEMENTS_TO_DEPICT: Client components, API Server components, Database, HTTP/REST connections, WebSocket connections, Database connections, Internal message queuing
-\begin{figure}[h!]
-\centering
-% \includegraphics[width=0.9\textwidth]{images/placeholder_diagram_for_concurrency_view_ipc_mechanisms.png}
-\caption{Illustrative Diagram: IPC Mechanisms in the Human Benchmark System (Conceptual Placeholder)}
-\label{fig:concurrency_ipc_mechanisms}
-\textit{Comment: This diagram should illustrate the various interprocess communication mechanisms used between components in the Human Benchmark system.}
-\end{figure}
+% % TODO: DIAGRAM - IPC Mechanisms between different components of the system
+% % SUGGESTED_TYPE: UML Component Diagram or custom communication diagram
+% % KEY_ELEMENTS_TO_DEPICT: Client components, API Server components, Database, HTTP/REST connections, WebSocket connections, Database connections, Internal message queuing
+% \begin{figure}[h!]
+% \centering
+% % \includegraphics[width=0.9\textwidth]{images/placeholder_diagram_for_concurrency_view_ipc_mechanisms.png}
+% \caption{Illustrative Diagram: IPC Mechanisms in the Human Benchmark System (Conceptual Placeholder)}
+% \label{fig:concurrency_ipc_mechanisms}
+% \textit{Comment: This diagram should illustrate the various interprocess communication mechanisms used between components in the Human Benchmark system.}
+% \end{figure}
 
 \subsection{State Management}
 
@@ -184,51 +197,96 @@ This section describes the key runtime states of the major functional elements i
 
 Game rooms in the multiplayer system transition through several states:
 
-\begin{itemize}
-    \item \textbf{Created:} Initial state when a room is first created
-    \item \textbf{Waiting:} Room is open and waiting for players to join
-    \item \textbf{Ready:} All required players have joined, ready to start
-    \item \textbf{In Progress:} Game is actively being played
-    \item \textbf{Round Complete:} Current round of gameplay has finished
-    \item \textbf{Game Complete:} All rounds have been completed
-    \item \textbf{Abandoned:} Room has been abandoned by all players or timed out
-\end{itemize}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|l|}
+        \hline
+        \textbf{\#} & \textbf{State} & \textbf{Description} \\
+        \hline
+        1 & \textbf{Created} & Initial state when a room is first created \\
+        \hline
+        2 & \textbf{Waiting} & Room is open and waiting for players to join \\
+        \hline
+        3 & \textbf{Ready} & All required players have joined; ready to start \\
+        \hline
+        4 & \textbf{In Progress} & Game is actively being played \\
+        \hline
+        5 & \textbf{Round Complete} & Current round of gameplay has finished \\
+        \hline
+        6 & \textbf{Game Complete} & All rounds have been completed \\
+        \hline
+        7 & \textbf{Abandoned} & Room has been abandoned or timed out \\
+        \hline
+    \end{tabular}
+    \caption{Game Room State Model}
+    \label{tab:game-room-states}
+\end{table}
 
-% TODO: DIAGRAM - State transition diagram for game rooms
-% SUGGESTED_TYPE: UML Statechart Diagram
-% KEY_ELEMENTS_TO_DEPICT: Created, Waiting, Ready, In Progress, Round Complete, Game Complete, and Abandoned states; transitions between states with relevant events/triggers
-\begin{figure}[h!]
-\centering
-% \includegraphics[width=0.8\textwidth]{images/placeholder_diagram_for_concurrency_view_game_room_states.png}
-\caption{Illustrative Diagram: Game Room State Transitions (Conceptual Placeholder)}
-\label{fig:concurrency_game_room_states}
-\textit{Comment: This diagram should illustrate the state transitions for multiplayer game rooms in the Human Benchmark system.}
-\end{figure}
+
+% % TODO: DIAGRAM - State transition diagram for game rooms
+% % SUGGESTED_TYPE: UML Statechart Diagram
+% % KEY_ELEMENTS_TO_DEPICT: Created, Waiting, Ready, In Progress, Round Complete, Game Complete, and Abandoned states; transitions between states with relevant events/triggers
+% \begin{figure}[h!]
+% \centering
+% % \includegraphics[width=0.8\textwidth]{images/placeholder_diagram_for_concurrency_view_game_room_states.png}
+% \caption{Illustrative Diagram: Game Room State Transitions (Conceptual Placeholder)}
+% \label{fig:concurrency_game_room_states}
+% \textit{Comment: This diagram should illustrate the state transitions for multiplayer game rooms in the Human Benchmark system.}
+% \end{figure}
 
 \subsubsection{Player Connection State Model}
 
 Each player connection in the system transitions through these states:
 
-\begin{itemize}
-    \item \textbf{Connected:} Initial state when a WebSocket connection is established
-    \item \textbf{Authenticated:} User has been authenticated on the connection
-    \item \textbf{Idle:} Connection is active but not currently in a game
-    \item \textbf{In Game:} Connection is associated with an active game
-    \item \textbf{Disconnecting:} Connection is in the process of closing
-    \item \textbf{Disconnected:} Connection has been terminated
-\end{itemize}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|l|}
+        \hline
+        \textbf{\#} & \textbf{State} & \textbf{Description} \\
+        \hline
+        1 & \textbf{Connected} & Initial state when a WebSocket connection is established \\
+        \hline
+        2 & \textbf{Authenticated} & User has been authenticated on the connection \\
+        \hline
+        3 & \textbf{Idle} & Connection is active but not currently in a game \\
+        \hline
+        4 & \textbf{In Game} & Connection is associated with an active game \\
+        \hline
+        5 & \textbf{Disconnecting} & Connection is in the process of closing \\
+        \hline
+        6 & \textbf{Disconnected} & Connection has been terminated \\
+        \hline
+    \end{tabular}
+    \caption{Player Connection State Model}
+    \label{tab:player-connection-states}
+\end{table}
+
 
 \subsubsection{Chat Message State Model}
 
 Chat messages in the system transition through these states:
 
-\begin{itemize}
-    \item \textbf{Created:} Message has been created by sender
-    \item \textbf{Processing:} System is processing the message (e.g., content filtering, routing)
-    \item \textbf{Delivered:} Message has been delivered to recipients
-    \item \textbf{Read:} Message has been read by recipients (for private chats)
-    \item \textbf{Archived:} Message has been archived in message history
-\end{itemize}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|l|}
+        \hline
+        \textbf{\#} & \textbf{State} & \textbf{Description} \\
+        \hline
+        1 & \textbf{Created} & Message has been created by sender \\
+        \hline
+        2 & \textbf{Processing} & System is processing the message (e.g., content filtering, routing) \\
+        \hline
+        3 & \textbf{Delivered} & Message has been delivered to recipients \\
+        \hline
+        4 & \textbf{Read} & Message has been read by recipients (for private chats) \\
+        \hline
+        5 & \textbf{Archived} & Message has been archived in message history \\
+        \hline
+    \end{tabular}
+    \caption{Chat Message State Model}
+    \label{tab:chat-message-states}
+\end{table}
+
 
 \subsection{Synchronization and Integrity}
 
@@ -238,7 +296,7 @@ The Human Benchmark system employs several mechanisms to ensure data integrity d
 
 \begin{itemize}
     \item \textbf{Centralized Authority:} Server acts as the authoritative source for game state
-    \item \textbf{Optimistic Concurrency:} Client-side prediction with server-side validation and correction
+    % \item \textbf{Optimistic Concurrency:} Client-side prediction with server-side validation and correction
     \item \textbf{Event Sequencing:} Events are timestamped and sequenced to ensure consistent processing order
     \item \textbf{Conflict Resolution:} Server resolves conflicting simultaneous actions based on predefined rules
 \end{itemize}
@@ -261,36 +319,37 @@ The Human Benchmark system employs several mechanisms to ensure data integrity d
     \item \textbf{Asynchronous Programming:} Used extensively with async/await pattern to avoid blocking threads
 \end{itemize}
 
-\subsection{Startup and Shutdown Procedures}
+% idk, feelt pointless
+% \subsection{Startup and Shutdown Procedures}
 
-\subsubsection{System Startup Sequence}
+% \subsubsection{System Startup Sequence}
 
-The startup sequence for the Human Benchmark concurrency units follows this order:
+% The startup sequence for the Human Benchmark concurrency units follows this order:
 
-\begin{enumerate}
-    \item Database services initialize first
-    \item API Server services start and establish database connections
-    \item WebSocket services initialize and prepare for client connections
-    \item Internal message processing systems start
-    \item Game Room Manager initializes (but creates no rooms yet)
-    \item System signals readiness for client connections
-\end{enumerate}
+% \begin{enumerate}
+%     \item Database services initialize first
+%     \item API Server services start and establish database connections
+%     \item WebSocket services initialize and prepare for client connections
+%     \item Internal message processing systems start
+%     \item Game Room Manager initializes (but creates no rooms yet)
+%     \item System signals readiness for client connections
+% \end{enumerate}
 
-\subsubsection{System Shutdown Sequence}
+% \subsubsection{System Shutdown Sequence}
 
-The shutdown sequence follows this order:
+% The shutdown sequence follows this order:
 
-\begin{enumerate}
-    \item New client connections are rejected
-    \item Active game rooms are notified of impending shutdown
-    \item Client connections are gracefully terminated with appropriate messages
-    \item Game Room Manager shuts down all active rooms
-    \item WebSocket connections are closed
-    \item Internal message queues are drained and processors shut down
-    \item Database connections are closed
-    \item API Server services shut down
-    \item Database services shut down
-\end{enumerate}
+% \begin{enumerate}
+%     \item New client connections are rejected
+%     \item Active game rooms are notified of impending shutdown
+%     \item Client connections are gracefully terminated with appropriate messages
+%     \item Game Room Manager shuts down all active rooms
+%     \item WebSocket connections are closed
+%     \item Internal message queues are drained and processors shut down
+%     \item Database connections are closed
+%     \item API Server services shut down
+%     \item Database services shut down
+% \end{enumerate}
 
 \subsection{Fault Tolerance and Recovery}
 
@@ -334,16 +393,16 @@ This section analyses the relevance of various architectural perspectives to the
 % \toprule
 \textbf{Architectural Perspective} & \textbf{Priority} & \textbf{Rationale for Human Benchmark within this View} \\
 % \toprule
-Accessibility & Low & Concurrency aspects have minimal impact on accessibility features, which are primarily addressed in the UI layer. \\
-Availability and Resilience & High & The real-time multiplayer nature of Human Benchmark requires high availability of concurrent processes and resilience to failures to maintain game integrity. \\
-Development Resource & Medium & Threading models and concurrency patterns require careful design and implementation, impacting development effort and requiring specialized skills. \\
-Evolution & Medium & The concurrency design must support future additions of new game types and scaling to more concurrent users without major rearchitecting. \\
-Internationalization & Low & Concurrency design has minimal influence on internationalization aspects, which are primarily addressed in the UI and content layers. \\
-Location & Medium & WebSocket latency between distributed players can affect gameplay experience, and the system must handle players from different geographical regions. \\
-Performance and Scalability & High & Real-time interactions in multiplayer games demand high performance under concurrent load, and the system must scale to support many simultaneous game sessions. \\
-Regulation & Low & While important for the system overall, regulatory concerns have minimal specific impact on the concurrency architecture compared to other perspectives. \\
-Security & Medium & Concurrent access to shared resources requires careful authentication and authorization to prevent security issues, particularly in multiplayer contexts. \\
-Usability & Medium & Responsiveness during concurrent operations directly affects user experience, particularly in real-time games measuring reaction time. \\
+Accessibility & \greencircle Low & Handled mainly by the UI layer, little impact. \\
+Availability and Resilience & \redcircle High & The real-time multiplayer nature of Human Benchmark requires high availability of concurrent processes and resilience to failures to maintain game integrity. \\
+Development Resource & \yellowcircle Medium & Threading models and concurrency patterns require careful design and implementation, impacting development effort and requiring specialized skills. \\
+Evolution & \yellowcircle Medium & The concurrency design must support future additions of new game types and scaling to more concurrent users. \\
+Internationalization & \greencircle Low & Mostly a UI/content concern, not concurrency related. \\
+Location & \yellowcircle Medium & WebSocket latency between distributed players can affect gameplay experience, and the system must handle players from different geographical regions. \\
+Performance and Scalability & \redcircle High & Real-time interactions in multiplayer games demand high performance under concurrent load, and the system must scale to support many simultaneous game sessions. \\
+Regulation & \greencircle Low & While important for the system overall, regulatory concerns have minimal impact on the concurrency mechanisims. \\
+Security & \yellowcircle Medium & Concurrent access to shared resources requires careful authentication and authorization to prevent security issues, particularly in multiplayer contexts. \\
+Usability & \yellowcircle Medium & Responsiveness during concurrent operations directly affects user experience, particularly in real-time games measuring reaction time. \\
 % \toprule
 \end{tabular}
 \end{table}
@@ -458,56 +517,65 @@ As a web-based platform, Human Benchmark must support varying load levels:
 
 The Concurrency View details how the system scales to meet these demands through its process structure, thread management, and resource allocation strategies.
 
-\subsection{Integration with Architectural Principles}
+% seemed alrady too much
+% \subsection{Integration with Architectural Principles}
 
-The importance of the Concurrency View aligns with key principles from the Software System Architecture Book:
+% The importance of the Concurrency View aligns with key principles from the Software System Architecture Book:
 
-\begin{itemize}
-    \item "It is not possible to capture all features and properties of a complex system in a single comprehensible model." The Concurrency View captures aspects of the system that would be difficult to represent in other views.
+% \begin{itemize}
+%     \item "It is not possible to capture all features and properties of a complex system in a single comprehensible model." The Concurrency View captures aspects of the system that would be difficult to represent in other views.
     
-    \item "Architectures are created solely to meet stakeholder needs." For Human Benchmark, stakeholders need a system that can handle concurrent users, provide fair multiplayer competition, and deliver responsive real-time interactions.
+%     \item "Architectures are created solely to meet stakeholder needs." For Human Benchmark, stakeholders need a system that can handle concurrent users, provide fair multiplayer competition, and deliver responsive real-time interactions.
     
-    \item "A concern, problem, or system element is architecturally significant if it has a wide impact on the structure of the system or on its important quality properties." The concurrency aspects of Human Benchmark are architecturally significant as they directly impact key quality properties like performance, scalability, and fairness.
-\end{itemize}
+%     \item "A concern, problem, or system element is architecturally significant if it has a wide impact on the structure of the system or on its important quality properties." The concurrency aspects of Human Benchmark are architecturally significant as they directly impact key quality properties like performance, scalability, and fairness.
+% \end{itemize}
 
-In conclusion, the Concurrency View is not just important but essential for Human Benchmark due to the system's core focus on real-time interaction, competitive multiplayer capabilities, and the need to ensure fairness and accuracy in cognitive measurements across many concurrent users.
+% In conclusion, the Concurrency View is not just important but essential for Human Benchmark due to the system's core focus on real-time interaction, competitive multiplayer capabilities, and the need to ensure fairness and accuracy in cognitive measurements across many concurrent users.
 
 \section{Cross-View Consistency Considerations}
 
-The Concurrency View must maintain consistency with other architectural views to ensure a coherent overall system architecture. Key cross-view considerations include:
+The Concurrency View must maintain consistency with other
+ architectural views to ensure a coherent overall system architecture. 
+ Key cross-view considerations include:
 
-\subsection{Consistency with the Functional View}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{AutomationAndSections/Sections/4concurencyView/Images/ConcurrencyView_crossover.png}
+    \caption{Concurrency View Cross-View Consistency diagram}
+    \label{fig:concurrency_view_cross_view}
+\end{figure}
 
-\begin{itemize}
-    \item The functional elements identified in the Functional View must be correctly mapped to concurrency units in this view
-    \item The interactions between functional elements must align with the interprocess communication mechanisms described here
-    \item State transitions described in this view must support the functional behaviors described in the Functional View
-\end{itemize}
 
-\subsection{Consistency with the Deployment View}
+% \begin{itemize}
+%     \item The functional elements identified in the Functional View must be correctly mapped to concurrency units in this view
+%     \item The interactions between functional elements must align with the interprocess communication mechanisms described here
+%     \item State transitions described in this view must support the functional behaviors described in the Functional View
+% \end{itemize}
 
-\begin{itemize}
-    \item The process structure described in this view must be deployable on the hardware infrastructure described in the Deployment View
-    \item Scaling strategies for concurrency units must align with the deployment scaling capabilities
-    \item Network communication patterns must be supported by the network infrastructure described in the Deployment View
-\end{itemize}
+% \subsection{Consistency with the Deployment View}
 
-\subsection{Consistency with the Information View}
+% \begin{itemize}
+%     \item The process structure described in this view must be deployable on the hardware infrastructure described in the Deployment View
+%     \item Scaling strategies for concurrency units must align with the deployment scaling capabilities
+%     \item Network communication patterns must be supported by the network infrastructure described in the Deployment View
+% \end{itemize}
 
-\begin{itemize}
-    \item Data access patterns and concurrency control mechanisms must support the data models described in the Information View
-    \item State models in this view must be consistent with persistent entity lifecycles in the Information View
-    \item Real-time data flows must align with the information structure and integrity constraints
-\end{itemize}
+% \subsection{Consistency with the Information View}
 
-\subsection{Consistency with the Development View}
+% \begin{itemize}
+%     \item Data access patterns and concurrency control mechanisms must support the data models described in the Information View
+%     \item State models in this view must be consistent with persistent entity lifecycles in the Information View
+%     \item Real-time data flows must align with the information structure and integrity constraints
+% \end{itemize}
 
-\begin{itemize}
-    \item Concurrency patterns and mechanisms must be implementable using the technologies and frameworks specified in the Development View
-    \item Module organization must support the concurrency units described in this view
-    \item Development standards must address thread safety requirements identified in this view
-\end{itemize}
+% \subsection{Consistency with the Development View}
 
-This document forms one part of a comprehensive Architectural Description (AD) for the Human Benchmark system. When implementing changes related to concurrency, architects and developers should consult other relevant views to ensure system-wide consistency and avoid unintended consequences.
+% \begin{itemize}
+%     \item Concurrency patterns and mechanisms must be implementable using the technologies and frameworks specified in the Development View
+%     \item Module organization must support the concurrency units described in this view
+%     \item Development standards must address thread safety requirements identified in this view
+% \end{itemize}
+
+% This document forms one part of a comprehensive Architectural Description (AD) for the Human Benchmark system. When implementing changes related to concurrency, architects and developers should consult other relevant views to ensure system-wide consistency and avoid unintended consequences.
 
 % \end{document}

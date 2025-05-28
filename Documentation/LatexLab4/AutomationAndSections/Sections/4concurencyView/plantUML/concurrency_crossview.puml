@@ -1,0 +1,47 @@
+@startuml ConcurrencyView_Consistency
+
+skinparam componentStyle rectangle
+skinparam backgroundColor white
+skinparam noteBorderColor gray
+skinparam noteBackgroundColor lightyellow
+
+' Define views
+component "Concurrency View" as CV #LightCyan
+component "Functional View" as FV #LightGreen
+component "Deployment View" as DV #LightBlue
+component "Information View" as IV #LightPink
+component "Development View" as DevV #LightGray
+
+' Layout direction
+left to right direction
+
+' Connections and notes
+CV -- FV : "must map to and align with"
+note on link
+    - Functional elements must map to concurrency units.
+    - Interactions must match IPC mechanisms.
+    - State transitions must support functional behavior.
+end note
+
+CV -- DV : "must be deployable on"
+note on link
+    - Process structure must fit deployment hardware.
+    - Concurrency scaling must align with infrastructure.
+    - Network patterns must be supported.
+end note
+
+CV -- IV : "must respect data semantics"
+note on link
+    - Access/control must match data models.
+    - State models must match entity lifecycles.
+    - Real-time flows must follow data constraints.
+end note
+
+CV -- DevV : "must align with implementation"
+note on link
+    - Concurrency patterns must be implementable.
+    - Modules must support concurrency units.
+    - Thread safety must be upheld by dev standards.
+end note
+
+@enduml
