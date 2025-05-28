@@ -1,0 +1,51 @@
+@startuml CrossView_ContextView_Consistency
+
+skinparam componentStyle rectangle
+skinparam backgroundColor white
+skinparam noteBorderColor gray
+skinparam noteBackgroundColor lightyellow
+
+' Define the views
+component "Context View" as CV #Wheat
+component "Functional View" as FV #LightGreen
+component "Information View" as IV #LightPink
+component "Deployment View" as DV #LightBlue
+component "Development View" as DevV #LightGray
+
+left to right direction
+
+' Relationships
+CV -- FV : "real-time interfaces align"
+note on link
+    Real-time multiplayer described in Functional View
+    must match WebSocket endpoints and flows in the Context View.
+end note
+
+CV -- IV : "data boundaries consistent"
+note on link
+    Data flows across system boundaries (e.g., user profiles)
+    must match entity definitions and flow models in the Information View.
+end note
+
+CV -- DV : "external elements must match"
+note on link
+    External components like PostgreSQL and Docker
+    must also appear in the Deployment View’s physical structure.
+end note
+
+CV -- DevV : "interface tech aligned"
+note on link
+    Interface technologies (e.g., WebSockets)
+    must be consistent with module responsibilities and structure in the Development View.
+end note
+
+' Summary Note
+note bottom of CV
+    <b>Context View Consistency</b>
+    - Functional: Multiplayer ↔ WebSocket
+    - Information: Profile data ↔ Entities
+    - Deployment: PostgreSQL, Docker ↔ Nodes
+    - Development: Interfaces ↔ Modules
+end note
+
+@enduml
