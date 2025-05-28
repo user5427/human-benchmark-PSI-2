@@ -1,0 +1,9 @@
+File Consolidation Summary
+=========================
+Source Directory: /home/user/Documents/PSI/Human-Benchmark/aim-reaction-app
+Generated: 2025 m. gegužės 28 d. 22:12:49 EEST
+Command: consolidate.sh 
+
+Consolidated Files:
+  - all_cs_files.cs (4306 lines)
+  - all_tsx_files.tsx (2235 lines)

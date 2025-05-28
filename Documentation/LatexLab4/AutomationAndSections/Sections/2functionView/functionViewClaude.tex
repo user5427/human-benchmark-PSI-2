@@ -19,19 +19,51 @@
 % \tableofcontents
 
 \section{Introduction to the Functional View}
-The Functional View describes the functional elements of the system, their responsibilities, interfaces, and primary interactions.
+The Functional View describes the functional elements of the system, their
+responsibilities, interfaces, and primary interactions.
+
+\subsection{Functional View Summary}
+
+The table below summarizes the key aspects of the Functional View:
+
+\begin{table}[H]
+    \centering
+    \caption{Summary of Functional View}
+    \label{tab:functional_view_summary}
+    \begin{tabular}{|p{0.3\textwidth}|p{0.6\textwidth}|}
+        \hline
+        \textbf{Aspect} & \textbf{Description} \\
+        \hline
+        Functional Capabilities & The system provides cognitive tests, multiplayer functionality, and real-time communication features, including chat rooms and private messaging. \\
+        \hline
+        External Interfaces & The system interacts with web browsers, databases, and external APIs for potential social media integration. \\
+        \hline
+        Internal Structure & The system is composed of key components such as the Game System, Multiplayer System, and Real-time Communication System, each with defined responsibilities and interfaces. \\
+        \hline
+        Functional Design Philosophy & The design prioritizes performance, usability, and scalability to ensure smooth user experiences and support for large numbers of concurrent users. \\
+        \hline
+    \end{tabular}
+\end{table}
+
+This summary is important to all stakeholders because it helps us understand the
+system's main features, how it interacts with external systems, and how its
+internal components work together.
 
 \section{Core Architectural Elements of the Functional View}
 
 \subsection{Overview of Functional Structure}
 
-The Human Benchmark system is designed to provide interactive cognitive tests while supporting both single-player and multiplayer experiences. The change that we will implement is that a new live chatting feature is to be added. The diagram below depicts what are the components that we will create change or use to implement this change.
+The Human Benchmark system is designed to provide interactive cognitive tests
+while supporting both single-player and multiplayer experiences. The change that
+we will implement is that a new live chatting feature is to be added. The
+diagram below depicts what are the components that we will create change or use
+to implement this change.
 
 % TODO: DIAGRAM - High-level functional structure showing major system components and their relationships
 % SUGGESTED_TYPE: UML Component Diagram
 % KEY_ELEMENTS_TO_DEPICT: User Management, Game System, Game Configuration, Multiplayer System, Score and Leaderboard System, and Real-time Communication System with their primary interfaces
 % STAKEHOLDER_FOCUS: All stakeholders to understand the overall system structure
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
      \includegraphics[width=0.9\textwidth]{AutomationAndSections/Sections/2functionView/4Lab1.drawio1.png}
     \caption{Functional Diagram Depicted Using UML}
@@ -39,8 +71,40 @@ The Human Benchmark system is designed to provide interactive cognitive tests wh
     \textit{Comment: This diagram shows the main logical components and related components regarding the new change implementation of a real-time chatting system.}
 \end{figure}
 
-\subsection{Functional Elements and Responsibilities}
+Below is a more detailed diagram that shows the main components of the system:
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{AutomationAndSections/Sections/2functionView/Images/componentDia.png}
+    \caption{Detailed Component Diagram}
+    \label{fig:detailed_component_diagram}
+    \textit{Comment: This diagram provides a detailed view of the system's components and their interactions, focusing on the implementation of the real-time chatting feature.}
+\end{figure}
+
+We also made boxes-and-lines diagrams to show the main components and their
+relationships. The diagram below shows the main components of the system and
+their relationships, focusing on the new real-time communication feature:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{AutomationAndSections/Sections/2functionView/Images/boxes-lines.png}
+    \caption{Boxes-and-Lines Diagram}
+    \label{fig:boxes_lines_diagram}
+    \textit{Comment: This diagram illustrates the relationships between the main components of the system, emphasizing the integration of the real-time communication feature.}
+\end{figure}
+
+We also made a message flow diagram to show how messages flow between the
+components of the system, particularly focusing on the real-time communication 
+feature. The diagram below illustrates the message flow between the main components:
+
+
+\subsection{Functional Elements and Responsibilities}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{AutomationAndSections/Sections/2functionView/Images/messageFlow.png}
+    \caption{Message Flow Diagram}
+    \label{fig:message_flow_diagram}
+    \textit{Comment: This diagram illustrates the flow of messages between the main components of the system, focusing on the real-time communication feature.}
+\end{figure}
 
 \subsubsection{Game System}
 The Game System provides the core gameplay functionality, managing game logic and processing for different cognitive tests.
