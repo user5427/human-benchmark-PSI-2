@@ -1,0 +1,40 @@
+@startuml
+
+left to right direction
+skinparam linetype ortho
+node "<<hosting>> \n MIF OpenNebula" #LightGreen {
+    node "<<operating system>> \n Linux - Debian 12" #LightGreen {
+        node "<<execution environment>> \n Docker" #LightGreen {
+            node "<<container>> \n psi-2 backend" #LightGreen {
+                node ": Net" #LightGreen {
+                    artifact "AimReactionAPI.dll"
+                }
+            }
+
+            node "<<container>> \n psi-2 frontend" #LightGreen {
+                node ": React + Vite" #LightGreen {
+                    artifact "/app/dist"
+                }
+            }
+        }
+    }
+}
+
+node "<<hosting>> \n Aiven" #LightSeaGreen {
+    node "<<operating system>> \n Linux" #LightSeaGreen {
+        node "<<execution environment>> \n ???" #LightSeaGreen {
+            node "<<container>> \n PostgreSQL" #LightSeaGreen {
+                node ": PostgreSQL" #LightSeaGreen {
+                    artifact "/Migrations"
+                }
+            }
+        }
+    }
+}
+
+"<<container>> \n psi-2 backend" -down- "<<container>> \n psi-2 frontend" : JSON
+"<<container>> \n psi-2 backend" -down- "<<container>> \n psi-2 frontend" : WebSocket
+": PostgreSQL" -down- "<<container>> \n psi-2 backend" : SQL
+
+
+@enduml

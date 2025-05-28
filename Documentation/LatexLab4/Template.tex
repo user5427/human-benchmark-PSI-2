@@ -18,7 +18,14 @@
 \setlength{\cfttabnumwidth}{4em} % Adjust the width as needed
 
 \usepackage{titlesec}
-\newcommand{\sectionbreak}{\clearpage}
+% \newcommand{\sectionbreak}{\clearpage}
+\usepackage{titlesec}
+\titlespacing*{\section}{0pt}{3.5ex plus 1ex minus .2ex}{2.3ex plus .2ex}
+
+\usepackage{array}
+\usepackage{tikz}
+\usepackage{tabularx}
+\usepackage{adjustbox} % For resizing tables
 
 \makeatletter
 \renewcommand{\fnum@algorithm}{\thealgorithm}
@@ -33,6 +40,10 @@
 \newcommand{\EE}{\mathbb{E}\,} % Mean
 \newcommand{\ee}{{\mathrm e}}  % nice exponent
 \newcommand{\RR}{\mathbb{R}}
+
+\newcommand{\redcircle}{\tikz\draw[red,fill=red] (0,0) circle (0.15em);\hspace{0.5em}}
+\newcommand{\yellowcircle}{\tikz\draw[yellow,fill=yellow] (0,0) circle (0.15em);\hspace{0.5em}}
+\newcommand{\greencircle}{\tikz\draw[green,fill=green] (0,0) circle (0.15em);\hspace{0.5em}}
 
 
 \studyprogramme{Software Engineering} %Write your study programme (example – Software engineering, Financial and Actuarial Mathematics, etc.)

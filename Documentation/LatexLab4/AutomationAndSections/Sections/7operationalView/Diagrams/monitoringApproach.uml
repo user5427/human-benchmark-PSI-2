@@ -1,0 +1,116 @@
+@startuml Monitoring Architecture
+
+!define ICONURL https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/v2.4.0
+!includeurl ICONURL/common.puml
+!includeurl ICONURL/devicons/docker.puml
+!includeurl ICONURL/font-awesome-5/database.puml
+!includeurl ICONURL/font-awesome-5/chart_line.puml
+!includeurl ICONURL/font-awesome-5/bell.puml
+
+skinparam linetype ortho
+skinparam backgroundColor white
+skinparam componentStyle uml2
+
+left to right direction
+
+rectangle "Application Infrastructure" {
+    node "MIF OpenNebula" #LightGreen {
+        node "Debian 12 VM" #LightGreen {
+            node "Docker Environment" #LightGreen {
+                [Frontend Container] #LightGoldenRodYellow
+                [Backend Container] #LightGoldenRodYellow
+                ' [Node Exporter] #LightCyan
+                ' [cAdvisor] #LightCyan
+            }
+        }
+    }
+
+    node "Aiven" #LightSeaGreen {
+        [PostgreSQL Database] #LightSeaGreen
+        [Aiven Monitoring Agent] #LightCyan
+    }
+}
+
+rectangle "Monitoring Infrastructure" {
+    [Prometheus] #Orange
+    [Alertmanager] #Pink
+    [Grafana] #SkyBlue
+    [Elasticsearch] #Yellow
+    [Aiven Console] #LightSeaGreen
+    [Docker Container \nStatus Commands] #LightCyan
+    [htop] #LightSteelBlue
+    [MIF \nOpenNebula \nMonitoring] #LightGreen
+}
+
+' Data collection relationships
+' [Node Exporter] --> [Prometheus] : Infrastructure metrics
+' [cAdvisor] --> [Prometheus] : Container metrics
+[Backend Container] --> [Prometheus] : Application metrics
+' [Frontend Container] --> [Prometheus] : Application metrics
+[PostgreSQL Database] --> [Aiven Monitoring Agent] : Database metrics
+[Aiven Monitoring Agent] --> [Aiven Console] : Database metrics
+
+' Add Prometheus to Elasticsearch connection
+[Prometheus] --> [Elasticsearch] : Metrics export
+
+
+' Visualization and alerting relationships
+[Prometheus] --> [Grafana] : Metrics visualization
+[Prometheus] --> [Alertmanager] : Triggers alerts
+' [Elasticsearch] --> [Grafana] : Log visualization
+[Alertmanager] --> [Grafana] : Display alerts
+
+' Monitoring commands
+[Backend Container] --> [Docker Container \nStatus Commands] : Status commands
+[Frontend Container] --> [Docker Container \nStatus Commands] : Status commands
+
+"Debian 12 VM" --> [htop] : VM monitoring
+"Debian 12 VM" --> [MIF \nOpenNebula \nMonitoring] : VM monitoring
+
+note left of [htop] 
+    Provides:
+    - Real-time system metrics
+    - CPU usage
+    - Memory usage
+    - Process management
+endnote
+
+note right of [MIF \nOpenNebula \nMonitoring]
+    Provides:
+    - VM status
+    - Resource allocation
+    - Performance metrics
+    - Scaling information
+endnote
+
+note right of [Prometheus]
+    Collects:
+    - Infrastructure metrics
+    - Container status
+    - Application performance metrics
+    - Response times
+    - Error rates
+    - Throughput
+endnote
+
+note left of [Aiven Console]
+    Monitors:
+    - Query performance
+    - Connection pools
+    - Storage utilization
+endnote
+
+note right of [Grafana]
+    Displays:
+    - System health status
+    - Active user count
+    - Resource utilization
+    - Scaling status
+    - Recent alerts
+endnote
+
+note right of [Frontend Container]
+- We do not have any advanced monitoring for the frontend container.
+endnote
+
+@enduml

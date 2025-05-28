@@ -19,79 +19,188 @@
 % \newpage
 
 \section{Introduction to the Deployment View}
-The Deployment View of the Human Benchmark system describes the environment into which the system will be deployed and its dependencies on elements of that environment. This view is crucial for understanding how the various software components of Human Benchmark are distributed across hardware nodes, how these nodes are connected, and what third-party software and hardware dependencies exist.
+The Deployment View of the Human Benchmark system describes the environment into
+which the system will be deployed, its dependencies on other elements of that
+environment.
+% This view is crucial for understanding how the various software
+% components of Human Benchmark are distributed across hardware nodes, how these
+% nodes are connected, and what third-party software and hardware dependencies
+% exist.
 
 The Deployment View addresses the following primary concerns:
-\begin{itemize}
-    \item The runtime platform required to host the Human Benchmark system
-    \item The specification and quantity of hardware or hosting required
-    \item Third-party software requirements for each deployment element
-    \item Technology compatibility between system components
-    \item Network requirements and capacity for supporting multiplayer functionality
-    \item Physical constraints that may impact deployment
-\end{itemize}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{0.25\textwidth}|p{0.75\textwidth}|}
+        \hline
+        \textbf{Concern}         & \textbf{Description}                                                                                   \\
+        \hline
+        Runtime Platform         & The software and hardware environment required to run the deployment.                                  \\
+        \hline
+        Hardware                 & The specification of hardware or hosting required for deployment.                                      \\
+        \hline
+        Third-party Software     & Any third-party software dependencies for each deployment element.                                     \\
+        \hline
+        Technology Compatibility & Compatibility between system components and their deployment environments.                             \\
+        \hline
+        Network Requirements     & Network requirements and capacity for supporting multiplayer functionality.                            \\
+        \hline
+        Physical Constraints     & Any physical constraints that may impact deployment, such as server locations or hardware limitations. \\
+        \hline
+    \end{tabular}
+    \caption{Primary Concerns Addressed by the Deployment View}
+    \label{tab:deployment_view_concerns}
+\end{table}
+
+THe Deployment View uses these models to describe the deployment architecture:
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{0.25\textwidth}|p{0.75\textwidth}|}
+        \hline
+        \textbf{Model}              & \textbf{Description}                                                                        \\
+        \hline
+        Runtime Platform Model      & Describes the software and hardware environment required to run the Human Benchmark system. \\
+        \hline
+        Network Model               & Describes the network topology, services, and bandwidth requirements for the deployment.    \\
+        \hline
+        Technology Dependency Model & Lists the software dependencies required for each deployment element.                       \\
+        \hline
+        Intermodel relationships    & Describes how the deployment model relates to other architectural views.                    \\
+        \hline
+    \end{tabular}
+    \caption{Models Used in the Deployment View}
+    \label{tab:deployment_view_models}
+\end{table}
 
 The primary stakeholders for this view are:
-\begin{itemize}
-    \item System administrators: Who will manage and maintain the deployed system
-    \item Developers: Who need to understand deployment considerations during implementation
-    \item Testers: Who need to configure appropriate test environments
-    \item Communicators: Who explain deployment aspects to other stakeholders
-    \item Assessors: Who evaluate the technical suitability of the deployment approach
-\end{itemize}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{0.25\textwidth}|p{0.3\textwidth}|p{0.35\textwidth}|}
+        \hline
+        \textbf{Stakeholder}  & \textbf{Role}                                                 & \textbf{Interest}                                                \\
+        \hline
+        System Administrators & Manage and maintain the deployed system                       & Ensure uptime and performance                                    \\
+        \hline
+        Developers            & Implement the system                                          & Understand deployment considerations                             \\
+        \hline
+        Testers               & Validate the system in production-like environments           & Configure appropriate test environments                          \\
+        \hline
+        Communicators         & Explain deployment aspects to other stakeholders              & Ensure understanding of how the system operates in production    \\
+        \hline
+        Assessors             & Evaluate the technical suitability of the deployment approach & Ensure it meets quality attributes like performance and security \\
+        \hline
+    \end{tabular}
+    \caption{Stakeholders for the Deployment View of Human Benchmark}
+    \label{tab:deployment_view_stakeholders}
+\end{table}
+
+% The primary stakeholders for this view are:
+% \begin{itemize}
+%     \item System administrators: Who will manage and maintain the deployed system
+%     \item Developers: Who need to understand deployment considerations during implementation
+%     \item Testers: Who need to configure appropriate test environments
+%     \item Communicators: Who explain deployment aspects to other stakeholders
+%     \item Assessors: Who evaluate the technical suitability of the deployment approach
+% \end{itemize}
 
 \section{Core Architectural Elements of the Deployment View}
-
-\subsection{Runtime Platform Model}
-The runtime platform model describes the hardware and software environment required to run the Human Benchmark system, including the allocation of software elements to hardware nodes.
-
-\subsubsection{Processing Nodes}
-
-Human Benchmark follows a modern containerized architecture with the following primary processing nodes:
-
+We will be using these abreviations throughout the Deployment View:
 \begin{itemize}
-    \item \textbf{Application Servers}: Host the backend ASP.NET Core API services.
-    \item \textbf{Web Servers}: Host the React frontend application.
-    \item \textbf{Database Servers}: Host the PostgreSQL database system.
-    \item \textbf{Client Devices}: End-user devices accessing the system through web browsers.
+    \item \textbf{VM}: Virtual Machine
+    \item \textbf{DB}: Database (Server)
+    \item \textbf{API}: Application Programming Interface
+    \item \textbf{UI}: User Interface
 \end{itemize}
 
-The system leverages Kubernetes for orchestration and scalability, allowing dynamic scaling of application and web server instances based on load.
+\subsection{Runtime Platform Model}
+The runtime platform model describes the software and hardware environment
+required to run the Human Benchmark system.
+% , including the allocation of software elements to hardware nodes.
+
+\subsubsection{Processing Nodes}
+Before we begin, we would like to include a quick reference table to the specifications of our virtual machine
+which runs on MIF OpenNebula and database which runs on Aiven PostgreSQL services.
+
+\begin{table}[H]
+    \centering
+    \caption{Specifications of Virtual Machine and Database Server}
+    \label{tab:vm_db_specs}
+    \begin{tabular}{|p{0.3\textwidth}|p{0.2\textwidth}|p{0.2\textwidth}|p{0.2\textwidth}|}
+        \hline
+        \textbf{Component} & \textbf{CPU Units} & \textbf{RAM} & \textbf{Storage} \\
+        \hline
+        Virtual Machine    & 0.4                & 2 GB         & 20 GB            \\
+        \hline
+        Database Server    & 1.0                & 1 GB         & 5 GB             \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{AutomationAndSections/Sections/6deploymentView/Images/processsing.png}
+    \caption{Processing Nodes and Their Relationships in the Deployment Architecture}
+    \label{fig:processing_nodes_relationships}
+\end{figure}
+
+Our main processing nodes are:
+\begin{itemize}
+    \item \textbf{Virtual machine (VM)}: The main processing node for the Human Benchmark system, running on MIF OpenNebula.
+    \item \textbf{Database Server (DB)}: Hosts the PostgreSQL database for Human Benchmark, provided by Aiven.
+\end{itemize}
+
+
+
 
 % TODO: DIAGRAM - Deployment architecture showing the main processing nodes and their relationships
 % SUGGESTED_TYPE: UML Deployment Diagram
 % KEY_ELEMENTS_TO_DEPICT: Application Servers, Web Servers, Database Servers, Client Devices, Kubernetes cluster, Load Balancers, Network connections
 % STAKEHOLDER_FOCUS: System administrators and developers to understand the high-level deployment structure
-\begin{figure}[h!]
-\centering
-\caption{Illustrative Diagram: High-Level Deployment Architecture of Human Benchmark (Conceptual Placeholder)}
-\label{fig:deployment_high_level_overview}
-\textit{Comment: This diagram should illustrate the main processing nodes and their connections within the Kubernetes environment.}
-\end{figure}
+% \begin{figure}[h!]
+%     \centering
+%     \caption{Illustrative Diagram: High-Level Deployment Architecture of Human Benchmark (Conceptual Placeholder)}
+%     \label{fig:deployment_high_level_overview}
+%     \textit{Comment: This diagram should illustrate the main processing nodes and their connections within the Kubernetes environment.}
+% \end{figure}
 
 \subsubsection{Runtime Containers}
 
-Human Benchmark employs Docker containers for consistent deployment across environments:
+Human Benchmark employs containers for simple deployment:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{AutomationAndSections/Sections/6deploymentView/Images/dockerContainers.png}
+    \caption{Containers Used in the Deployment of Human Benchmark}
+    \label{fig:docker_containers}
+\end{figure}
 
 \begin{itemize}
-    \item \textbf{Backend Container}: Contains the .NET runtime environment with WebSocket support, hosting the ASP.NET Core API services that implement the game logic, user management, and multiplayer functionality.
-    \item \textbf{Frontend Container}: Contains a Node.js environment serving the React application that provides the user interface.
-    \item \textbf{Database Container}: Contains the PostgreSQL database for data persistence, hosted on Aiven (managed database service).
+    \item \textbf{Backend Container}: Contains the .NET runtime environment with
+          WebSocket support, hosting the ASP.NET Core API services, user management, and multiplayer functionality. Uses Docker to execute the application.
+    \item \textbf{Frontend Container}: Contains a React + Vite environment serving
+          the user interface. Uses Docker to execute the application.
+    \item \textbf{Database Container}: Runs on Aiven's PostgreSQL service, which is
+          containerized for consistency and ease of management. We are not sure what exectution environment Aiven uses, hence the "???" in the diagram.
 \end{itemize}
 
-The container specification includes proper resource allocation (CPU, memory) to ensure optimal performance across environments.
+% The container specification includes proper resource allocation (CPU, memory) to ensure optimal performance across environments.
 
 \subsubsection{Storage Hardware}
 
 \begin{itemize}
-    \item \textbf{Online Storage}: The primary data storage for Human Benchmark is provided by the PostgreSQL database, which requires sufficient storage capacity for:
-    \begin{itemize}
-        \item User account data
-        \item Game configurations
-        \item Historical scores and performance metrics
-        \item Game session data
-    \end{itemize}
-    \item \textbf{Backup Storage}: Regular database backups require additional storage capacity, with backup policies ensuring data integrity and recovery capabilities.
+    \item \textbf{Online DB Storage}: The primary data storage for saving data is
+          provided by the PostgreSQL database hosted on Aiven. This storage is used
+          for:
+          \begin{itemize}
+              \item User account data
+              \item Game configurations
+              \item Historical scores and performance metrics
+              \item Game session data
+          \end{itemize}
+    \item \textbf{Backups for Online Storage}: Regular database can be enabled on Aiven. We
+          have enabled daily backups with a 7-day retention policy to ensure that we
+          can recover from data loss or corruption.
+    \item \textbf{Online VM Storage}: The virtual machine running the Human Benchmark contains all the application containers, configuration files.
+    \item \textbf{Backups for VM Storage}: We do not have a backup strategy for the VM storage. In case of a failure, we can redeploy the containers from the source code repository.
 \end{itemize}
 
 \subsubsection{Network Links}
@@ -99,124 +208,130 @@ The container specification includes proper resource allocation (CPU, memory) to
 The Human Benchmark system requires the following network connections:
 
 \begin{itemize}
-    \item \textbf{Client-to-Frontend}: High-bandwidth, low-latency connections for responsive user interface updates.
-    \item \textbf{Frontend-to-Backend}: Internal connections between frontend and backend services, typically within the same data center or cloud region.
-    \item \textbf{Backend-to-Database}: High-speed connections to ensure efficient database operations.
-    \item \textbf{WebSocket Connections}: Optimized for real-time multiplayer functionality, requiring persistent connections with minimal latency.
+    \item \textbf{Client-to-VM JSON}: High-bandwidth, low-latency connections for responsive user interface updates.
+    \item \textbf{Client-to-VM WebSocket}: Optimized for real-time multiplayer functionality, requiring persistent connections with minimal latency.
+    \item \textbf{VM-to-DB SQL}: Secure connections to the PostgreSQL database for data access and storage.
 \end{itemize}
 
 \subsubsection{Runtime Element-to-Node Mapping}
 
 The mapping of functional elements to processing nodes is as follows:
 
-\begin{itemize}
-    \item \textbf{User Interface Components} $\rightarrow$ Frontend Container (Web Servers)
-    \item \textbf{Game Logic Services} $\rightarrow$ Backend Container (Application Servers)
-    \item \textbf{User Management Services} $\rightarrow$ Backend Container (Application Servers)
-    \item \textbf{Multiplayer System Services} $\rightarrow$ Backend Container (Application Servers) with WebSocket optimization
-    \item \textbf{Data Access Services} $\rightarrow$ Backend Container (Application Servers)
-    \item \textbf{Database} $\rightarrow$ Database Container (Database Servers)
-\end{itemize}
-
 % TODO: DIAGRAM - Element-to-Node mapping showing which functional elements are deployed on which nodes
 % SUGGESTED_TYPE: UML Deployment Diagram with artifacts
 % KEY_ELEMENTS_TO_DEPICT: Containers (Frontend, Backend, Database), Functional elements (UI, Game Logic, User Management, Multiplayer, Data Access), Mapping relationships
 % STAKEHOLDER_FOCUS: Developers and system administrators to understand where each component runs
-\begin{figure}[h!]
-\centering
-\caption{Illustrative Diagram: Runtime Element-to-Node Mapping for Human Benchmark (Conceptual Placeholder)}
-\label{fig:deployment_element_node_mapping}
-\textit{Comment: This diagram should show how functional elements are allocated to physical/virtual nodes in the deployment environment.}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{AutomationAndSections/Sections/6deploymentView/Images/servicetocontainer.png}
+    \caption{Service-to-Container Mapping in the Deployment Architecture}
+    \label{fig:service_to_container_mapping}
 \end{figure}
 
-\subsection{Hardware and Hosting Requirements}
+\begin{itemize}
+    \item \textbf{User Interface Components} $\rightarrow$ Frontend Container (VM)
+    \item \textbf{Game Logic Services} $\rightarrow$ Backend Container (VM)
+    \item \textbf{User Management Services} $\rightarrow$ Backend Container (VM)
+    \item \textbf{Multiplayer System Services} $\rightarrow$ Backend Container (VM) with WebSocket optimization
+    \item \textbf{Data Access Services} $\rightarrow$ Backend Container (VM)
+    \item \textbf{Database} $\rightarrow$ Database Container (DB)
+\end{itemize}
 
-\subsubsection{Kubernetes Cluster Specifications}
+\subsubsection{Hardware and Hosting Requirements}
 
-For optimal performance and scalability, the Kubernetes cluster should meet the following specifications:
+For optimal performance and scalability, the VM, DB and client devices must
+specific hardware and hosting requirements. From previous work (lab 2), we found
+the minimal and recommended hardware requirements for VM and DB using various tools, such as
+the \texttt{htop} command, \texttt{docker stats} command, and we also tested the
+database performance using database load testing tools. For client devices, we
+will just use the minimum requirements for modern web browsers.
+Below are the tables with the hardware requirements:
 
-\begin{table}[h!]
-\centering
-\caption{Kubernetes Node Specifications}
-\label{tab:kubernetes_nodes}
-\begin{tabular}{p{0.25\textwidth}p{0.7\textwidth}}
-% \toprule
-\textbf{Node Type} & \textbf{Specifications} \\
-% \midrule
-Control Plane Nodes & Minimum 2 nodes for high availability\\
-                    & 4 vCPU per node\\
-                    & 8 GB RAM per node\\
-                    & 100 GB SSD storage per node\\
-% \midrule
-Worker Nodes        & Minimum 3 nodes (scaling based on load)\\
-                    & 8 vCPU per node\\
-                    & 16 GB RAM per node\\
-                    & 200 GB SSD storage per node\\
-% \bottomrule
-\end{tabular}
+
+\textbf{Virtual Machine (VM)}:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{Resource Type} & {Minimal needs} & {Recommended} \\
+        \hline
+        Storage                & 6 GB            & 10 GB         \\
+        \hline
+        RAM                    & 1 GB            & 2 GB          \\
+        \hline
+        CPU                    & 0.4 core        & 1 core        \\
+        \hline
+        Network Upload         & 629 Mbit/s      & 1 Gbit/s      \\
+        \hline
+        Network Download       & 8 Mbit/s        & 200 Mbit/s    \\
+        \hline
+        Network Latency        & ≈30 ms          & ≈10 ms        \\
+        \hline
+    \end{tabular}
+    \caption{VM Resource Requirements}
+    \label{tab:resource-types}
 \end{table}
 
-\subsubsection{Database Hosting}
 
-The PostgreSQL database is hosted on Aiven, with the following specifications:
+\textbf{Database (DB)}:
 
-\begin{table}[h!]
-\centering
-\caption{Database Hosting Specifications}
-\label{tab:database_hosting}
-\begin{tabular}{p{0.25\textwidth}p{0.7\textwidth}}
-% \toprule
-\textbf{Aspect} & \textbf{Specification} \\
-% \midrule
-Database Type   & PostgreSQL 14 or later\\
-Instance Size   & 4 vCPU, 16 GB RAM\\
-Storage         & 100 GB SSD with automatic scaling\\
-Backup          & Daily automated backups with 7-day retention\\
-High Availability & Enabled with standby replicas\\
-% \bottomrule
-\end{tabular}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{Requirement Type} & \textbf{Minimal Requirements} & \textbf{Recommended Requirements} \\
+        \hline
+        Database CPU              & 1 core                        & 1 core                            \\
+        \hline
+        Database RAM              & 1 GB                          & 1 GB                              \\
+        \hline
+        Database Storage          & 1 GB                          & 5 GB                              \\
+        \hline
+    \end{tabular}
+    \caption{DB Resource Requirements}
+    \label{tab:system-requirements}
 \end{table}
 
-\subsubsection{Client Requirements}
 
-Human Benchmark is designed to work across various client devices with the following minimum specifications:
+\textbf{Client Devices}:
 
-\begin{table}[h!]
-\centering
-\caption{Client Device Requirements}
-\label{tab:client_requirements}
-\begin{tabular}{p{0.25\textwidth}p{0.7\textwidth}}
-% \toprule
-\textbf{Device Type} & \textbf{Minimum Requirements} \\
-% \midrule
-Desktop/Laptop       & Modern web browser (Chrome, Firefox, Safari, Edge)\\
-                     & 2 GHz dual-core processor\\
-                     & 4 GB RAM\\
-                     & 1280 x 720 screen resolution\\
-% \midrule
-Mobile Devices       & Modern mobile browser or WebView\\
-                     & iOS 14+ or Android 8+\\
-                     & 1.5 GB RAM\\
-                     & 320dp minimum width (responsive design accommodates various sizes)\\
-% \bottomrule
-\end{tabular}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{0.15\textwidth}|p{0.65\textwidth}|}
+        \hline
+        \textbf{Device Type} & \textbf{Minimum Requirements}                      \\
+        \hline
+        Desktop/Laptop       & Modern web browser (Chrome, Firefox, Safari, Edge) \\
+                             & 2 GHz dual-core processor                          \\
+                             & 4 GB RAM                                           \\
+                             & 1280 x 720 screen resolution                       \\
+        \hline
+        Mobile Devices       & Modern mobile browser or WebView                   \\
+                             & iOS 14+ or Android 8+                              \\
+                             & 1.5 GB RAM                                         \\
+                             & 320dp minimum width                                \\
+        \hline
+    \end{tabular}
+    \caption{Client Device Requirements}
+    \label{tab:client_requirements}
 \end{table}
 
 \subsection{Network Model}
 
 \subsubsection{Network Topology}
 
-The Human Benchmark system requires a network architecture that supports reliable communication between components with minimal latency, particularly for real-time multiplayer gaming features.
+The Human Benchmark system requires a network architecture that supports reliable communication between servers and clients with minimal latency, particularly for real-time multiplayer gaming features.
 
 % TODO: DIAGRAM - Network topology showing interconnections between system components
 % SUGGESTED_TYPE: Network Diagram
 % KEY_ELEMENTS_TO_DEPICT: External client connections, Load balancers, Internal network between services, Firewalls, WebSocket connections, Database connections
 % STAKEHOLDER_FOCUS: Network administrators and system architects to understand connectivity requirements
-\begin{figure}[h!]
-\centering
-\caption{Illustrative Diagram: Network Topology for Human Benchmark (Conceptual Placeholder)}
-\label{fig:deployment_network_topology}
-\textit{Comment: This diagram should illustrate the network connections between different components, including external and internal communication paths.}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{AutomationAndSections/Sections/6deploymentView/Images/networkmodel.png}
+    \caption{Network Topology of the Human Benchmark System}
+    \label{fig:network_topology}
 \end{figure}
 
 \subsubsection{Network Services}
@@ -224,178 +339,236 @@ The Human Benchmark system requires a network architecture that supports reliabl
 The following network services are required:
 
 \begin{itemize}
-    \item \textbf{Load Balancing}: Distributes incoming traffic across multiple instances of the frontend and backend containers.
+    % \item \textbf{Load Balancing}: Distributes incoming traffic across multiple instances of the frontend and backend containers.
     \item \textbf{Firewalls}: Protects the system from unauthorized access and provides a security boundary.
-    \item \textbf{CDN (Content Delivery Network)}: Optional but recommended for static content delivery to improve performance for geographically distributed users.
-    \item \textbf{WebSocket Proxies}: Optimized for handling WebSocket connections required for multiplayer functionality.
+          % \item \textbf{CDN (Content Delivery Network)}: Optional but recommended for static content delivery to improve performance for geographically distributed users.
+          % \item \textbf{WebSocket Proxies}: Optimized for handling WebSocket connections required for multiplayer functionality.
 \end{itemize}
 
 \subsubsection{Bandwidth and Latency Requirements}
 
-\begin{table}[h!]
-\centering
-\caption{Network Bandwidth and Latency Requirements}
-\label{tab:network_requirements}
-\begin{tabular}{p{0.3\textwidth}p{0.3\textwidth}p{0.35\textwidth}}
-% \toprule
-\textbf{Connection Type} & \textbf{Bandwidth Requirement} & \textbf{Maximum Acceptable Latency} \\
-% \midrule
-Client-to-Frontend       & 1-5 Mbps per user             & 100ms (Regular interface)\\
-                         &                              & 50ms (Reaction time tests)\\
-% \midrule
-Frontend-to-Backend      & 10 Gbps internal network      & 10ms\\
-% \midrule
-Backend-to-Database      & 10 Gbps internal network      & 5ms\\
-% \midrule
-WebSocket Connections    & 0.5-2 Mbps per active user    & 50ms (for competitive multiplayer)\\
-% \bottomrule
-\end{tabular}
+\begin{table}[H]
+    \centering
+    \caption{Network Bandwidth and Latency Requirements}
+    \label{tab:network_requirements}
+    \begin{tabular}{|p{0.3\textwidth}|p{0.3\textwidth}|p{0.35\textwidth}|}
+        \hline
+        \textbf{Connection Type} & \textbf{Bandwidth Requirement} & \textbf{Maximum Acceptable Latency} \\
+        \hline
+        Client-to-VM             & 1-5 Mbps per user              & 100ms (Regular interface)           \\
+                                 &                                & 50ms (Reaction time tests)          \\
+        \hline
+        VM-to-DB                 & 700 Mbps  network              & 25ms                                \\
+        \hline
+    \end{tabular}
 \end{table}
 
 \subsection{Technology Dependency Model}
 
 \subsubsection{Backend Container Dependencies}
 
-\begin{table}[h!]
-\centering
-\caption{Backend Container Software Dependencies}
-\label{tab:backend_dependencies}
-\begin{tabular}{p{0.3\textwidth}p{0.65\textwidth}}
-% \toprule
-\textbf{Component} & \textbf{Dependencies} \\
-% \midrule
-ASP.NET Core API   & .NET 8.0 SDK\\
-                   & ASP.NET Core Runtime 8.0\\
-                   & Entity Framework Core 8.0\\
-                   & Npgsql Provider for PostgreSQL\\
-                   & SignalR for WebSocket support\\
-% \midrule
-Authentication     & ASP.NET Core Identity\\
-                   & JWT Authentication libraries\\
-% \midrule
-Database Access    & Entity Framework Core 8.0\\
-                   & Npgsql Entity Framework Core Provider 8.0\\
-% \bottomrule
-\end{tabular}
+\begin{table}[H]
+    \centering
+    \footnotesize % or \footnotesize if \scriptsize is too small
+    \begin{tabularx}{\textwidth}{|X|c|p{0.3\textwidth}|}
+        \hline
+        \textbf{Technology}                     & \textbf{Version} & \textbf{Notes}                                \\
+        \hline
+        .NET SDK                                & 9.0.100          & API, Entity Framework Core, SignalR, Identity \\
+        \hline
+        ASP.NET Core Runtime                    & 9.0              & Required for hosting ASP.NET services         \\
+        \hline
+        Microsoft.EntityFrameworkCore           & 9.0.0            & ORM for data access                           \\
+        \hline
+        Npgsql.EntityFrameworkCore.PostgreSQL   & 9.0.1            & PostgreSQL EF Core provider                   \\
+        \hline
+        Microsoft.EntityFrameworkCore.InMemory  & 9.0.0            & For in-memory testing                         \\
+        \hline
+        Microsoft.EntityFrameworkCore.SqlServer & 9.0.0            & Optional SQL Server provider                  \\
+        \hline
+        Fleck                                   & 1.2.0            & WebSocket server support                      \\
+        \hline
+        Newtonsoft.Json                         & 13.0.3           & JSON serialization support                    \\
+        \hline
+        Microsoft.AspNetCore.Mvc.NewtonsoftJson & 8.0.8            & ASP.NET integration with Newtonsoft           \\
+        \hline
+        Swashbuckle.AspNetCore                  & 6.4.0            & Swagger API documentation                     \\
+        \hline
+        uldahlalex.websocket.boilerplate        & 2.3.4            & WebSocket boilerplate                         \\
+        \hline
+        Microsoft.VisualStudio.Azure.
+        Containers.Tools.Targets                & 1.19.5           & Docker build tools                            \\
+        \hline
+        NUnit                                   & 3.13.3           & Unit testing framework                        \\
+        \hline
+        NUnit3TestAdapter                       & 4.2.1            & NUnit test integration                        \\
+        \hline
+        coverlet.collector                      & 6.0.0            & Code coverage tool                            \\
+        \hline
+        Moq                                     & 4.20.72          & Mocking framework for unit tests              \\
+        \hline
+        Microsoft.NET.Test.Sdk                  & 17.6.0           & Test project runner                           \\
+        \hline
+    \end{tabularx}
+    \caption{Backend Container Software Dependencies}
+    \label{tab:backend_dependencies}
 \end{table}
+
 
 \subsubsection{Frontend Container Dependencies}
 
-\begin{table}[h!]
-\centering
-\caption{Frontend Container Software Dependencies}
-\label{tab:frontend_dependencies}
-\begin{tabular}{p{0.3\textwidth}p{0.65\textwidth}}
-% \toprule
-\textbf{Component} & \textbf{Dependencies} \\
-% \midrule
-Node.js Environment & Node.js 18.x or later\\
-                     & npm 9.x or later\\
-% \midrule
-React Application   & React 18.x\\
-                     & TypeScript 5.x\\
-                     & React Router 6.x\\
-                     & Redux (for state management)\\
-                     & SignalR client for WebSocket connections\\
-% \midrule
-Web Server          & nginx 1.24.x or later\\
-                     & configured for serving static content and proxying API requests\\
-% \bottomrule
-\end{tabular}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{Technology} & \textbf{Version} & \textbf{Notes}                           \\
+        \hline
+        Node.js             & v22.9.0          & Runtime environment for frontend tooling \\
+        \hline
+        npm                 & Bundled          & Comes with Node.js                       \\
+        \hline
+        Vite                & 5.4.18           & Frontend build tool                      \\
+        \hline
+        React               & 18.3.1           & Frontend framework                       \\
+        \hline
+        React DOM           & 18.3.1           & DOM rendering for React                  \\
+        \hline
+        TypeScript          & 5.5.3            & Static typing                            \\
+        \hline
+        React Router DOM    & 6.26.2           & Client-side routing                      \\
+        \hline
+        Redux               & N/A              & Assumed used but not listed directly     \\
+        \hline
+        Axios               & 1.7.7            & HTTP client                              \\
+        \hline
+        react-use-websocket & 4.13.0           & WebSocket client integration             \\
+        \hline
+        ESLint              & 9.9.0            & Linting and code quality                 \\
+        \hline
+        Vitest              & 3.0.9            & Unit testing framework                   \\
+        \hline
+        nginx               & 1.24.x+          & For static hosting and reverse proxy     \\
+        \hline
+    \end{tabular}
+    \caption{Frontend Container Software Dependencies}
+    \label{tab:frontend_dependencies}
 \end{table}
 
 \subsubsection{Database Dependencies}
 
-\begin{table}[h!]
-\centering
-\caption{Database Software Dependencies}
-\label{tab:database_dependencies}
-\begin{tabular}{p{0.3\textwidth}p{0.65\textwidth}}
-% \toprule
-\textbf{Component} & \textbf{Dependencies} \\
-% \midrule
-PostgreSQL Database & PostgreSQL 14.x or later\\
-                    & PostGIS extension (optional, for location-based features)\\
-                    & pgcrypto extension (for enhanced security features)\\
-% \midrule
-Backup and Recovery & Backup management tools (provided by Aiven)\\
-                    & Point-in-time recovery capability\\
-% \bottomrule
-\end{tabular}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{Component} & \textbf{Version} & \textbf{Notes}                    \\
+        \hline
+        PostgreSQL         & 14.x+            & Main database engine              \\
+        % \hline
+        % PostGIS Extension & Optional & For location-based queries \\
+        % \hline
+        % pgcrypto Extension & Optional & For encryption and UUIDs \\
+        \hline
+        Aiven Tools        & Provided         & Backup and point-in-time recovery \\
+        \hline
+    \end{tabular}
+    \caption{Database Software Dependencies}
+    \label{tab:database_dependencies}
 \end{table}
 
 \subsubsection{CI/CD Infrastructure Dependencies}
 
-\begin{table}[h!]
-\centering
-\caption{CI/CD Infrastructure Dependencies}
-\label{tab:cicd_dependencies}
-\begin{tabular}{p{0.3\textwidth}p{0.65\textwidth}}
-% \toprule
-\textbf{Component} & \textbf{Dependencies} \\
-% \midrule
-Source Control      & Git repository (GitHub or GitLab)\\
-% \midrule
-CI/CD Pipeline      & GitHub Actions or GitLab CI/CD\\
-                    & Docker build environment\\
-                    & Kubernetes deployment tools (kubectl, helm)\\
-% \midrule
-Monitoring          & Prometheus for metrics collection\\
-                    & Grafana for visualization\\
-                    & Loki or ELK stack for log management\\
-% \bottomrule
-\end{tabular}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{0.3\textwidth}|p{0.7\textwidth}|}
+        \hline
+        \textbf{Component} & \textbf{Details}                                                     \\
+        \hline
+        Source Control     & GitLab repository                                                    \\
+        \hline
+        CI/CD System       & GitLab CI/CD with custom runner                                      \\
+        \hline
+        Runner Details     & Named \texttt{VMmif}, shell executor, Linux OS, version 17.9.1       \\
+        \hline
+        Container Engine   & Docker 20.10.24+dfsg1 (version can be higher)                        \\
+        \hline
+        VM Platform        & OpenNebula 4.14.2 (used to manage VM: CPU, RAM, storage, networking) \\
+        \hline
+        Deployment Method  & Docker-based deployment via GitLab pipeline on hosted VM             \\
+        \hline
+    \end{tabular}
+    \caption{CI/CD Infrastructure Dependencies}
+    \label{tab:cicd_dependencies}
 \end{table}
+
+\subsection{Intermodel Relationships}
+\subsubsection{Relationships Between Deployment View Models}
+
+The three models of the Deployment View—runtime platform model, network model,
+and technology dependency model form a relationship that serves different
+stakeholders at different stages of project.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{AutomationAndSections/Sections/6deploymentView/Images/layerrelationship.png}
+    \caption{Layered Relationship Between Deployment View Models}
+    \label{fig:deployment_view_models_relationship}
+\end{figure}
+
+For our application these relationships are important when
+considering scaling strategies, as increased user load affects all three models
+requiring additional runtime resources, network capacity, and
+potentially new technology dependencies to maintain performance.
 
 \section{Perspective Priorities for the Deployment View}
 
-\begin{table}[h!]
-\centering
-\caption{Perspective Priorities for the Deployment View of Human Benchmark}
-\label{tab:perspective_priorities_deployment}
-\begin{tabular}{p{0.3\textwidth}p{0.15\textwidth}p{0.45\textwidth}}
-% \toprule
-\textbf{Architectural Perspective} & \textbf{Priority} & \textbf{Rationale for Human Benchmark within this View} \\
-% \midrule
-Accessibility & Low & While accessibility is important for the UI, it has minimal impact on deployment architecture decisions. \\
-% \midrule
-Availability and Resilience & High & Critical for a system with multiplayer features and competitive scoring. Deployment must ensure high availability through redundancy and proper failover mechanisms. \\
-% \midrule
-Development Resource & Medium & The containerized architecture simplifies development resource allocation but requires careful management of resources for cost-efficiency in production. \\
-% \midrule
-Evolution & Medium & The container-based deployment facilitates future evolution, allowing components to be updated independently as the system grows. \\
-% \midrule
-Internationalization & Low & Has minimal impact on deployment architecture, primarily affecting content and UI layers. \\
-% \midrule
-Location & Medium & Geographic distribution of users impacts latency for reaction time tests; CDN and strategically located server deployments can mitigate this. \\
-% \midrule
-Performance and Scalability & High & Critical for a reaction time testing system where millisecond precision matters. The deployment must support scaling to accommodate varying loads and ensure consistent performance. \\
-% \midrule
-Regulation & Low & Human Benchmark primarily deals with non-sensitive user data, though basic compliance with data protection regulations affects storage location decisions. \\
-% \midrule
-Security & High & Protecting user accounts and ensuring fair gameplay requires secure deployment architecture with proper network segmentation and access controls. \\
-% \midrule
-Usability & Low & Primarily affects UI design rather than deployment architecture. \\
-% \bottomrule
-\end{tabular}
+\begin{table}[H]
+    \centering
+    \caption{Perspective Priorities for the Deployment View of Human Benchmark}
+    \label{tab:perspective_priorities_deployment}
+    \begin{tabular}{p{0.3\textwidth}p{0.15\textwidth}p{0.45\textwidth}}
+        % \toprule
+        \textbf{Architectural Perspective} & \textbf{Priority} & \textbf{Rationale for Human Benchmark within this View}                                                                                                                              \\
+        % \midrule
+        Accessibility                      & \greencircle  Low               & While accessibility is important for the UI, it has minimal impact on deployment architecture decisions.                                                                             \\
+        % \midrule
+        Availability and Resilience        & \redcircle  High              & Critical for a system with multiplayer features and competitive scoring. Deployment must ensure high availability through redundancy and proper failover mechanisms.                 \\
+        % \midrule
+        Development Resource               & \yellowcircle  Medium            & The containerized architecture simplifies development resource allocation. \\
+        % \midrule
+        Evolution                          & \yellowcircle  Medium            & The container-based deployment facilitates future evolution, allowing components to be updated independently as the system grows.                                                    \\
+        % \midrule
+        Internationalization               & \greencircle  Low               & Has minimal impact on deployment architecture, primarily affecting content and UI layers.                                                                                            \\
+        % \midrule
+        Location                           & \yellowcircle  Medium            & Geographic distribution of users impacts latency for reaction time tests.                                        \\
+        % \midrule
+        Performance and Scalability        & \redcircle  High              & Critical for a reaction time testing system where millisecond precision matters. \\
+        % \midrule
+        Regulation                         & \greencircle  Low               & Human Benchmark primarily deals with non-sensitive user data, only basic compliance with data protection regulations affects storage location decisions.                           \\
+        % \midrule
+        Security                           & \redcircle  High              & Protecting user accounts requires secure deployment architecture with proper network segmentation and access controls.                                    \\
+        % \midrule
+        Usability                          & \greencircle  Low               & Primarily affects UI design rather than deployment architecture.                                                                                                                     \\
+        % \bottomrule
+    \end{tabular}
 \end{table}
 
 \section{Impact of Key Perspectives on the Deployment View}
 
 \subsection{Availability and Resilience Perspective}
 
-Applying the Availability and Resilience perspective to the Deployment View of Human Benchmark significantly shapes its architecture in the following ways:
+Applying the Availability and Resilience perspective to the Deployment View of
+Human Benchmark shapes its architecture in the following ways:
 
 \begin{itemize}
-    \item \textbf{Redundant Components}: The deployment includes multiple instances of frontend and backend containers to prevent single points of failure. This is reflected in the runtime platform model's specification of minimum node counts and high availability configurations.
-    
-    \item \textbf{Database Replication}: The PostgreSQL database hosted on Aiven is configured with standby replicas to ensure data availability in case of primary database failure. This is captured in the database hosting specifications.
-    
-    \item \textbf{Kubernetes Orchestration}: The use of Kubernetes for container orchestration enables automatic recovery from node or container failures, enhancing system resilience. This is a core aspect of the runtime platform model.
-    
+    % \item \textbf{Redundant Components}: The deployment includes multiple instances of frontend and backend containers to prevent single points of failure. This is reflected in the runtime platform model's specification of minimum node counts and high availability configurations.
+
+    % \item \textbf{Database Replication}: The PostgreSQL database hosted on Aiven is configured with standby replicas to ensure data availability in case of primary database failure. This is captured in the database hosting specifications.
+
+    % \item \textbf{Kubernetes Orchestration}: The use of Kubernetes for container orchestration enables automatic recovery from node or container failures, enhancing system resilience. This is a core aspect of the runtime platform model.
+
     \item \textbf{Backup Strategy}: Regular automated backups with retention policies protect against data loss, as specified in the database hosting section.
-    
-    \item \textbf{Network Redundancy}: The network model includes redundant paths and load balancing to prevent network-related outages, particularly important for the WebSocket connections that enable multiplayer functionality.
+
+    % \item \textbf{Network Redundancy}: The network model includes redundant paths and load balancing to prevent network-related outages, particularly important for the WebSocket connections that enable multiplayer functionality.
 \end{itemize}
 
 \subsection{Performance and Scalability Perspective}
@@ -403,15 +576,15 @@ Applying the Availability and Resilience perspective to the Deployment View of H
 The Performance and Scalability perspective profoundly influences the Deployment View in these ways:
 
 \begin{itemize}
-    \item \textbf{Horizontal Scaling}: The runtime platform model specifies a minimum number of worker nodes with the ability to scale horizontally based on load, ensuring the system can handle varying user counts without performance degradation.
-    
-    \item \textbf{Resource Allocation}: Detailed specifications for CPU, memory, and storage in the hardware requirements section ensure adequate resources for performance-critical operations, particularly for reaction time tests where millisecond precision is needed.
-    
-    \item \textbf{Network Optimization}: The network model specifies strict latency requirements, especially for WebSocket connections used in multiplayer games and reaction time tests. This directly addresses the system's core functionality requirements.
-    
-    \item \textbf{Content Delivery Network}: The optional CDN recommendation helps distribute static content closer to users, reducing load times and improving the user experience globally.
-    
-    \item \textbf{Database Performance}: The database hosting specifications include performance-oriented configurations to ensure rapid data access, essential for recording and retrieving high-precision timing data.
+    % \item \textbf{Horizontal Scaling}: The runtime platform model specifies a minimum number of worker nodes with the ability to scale horizontally based on load, ensuring the system can handle varying user counts without performance degradation.
+
+    \item \textbf{Resource Allocation}: Our recommendations for VM CPU, memory, and storage specifications ensure that the system can handle peak loads without performance issues.
+
+    \item \textbf{Network Optimization}: Our recommentations for network bandwidth and latency requirements ensure that the system can deliver real-time performance, particularly for reaction time tests and multiplayer interactions.
+
+    % \item \textbf{Content Delivery Network}: The optional CDN recommendation helps distribute static content closer to users, reducing load times and improving the user experience globally.
+
+    \item \textbf{Database Performance}: The database is managed by Aiven, which ensures that has a good network connection and performance characteristics.
 \end{itemize}
 
 \subsection{Security Perspective}
@@ -420,66 +593,72 @@ Applying the Security perspective to the Deployment View results in these archit
 
 \begin{itemize}
     \item \textbf{Network Segmentation}: The network model includes firewalls and defines security boundaries between public-facing and internal components, protecting sensitive parts of the system.
-    
+
     \item \textbf{Authentication Components}: The technology dependency model identifies the authentication libraries and mechanisms used to secure user access.
     
-    \item \textbf{Database Security}: The database configuration includes security extensions (pgcrypto) and proper access controls to protect user data and prevent score manipulation.
-    
-    \item \textbf{Secure Communications}: The network model specifies secure communication protocols for all connections, particularly for user authentication and multiplayer session management.
-    
-    \item \textbf{Container Security}: The deployment approach includes container security considerations, ensuring that containerized components operate with minimum required privileges.
+    \item \textbf{Database Credential Management}: GitLab CI/CD secrets are used to manage database credentials securely during deployment, ensuring that sensitive information is not hard-coded in the application code.
+
+    % \item \textbf{Database Security}: The database configuration includes security extensions (pgcrypto) and proper access controls to protect user data and prevent score manipulation.
+
+    % \item \textbf{Secure Communications}: The network model specifies secure communication protocols for all connections, particularly for user authentication and multiplayer session management.
+
+    % \item \textbf{Container Security}: The deployment approach includes container security considerations, ensuring that containerized components operate with minimum required privileges.
 \end{itemize}
 
 \section{Importance and Justification of the Deployment View for Human Benchmark}
 
-The Deployment View is of critical importance for the Human Benchmark system due to several factors that directly affect its core functionality and quality attributes:
+The Deployment View allows us to properly identify network, hardware, and software requirements to ensure
+that users have a fluent experience while using the Human Benchmark system. It also provides value to stakeholders by
+ensuring that the system is deployed in a way that meets its performance, security, and scalability requirements.
 
-\subsection{Precision Timing Requirements}
+% is of critical importance for the Human Benchmark system due to several factors that directly affect its core functionality and quality attributes:
 
-Human Benchmark's primary purpose is to measure and test users' reaction times and cognitive abilities with millisecond precision. The deployment architecture directly impacts the system's ability to deliver accurate measurements:
+% \subsection{Precision Timing Requirements}
 
-\begin{itemize}
-    \item Network latency must be minimized to ensure accurate timing measurements
-    \item Processing resources must be sufficient to handle timing calculations without introducing delays
-    \item Server placement and content delivery optimization are essential for global user fairness
-\end{itemize}
+% Human Benchmark's primary purpose is to measure and test users' reaction times and cognitive abilities with millisecond precision. The deployment architecture directly impacts the system's ability to deliver accurate measurements:
 
-Without a well-designed deployment architecture, the system could produce inconsistent or inaccurate reaction time measurements, undermining its core functionality.
+% \begin{itemize}
+%     \item Network latency must be minimized to ensure accurate timing measurements
+%     \item Processing resources must be sufficient to handle timing calculations without introducing delays
+%     \item Server placement and content delivery optimization are essential for global user fairness
+% \end{itemize}
 
-\subsection{Multiplayer Experience Quality}
+% Without a well-designed deployment architecture, the system could produce inconsistent or inaccurate reaction time measurements, undermining its core functionality.
 
-The real-time multiplayer features require specific deployment considerations:
+% \subsection{Multiplayer Experience Quality}
 
-\begin{itemize}
-    \item WebSocket connections must be properly supported and optimized
-    \item Network topology must facilitate low-latency communication between players
-    \item Session management must be resilient to maintain fair competition
-\end{itemize}
+% The real-time multiplayer features require specific deployment considerations:
 
-The Deployment View ensures these requirements are addressed through appropriate technology choices and resource allocations.
+% \begin{itemize}
+%     \item WebSocket connections must be properly supported and optimized
+%     \item Network topology must facilitate low-latency communication between players
+%     \item Session management must be resilient to maintain fair competition
+% \end{itemize}
 
-\subsection{Scaling for Variable User Loads}
+% The Deployment View ensures these requirements are addressed through appropriate technology choices and resource allocations.
 
-Human Benchmark experiences variable user loads that demand a flexible deployment approach:
+% \subsection{Scaling for Variable User Loads}
 
-\begin{itemize}
-    \item Containerization and Kubernetes orchestration provide scaling capabilities
-    \item Resource allocation strategies must balance cost efficiency with performance
-    \item Database access patterns require optimization for concurrent user sessions
-\end{itemize}
+% Human Benchmark experiences variable user loads that demand a flexible deployment approach:
 
-The Deployment View's specification of container orchestration and scaling strategies is essential for maintaining consistent performance under varying loads.
+% \begin{itemize}
+%     \item Containerization and Kubernetes orchestration provide scaling capabilities
+%     \item Resource allocation strategies must balance cost efficiency with performance
+%     \item Database access patterns require optimization for concurrent user sessions
+% \end{itemize}
 
-\subsection{Stakeholder Value}
+% The Deployment View's specification of container orchestration and scaling strategies is essential for maintaining consistent performance under varying loads.
 
-This view provides critical information to key stakeholders:
+% \subsection{Stakeholder Value}
 
-\begin{itemize}
-    \item System administrators gain a clear understanding of what needs to be deployed and maintained
-    \item Developers understand the runtime environment constraints their code must operate within
-    \item Testers can configure appropriate test environments that accurately represent production
-    \item Assessors can evaluate whether the deployment approach will deliver required quality attributes
-\end{itemize}
+% This view provides critical information to key stakeholders:
+
+% \begin{itemize}
+%     \item System administrators gain a clear understanding of what needs to be deployed and maintained
+%     \item Developers understand the runtime environment constraints their code must operate within
+%     \item Testers can configure appropriate test environments that accurately represent production
+%     \item Assessors can evaluate whether the deployment approach will deliver required quality attributes
+% \end{itemize}
 
 Without this view, these stakeholders would lack essential information for their roles, potentially leading to deployment failures, performance issues, or incompatibilities.
 
@@ -487,28 +666,35 @@ Without this view, these stakeholders would lack essential information for their
 
 The Deployment View must maintain consistency with other architectural views of the Human Benchmark system:
 
-\subsection{Consistency with Functional View}
-The runtime element-to-node mapping section of this Deployment View must align with the functional elements defined in the Functional View. Each functional element from that view must have a clear deployment location specified in this view.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{AutomationAndSections/Sections/6deploymentView/Images/crossview.png}
+    \caption{Cross-View Consistency Considerations for the Deployment View}
+    \label{fig:cross_view_consistency}
+\end{figure}
 
-\subsection{Consistency with Information View}
-The database deployment specifications must support the data structures and access patterns defined in the Information View. The storage capacity, performance characteristics, and replication strategies should align with the data volume and criticality described there.
+% \subsection{Consistency with Functional View}
+% The runtime element-to-node mapping section of this Deployment View must align with the functional elements defined in the Functional View. Each functional element from that view must have a clear deployment location specified in this view.
 
-\subsection{Consistency with Concurrency View}
-If a Concurrency View exists, the deployment environment must provide sufficient resources to support the concurrent processes and threads described in that view, particularly for handling multiple simultaneous users in multiplayer scenarios.
+% \subsection{Consistency with Information View}
+% The database deployment specifications must support the data structures and access patterns defined in the Information View. The storage capacity, performance characteristics, and replication strategies should align with the data volume and criticality described there.
 
-\subsection{Consistency with Development View}
-The technology dependency model must align with the development environment and frameworks specified in the Development View. Any production deployment constraints that affect development decisions (such as supported libraries or technologies) must be consistent across both views.
+% \subsection{Consistency with Concurrency View}
+% If a Concurrency View exists, the deployment environment must provide sufficient resources to support the concurrent processes and threads described in that view, particularly for handling multiple simultaneous users in multiplayer scenarios.
 
-\subsection{Maintaining Consistency}
-To ensure ongoing consistency between views as the architecture evolves:
+% \subsection{Consistency with Development View}
+% The technology dependency model must align with the development environment and frameworks specified in the Development View. Any production deployment constraints that affect development decisions (such as supported libraries or technologies) must be consistent across both views.
 
-\begin{itemize}
-    \item Changes to functional elements must be reflected in their deployment mappings
-    \item Scaling decisions in deployment must consider functional and concurrency impacts
-    \item Technology upgrades must be coordinated across development and deployment views
-    \item Testing should validate cross-view consistency before deployment
-\end{itemize}
+% \subsection{Maintaining Consistency}
+% To ensure ongoing consistency between views as the architecture evolves:
 
-This Deployment View is one part of a comprehensive Architectural Description of the Human Benchmark system. It should be reviewed and updated whenever significant changes are made to other views to maintain a coherent overall architecture.
+% \begin{itemize}
+%     \item Changes to functional elements must be reflected in their deployment mappings
+%     \item Scaling decisions in deployment must consider functional and concurrency impacts
+%     \item Technology upgrades must be coordinated across development and deployment views
+%     \item Testing should validate cross-view consistency before deployment
+% \end{itemize}
+
+% This Deployment View is one part of a comprehensive Architectural Description of the Human Benchmark system. It should be reviewed and updated whenever significant changes are made to other views to maintain a coherent overall architecture.
 
 % \end{document}

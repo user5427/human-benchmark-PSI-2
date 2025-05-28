@@ -20,33 +20,19 @@
 \section{Introduction to the Context View}
 
 The Context View for the Human Benchmark system defines
-the system's environment, establishing its boundaries
-and identifying all external entities with which the system
-interacts. This view treats the system as a "black box"
-while describing its relationships with surrounding elements
-in the broader context.
-% LGTM
-This architectural view follows the Context Viewpoint definition from software
-architecture literature, which aims to document system scope, responsibilities,
-and external interactions. It provides a high-level understanding of the
-system's purpose and interfaces without delving into internal architectural
-details.
-% LGTM
-The Context View serves as an essential foundation for the complete
-architectural description, providing critical information about the system's
-scope and external dependencies. It is particularly valuable for establishing
-system boundaries and managing stakeholder expectations about what is included
-and excluded from the system scope.
+its environment, establishes its boundaries
+and identifies all external entities with which the system
+interacts. It provides essential insight about system’s scope, 
+helping stakeholders understand exactly what is included and what lies beyond it.
 
 \subsection{Primary Stakeholders}
 
 The primary stakeholders for this Context View are:
-% LGTM
 
 \begin{itemize}
-    \item \textbf{Acquirers}: Those funding and making decisions about the system's development, who need to understand system scope and external dependencies.
-    \item \textbf{Users}: Including players, content creators, and administrators who interact with the system.
-    \item \textbf{Developers}: Who need to understand system boundaries and external interfaces.
+    \item \textbf{Acquirers}: Those funding and approving decisions about the system's development, who need to understand system scope and external dependencies.
+    \item \textbf{Users}: Players, game creators who interact with the system.
+    \item \textbf{Developers}: Who need to understand the system, its boundaries and external interfaces.
     \item \textbf{System Administrators}: Responsible for deploying and maintaining the system and its connections.
     \item \textbf{Testers}: Who need to understand system boundaries for comprehensive testing.
 \end{itemize}
@@ -57,27 +43,27 @@ All stakeholders benefit from this view as it establishes a common understanding
 
 \subsection{System Scope and Responsibilities}
 
-The Human Benchmark system is a comprehensive web application designed to measure and enhance users' cognitive and motor skills through various interactive tests and games. The system operates as both a training platform and a competitive environment where users can track their performance, compete with others, and improve their reaction time and reflexes.
+The Human Benchmark system is a web application designed to measure and enhance users' 
+cognitive skills through various types of games. 
+The application operates as both a training platform and a competitive environment where users can track their performance, compete with other users, friends and improve their reaction time, reflexes while also having fun.
 
 \subsubsection{Key Capabilities}
 
 The Human Benchmark system provides the following key capabilities:
 
-% LGTM
-
 \begin{itemize}
     \item User registration and authentication with secure password management
-    \item Personal user profiles with performance tracking and history
-    \item Single-player cognitive and reaction tests with precise timing measurement
+    \item Personal user profiles with performance tracking and game history
+    \item Single-player cognitive and reaction tests/games with precise timing measurement
     \item Customizable game creation with adjustable parameters
     \item Multiplayer functionality with real-time competition
     \item Public and private game rooms
-    \item Real-time communication and game state synchronization
+    \item Real-time communication
     \item Comprehensive score recording and leaderboard systems
     \item Game session tracking and management
 \end{itemize}
 
-\subsubsection{Explicit Exclusions}
+\subsubsection{Exclusions}
 
 The following capabilities are explicitly excluded from the current scope of the Human Benchmark system:
 
@@ -85,7 +71,7 @@ The following capabilities are explicitly excluded from the current scope of the
 
 \begin{itemize}
     % ! \item Integration with external AI training systems
-    \item revenue generation or payment processing functionality (the system is
+    \item Revenue generation or payment processing functionality (the system is
           currently in a bootstrapping phase, where initial operations are funded by
           saved capital or investment rather than immediate profits) % ! or payment
           processing functionality
@@ -97,17 +83,6 @@ The following capabilities are explicitly excluded from the current scope of the
 \end{itemize}
 
 \subsection{External Entities and Services}
-
-% TODO: DIAGRAM - High-level context model showing Human Benchmark system and all its external entities
-% SUGGESTED_TYPE: Custom block diagram (informal boxes-and-lines notation)
-% KEY_ELEMENTS_TO_DEPICT: Human Benchmark System (center), Users (Players, Administrators), Client Devices, Web Browsers, Database System, CI/CD Pipeline, Hosting Infrastructure
-\begin{figure}[h!]
-    \centering
-    % \includegraphics[width=0.9\textwidth]{images/placeholder_diagram_for_context_view_system_context.png}
-    \caption{Illustrative Diagram: Human Benchmark System Context Model (Conceptual Placeholder)}
-    \label{fig:context_system_overview}
-    \textit{Comment: This diagram should illustrate the Human Benchmark system as a black box in the center with all external entities arranged around it, showing interaction directions.}
-\end{figure}
 
 \subsubsection{Users and Roles}
 
@@ -132,7 +107,7 @@ The following capabilities are explicitly excluded from the current scope of the
 \begin{itemize}
     \item \textbf{Client Devices} - Various hardware devices (desktops, laptops,
           tablets) that users use to access the system. These vary in screen size,
-          processing power, and input capabilities, affecting the user experience.
+          processing power affecting the user experience.
 
     \item \textbf{Web Browsers} - Different browsers through which users access
           the system. Browser compatibility and capabilities influence the system's
@@ -159,6 +134,16 @@ The following capabilities are explicitly excluded from the current scope of the
           is hosted.
 
 \end{itemize}
+
+% TODO: DIAGRAM - High-level context model showing Human Benchmark system and all its external entities
+% SUGGESTED_TYPE: Custom block diagram (informal boxes-and-lines notation)
+% KEY_ELEMENTS_TO_DEPICT: Human Benchmark System (center), Users (Players, Administrators), Client Devices, Web Browsers, Database System, CI/CD Pipeline, Hosting Infrastructure
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.6\textwidth]{AutomationAndSections/Sections/1contextView/Images/systemContext.png}
+    \caption{Human Benchmark System Entity Overview}
+    \label{fig:context_system_overview}
+\end{figure}
 
 \subsection{Nature and Characteristics of External Entities}
 
@@ -188,15 +173,15 @@ devices.
 
 \begin{itemize}
     \item \textbf{Availability:} High - critical for system operation
-    \item \textbf{stability:} High - should be resilient to failures
+    \item \textbf{Stability:} High - should be resilient to failures
     \item \textbf{Throughput capabilities:} Medium - moderate read/write operations
-    \item \textbf{Data Quality:} High - enforced through database constraints
+    %\item \textbf{Data Quality:} High - enforced through database constraints
     \item \textbf{Location:} Different from the application server - hosted on a cloud provider
 \end{itemize}
 
 The database system provides essential data services. Its
-reliability directly impacts the system's overall availability, and its
-performance can become a bottleneck during high concurrent usage periods.
+reliability directly impacts the system's overall availability, and
+performance during peak usage.
 
 \subsubsection{CI/CD Pipeline and Infrastructure Components}
 
@@ -208,7 +193,7 @@ performance can become a bottleneck during high concurrent usage periods.
     \item \textbf{Location:} Same as the application server - hosted on a MIF OpenNebula virtual machine
 \end{itemize}
 
-These systems enable rapid and reliable deployment of application updates but are not directly involved in runtime operations except during deployment events.
+These systems enable rapid and reliable deployment of application updates but are not directly involved in runtime operations.
 
 \subsubsection{Hosting Infrastructure}
 % LGTM
@@ -216,16 +201,37 @@ These systems enable rapid and reliable deployment of application updates but ar
 \begin{itemize}
     \item \textbf{Availability:} High - critical for game sessions and user interactions
     \item \textbf{Performance:} Medium - should support expected load
-    \item \textbf{Scalability:} Low - should support +20 concurrent users
+    \item \textbf{Scalability:} Medium - should support +200 concurrent users
     \item \textbf{Security:} High - must protect sensitive user data and system (database) login credentials must be stored securely
     \item \textbf{Location:} hosted on a MIF OpenNebula virtual machine
 \end{itemize}
 
 The hosting infrastructure is critical for the user experience.
 
+
+
 \subsection{External Interfaces}
 
-\subsubsection{User Interface}
+\begin{table}[h!]
+\centering
+\begin{tabularx}{\textwidth}{|l|X|X|X|}
+\hline
+\textbf{Interface} & \textbf{Type} & \textbf{Purpose} & \textbf{Technology} \\
+\hline
+\textbf{User} & Service provider (interactive web UI) & Allows users to register, authenticate, configure games, play games, view scores, and manage profiles & HTTPS, WebSockets for real-time communication \\
+\hline
+\textbf{Database} & Data provider and consumer & Persists and retrieves user data, game configurations, scores, and session information & Entity Framework Core over PostgreSQL \\
+\hline
+\textbf{WebSocket} & Service provider and consumer, Event provider and consumer & Provides real-time communication for multiplayer functionality, game state synchronization, and live updates & WebSocket protocol over HTTPS \\
+\hline
+\textbf{Deployment} & Service consumer & Handles application deployment and updates & Docker containers, GitLab CI/CD, MIF OpenNebula \\
+\hline
+\end{tabularx}
+\caption{External interfaces for Human Benchmark System}
+\label{tab:external_interfaces}
+\end{table}
+
+
 
 % Identity and Responsibilities of External Interfaces
 % For each external entity, the nature of all interfaces between it and this sys-
@@ -243,61 +249,28 @@ The hosting infrastructure is critical for the user experience.
 
 % * CHECK PAGE 251 for more details on the interface types
 
-% LGTM
 
-\begin{itemize}
-    \item \textbf{Interface Type:} Service provider (interactive web UI)
-    \item \textbf{Purpose:} Allows users to interact with the system to
-          register, authenticate, configure games, play games, view scores, and manage
-          profiles
-    \item \textbf{Technology:} HTTPS, WebSockets for real-time communication
-\end{itemize}
+
+% Seemed pretty useless, so I commented it out
 
 % !!! do not trust this blindly, check the original document
 % TODO: DIAGRAM - Sequence diagram showing interaction between user and system for a typical game session
 % SUGGESTED_TYPE: UML Sequence Diagram
 % KEY_ELEMENTS_TO_DEPICT: User, Web Client, Human Benchmark Backend, Database, including authentication, game selection, game play, and score recording
-\begin{figure}[h!]
-    \centering
+%\begin{figure}[h!]
+%    \centering
     % \includegraphics[width=0.9\textwidth]{images/placeholder_diagram_for_context_view_user_interaction.png}
-    \caption{Illustrative Diagram: User Interaction Sequence for Game Session (Conceptual Placeholder)}
-    \label{fig:context_user_interaction}
-    \textit{Comment: This diagram should illustrate the sequence of interactions
-        between a user and the Human Benchmark system throughout a typical gaming
-        session.}
-\end{figure}
+%    \caption{Illustrative Diagram: User Interaction Sequence for Game Session (Conceptual Placeholder)}
+%    \label{fig:context_user_interaction}
+%    \textit{Comment: This diagram should illustrate the sequence of interactions
+%        between a user and the Human Benchmark system throughout a typical gaming
+%        session.}
+%\end{figure}
 
-\subsubsection{Database Interface}
 
-% LGTM
 
-\begin{itemize}
-    \item \textbf{Interface Type:} Data provider and consumer
-    \item \textbf{Purpose:} Persists and retrieves user data, game configurations, scores, and session information
-    \item \textbf{Technology:} Entity Framework Core over PostgreSQL
 
-\end{itemize}
 
-\subsubsection{WebSocket Interface}
-
-% LGTM
-
-\begin{itemize}
-    \item \textbf{Interface Type:} Service provider and consumer, Event provider and consumer
-    \item \textbf{Purpose:} Provides real-time communication for multiplayer functionality, game state synchronization, and live updates
-    \item \textbf{Technology:} WebSocket protocol over HTTPS
-
-\end{itemize}
-
-\subsubsection{Deployment Interfaces}
-
-% LGTM
-
-\begin{itemize}
-    \item \textbf{Interface Type:} Service consumer
-    \item \textbf{Purpose:} Handles application deployment and updates
-    \item \textbf{Technology:} Docker containers, GitLab CI/CD, MIF OpenNebula
-\end{itemize}
 
 \subsection{Nature and Characteristics of External Interfaces}
 
@@ -316,7 +289,7 @@ The hosting infrastructure is critical for the user experience.
           \end{itemize}
     \item \textbf{Volumes:}
           \begin{itemize}
-              \item Peak concurrent users: 20
+              \item Peak concurrent users: 200
               \item Data size: Generally small payloads for game interactions
               \item Growth: Will not grow significantly in the near future
           \end{itemize}
@@ -336,7 +309,7 @@ The hosting infrastructure is critical for the user experience.
               \item Moderate volume of write operations (new scores, user registrations)
               \item High reliability requirements (data integrity critical)
               \item Transactional requirements for score recording and user management
-              \item User password hashing and salting for security
+              \item User password hashing and encrypting for security
           \end{itemize}
     \item \textbf{Volumes:}
           \begin{itemize}
@@ -424,7 +397,7 @@ While the Human Benchmark system has a relatively self-contained architecture, t
 The Human Benchmark system, particularly during reaction and reflex tests, requires dedicated focus from the client device's processing capabilities. This may impact:
 
 \begin{itemize}
-    \item Battery consumption on mobile devices
+    %\item Battery consumption on mobile devices
     \item Available memory and processing power on client devices
     \item Network bandwidth consumption during multiplayer sessions
 \end{itemize}
@@ -441,29 +414,30 @@ With the growth of the user base and the number of custom games, the system will
 
 The system is expected to experiance variable loads, especially during peak usage times. System usage must be monitored and scaled accordingly.
 
-\subsection{Overall Completeness, Consistency, and Coherence}
+%\subsection{Overall Completeness, Consistency, and Coherence}
 
 % ? LGTM
 % ! No clue !
+% ! Subsection looks really pointless. These things were mentioned before
 
-The Human Benchmark system provides a way to improve cognitive and motor skill, with comprehensive coverage of:
+%The Human Benchmark system provides a way to improve cognitive and motor skill, with comprehensive coverage of:
+%\begin{itemize}
+ %   \item User management and authentication
+ %   \item Game creation and configuration
+ %   \item Single-player and multiplayer experiences
+ %   \item Performance measurement and tracking
+ %   \item Score comparison and leaderboards
+%\end{itemize}
 
-\begin{itemize}
-    \item User management and authentication
-    \item Game creation and configuration
-    \item Single-player and multiplayer experiences
-    \item Performance measurement and tracking
-    \item Score comparison and leaderboards
-\end{itemize}
-
-The context model ensures that all business processes required for a complete cognitive testing and training platform are covered, with appropriate attention to the quality and accuracy of measurement, which is central to the system's value proposition.
+%The context model ensures that all business processes required for a complete cognitive testing and training platform are covered, with appropriate attention to the quality and accuracy of measurement, which is central to the system's value proposition.
 
 \section{Perspective Priorities for the Context View}
 
 The following table outlines the priority of different architectural perspectives for the Context View of Human Benchmark, helping to ensure quality attributes are appropriately addressed:
 % 🔴 🟡 🟢
-
 % LGTM
+
+
 
 \begin{table}[h!]
     \centering
@@ -471,27 +445,27 @@ The following table outlines the priority of different architectural perspective
     \label{tab:perspective_priorities_context}
     \begin{tabular}{p{0.3\textwidth}p{0.15\textwidth}p{0.45\textwidth}}
         % \toprule
-        \textbf{Architectural Perspective} & \textbf{Priority} & \textbf{Rationale for Human Benchmark within this View}                                                                                                                                                 \\
+        \textbf{Architectural Perspective} & \textbf{Priority} & \textbf{Why needed for Human Benchmark within this View}                                                                                                                                                 \\
         % \midrule
-        Accessibility                      & Medium            & The Context View must identify user interfaces where accessibility is a concern, particularly as the system aims to be widely usable, but detailed accessibility features are addressed in other views. \\
+        Accessibility                      & \yellowcircle Medium            & The Context View must identify user interfaces where accessibility is a concern, particularly as the system aims to be worldwide used. \\
 
-        Availability and Resilience        & High              & Critical to identify external dependencies that could affect system availability, especially for multiplayer functionality and competition features which require consistent uptime.                    \\
+        Availability and Resilience        & \redcircle High              & Critical to identify external dependencies that could affect system availability, especially for multiplayer functionality and competition features which require consistent uptime.                    \\
 
-        Development Resource               & Low               & While resource constraints exist, they have minimal impact on the Context View's representation of external interfaces.                                                                                 \\
+        Development Resource               & \greencircle Low               & While resource constraints exist, they have minimal impact on the Context View's representation of external interfaces.                                                                                 \\
 
-        Evolution                          & Medium            & The context boundaries should anticipate future expansion of game types and potential integrations with external systems.                                                                               \\
+        Evolution                          & \yellowcircle Medium            & The context boundaries should anticipate future expansion of game types and potential integrations with external systems.                                                                               \\
 
-        Internationalization               & Medium            & The system's context should account for global accessibility, though detailed internationalization concerns belong in other views.                                                                      \\
+       Internationalization               & \yellowcircle Medium            & The system's context should account for global accessibility, though detailed internationalization concerns belong in other views.                                                                      \\
 
-        Location                           & Medium            & Geographic distribution of users affects latency considerations for reaction time tests, which must be addressed in the context model.                                                                  \\
+        Location                           & \yellowcircle Medium            & Geographic distribution of users affects latency considerations for reaction time tests, which must be addressed in the context model.                                                                  \\
 
-        Performance and Scalability        & High              & Critical for a reaction-time measurement system; context boundaries must account for performance bottlenecks at interfaces and indicate scaling approaches.                                             \\
+        Performance and Scalability        & \redcircle High              & Critical for a reaction-time measurement system; context boundaries must account for performance bottlenecks at interfaces and indicate scaling approaches.                                             \\
 
-        Regulation                         & Low               & Limited regulatory concerns for a gaming/cognitive assessment platform in the current scope.                                                                                                            \\
+        Regulation                         & \greencircle Low               & Limited regulatory concerns for a gaming/cognitive assessment platform in the current scope.                                                                                                            \\
 
-        Security                           & High              & The context boundaries must clearly define trust boundaries and authentication/authorization requirements for protecting user data and game integrity.                                                  \\
-
-        Usability                          & Medium            & While important for the system overall, detailed usability concerns are primarily addressed in other views beyond high-level interface identification in the context model.                             \\
+        Security                           & \redcircle High              & The context boundaries must clearly define trust boundaries and authentication/authorization requirements for protecting user data and game integrity.                                                  \\
+ 
+        Usability                          & \yellowcircle Medium            & While important for the system overall, detailed usability concerns are primarily addressed in other views beyond high-level interface identification in the context model.                             \\
         % \bottomrule
     \end{tabular}
 \end{table}
@@ -577,19 +551,16 @@ system stays safe.
 
 \section{Importance and Justification of the Context View for Human Benchmark}
 
-The Context View is of critical importance for the Human Benchmark system for several compelling reasons:
+The Context View is important for the Human Benchmark system for several reasons:
 
 % LGTM
 
 \subsection{Clear System Boundaries}
 
 Human Benchmark's purpose is to provide accurate measurement and comparison of
-cognitive and motor skills. The Context View establishes clear boundaries around
-what constitutes the system, which is essential for. It mainly defines the scope of
+cognitive and motor skills. The Context View mainly defines the scope of
 what the system does and what it does not do, claryfies which external factors might influence
 its performance and establishes the boundary between the system's control and external variables.
-
-Human Benchmark's purpose is to provide accurate measurement and comparison of cognitive and motor skills. The Context View establishes clear boundaries around what constitutes the system, which is essential for:
 
 % \begin{itemize}
 %     \item Defining the scope of measurement responsibility (what the system can and cannot accurately measure)
@@ -603,7 +574,7 @@ Human Benchmark's purpose is to provide accurate measurement and comparison of c
 
 \subsection{Interface Requirements Critical to Core Functionality}
 
-The system's functionality basically relies on the interface characteristics. 
+The system's functionality relies on the interface characteristics. 
 Mainly the precise timing of the interfaces (websockets) for accurate reaction
 time measurement and the integrity of score recording interfaces. 
 
@@ -625,22 +596,21 @@ purpose.
 \subsection{External Dependency Management}
 
 The success of Human Benchmark depends on managing several critical external dependencies.
-We need to ensure that our web app runs smoothly on different
-browsers, network conditions, and that our databases performance is 
-adequate for leaderboard functionality. We may also need to ensure
-that our infrastructure can scale to handle load during popularity spikes.
+It needs to be ensurerd that web app runs smoothly on various
+browsers, different network conditions, and that our databases performance is 
+adequate for leaderboard functionality. It also has to be ensured
+that systems infrastructure can scale to handle the load during popularity spikes.
 
 
 The Context View makes these dependencies explicit, allowing stakeholders to assess risks and plan mitigations early in the development process.
 
 
 
-
-
-
 \subsection{Stakeholder Alignment}
 
-The Human Benchmark system serves diverse stakeholders including players, game creators, and administrators. The Context View provides a common, easily understood reference point that helps align stakeholder expectations by:
+The Human Benchmark system serves diverse stakeholders including players, 
+game creators, and administrators. The Context View provides a common, 
+easily understood reference point that helps align stakeholder expectations by:
 
 \begin{itemize}
     \item Clearly communicating system scope and exclusions
@@ -648,26 +618,31 @@ The Human Benchmark system serves diverse stakeholders including players, game c
     \item Identifying key external interfaces that different stakeholders will interact with
 \end{itemize}
 
-This alignment is especially valuable given the system's dual nature as both a measurement tool and a competitive gaming platform, where different stakeholders may have different primary interests.
+This alignment is especially valuable given the system's dual nature as both a measurement tool
+ and a competitive gaming platform, where different stakeholders may have different primary interests.
 
 \subsection{Foundation for Further Architectural Work}
 
-As noted in the software architecture literature, the Context View serves as a foundation for more detailed architectural views. For Human Benchmark, this is particularly important as it:
+As noted in the software architecture literature, 
+the Context View serves as a foundation for more detailed architectural views.
+ For Human Benchmark, this is particularly important as it:
 
 \begin{itemize}
-    \item Informs the Functional View by identifying required external interfaces
-    \item Guides the Deployment View by clarifying infrastructure dependencies
-    \item Shapes the Information View by defining external data flows
+    \item \textbf{Functional View}: Informs it by identifying required external interfaces
+    \item \textbf{Deployment View}: Guides it by clarifying infrastructure dependencies
+    \item \textbf{Information View}: Shapes it by defining external data flows
 \end{itemize}
 
-Without a clear Context View, subsequent architectural decisions would lack the necessary grounding in system boundaries and external constraints.
+Without a clear Context View, subsequent architectural decisions would lack the necessary 
+grounding in system boundaries and external constraints.
 
 \section{Cross-View Consistency Considerations}
 
-The Context View of the Human Benchmark system must maintain consistency with other architectural views to ensure a coherent overall architectural description. Key considerations include:
+The Context View of the Human Benchmark system must maintain consistency with other architectural views 
+to ensure a coherent overall architectural description. Key considerations include:
 
 \begin{itemize}
-    \item \textbf{Functional View Consistency:} The functional elements identified in the Functional View must align with the external interfaces defined in the Context View. For example, the real-time multiplayer functionality identified in the Functional View must correspond to the WebSocket interface defined in the Context View.
+    \item \textbf{Functional View Consistency:} The real-time multiplayer functionality identified in the Functional View must correspond to the WebSocket interface defined in the Context View.
 
     \item \textbf{Information View Consistency:} The data flows crossing system boundaries in the Context View must be reflected in the Information View's data models and flows. For instance, the user profile information mentioned in the Context View should be consistently modeled in the Information View.
 
@@ -676,8 +651,11 @@ The Context View of the Human Benchmark system must maintain consistency with ot
     \item \textbf{Development View Consistency:} The interface technologies mentioned in the Context View (such as WebSockets for real-time communication) should be consistently reflected in the module organization and dependencies described in the Development View.
 \end{itemize}
 
-Maintaining this cross-view consistency is essential for ensuring that the architectural description as a whole provides a coherent representation of the Human Benchmark system. Each view provides a different perspective on the same underlying architecture, and inconsistencies between views would indicate potential architectural flaws or documentation issues.
 
-This document represents one part of a comprehensive Architectural Description for the Human Benchmark system. It should be read in conjunction with other architectural views to gain a complete understanding of the system architecture.
+% no shit sherlock
+%Maintaining this cross-view consistency is essential for ensuring that the architectural description as a whole provides a coherent representation of the Human Benchmark system. 
+%Each view provides a different perspective on the same underlying architecture, and inconsistencies between views would indicate potential architectural flaws or documentation issues.
+
+%This document represents one part of a comprehensive Architectural Description for the Human Benchmark system. It should be read in conjunction with other architectural views to gain a complete understanding of the system architecture.
 
 % \end{document}

@@ -1,0 +1,45 @@
+@startuml NetworkTopology
+
+' Processing nodes
+node "<<networkNode>>\nApplication Server\n{network=700 Mbps\nplatform=VM with Docker}" as VM #LightGreen {
+    
+}
+
+node "<<networkNode>>\nDatabase Server\n{network=unknown (Aiven-hosted)}" as DB #LightSeaGreen {
+    
+}
+
+node "Production Line Interface" as Prod #LightYellow {
+    
+}
+
+node "Production Operator PC" as Operator #LightYellow {
+    
+}
+
+node "VM Firewall" as VMFirewall #LightBlue {
+    
+}
+
+node "DB Firewall" as DBFirewall #LightBlue {
+    
+}
+
+' Network connections
+Prod --- VMFirewall : "<<networkLink>>\n{type = dedicated ethernet}"
+VMFirewall --- VM : "<<networkLink>>\n{type = dedicated ethernet}"
+VM --- DBFirewall : "<<networkLink>>\n{type = dedicated ethernet}"
+DBFirewall --- DB : "<<networkLink>>"
+VMFirewall --- Operator : "<<networkLink>>\n{type = WiFi, speed = 100 Mbps}"
+
+' Notes
+note bottom of DB
+  We are not sure what exact network throughput Aiven uses.
+end note
+
+note right of DBFirewall
+  Aiven likely uses firewall protection for PostgreSQL access.
+  Port 5432 is typically protected with TLS and access rules.
+end note
+
+@enduml

@@ -1,0 +1,71 @@
+@startuml CrossView Consistency Considerations
+
+' title "36. CrossView Consistency Considerations for Human Benchmark System"
+
+skinparam componentStyle rectangle
+skinparam backgroundColor white
+skinparam noteBorderColor gray
+skinparam noteBackgroundColor lightyellow
+
+' Define the architectural views as components
+component "Deployment View" as DV #LightBlue
+component "Functional View" as FV #LightGreen
+component "Information View" as IV #LightPink
+component "Concurrency View" as CV #LightCyan
+component "Development View" as DevV #LightGray
+
+' Consistency requirements between views
+
+left to right direction
+
+
+' Define relationships between views
+DV -- FV : "must align with"
+note on link
+    Consistency with Functional View
+    - Runtime element-to-node mapping must align with functional elements
+    - Each functional element must have clear deployment location
+end note
+
+DV -- IV : "must support"
+note on link
+    Consistency with Information View
+    - Database deployment specifications must support data structures
+end note
+
+
+DV -- CV : "must provide resources for"
+note on link
+    Consistency with Concurrency View
+    - Deployment environment must provide sufficient resources
+    - Must support concurrent processes and threads
+    - Must handle multiple simultaneous users in multiplayer scenarios
+end note
+
+DV -- DevV : "must align with"
+note on link
+    Consistency with Development View
+    - Technology dependency model must align with development environment
+    - Supported libraries and technologies must be the same
+end note
+
+' Maintaining consistency section
+note bottom of DV
+    <b>Maintaining Consistency</b>
+    - Changes to functional elements must be reflected in deployment mappings
+    - Scaling decisions must consider functional and concurrency impacts
+    - Technology upgrades must be coordinated across views
+    - Review and update whenever significant changes are made
+end note
+
+' legend right
+'     <b>Cross-View Consistency Legend</b>
+'     |= Color |= Architectural View |
+'     | <back:LightBlue>   </back> | Deployment View |
+'     | <back:LightGreen>  </back> | Functional View |
+'     | <back:LightPink>   </back> | Information View |
+'     | <back:LightCyan>   </back> | Concurrency View |
+'     | <back:LightGray>   </back> | Development View |
+' end legend
+
+@enduml

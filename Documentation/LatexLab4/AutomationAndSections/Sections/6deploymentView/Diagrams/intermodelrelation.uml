@@ -1,0 +1,77 @@
+@startuml Deployment View Model Interrelationships
+
+' skinparam linetype ortho
+skinparam componentStyle rectangle
+
+skinparam backgroundColor white
+skinparam defaultTextAlignment center
+
+' left to right direction
+' title Deployment View - Model Interrelationships
+
+' Define the three models as components with different styles
+component "Runtime Platform Model" as RPM #LightYellow {
+    note right of RPM
+        Core of Deployment View
+        - Processing nodes
+        - Containers
+        - Storage
+        - Element mappings
+        
+        <b>Primary Stakeholders:</b>
+        Deployment planners & architects
+        
+        <b>Project Phase:</b>
+        Early planning phase
+    end note
+}
+
+component "Network Model" as NM #LightBlue {
+    note right of NM
+        Lower layer supporting Runtime Platform
+        - Network infrastructure
+        - Bandwidth requirements
+        - Latency constraints
+        - Connectivity solutions
+        
+        <b>Primary Stakeholders:</b>
+        Network specialists
+        
+        <b>Project Phase:</b>
+        Infrastructure planning
+    end note
+}
+
+component "Technology Dependency Model" as TDM #LightGreen {
+    note right of TDM
+        Detailed layer on top of Runtime Platform
+        - Software dependencies
+        - Required versions
+        - Libraries & frameworks
+        
+        <b>Primary Stakeholders:</b>
+        System administrators
+        
+        <b>Project Phase:</b>
+        Installation & configuration
+    end note
+}
+
+' Position the components to show layering with more spacing
+NM -down[#blue]-> RPM : "Provides network\ninfrastructure for"
+RPM -down[#green]-> TDM : "Informs technology\nrequirements for"
+TDM -up[#DarkMagenta]-> RPM : "Constrains platform\noptions"
+RPM -up[#Violet]-> NM : "Defines communication\nrequirements"
+NM -down[#Red]-> TDM : "Influences technology\nchoices"
+TDM -left[#orange]-> NM : "Affects network\nrequirements"
+
+note bottom of RPM
+    <b>Key Relationship:</b>
+    Changes in any model typically require
+    corresponding updates to the other models,
+    especially when considering scaling strategies
+    for increased user load.
+end note
+
+
+@enduml
