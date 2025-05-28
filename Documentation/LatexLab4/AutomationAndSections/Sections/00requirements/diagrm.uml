@@ -1,0 +1,11 @@
+@startuml
+skinparam componentStyle rectangle
+
+component "Frontend SPA (TypeScript)" as FE
+component "Backend API (ASP.NET Core)" as BE
+database "Database (EF Core)" as DB
+
+FE --> BE : HTTP/REST (JSON, DTOs)
+BE --> DB : ORM Operations
+
+@enduml

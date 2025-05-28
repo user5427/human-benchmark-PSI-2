@@ -1,0 +1,44 @@
+\section{Architecture Patterns}
+We separate our system into three main layers:
+\begin{itemize}
+    \item \textbf{Presentation Layer:} Handles HTTP requests using controllers
+    \item \textbf{Business Logic:} Contains core logic and services
+    \item \textbf{Data Layer:} Manages database access
+\end{itemize}
+This separation keeps things clean and makes testing easier.
+% To go further, we apply ideas from Clean Architecture:
+% \begin{itemize}
+% \item We keep business logic separate from frameworks
+% \item We use ports and adapters to connect to databases and other systems
+% \item Our use cases drive the app, not the UI or storage
+% \end{itemize}
+\subsection{Backend Patterns}
+For working with data, we separate database details from domain logic using the Repository pattern. This makes our business logic simpler and more testable.
+
+Communication happens through REST APIs where we separate resources clearly:
+\begin{itemize}
+    \item Endpoints match resources (e.g., \texttt{/users}, \texttt{/games})
+    \item We follow HTTP standards and use JSON
+    \item The API is stateless — each request stands on its own
+\end{itemize}
+For background tasks, we separate immediate actions from delayed ones using events. For example, when a score is saved, we trigger a separate event to update the leaderboard. This keeps different parts of the system independent.
+
+We also separate commands (write operations) from queries (read operations). This CQRS pattern lets us optimize reads and writes differently.
+\subsection{Frontend Patterns}
+We separate the frontend into components. Each piece of UI is self-contained and can be reused.
+% State is managed using a single store (Redux-style), so data flows in one direction: action → state → UI. This makes debugging easier and keeps logic consistent.
+\subsection{System-Wide Practices}
+We use dependency injection throughout the backend to separate what components do from how they're created. This lets us swap components easily and write better tests.
+% When calling external services, we plan to use a circuit breaker pattern. It
+% helps avoid system-wide failures when external dependencies are down.
+\subsection{Deployment and Design Choices}
+Right now, we use a modular monolith — all parts live in one deployable unit, but we separate the code into modules. This makes development simple, but we can split into microservices later if needed.
+% We don't have an API gateway yet, but the structure allows us to add one in the future to manage routing, authentication, and frontend-specific APIs.
+\subsection{Why This Works for Us}
+By separating concerns this way, we get an architecture that is:
+\begin{itemize}
+    \item \textbf{Simple to understand}
+    \item \textbf{Easy to test and maintain}
+    \item \textbf{Ready to scale and evolve}
+\end{itemize}
+We focused on keeping the system flexible and clean by separating responsibilities without over-engineering at this stage.
