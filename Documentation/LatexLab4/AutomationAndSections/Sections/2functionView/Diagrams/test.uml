@@ -1,0 +1,113 @@
+@startuml AimReactionSystem_PackageDiagram
+
+skinparam packageStyle rectangle
+skinparam nodesep 10
+skinparam ranksep 10
+
+package "Shared" {
+    package "DTOs" {
+        [UserRegisterDto]
+        [LoginDto]
+        [GameConfigDto]
+        [RoomResponse]
+        [TargetResponse]
+        [MessageResponse]
+    }
+
+    package "Enums" {
+        [GameType]
+        [GameVisibility]
+        [RoomStatus]
+    }
+
+    package "Exceptions" {
+        [UserNotFoundException]
+        [InvalidPasswordException]
+        [UserAlreadyExistsException]
+    }
+}
+
+package "Domain" {
+    package "Models" {
+        [User]
+        [Game]
+        [Score]
+        [Target]
+        [GameSession]
+        [GlobalMessage]
+        [Room]
+        [Player]
+    }
+
+    package "Services" {
+        interface "IGameService"
+        interface "IAuthService"
+    }
+}
+
+package "Application" {
+    package "Controllers" {
+        [AuthController]
+        [GameConfigController]
+        [GenericGameController]
+        [LeaderboardController]
+        [MessageController]
+        [TargetController]
+    }
+
+    package "Events" {
+        [CreateRoomEvent]
+        [JoinRoomEvent]
+        [HitTargetEvent]
+    }
+}
+
+package "Infrastructure" {
+    package "Data" {
+        [AppDbContext]
+        [Migrations]
+    }
+
+    package "Services" {
+        [AuthService]
+        [GameService]
+        [MultiplayerService]
+        [MessageService]
+        [TargetService]
+    }
+
+    package "WebSockets" {
+        [FleckServer]
+        [WebSocketHandler]
+    }
+}
+
+"Domain" --> "Shared" : uses >
+"Application" --> "Domain" : depends on >
+"Application" --> "Shared" : uses >
+"Infrastructure" --> "Domain" : implements >
+"Infrastructure" --> "Application" : provides >
+"Infrastructure" --> "Shared" : uses >
+
+note top of "Shared" 
+    Common data structures and 
+    exceptions used across layers
+end note
+
+note right of "Domain" 
+    Core business entities and 
+    service interfaces
+end note
+
+note left of "Application" 
+    API endpoints and 
+    event handlers
+end note
+
+note bottom of "Infrastructure" 
+    Database access, 
+    service implementations, 
+    and WebSocket server
+end note
+
+@enduml

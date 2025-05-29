@@ -1,0 +1,62 @@
+@startuml ChatMessageFlowOptimized
+left to right direction
+skinparam nodesep 100
+skinparam ranksep 100
+skinparam linetype polyline
+
+title Chat Functionality Message Flow (Global vs Room Chat)
+
+package "Frontend" {
+  [User Interface] as UI
+  [WebSocket Client] as WSClient
+}
+
+package "Backend Services" {
+  [WebSocket Server] as WSServer
+  [MessageService] as MessageService
+  [MultiplayerService] as MultiplayerService
+  [RoomChatStateService] as RoomChatState
+}
+
+database "PostgreSQL" {
+  [GlobalMessages DB] as Database
+}
+
+' -- GLOBAL CHAT FLOW --
+UI --> WSClient : Global message
+WSClient --> WSServer : GlobalMessageRequest (JSON)
+WSServer --> MessageService : Process Global
+MessageService --> Database : INSERT GlobalMessages
+MessageService --> MultiplayerService : Get connected users
+MessageService --> WSServer : GlobalMessageResponse
+WSServer --> WSClient : Broadcast global
+WSClient --> UI : Display in global chat
+
+' Spacer
+' rectangle " " as spacer1 <<Hidden>>
+
+' -- ROOM CHAT FLOW --
+UI --> WSClient : Room message
+WSClient --> WSServer : RoomMessageRequest (JSON)
+WSServer --> MessageService : Process Room
+MessageService --> RoomChatState : Cache room message
+MessageService --> MultiplayerService : Get room participants
+MessageService --> WSServer : RoomMessageResponse
+WSServer --> WSClient : Send to room users
+WSClient --> UI : Display in room chat
+
+' Notes
+note right of MessageService
+**Global Chat**
+- Persisted in DB  
+- Broadcast to all users
+--
+**Room Chat**
+- Cached in memory  
+- Targeted delivery
+end note
+
+' legend top
+' Green: Global Chat \nBlue: Room Chat
+' end legend
+@enduml

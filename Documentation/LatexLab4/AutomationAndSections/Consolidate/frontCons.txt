@@ -1,0 +1,173 @@
+SYSTEM OVERVIEW
+
+    Purpose: Human performance benchmarking platform focusing on reaction time and reflex training games.
+
+    Architecture: Monolithic frontend (React SPA) with REST/WebSocket backend communication.
+
+    Stack:
+
+        Frontend: TypeScript, React, Vite, React Router
+
+        State: Context API, WebSocket (react-use-websocket)
+
+        Backend: REST API (fetch), WebSocket for real-time multiplayer
+
+        Auth: Session-based (JWT/sessionStorage)
+
+    Deployment: Client-side rendering, environment-variable-driven API configuration (VITE_API_URL).
+
+COMPONENT INVENTORY
+Frontend Components
+
+    AuthContext
+
+        Manages authentication state (login/logout, session persistence).
+
+        Dependencies: sessionStorage.
+
+        Exposes: isAuthenticated, userId, login(), logout().
+
+    WebSocketContext
+
+        Handles real-time communication for multiplayer.
+
+        Dependencies: AuthContext, WebSocket server.
+
+        Exposes: sendJsonMessage, lastJsonMessage, readyState.
+
+    GameRoomContext
+
+        Tracks multiplayer room state.
+
+        Dependencies: WebSocket messages.
+
+        Exposes: room, setRoom.
+
+    Pages
+
+        ReflexTest: Measures click accuracy with timed targets. Uses TargetArea, sound effects, and difficulty settings.
+
+        ReactionTest: Tests response time to visual cues. Uses ReactionTestLogic for timing.
+
+        Multiplayer: Real-time competition via WebSocket. Manages rooms, targets, and player elimination.
+
+        Leaderboard: Displays scores via LeaderboardTable with game-type filtering.
+
+    TargetArea
+
+        Renders clickable targets at random positions.
+
+        Props: showTarget, targetX/Y, hitTarget callback.
+
+    Chat
+
+        Global/room chat using WebSocket. Manages message history and real-time updates.
+
+COMMUNICATION PATTERNS
+API Calls
+
+    Auth:
+
+        POST /Auth/login (email/password)
+
+        POST /Auth/register (email/password/name)
+
+    Game Sessions:
+
+        POST /GenericGame/{userId}/start/{gameType} (initiates session)
+
+        POST /GenericGame/end/{sessionId} (terminates session)
+
+        POST /GenericGame/{userId}/addscore (saves scores)
+
+    Leaderboard:
+
+        GET /Leaderboard/top-scores/{count}?gameType={type}
+
+WebSocket Events
+
+    Multiplayer:
+
+        CreateRoomEvent, JoinRoomEvent, StartRoomEvent, HitTargetEvent
+
+        Responses: RoomResponse, TargetResponse, RoomRoundResultsResponse
+
+UI State
+
+    Global: Auth status, WebSocket connection.
+
+    Local: Game scores (e.g., score, missedTargets in ReflexTest).
+
+DATA FLOW ANALYSIS
+User Flow: Reflex Test
+
+    Start: handleStartGame → Countdown → startGameSession (API call).
+
+    Gameplay:
+
+        Target spawns via DIFFICULTY_SETTINGS-timed useEffect.
+
+        Hit/miss updates score/missedTargets → auto-saves on 3 misses.
+
+    End: handleStopGame → saveScore → endGameSession.
+
+Multiplayer Flow
+
+    Room Creation: CreateRoomEvent → WebSocket → RoomResponse.
+
+    Gameplay:
+
+        TargetResponse triggers target rendering.
+
+        HitTargetEvent sends reaction time → RoomRoundResultsResponse updates leaderboard.
+
+Data Persistence
+
+    Scores: Saved via GenericGame/addscore (includes userId, gameId, value).
+
+    Sessions: Tracked via gameSessionId (start/end lifecycle).
+
+BUSINESS LOGIC MAPPING
+Core Entities
+
+    User: Authenticated via email/password, owns scores.
+
+    GameSession: Tracks active games (gameSessionId, userId, gameType).
+
+    Score: userId, value, gameId, dateAchieved.
+
+Rules
+
+    Reflex Test:
+
+        Targets expire after expiryTime (difficulty-based).
+
+        Game ends after 3 misses.
+
+    Reaction Test:
+
+        Random delay (2-7s) before "Press Now!" prompt.
+
+        Reaction time = click timestamp - prompt timestamp.
+
+    Multiplayer:
+
+        Eliminate players with slowest reaction times per round.
+
+Auth
+
+    Private routes (PrivateRoute) redirect to /login if unauthenticated.
+
+    Session persists via sessionStorage.
+
+TECHNOLOGY DETAILS
+
+    Styling: CSS Modules (*.module.css).
+
+    Routing: React Router (protected routes).
+
+    Real-time: WebSocket for multiplayer and chat.
+
+    Configuration: Environment variables (VITE_API_URL, VITE_API_WS).
+
+    Error Handling: Console logging + user alerts for critical failures.

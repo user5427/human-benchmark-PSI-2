@@ -1,0 +1,86 @@
+@startuml AimReactionSystem_ComponentDiagram
+
+skinparam componentStyle uml2
+skinparam monochrome true
+skinparam nodesep 10
+skinparam ranksep 20
+
+
+' External Entities
+component "<<external>>\nUser" as user {
+    interface "Browser UI" as user_if
+}
+
+component "<<external>>\nPostgreSQL" as db {
+    interface "JDBC" as db_if
+}
+
+' Frontend Components
+component "<<frontend>>\nReact SPA" as frontend {
+    component "AuthContext" as auth_context
+    component "WebSocketContext" as ws_context
+    component "GameRoomContext" as room_context
+    
+    interface "REST API\n(HTTP/JSON)" as frontend_rest_if
+    interface "WebSocket\n(ws://)" as frontend_ws_if
+}
+
+' Backend Components
+component "<<backend>>\nASP.NET Core API" as backend {
+    component "<<controller>>\nAuthController" as auth_controller
+    component "<<controller>>\nGameConfigController" as game_config_controller
+    component "<<controller>>\nGenericGameController" as game_controller
+    component "<<controller>>\nLeaderboardController" as leaderboard_controller
+    
+    component "<<service>>\nAuthService" as auth_service
+    component "<<service>>\nGameService" as game_service
+    component "<<service>>\nMultiplayerService" as multiplayer_service
+    component "<<service>>\nMessageService" as message_service
+    
+    interface "REST API\n(/api/*)" as backend_rest_if
+    interface "WebSocket Server\n(ws://0.0.0.0:8081)" as backend_ws_if
+    interface "Entity Framework Core" as ef_if
+}
+
+' Infrastructure Components
+component "<<infrastructure>>\nFleck WebSocket\nServer" as fleck {
+    interface "WebSocket\nInterface" as fleck_if
+}
+
+' Connections
+user_if --> frontend_rest_if : "HTTP requests"
+user_if --> frontend_ws_if : "WebSocket\nconnections"
+
+frontend_rest_if --> backend_rest_if : "API calls"
+frontend_ws_if --> fleck_if : "Real-time\nevents"
+
+backend_rest_if <- auth_controller
+backend_rest_if <- game_config_controller
+backend_rest_if <- game_controller
+backend_rest_if <- leaderboard_controller
+
+auth_controller --> auth_service
+game_config_controller --> game_service
+game_controller --> multiplayer_service
+
+multiplayer_service --> backend_ws_if : "Broadcasts"
+message_service --> backend_ws_if : "Chat messages"
+
+backend_ws_if --> fleck_if : "WebSocket\nmanagement"
+
+auth_service --> ef_if
+game_service --> ef_if
+multiplayer_service --> ef_if
+message_service --> ef_if
+
+ef_if --> db_if : "Database\noperations"
+
+' Component Relationships
+auth_context ..> auth_controller : "login/register"
+ws_context ..> multiplayer_service : "room events"
+room_context ..> multiplayer_service : "game state"
+
+game_service --> multiplayer_service : "game config"
+game_service --> message_service : "game messages"
+
+@enduml

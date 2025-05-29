@@ -1,0 +1,48 @@
+@startuml
+skinparam linetype ortho
+skinparam defaultFontSize 16
+
+rectangle "Human Benchmark System" {
+    rectangle "React Frontend" as frontend {
+        rectangle "Game UI" as game_ui
+        rectangle "Multiplayer" as multiplayer_ui
+        rectangle "Chat UI" as chat_ui
+        rectangle "WebSocket Client" as ws_client
+    }
+    
+    rectangle "ASP.NET Core Backend" as backend {
+        rectangle "REST API" as rest_api
+        rectangle "WebSocket Server" as ws_server
+        rectangle "Game Logic" as game_logic
+        rectangle "Message Hub" as message_hub
+    }
+    
+    database "PostgreSQL" as db {
+        rectangle "Users & Scores" as user_data
+        rectangle "Game Sessions" as sessions
+        rectangle "Messages" as messages
+    }
+}
+
+' External interfaces
+interface "User Browser" as browser
+
+' Core connections
+browser --> frontend
+frontend --> rest_api : "HTTP (Auth/Game Data)"
+frontend --> ws_server : "WebSocket (Real-time)"
+rest_api --> game_logic
+game_logic --> sessions
+game_logic --> user_data
+ws_server --> game_logic
+ws_server --> message_hub
+
+' Key internal flows
+game_ui --> rest_api : "Submit scores"
+multiplayer_ui --> ws_client : "Join rooms"
+chat_ui --> ws_client : "Send messages"
+ws_server --> message_hub : "Route messages"
+message_hub --> messages : "Persist chats"
+message_hub --> ws_server : "Broadcast messages"
+
+@enduml

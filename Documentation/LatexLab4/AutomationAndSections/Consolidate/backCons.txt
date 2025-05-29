@@ -1,0 +1,92 @@
+1. SYSTEM OVERVIEW
+
+    Primary Purpose: Backend API for a human benchmark application, focusing on aim training and reaction time games. It supports user authentication, game configuration, single-player sessions, leaderboards, real-time multiplayer, and chat functionalities.
+    Architecture Pattern: Monolithic. A single ASP.NET Core application serves all API endpoints and WebSocket communication.
+    Technology Stack:
+        Language/Framework: C# / .NET 8, ASP.NET Core.
+        Database: PostgreSQL, accessed via Entity Framework Core (EF Core).
+        Real-time: Fleck for WebSocket server implementation.
+        API Documentation: Swashbuckle for Swagger UI.
+        Serialization: Newtonsoft.Json for handling reference loops in JSON.
+    Deployment Model: Deployed as a single web application. WebSocket server runs on ws://0.0.0.0:8081. CORS is configured to allow all origins, methods, and headers.
+
+2. COMPONENT INVENTORY
+
+    AimReactionAPI.Controllers:
+        AuthController: Handles user registration and login via HTTP POST. Exposes GET for user retrieval by ID. Depends on AppDbContext, AuthService.
+        GameConfigController: Handles game creation and updates via HTTP PUT. Depends on AppDbContext, GameService.
+        GenericGameController: Manages game sessions (start/end), retrieves game lists and details, deletes games, and adds scores. Depends on GameSessionHandler, AppDbContext.
+        LeaderboardController: Provides endpoints to retrieve all user scores, top N scores by game type, and individual user high scores. Depends on AppDbContext.
+        MessageController: Exposes HTTP GET endpoints to retrieve global and game room chat messages. Depends on MessageService.
+        TargetController: Provides API endpoints for retrieving all targets, specific targets by ID, filtering targets by speed, adding new targets, and deleting targets. Depends on AppDbContext.
+        UsersController: Retrieves a list of users, excluding the requesting user. Depends on AppDbContext, UserService.
+    AimReactionAPI.Services:
+        AuthService: Provides password hashing and verification logic. Depends on AppDbContext.
+        GameService: Handles the business logic for creating or updating game configurations, including target generation and user access management. Depends on AppDbContext, TargetService, GameUserService.
+        GameUserService: Manages the relationship between games and users for private games, setting and deleting access permissions. Depends on AppDbContext.
+        TargetService: Generates individual targets or lists of targets with random positions and specified speeds.
+        UserService: Retrieves user information. Depends on AppDbContext.
+        MessageService: Manages sending and retrieving global and game room messages, interacting with MultiplayerService for broadcasting and AppDbContext/RoomChatStateService for persistence/state. Depends on AppDbContext, MultiplayerService, UserService, RoomChatStateService.
+        MultiplayerService: Core service for handling WebSocket connections, player management, room creation/joining/starting, game round logic (target hits, elimination), and broadcasting game state/results. Depends on IServiceProvider, UserService.
+        RoomChatStateService: Manages the in-memory state of chat messages for individual game rooms.
+        GameSessionHandler<TGameType>: Handles starting and ending generic game sessions, tracking active sessions, and persisting session data. Depends on AppDbContext, IServiceScopeFactory.
+    AimReactionAPI.Data:
+        AppDbContext: EF Core database context defining DbSets for Users, Games, Scores, Targets, GameSessions, GameUsers, and GlobalMessages. Configures entity relationships, primary keys, and cascade deletes.
+        Migrations: EF Core migrations defining database schema changes over time, including table creation and modifications.
+    AimReactionAPI.Models:
+        User: Represents a player with ID, name, email, and password hash. Holds collections of scores, sessions, and game access.
+        Game: Defines a game configuration, including name, description, difficulty, targets, duration, creator, visibility, type, and associated targets/scores/users. Implements IEnumerable<Target>.
+        Score: Represents a user's score in a game, including value, date, reaction time, user, game, and game type.
+        Target: Represents a target within a game, with ID, size, speed, X/Y coordinates, and game ID.
+        GameSession: Tracks a user's play session with start/end times and game type.
+        GameUser: Many-to-many link table between Game and User for private game access.
+        GlobalMessage: Represents a chat message sent in the global channel.
+        Room: Represents a multiplayer game room, managing its ID, name, creator, players, status, visibility, and player reaction times.
+        Player: Represents a connected WebSocket client (player) with username and connection object.
+        Enums: GameType, GameVisibility, RoomStatus.
+    AimReactionAPI.DTOs: Data Transfer Objects used in API requests/responses and WebSocket messages (e.g., UserRegisterDto, LoginDto, GameConfigDto, RoomResponse, TargetResponse, MessageResponse).
+    AimReactionAPI.Events: WebSocket event handlers (CreateRoomEvent, JoinRoomEvent, etc.) that process incoming WebSocket DTOs and call MultiplayerService or MessageService.
+    AimReactionAPI.Exceptions: Custom exception types for specific error conditions like UserNotFoundException, InvalidPasswordException, UserAlreadyExistsException, PasswordEmptyException.
+
+3. COMMUNICATION PATTERNS
+
+    API Calls (HTTP):
+        Clients interact with the system via a RESTful HTTP API.
+        Controllers receive requests, typically in JSON format, and return JSON responses or status codes.
+        Authentication is primarily handled by checking user credentials during login; user ID is then passed for subsequent authorized actions.
+    Database Interactions (EF Core/PostgreSQL):
+        Services and Controllers interact with the AppDbContext to perform CRUD operations on entities.
+        EF Core translates LINQ queries into SQL for PostgreSQL.
+        Transactions are managed implicitly by SaveChangesAsync unless explicitly configured.
+    Event Flows (WebSockets/Fleck):
+        A WebSocket server (ws://0.0.0.0:8081) handles real-time communication.
+        MultiplayerService manages connections, associating them with Player objects and User IDs.
+        Clients send JSON messages mapped to BaseDto types, which trigger corresponding BaseEventHandler instances.
+        MultiplayerService and MessageService broadcast JSON messages back to specific players, rooms, or all connected players.
+        Key events include Connect, CreateRoom, JoinRoom, StartRoom, HitTarget, SendGlobalMessage, SendGameRoomMessage, Disconnect.
+    Internal Service Calls: Controllers delegate business logic to Services (e.g., AuthController calls AuthService). Services can call other services (e.g., GameService calls TargetService and GameUserService).
+
+4. DATA FLOW ANALYSIS
+
+    User Registration: UserRegisterDto -> AuthController.Register -> AuthService.HashPassword -> AppDbContext.Users.Add -> AppDbContext.SaveChangesAsync -> Database.
+    User Login: LoginDto -> AuthController.Login -> AppDbContext.Users.FirstOrDefaultAsync -> AuthService.VerifyPassword -> Ok(UserId).
+    Game Creation: GameConfigDto -> GameConfigController.CreateOrUpdateGame -> GameService.CreateOrUpdateGameAsync -> TargetService.GenerateTargets -> AppDbContext.Games.Add/Update -> GameUserService.SetGameUsersAsync -> AppDbContext.SaveChangesAsync -> Database.
+    Score Submission: AddScoreDto -> GenericGameController.AddScore -> AppDbContext.Scores.Add -> AppDbContext.SaveChangesAsync -> Database.
+    WebSocket Join Room: JoinRoomRequest -> Fleck Server -> JoinRoomEvent.Handle -> MultiplayerService.JoinRoom -> MultiplayerService.BroadcastToRoom (sends RoomResponse) -> Players in Room.
+    WebSocket Target Hit: HitTargetRequest -> Fleck Server -> HitTargetEvent.Handle -> MultiplayerService.RegisterTargetHit -> MultiplayerService.HandleRoundEnd -> MultiplayerService.BroadcastRoundResults (sends RoomRoundResultsResponse) -> Players in Room.
+    Global Chat: GlobalMessageRequest -> Fleck Server -> SendGlobalMessageEvent.Handle -> MessageService.SendGlobalMessage -> AppDbContext.GlobalMessages.Add -> MultiplayerService.Broadcast (sends GlobalMessageResponse) -> All Players.
+
+5. BUSINESS LOGIC MAPPING
+
+    Domain Entities: User, Game, Score, Target, GameSession, Room, GlobalMessage. Relationships are managed by EF Core.
+    Authentication: Uses SHA256 for password hashing. Login returns a User ID, which is likely used as a form of session token by the client for subsequent requests.
+    Game Configuration: Users can create/update games (Game), defining parameters like name, description, difficulty, speed, target count, duration, visibility, and game type. Custom targets are generated. Private games use the GameUser table for access control.
+    Scoring: Scores are recorded with value, date, user, game, and game type. A Score must have a non-negative value.
+    Leaderboards: Provides ranked lists of scores, either globally, per game type, or per user.
+    Multiplayer (MultiplayerService):
+        Room Management: Supports creating public or private rooms, joining existing rooms, and starting games. Rooms progress from WAITING to PLAYING.
+        Round Logic: Games proceed in rounds. In each round, a target is shown. Players hit the target, and their reaction time is recorded.
+        Elimination: At the end of a round (fixed duration), players who didn't hit the target are eliminated. If all hit, the slowest player is eliminated. This continues until one player remains.
+        State: Uses ConcurrentDictionary to manage active players and rooms.
+    Chat: Supports a global chat (persisted in DB) and transient, room-specific chats (managed by RoomChatStateService).
+    Validation: Basic validation exists (e.g., password not empty, score not negative). Exception handling is used for flow control in auth and messaging.
