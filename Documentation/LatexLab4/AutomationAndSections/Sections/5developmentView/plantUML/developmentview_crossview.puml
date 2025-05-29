@@ -32,7 +32,6 @@ end note
 DevV -- DV : "produces deployable artifacts"
 note on link
     - Builds must match target environment (e.g., Docker).  
-    - Containerization must align with Kubernetes deployment.
 end note
 
 DevV -- OV : "enables monitoring"
