@@ -1,0 +1,31 @@
+You are given a LaTeX file as input. Your task is to generate LaTeX Beamer slide content based only on the material provided in that file.
+
+Follow these instructions exactly:
+
+    Generate up to 3 slides only.
+
+    Slides should be diagram-heavy — include as little text as possible, ideally no text at all unless it is explicitly specified in the input LaTeX.
+
+    Use the following LaTeX slide format:
+
+\begin{frame}{Overview}
+    \tableofcontents
+\end{frame}
+
+\section{Initial}
+
+\begin{frame}{Initial}
+    % Content here
+\end{frame}
+
+Do not include any preamble or ending (no \documentclass, \begin{document}, \end{document}, etc.).
+
+Use only content relevant to a single view if the input LaTeX only includes one view.
+
+Reuse diagrams as they are from the input LaTeX by including them via their original file paths. All diagrams are in PNG format, so use:
+
+\includegraphics[width=\textwidth]{path/to/diagram.png}
+
+Do not generate or describe additional diagrams — only use what's already in the input.
+
+Your output should be only the LaTeX code for the slides, nothing else.
