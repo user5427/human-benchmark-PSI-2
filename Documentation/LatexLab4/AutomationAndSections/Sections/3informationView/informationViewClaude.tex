@@ -49,13 +49,15 @@ Only a diagram for the static model is shown, as such the information flow model
 % SUGGESTED_TYPE: Entity-Relationship Diagram (ERD)
 % KEY_ELEMENTS_TO_DEPICT: User, Game, Target, Score, GameSession, GameUser entities with their relationships and key attributes
 % STAKEHOLDER_FOCUS: Developers and maintainers who need to understand the data model
-\begin{figure}[h!]
+\begin{figure}[H]
 \centering
  \includegraphics[width=0.9\textwidth]{AutomationAndSections/Sections/3informationView/4Lab2.drawio.png}
 \caption{Entity-Relationship Diagram}
 \label{fig:information_view_erd_overview}
 % \textit{Comment: This diagram should illustrate the main data entities and their relationships within the Human Benchmark system.}
 \end{figure}
+
+
 
 \subsection{Information Storage Model}
 The data will be stored in a relational database. This is because they are widely used and have a way to unsure their quality such as the various normal forms and SQL.
@@ -65,12 +67,50 @@ The data will be stored in a relational database. This is because they are widel
 
 \subsubsection{Real-time Communication Flows}
 
-Since there are no system messages that use the chatting system, the data flow is as follows: the user sends a message which is sent to the real-time communication system which according to what kind of message it is it is forwarded to be sent to all users connected to the apropriate chat room and it is forwarded to the database for storage.
+% Since there are no system messages that use the chatting system, the data flow is as follows: the user sends a message which is sent to the real-time communication system which according to what kind of message it is it is forwarded to be sent to all users connected to the apropriate chat room and it is forwarded to the database for storage.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{AutomationAndSections/Sections/3informationView/Image/infoFlow.png}
+\caption{Information Flow Diagram}
+\label{fig:information_flow_diagram}
+\end{figure}
+
+Our system lets users play reaction-time games, compete in multiplayer, and
+track scores. When you interact with the app (like logging in, clicking targets,
+or chatting), the frontend (React) sends requests to the backend (ASP.NET API).
+The backend saves your data (scores, settings, messages) in a PostgreSQL
+database and handles real-time multiplayer using WebSockets. Finally, the
+frontend updates instantly to show leaderboards, game targets, and chat messages
+based on the backend’s responses.
 
 \subsection{Information lifecycles}
 
-The messages can have the following states. There are two states that a message may have. Firstly a message may be pinned. This state is reversable, as in once a message has been pinned and its state has changed to pinned it can also be unpinned and the state of the message will revert. The second state that a message can have is the deleted state. Since our system does not delete messages by default the only way messages are deleted is following a users request to delete them.
+% The messages can have the following states. There are two states that a message
+% may have. Firstly a message may be pinned. This state is reversable, as in once
+% a message has been pinned and its state has changed to pinned it can also be
+% unpinned and the state of the message will revert. The second state that a
+% message can have is the deleted state. Since our system does not delete messages
+% by default the only way messages are deleted is following a users request to
+% delete them.
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{AutomationAndSections/Sections/3informationView/Image/messagelifecycle.png}
+\caption{Message Lifecycle Diagram}
+\label{fig:message_lifecycle_diagram}
+\end{figure}
+
+We use this flow to describe how a message lives and moves through our system.
+It all starts when a message is created, triggered by either a global or
+room-specific event. Once created, global messages are saved to the database,
+while room messages are kept temporarily in memory. From there, messages can be
+retrieved either through HTTP calls or WebSocket broadcasts, handled by our
+services. After retrieval, they’re shown in the chat UI for users to see. Older
+global messages are archived in the database, and room messages are removed from
+memory when no longer needed, like when a room closes or the server restarts.
+Eventually, all messages reach an end state when they’re no longer displayed or
+stored.
 
 \section{Perspective Priorities for the Information View}
 

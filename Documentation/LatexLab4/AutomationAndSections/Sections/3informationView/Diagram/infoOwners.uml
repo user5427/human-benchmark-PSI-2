@@ -1,0 +1,69 @@
+@startuml Information_Ownership_Model
+
+title Information Ownership Model
+
+skinparam monochrome true
+skinparam defaultFontName Courier
+skinparam titleFontSize 14
+
+class "Data Items / Systems" as header {
+}
+
+class "AuthService\n(Controllers)" as auth
+class "GameService\n(Controllers)" as game
+class "MultiplayerService\n(WebSocket)" as multiplayer
+class "MessageService\n(Chat)" as chat
+class "LeaderboardService\n(Controllers)" as leaderboard
+
+database "PostgreSQL" as db {
+  entity "User" as user
+  entity "Game" as game_ent
+  entity "Score" as score
+  entity "Target" as target
+  entity "GlobalMessage" as message
+  entity "Room" as room
+}
+
+header -down-> user : "User"
+header -down-> game_ent : "Game"
+header -down-> score : "Score"
+header -down-> target : "Target"
+header -down-> message : "Message"
+header -down-> room : "Room"
+
+auth -right-> user : "Owner\n(Create/Update/Delete)"
+auth -right-> game_ent : "None"
+auth -right-> score : "None"
+auth -right-> target : "None"
+auth -right-> message : "None"
+auth -right-> room : "None"
+
+game -right-> user : "Reader"
+game -right-> game_ent : "Owner\n(Create/Update/Delete)"
+game -right-> score : "Creator"
+game -right-> target : "Owner\n(Create/Update/Delete)"
+game -right-> message : "None"
+game -right-> room : "None"
+
+multiplayer -right-> user : "Reader"
+multiplayer -right-> game_ent : "Reader"
+multiplayer -right-> score : "Creator"
+multiplayer -right-> target : "Reader"
+multiplayer -right-> message : "None"
+multiplayer -right-> room : "Owner\n(Create/Update/Delete)"
+
+chat -right-> user : "Reader"
+chat -right-> game_ent : "None"
+chat -right-> score : "None"
+chat -right-> target : "None"
+chat -right-> message : "Owner\n(Create/Read)"
+chat -right-> room : "Reader"
+
+leaderboard -right-> user : "Reader"
+leaderboard -right-> game_ent : "Reader"
+leaderboard -right-> score : "Reader"
+leaderboard -right-> target : "None"
+leaderboard -right-> message : "None"
+leaderboard -right-> room : "None"
+
+@enduml
