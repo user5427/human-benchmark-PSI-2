@@ -37,41 +37,234 @@
 \end{frame}
 
 \begin{frame}{Overview}
-    % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
     \tableofcontents
 \end{frame}
 
-\section{Initial}
+\section{Functional Requirements}
 
-\begin{frame}{Initial}
-   Who are stakeholders?
-   What are their needs?
-   What viewports we will use and what we will show, what stakeholder needs we will satisfy?
+\begin{frame}{Functional Requirements}
+    \begin{itemize}
+        \item FR-01: Create/send messages
+        \item FR-07: Switch between chats
+        \item FR-09: Edit messages
+        \item FR-13: Pin messages
+        \item FR-24: Create group chats
+    \end{itemize}
 \end{frame}
 
-\begin{frame}{Functional View}
+\section{Non-Functional Requirements}
+
+\begin{frame}{Non-Functional Requirements}
     \begin{itemize}
-        \item Functional View of chat feature.
+        \item FR-02: Remove zero-width chars
+        \item FR-04: 255 char limit
+        \item FR-06: XSS sanitization
+        \item FR-66: 10MB file limit
+        \item FR-70: Special char detection
     \end{itemize}
-    \begin{figure}[H]
+\end{frame}
+
+
+\section{Architecture Patterns}
+
+\begin{frame}{System Architecture}
     \centering
-    \includegraphics[width=0.8\textwidth]{4Lab1.drawio1.png}
-    \caption{Functional View}
-    \label{fig:functional-view}
+    \includegraphics[width=0.4\textwidth]{AutomationAndSections/Sections/01architecture/image.png}
+\end{frame}
+
+\begin{frame}{Key Separation}
+    \begin{itemize}
+        \item Presentation Layer: HTTP controllers
+        \item Business Logic: Core services
+        \item Data Layer: Database access
+    \end{itemize}
+\end{frame}
+
+\section{Context View}
+
+\begin{frame}{System Context}
+    \centering
+    \includegraphics[width=0.4\textwidth]{AutomationAndSections/Sections/1contextView/Images/systemContext.png}
+\end{frame}
+
+\begin{frame}{External Interfaces}
+    \centering
+    \includegraphics[width=0.9\textwidth]{AutomationAndSections/Sections/1contextView/Images/CrossView_ContextView.png}
+\end{frame}
+
+
+\section{Functional Structure Overview}
+\begin{frame}{Functional Structure Overview}
+    \centering
+    \includegraphics[width=0.7\textwidth]{AutomationAndSections/Sections/2functionView/4Lab1.drawio1.png}
+\end{frame}
+
+\section{Component Relationships}
+\begin{frame}{Component Relationships}
+    \centering
+    \includegraphics[width=0.35\textwidth]{AutomationAndSections/Sections/2functionView/Images/componentDia.png}
+\end{frame}
+
+\section{Message Flow}
+\begin{frame}{Message Flow}
+    \includegraphics[width=\textwidth]{AutomationAndSections/Sections/2functionView/Images/messageFlow.png}
+\end{frame}
+
+
+\section{Information View}
+
+\begin{frame}{ER Diagram}
+    \centering
+    \includegraphics[width=0.7\textwidth]{AutomationAndSections/Sections/3informationView/4Lab2.drawio.png}
+\end{frame}
+
+\begin{frame}{Information Flow}
+    \centering
+    \includegraphics[width=1\textwidth]{AutomationAndSections/Sections/3informationView/Image/infoFlow.png}
+\end{frame}
+
+\begin{frame}{Message Lifecycle}
+    \centering
+    \includegraphics[width=0.9\textwidth]{AutomationAndSections/Sections/3informationView/Image/messagelifecycle.png}
+\end{frame}
+
+
+\section{Concurrency Architecture}
+\begin{frame}{Process Groups and Thread Structure}
+    \begin{itemize}
+        \item \textbf{Client Process Group:} Browser-based React applications
+        \item \textbf{API Server Process Group:} ASP.NET Core processes
+        \item \textbf{Database Process Group:} PostgreSQL processes
+    \end{itemize}
+    
+    \vspace{1em}
+    
+    \textbf{API Server Threads:}
+    \begin{itemize}
+        \item HTTP Request Handler Threads
+        \item WebSocket Connection Manager
+        \item Game Room Manager Threads
+        \item Chat System Threads
+        \item Database Connection Pool
+    \end{itemize}
+\end{frame}
+
+\section{State Management}
+\begin{frame}{Game Room State Transitions}
+    \begin{table}[h]
+        \centering
+        \small
+        \begin{tabular}{|c|c|l|}
+            \hline
+            \textbf{\#} & \textbf{State} & \textbf{Description} \\
+            \hline
+            1 & Created & Initial state when room is created \\
+            \hline
+            2 & Waiting & Room open, waiting for players \\
+            \hline
+            3 & Ready & All players joined, ready to start \\
+            \hline
+            4 & In Progress & Game actively being played \\
+            \hline
+            5 & Round Complete & Current round finished \\
+            \hline
+            6 & Game Complete & All rounds completed \\
+            \hline
+            7 & Abandoned & Room abandoned or timed out \\
+            \hline
+        \end{tabular}
+    \end{table}
+\end{frame}
+
+\section{Cross-View Consistency}
+\begin{frame}{Cross-View Relationships}
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.6\textwidth]{AutomationAndSections/Sections/4concurencyView/Images/ConcurrencyView_crossover.png}
     \end{figure}
 \end{frame}
 
-\begin{frame}{Information View}
-    \begin{itemize}
-        \item Information View of chat feature.
-    \end{itemize}
-    \begin{figure}[H]
+\section{Development View}
+
+\begin{frame}{Frontend Module Structure}
     \centering
-    \includegraphics[width=0.8\textwidth]{4Lab2.drawio.png}
-    \caption{Information View}
-    \label{fig:information-view}
-    \end{figure}
+    \includegraphics[width=0.6\textwidth]{AutomationAndSections/Sections/5developmentView/Images/frontend.drawio.png}
 \end{frame}
+
+\begin{frame}{Backend Module Structure}
+    \centering
+    \includegraphics[width=0.4\textwidth]{AutomationAndSections/Sections/5developmentView/Images/backend.drawio.png}
+\end{frame}
+
+\begin{frame}{Cross-View Consistency}
+    \centering
+    \includegraphics[width=0.6\textwidth]{AutomationAndSections/Sections/5developmentView/Images/DevelopmentView_Consistency.png}
+\end{frame}
+
+\section{Runtime Platform Model (Deployment)}
+\begin{frame}{Processing Nodes}
+    \centering
+    \includegraphics[width=0.4\textwidth]{AutomationAndSections/Sections/6deploymentView/Images/processsing.png}
+\end{frame}
+
+\begin{frame}{Containers}
+    \centering
+    \includegraphics[width=0.8\textwidth]{AutomationAndSections/Sections/6deploymentView/Images/dockerContainers.png}
+\end{frame}
+
+\section{Network Model}
+\begin{frame}{Network Topology}
+    \centering  
+    \includegraphics[width=0.37\textwidth]{AutomationAndSections/Sections/6deploymentView/Images/networkmodel.png}
+\end{frame}
+
+\section{Service Mapping}
+\begin{frame}{Service-to-Container Mapping}
+    \centering
+    \includegraphics[width=0.6\textwidth]{AutomationAndSections/Sections/6deploymentView/Images/servicetocontainer.png}
+\end{frame}
+
+
+\section{Deployment and CI/CD Pipeline}
+\begin{frame}{Deployment and CI/CD Pipeline}
+    \centering
+    \includegraphics[width=0.5\textwidth]{AutomationAndSections/Sections/7operationalView/Images/Deployment Diagram.drawio.png}
+\end{frame}
+
+\section{Operational Monitoring Architecture}
+\begin{frame}{Operational Monitoring Architecture}
+    \includegraphics[width=0.8\textwidth]{AutomationAndSections/Sections/7operationalView/Images/monitoring.png}
+\end{frame}
+
+\section{Cloud Deployment Architecture}
+\begin{frame}{Cloud Deployment Architecture}
+    \centering
+    \includegraphics[width=0.30\textwidth]{AutomationAndSections/Sections/7operationalView/Images/cloudArchi.png}
+\end{frame}
+
+% \begin{frame}{Functional View}
+%     \begin{itemize}
+%         \item Functional View of chat feature.
+%     \end{itemize}
+%     \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.8\textwidth]{4Lab1.drawio1.png}
+%     \caption{Functional View}
+%     \label{fig:functional-view}
+%     \end{figure}
+% \end{frame}
+
+% \begin{frame}{Information View}
+%     \begin{itemize}
+%         \item Information View of chat feature.
+%     \end{itemize}
+%     \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.8\textwidth]{4Lab2.drawio.png}
+%     \caption{Information View}
+%     \label{fig:information-view}
+%     \end{figure}
+% \end{frame}
 
 \end{document}
 
