@@ -1,0 +1,54 @@
+@startuml MessageEntityLifeHistory
+left to right direction
+
+title Message Entity Life History
+
+state "Start" as Start <<circle>>
+state "Message Created" as Created
+state "Message Stored (Global)" as Stored
+state "Message Cached (Room)" as Cached
+state "Message Retrieved" as Retrieved
+state "Message Displayed" as Displayed
+state "Message Archived" as Archived
+state "Message Evicted" as Evicted
+state "End" as End <<circle>>
+
+Start --> Created
+Created --> Stored
+Created --> Cached
+
+Stored : "Global chat message\npersisted in database\n(AppDbContext.GlobalMessages)"
+Cached : "Room chat message\nstored in memory\n(RoomChatStateService)"
+
+Stored --> Retrieved
+Cached --> Retrieved
+
+Retrieved : "Via:\n- MessageController (HTTP)\n- MultiplayerService (WS)\n- MessageService"
+
+Retrieved --> Displayed
+Displayed : "Rendered in:\n- Global Chat component\n- Room Chat component"
+
+Stored --> Archived
+Archived : "Older messages remain\nin database but not\nactively retrieved"
+
+Cached --> Evicted
+Evicted : "When:\n- Room is closed\n- Server restarts\n- Memory pressure"
+
+Archived --> End
+Evicted --> End
+Displayed --> End
+
+note right of Created
+  Triggered by:
+  - SendGlobalMessageEvent (WS)
+  - SendGameRoomMessageEvent (WS)
+  - MessageService processing
+end note
+
+note left of Retrieved
+  Retrieval paths:
+  - GET /Message/global
+  - GET /Message/room/{roomId}
+  - WebSocket broadcasts
+end note
+@enduml

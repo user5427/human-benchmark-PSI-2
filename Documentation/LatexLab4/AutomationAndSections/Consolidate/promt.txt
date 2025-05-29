@@ -317,6 +317,8 @@ When creating diagrams:
 - **BE SPECIFIC**: Reference actual file names, class names, and method names where relevant
 - **SHOW DATA FLOW**: Indicate direction of data movement and communication
 - **INCLUDE DETAILS**: Add relevant technical details like HTTP methods, data formats, etc.
+- **BE SIMPLE**: Do not overuse elements. Keep in mind that the diagram has to be quick to understand and not cluttered.
+- **USE PLANTUML**: For diagram generating use plantuml syntax.
 
 ## REQUESTED DIAGRAM
 

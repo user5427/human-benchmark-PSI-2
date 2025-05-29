@@ -1,0 +1,53 @@
+@startuml AimReactionSystem_InformationFlow
+
+skinparam monochrome true
+skinparam defaultFontName Arial
+skinparam usecase {
+  BackgroundColor White
+  BorderColor Black
+}
+
+actor "User" as user
+rectangle "Frontend (React)" as frontend {
+  component "AuthContext" as auth
+'   component "WebSocketContext" as ws
+  component "Game Components" as games
+  component "Chat" as chat
+}
+
+rectangle "Backend (ASP.NET)" as backend {
+  database "PostgreSQL" as db
+  component "AuthController" as auth_ctrl
+  component "GameConfigController" as game_ctrl
+  component "GenericGameController" as generic_ctrl
+  component "LeaderboardController" as leader_ctrl
+  component "MessageController" as msg_ctrl
+  component "MultiplayerService" as multiplayer
+}
+
+user --> frontend : "User interactions (clicks, inputs)"
+frontend --> backend : "HTTP API Requests (JSON)"
+backend --> frontend : "HTTP Responses (JSON)"
+' frontend --> ws : "WebSocket messages"
+' ws --> frontend : "WebSocket updates"
+
+auth_ctrl --> db : "CRUD users"
+game_ctrl --> db : "CRUD games"
+generic_ctrl --> db : "CRUD scores/sessions"
+leader_ctrl --> db : "Read scores"
+msg_ctrl --> db : "CRUD messages"
+
+auth --> auth_ctrl : "POST /Auth/login\nPOST /Auth/register"
+games --> game_ctrl : "PUT /GameConfig\nGET /Targets"
+games --> generic_ctrl : "POST /GenericGame/*"
+games --> leader_ctrl : "GET /Leaderboard/*"
+chat --> msg_ctrl : "GET /Message/*"
+
+games --> multiplayer : "WebSocket:\n- CreateRoom\n- JoinRoom\n- HitTarget"
+chat --> multiplayer : "WebSocket:\n- SendMessage"
+multiplayer --> games : "WebSocket:\n- RoomResponse\n- TargetResponse"
+multiplayer --> chat : "WebSocket:\n- MessageResponse"
+
+multiplayer --> db : "Read/Write room state"
+
+@enduml
