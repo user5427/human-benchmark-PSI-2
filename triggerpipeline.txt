@@ -12,3 +12,4 @@ trigger test
 trigger version
 trigger all pipeline parts
 trigger all pipeline parts
+trigger all pipeline parts
