@@ -50,11 +50,11 @@ Only a diagram for the static model is shown, as such the information flow model
 % KEY_ELEMENTS_TO_DEPICT: User, Game, Target, Score, GameSession, GameUser entities with their relationships and key attributes
 % STAKEHOLDER_FOCUS: Developers and maintainers who need to understand the data model
 \begin{figure}[H]
-\centering
- \includegraphics[width=0.9\textwidth]{AutomationAndSections/Sections/3informationView/4Lab2.drawio.png}
-\caption{Entity-Relationship Diagram}
-\label{fig:information_view_erd_overview}
-% \textit{Comment: This diagram should illustrate the main data entities and their relationships within the Human Benchmark system.}
+    \centering
+    \includegraphics[width=0.9\textwidth]{AutomationAndSections/Sections/3informationView/4Lab2.drawio.png}
+    \caption{Entity-Relationship Diagram}
+    \label{fig:information_view_erd_overview}
+    % \textit{Comment: This diagram should illustrate the main data entities and their relationships within the Human Benchmark system.}
 \end{figure}
 
 
@@ -70,10 +70,10 @@ The data will be stored in a relational database. This is because they are widel
 % Since there are no system messages that use the chatting system, the data flow is as follows: the user sends a message which is sent to the real-time communication system which according to what kind of message it is it is forwarded to be sent to all users connected to the apropriate chat room and it is forwarded to the database for storage.
 
 \begin{figure}[H]
-\centering
-\includegraphics[width=0.9\textwidth]{AutomationAndSections/Sections/3informationView/Image/infoFlow.png}
-\caption{Information Flow Diagram}
-\label{fig:information_flow_diagram}
+    \centering
+    \includegraphics[width=0.9\textwidth]{AutomationAndSections/Sections/3informationView/Image/infoFlow.png}
+    \caption{Information Flow Diagram}
+    \label{fig:information_flow_diagram}
 \end{figure}
 
 Our system lets users play reaction-time games, compete in multiplayer, and
@@ -95,10 +95,10 @@ based on the backend’s responses.
 % delete them.
 
 \begin{figure}[H]
-\centering
-\includegraphics[width=0.9\textwidth]{AutomationAndSections/Sections/3informationView/Image/messagelifecycle.png}
-\caption{Message Lifecycle Diagram}
-\label{fig:message_lifecycle_diagram}
+    \centering
+    \includegraphics[width=0.9\textwidth]{AutomationAndSections/Sections/3informationView/Image/messagelifecycle.png}
+    \caption{Message Lifecycle Diagram}
+    \label{fig:message_lifecycle_diagram}
 \end{figure}
 
 We use this flow to describe how a message lives and moves through our system.
@@ -112,33 +112,65 @@ memory when no longer needed, like when a room closes or the server restarts.
 Eventually, all messages reach an end state when they’re no longer displayed or
 stored.
 
+\subsection{Information Ownership Model}
+
+
+\begin{table}[H]
+    \centering
+    \caption{Information Ownership Model}
+    \label{tab:ownership}
+    \begin{tabular}{lcccccc}
+        \hline
+                                    & \textbf{User} & \textbf{Game} & \textbf{Score} & \textbf{Target} & \textbf{Message} & \textbf{Room} \\
+        \hline
+        \textbf{AuthService}        & Owner         & None          & None           & None            & None             & None          \\
+        \textbf{GameService}        & Reader        & Owner         & Creator        & Owner           & None             & None          \\
+        \textbf{MultiplayerService} & Reader        & Reader        & Creator        & Reader          & None             & Owner         \\
+        \textbf{MessageService}     & Reader        & None          & None           & None            & Owner            & Reader        \\
+        \textbf{LeaderboardService} & Reader        & Reader        & Reader         & None            & None             & None          \\
+        \hline
+    \end{tabular}
+\end{table}
+
+The table above shows the ownership model for the Human Benchmark system. 
+Read the table as follows: the services on the left show what kind of access they have to the data on the top.
+
+\begin{itemize}
+    \item \textbf{Owner}: Full control (create, read, update, delete).
+    \item \textbf{Creator}: Can only create new entries (no updates/deletes).
+    \item \textbf{Reader}: Can only view data (no changes).
+    \item \textbf{None}: No access to this data.
+\end{itemize}
+
+\textbf{Example:} AuthService is the Owner of User data (can register/edit/delete users), while LeaderboardService is just a Reader (can view scores but not modify them).
+
 \section{Perspective Priorities for the Information View}
 
 \begin{table}[H]
-\centering
-\caption{Perspective Priorities for the Information View of Human Benchmark}
-\label{tab:perspective_priorities_information}
-\begin{tabular}{p{0.3\textwidth}p{0.15\textwidth}p{0.45\textwidth}}
-% \toprule
-\textbf{Architectural Perspective} & \textbf{Priority} & \textbf{Explanation} \\
-% % \toprule
-Accessibility & \greencircle Low & The information object connected to the real-time messaging functionality is not related to accessibility from an architectural perspective. \\
+    \centering
+    \caption{Perspective Priorities for the Information View of Human Benchmark}
+    \label{tab:perspective_priorities_information}
+    \begin{tabular}{p{0.3\textwidth}p{0.15\textwidth}p{0.45\textwidth}}
+        % \toprule
+        \textbf{Architectural Perspective} & \textbf{Priority}    & \textbf{Explanation}                                                                                                                                \\
+        % % \toprule
+        Accessibility                      & \greencircle Low     & The information object connected to the real-time messaging functionality is not related to accessibility from an architectural perspective.        \\
 
-Availability and Resilience & \redcircle High &  Since we are implementing chatting in real time it is important that upon a users request old messages are loaded and new ones created effectively. \\
+        Availability and Resilience        & \redcircle High      & Since we are implementing chatting in real time it is important that upon a users request old messages are loaded and new ones created effectively. \\
 
-Development Resource & \yellowcircle Medium & The database and information management implementation requires consideration of development effort. \\
+        Development Resource               & \yellowcircle Medium & The database and information management implementation requires consideration of development effort.                                                \\
 
-Evolution & \greencircle Low & The messages that will be created have little to no need to change over time. \\
+        Evolution                          & \greencircle Low     & The messages that will be created have little to no need to change over time.                                                                       \\
 
-Internationalization & \greencircle Low & The Internationalization of chats is depend on users and users alone. There is no architectural way or need to Internationalize messages. \\
+        Internationalization               & \greencircle Low     & The Internationalization of chats is depend on users and users alone. There is no architectural way or need to Internationalize messages.           \\
 
 
 
-Security & \greencircle Low & User messages have little to no need to have security measures in place for users. \\
+        Security                           & \greencircle Low     & User messages have little to no need to have security measures in place for users.                                                                  \\
 
-Usability & \greencircle Low & While usability is important for the system overall, it has limited direct impact on the underlying information model. \\
-% % \toprule
-\end{tabular}
+        Usability                          & \greencircle Low     & While usability is important for the system overall, it has limited direct impact on the underlying information model.                              \\
+        % % \toprule
+    \end{tabular}
 \end{table}
 
 
